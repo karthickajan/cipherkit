@@ -12,7 +12,7 @@
  */
 
 'use strict';
-
+const BASE_PATH = '/cipherkit';
 const fs   = require('fs');
 const path = require('path');
 
