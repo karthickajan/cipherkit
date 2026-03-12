@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"name": "dist",
+			"path": "../cipherkit-v2/dist"
+		},
+		{
+			"name": "docs",
+			"path": "../cipherkit-v2/docs"
+		},
+		{
+			"name": "src",
+			"path": "../cipherkit-v2/src"
+		},
+		{
+			"name": "cipherkit",
+			"path": "."
+		},
+		{
+			"name": "docs",
+			"path": "../../../Downloads/cipherkit-v2/docs"
+		}
+	],
+	"settings": {}
+}

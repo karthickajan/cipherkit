@@ -1,0 +1,16 @@
+{
+  "name": "cipherkit",
+  "version": "1.0.0",
+  "description": "48 free developer cryptography and utility tools — static site, GitHub Pages",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js && npx serve dist -p 3000",
+    "watch": "node -e \"require('fs').watch('src', {recursive:true}, () => require('child_process').exec('node build.js', (e,o,err) => { console.log(o); if(err) console.error(err); })); console.log('Watching src/ ...');\""
+  },
+  "keywords": ["crypto", "developer-tools", "aes", "sha256", "base64", "jwt"],
+  "author": "karthickajan",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  }
+}

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online YAML to JSON converter. Convert YAML configuration files or data to JSON format instantly in your browser.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#07090d">
+  <link rel="canonical" href="https://cipherkit.dev/tools/yaml-json-converter/">
+
+  <!-- Security headers (meta fallbacks — real headers need a CDN/server) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'none'; img-src 'self' data:; frame-ancestors 'none';">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="YAML to JSON Converter – Convert YAML to JSON Online | CipherKit">
+  <meta property="og:description" content="Free online YAML to JSON converter. Convert YAML configuration files or data to JSON format instantly in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cipherkit.dev/tools/yaml-json-converter/">
+  <meta property="og:site_name" content="CipherKit">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="YAML to JSON Converter – Convert YAML to JSON Online | CipherKit">
+  <meta name="twitter:description" content="Free online YAML to JSON converter. Convert YAML configuration files or data to JSON format instantly in your browser.">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "YAML to JSON Converter",
+  "url": "https://cipherkit.dev/tools/yaml-json-converter/",
+  "description": "Free online YAML to JSON converter. Convert YAML configuration files or data to JSON format instantly in your browser.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "CipherKit",
+    "url": "https://cipherkit.dev"
+  }
+}</script>
+
+  <title>YAML to JSON Converter – Convert YAML to JSON Online | CipherKit</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- Fonts — non-blocking, font-display:swap prevents layout shift -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@400;600;700;800&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@400;600;700;800&display=swap">
+  </noscript>
+
+  <!-- Critical styles inline to eliminate render-blocking -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{background:#07090d;color:#dde4ed;font-family:'Space Mono','Courier New',monospace;min-height:100vh;overflow-x:hidden;line-height:1.6}
+    .skip-link{position:absolute;top:-100px;left:16px;background:#3dd68c;color:#02150a;font-size:13px;font-weight:700;padding:8px 16px;border-radius:6px;z-index:9999;transition:top .2s}
+    .skip-link:focus{top:8px}
+    .site-header{border-bottom:1px solid #1e2530;background:rgba(7,9,13,.88);position:sticky;top:0;z-index:200;backdrop-filter:blur(16px)}
+    .header-inner{max-width:1100px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:24px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-mark{width:30px;height:30px;background:#3dd68c;border-radius:6px;display:grid;place-items:center;flex-shrink:0}
+    .logo-mark svg{width:16px;height:16px}
+    .logo-name{font-family:'Syne',Arial,sans-serif;font-weight:800;font-size:17px;color:#dde4ed;letter-spacing:-.4px}
+    .logo-name em{color:#3dd68c;font-style:normal}
+  </style>
+
+  <!-- Non-critical styles deferred -->
+  <link rel="preload" href="/assets/css/base.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/assets/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/assets/css/tool.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/layout.css">
+    <link rel="stylesheet" href="/assets/css/tool.css">
+  </noscript>
+</head>
+<body>
+
+<a href="#tool-interface" class="skip-link">Skip to tool</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="CipherKit — home">
+      <div class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3dd68c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <span class="logo-name">Cipher<em>Kit</em></span>
+    </a>
+
+    <nav class="header-nav" aria-label="Tool categories">
+      <a href="/tools/crypto/" class="nav-link">🔐 Crypto</a>
+      <a href="/tools/encoding/" class="nav-link">📦 Encoding</a>
+      <a href="/tools/dev/" class="nav-link">⚙️ Dev</a>
+    </nav>
+
+    <div class="header-badges" aria-label="Security guarantees">
+      <span class="hdr-badge">
+        <span class="live-dot" aria-hidden="true"></span>
+        100% Client-Side
+      </span>
+    </div>
+  </div>
+</header>
+
+<main class="tool-page" id="main-content">
+
+  <!-- Tool Header -->
+  <div class="tool-header">
+    <div class="tool-header-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="/tools/encoding/">Data Hub</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">YAML to JSON Converter</span>
+      </nav>
+      <h1>YAML to JSON Converter</h1>
+      <p class="tool-tagline">Convert YAML to JSON — for config files, CI/CD, and API schemas</p>
+      <div class="tool-badges">
+        <span class="badge badge-green">✓ Free</span>
+        <span class="badge badge-green">✓ Client-Side</span>
+        <span class="badge badge-green">✓ No Login</span>
+        <span class="badge badge-green">✓ No Storage</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool Interface (injected by tool JS) -->
+  <div class="tool-interface-wrap" id="tool-interface">
+    <div class="tool-container" id="tool-root">
+      <!-- Tool UI rendered here by yaml-json-converter.js -->
+      <div class="tool-loading">Loading tool...</div>
+    </div>
+  </div>
+
+  <!-- Related Tools -->
+  <div class="tool-page-lower">
+    <section class="related-tools" aria-labelledby="related-heading">
+    <h2 id="related-heading">Related Tools</h2>
+    <div class="related-grid">
+      
+      <a href="/tools/json-formatter/" class="related-card">
+        <span class="related-title">JSON Formatter & Validator</span>
+        <span class="related-tag">Beautify and validate JSON data — with syntax highlighting and error detection</span>
+      </a>
+      <a href="/tools/xml-json-converter/" class="related-card">
+        <span class="related-title">XML to JSON Converter</span>
+        <span class="related-tag">Convert XML data to JSON format — fast, free, client-side</span>
+      </a>
+      <a href="/tools/csv-json-converter/" class="related-card">
+        <span class="related-title">CSV to JSON Converter</span>
+        <span class="related-tag">Convert CSV data to JSON — paste your CSV, get instant JSON</span>
+      </a>
+    </div>
+  </section>
+
+    <!-- SEO Content Block — How to Use -->
+    <section class="usage-guide" aria-labelledby="usage-heading">
+      <h2 id="usage-heading">How to Use the YAML to JSON Converter</h2>
+      <div class="usage-content" id="usage-content">
+        <!-- Populated by tool JS via setUsageContent() -->
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3dd68c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <span class="logo-name">Cipher<em>Kit</em></span>
+      </a>
+      <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
+      <a href="https://github.com/karthickajan/cipherkit" class="footer-github" target="_blank" rel="noopener">
+        View on GitHub ↗
+      </a>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-col">
+        <h3>🔐 Crypto Hub</h3>
+        <ul>
+          <li><a href="/tools/aes-encryption/">AES Encryption Tool</a></li>
+        <li><a href="/tools/aes-decryption/">AES Decryption Tool</a></li>
+        <li><a href="/tools/sha256-generator/">SHA-256 Hash Generator</a></li>
+        <li><a href="/tools/sha512-generator/">SHA-512 Hash Generator</a></li>
+        <li><a href="/tools/sha1-generator/">SHA-1 Hash Generator</a></li>
+        <li><a href="/tools/sha3-generator/">SHA-3 Hash Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>📦 Data Hub</h3>
+        <ul>
+          <li><a href="/tools/base64-encode/">Base64 Encoder</a></li>
+        <li><a href="/tools/base64-decode/">Base64 Decoder</a></li>
+        <li><a href="/tools/url-encode/">URL Encoder</a></li>
+        <li><a href="/tools/url-decode/">URL Decoder</a></li>
+        <li><a href="/tools/html-encode/">HTML Entity Encoder</a></li>
+        <li><a href="/tools/html-decode/">HTML Entity Decoder</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>⚙️ Dev Hub</h3>
+        <ul>
+          <li><a href="/tools/jwt-decoder/">JWT Decoder & Inspector</a></li>
+        <li><a href="/tools/jwt-encoder/">JWT Encoder</a></li>
+        <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
+        <li><a href="/tools/random-password-generator/">Random Password Generator</a></li>
+        <li><a href="/tools/random-string-generator/">Random String Generator</a></li>
+        <li><a href="/tools/unix-timestamp-converter/">Unix Timestamp Converter</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 CipherKit. Open source. <a href="https://github.com/karthickajan/cipherkit">GitHub</a>.</p>
+  </div>
+</footer>
+
+<!-- Toast notification -->
+<div class="toast" id="toast" role="alert" aria-live="assertive">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toast-msg">Copied to clipboard</span>
+</div>
+
+<!-- Core JS -->
+<script src="/assets/js/core/ui.js" defer></script>
+
+<!-- Tool-specific JS -->
+<script src="/assets/js/tools/yaml-json-converter.js" defer></script>
+
+</body>
+</html>

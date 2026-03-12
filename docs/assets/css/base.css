@@ -1,0 +1,167 @@
+/* CipherKit — base.css
+   CSS custom properties + reset + typography
+   All other files import these variables. */
+
+:root {
+  /* Colors */
+  --bg:       #07090d;
+  --surface:  #0d1117;
+  --sf2:      #161b22;
+  --border:   #1e2530;
+  --green:    #3dd68c;
+  --gdim:     #163a27;
+  --amber:    #e8a020;
+  --red:      #e5534b;
+  --blue:     #58a6ff;
+  --purple:   #b083f0;
+  --text:     #dde4ed;
+  --muted:    #9ea7b2;
+  --dim:      #9ea7b2;
+
+  /* Typography */
+  --mono: 'Space Mono', 'Courier New', monospace;
+  --sans: 'Syne', Arial, sans-serif;
+
+  /* Layout */
+  --r:        8px;
+  --r-sm:     4px;
+  --r-lg:     12px;
+  --max-w:    1100px;
+  --max-w-sm: 720px;
+}
+
+/* ── RESET ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background:   var(--bg);
+  color:        var(--text);
+  font-family:  var(--mono);
+  min-height:   100vh;
+  overflow-x:   hidden;
+  line-height:  1.6;
+}
+
+/* Subtle grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(61,214,140,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,214,140,.02) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+* { position: relative; z-index: 1; }
+
+/* ── LINKS ───────────────────────────────────────────────────────────────── */
+a {
+  color: var(--green);
+  text-decoration: none;
+  transition: opacity .15s;
+}
+a:hover { opacity: .8; }
+a:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--sans);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -1px; }
+h2 { font-size: clamp(18px, 2.5vw, 26px); letter-spacing: -.4px; margin-bottom: 16px; }
+h3 { font-size: 15px; font-weight: 700; }
+
+p { color: var(--muted); line-height: 1.75; }
+
+code, pre {
+  font-family: var(--mono);
+  font-size: .9em;
+  background: var(--sf2);
+  border-radius: var(--r-sm);
+}
+code { padding: 2px 6px; }
+pre  { padding: 16px; overflow-x: auto; border: 1px solid var(--border); }
+
+/* ── ACCESSIBILITY ───────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--green);
+  color: #02150a;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top .2s;
+}
+.skip-link:focus { top: 8px; }
+
+/* ── TOAST ───────────────────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--sf2);
+  border: 1px solid var(--gdim);
+  color: var(--green);
+  font-size: 12px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: all .28s;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ── ANIMATIONS ──────────────────────────────────────────────────────────── */
+@keyframes spin  { to { transform: rotate(360deg); } }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .2; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.spin-icon { animation: spin .7s linear infinite; }
+.fade-up   { animation: fadeUp .3s ease; }
