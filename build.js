@@ -88,7 +88,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   <title>${pageTitle}</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="${BASE_PATH}/assets/favicon.svg">
 
   <!-- Fonts — non-blocking, font-display:swap prevents layout shift -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -117,13 +117,13 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   </style>
 
   <!-- Non-critical styles deferred -->
-  <link rel="preload" href="/assets/css/base.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/assets/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/assets/css/tool.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="${BASE_PATH}/assets/css/base.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="${BASE_PATH}/assets/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="${BASE_PATH}/assets/css/tool.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
-    <link rel="stylesheet" href="/assets/css/base.css">
-    <link rel="stylesheet" href="/assets/css/layout.css">
-    <link rel="stylesheet" href="/assets/css/tool.css">
+    <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css">
+    <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css">
+    <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css">
   </noscript>
 `.trim();
 }
@@ -133,7 +133,7 @@ function buildNavbar() {
   return `
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="logo" aria-label="CipherKit — home">
+    <a href="${BASE_PATH}/" class="logo" aria-label="CipherKit — home">
       <div class="logo-mark" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="#3dd68c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -144,9 +144,9 @@ function buildNavbar() {
     </a>
 
     <nav class="header-nav" aria-label="Tool categories">
-      <a href="/tools/crypto/" class="nav-link">🔐 Crypto</a>
-      <a href="/tools/encoding/" class="nav-link">📦 Encoding</a>
-      <a href="/tools/dev/" class="nav-link">⚙️ Dev</a>
+      <a href="${BASE_PATH}/tools/crypto/" class="nav-link">🔐 Crypto</a>
+      <a href="${BASE_PATH}/tools/encoding/" class="nav-link">📦 Encoding</a>
+      <a href="${BASE_PATH}/tools/dev/" class="nav-link">⚙️ Dev</a>
     </nav>
 
     <div class="header-badges" aria-label="Security guarantees">
@@ -169,7 +169,7 @@ function buildFooter() {
 
   function linkList(arr) {
     return arr.map(t =>
-      `<li><a href="/tools/${t.slug}/">${t.title}</a></li>`
+      `<li><a href="${BASE_PATH}/tools/${t.slug}/">${t.title}</a></li>`
     ).join('\n        ');
   }
 
@@ -177,7 +177,7 @@ function buildFooter() {
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="/" class="logo">
+      <a href="${BASE_PATH}/" class="logo">
         <div class="logo-mark" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="#3dd68c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -246,7 +246,7 @@ function buildRelatedTools(tool) {
   if (related.length === 0) return '';
 
   const cards = related.map(t => `
-      <a href="/tools/${t.slug}/" class="related-card">
+      <a href="${BASE_PATH}/tools/${t.slug}/" class="related-card">
         <span class="related-title">${t.title}</span>
         <span class="related-tag">${t.tagline}</span>
       </a>`).join('');
@@ -275,7 +275,7 @@ function buildToolPage(tool) {
   const related    = buildRelatedTools(tool);
 
   // Tool JS path (loaded at bottom)
-  const toolJsSrc  = `/assets/js/tools/${tool.jsFile}`;
+  const toolJsSrc  = `${BASE_PATH}/assets/js/tools/${tool.jsFile}`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -294,9 +294,9 @@ ${navbar}
   <div class="tool-header">
     <div class="tool-header-inner">
       <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <a href="${BASE_PATH}/">Home</a>
         <span aria-hidden="true">›</span>
-        <a href="/tools/${tool.category}/">${tool.hub}</a>
+        <a href="${BASE_PATH}/tools/${tool.category}/">${tool.hub}</a>
         <span aria-hidden="true">›</span>
         <span aria-current="page">${tool.title}</span>
       </nav>
@@ -345,7 +345,7 @@ ${footer}
 </div>
 
 <!-- Core JS -->
-<script src="/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
 
 <!-- Tool-specific JS -->
 <script src="${toolJsSrc}" defer></script>
@@ -381,7 +381,7 @@ ${JSON.stringify({
     const cat       = categories.find(c => c.id === catId);
     const catTools  = tools.filter(t => t.category === catId);
     const cards     = catTools.map(t => `
-        <a href="/tools/${t.slug}/" class="tool-card">
+        <a href="${BASE_PATH}/tools/${t.slug}/" class="tool-card">
           <div class="tool-card-title">${t.title}</div>
           <div class="tool-card-tag">${t.tagline}</div>
         </a>`).join('');
@@ -465,7 +465,7 @@ ${buildFooter()}
   <span id="toast-msg"></span>
 </div>
 
-<script src="/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
 <script defer>
 // ── SEARCH ──────────────────────────────────────────────────────────────────
 const TOOLS = ${JSON.stringify(tools.map(t => ({
@@ -497,7 +497,7 @@ searchInput.addEventListener('input', function() {
 
   searchGrid.innerHTML = hits.length
     ? hits.map(t => \`
-        <a href="/tools/\${t.slug}/" class="tool-card">
+        <a href="${BASE_PATH}/tools/\${t.slug}/" class="tool-card">
           <div class="tool-card-title">\${t.title}</div>
           <div class="tool-card-tag">\${t.tagline}</div>
         </a>\`).join('')
@@ -522,7 +522,7 @@ function buildCategoryPage(cat) {
   });
 
   const cards = catTools.map(t => `
-        <a href="/tools/${t.slug}/" class="tool-card">
+        <a href="${BASE_PATH}/tools/${t.slug}/" class="tool-card">
           <div class="tool-card-title">${t.title}</div>
           <div class="tool-card-tag">${t.tagline}</div>
         </a>`).join('');
@@ -542,7 +542,7 @@ ${buildNavbar()}
   <div class="cat-header">
     <div class="cat-header-inner">
       <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <a href="${BASE_PATH}/">Home</a>
         <span aria-hidden="true">›</span>
         <span aria-current="page">${cat.label}</span>
       </nav>
@@ -560,7 +560,7 @@ ${buildNavbar()}
 
 ${buildFooter()}
 
-<script src="/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
 </body>
 </html>`;
 }

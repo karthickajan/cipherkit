@@ -46,7 +46,7 @@
   <title>CipherKit — Developer Cryptography & Utility Tools</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/cipherkit/assets/favicon.svg">
 
   <!-- Fonts — non-blocking, font-display:swap prevents layout shift -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -75,13 +75,13 @@
   </style>
 
   <!-- Non-critical styles deferred -->
-  <link rel="preload" href="/assets/css/base.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/assets/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/assets/css/tool.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/cipherkit/assets/css/base.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/cipherkit/assets/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/cipherkit/assets/css/tool.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
-    <link rel="stylesheet" href="/assets/css/base.css">
-    <link rel="stylesheet" href="/assets/css/layout.css">
-    <link rel="stylesheet" href="/assets/css/tool.css">
+    <link rel="stylesheet" href="/cipherkit/assets/css/base.css">
+    <link rel="stylesheet" href="/cipherkit/assets/css/layout.css">
+    <link rel="stylesheet" href="/cipherkit/assets/css/tool.css">
   </noscript>
 </head>
 <body>
@@ -90,7 +90,7 @@
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="logo" aria-label="CipherKit — home">
+    <a href="/cipherkit/" class="logo" aria-label="CipherKit — home">
       <div class="logo-mark" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="#3dd68c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -101,9 +101,9 @@
     </a>
 
     <nav class="header-nav" aria-label="Tool categories">
-      <a href="/tools/crypto/" class="nav-link">🔐 Crypto</a>
-      <a href="/tools/encoding/" class="nav-link">📦 Encoding</a>
-      <a href="/tools/dev/" class="nav-link">⚙️ Dev</a>
+      <a href="/cipherkit/tools/crypto/" class="nav-link">🔐 Crypto</a>
+      <a href="/cipherkit/tools/encoding/" class="nav-link">📦 Encoding</a>
+      <a href="/cipherkit/tools/dev/" class="nav-link">⚙️ Dev</a>
     </nav>
 
     <div class="header-badges" aria-label="Security guarantees">
@@ -165,59 +165,59 @@
       </div>
       <div class="tools-grid">
         
-        <a href="/tools/aes-encryption/" class="tool-card">
+        <a href="/cipherkit/tools/aes-encryption/" class="tool-card">
           <div class="tool-card-title">AES Encryption Tool</div>
           <div class="tool-card-tag">Encrypt text with AES-128, 192, or 256-bit keys — 100% client-side</div>
         </a>
-        <a href="/tools/aes-decryption/" class="tool-card">
+        <a href="/cipherkit/tools/aes-decryption/" class="tool-card">
           <div class="tool-card-title">AES Decryption Tool</div>
           <div class="tool-card-tag">Decrypt AES-encrypted ciphertext — supports Base64 and Hex input</div>
         </a>
-        <a href="/tools/sha256-generator/" class="tool-card">
+        <a href="/cipherkit/tools/sha256-generator/" class="tool-card">
           <div class="tool-card-title">SHA-256 Hash Generator</div>
           <div class="tool-card-tag">Generate SHA-256 cryptographic hashes instantly — Hex or Base64 output</div>
         </a>
-        <a href="/tools/sha512-generator/" class="tool-card">
+        <a href="/cipherkit/tools/sha512-generator/" class="tool-card">
           <div class="tool-card-title">SHA-512 Hash Generator</div>
           <div class="tool-card-tag">Generate SHA-512 cryptographic hashes — stronger than SHA-256</div>
         </a>
-        <a href="/tools/sha1-generator/" class="tool-card">
+        <a href="/cipherkit/tools/sha1-generator/" class="tool-card">
           <div class="tool-card-title">SHA-1 Hash Generator</div>
           <div class="tool-card-tag">Generate SHA-1 hashes — for legacy compatibility checks</div>
         </a>
-        <a href="/tools/sha3-generator/" class="tool-card">
+        <a href="/cipherkit/tools/sha3-generator/" class="tool-card">
           <div class="tool-card-title">SHA-3 Hash Generator</div>
           <div class="tool-card-tag">Generate SHA-3 (Keccak) hashes — the NIST standard successor</div>
         </a>
-        <a href="/tools/md5-generator/" class="tool-card">
+        <a href="/cipherkit/tools/md5-generator/" class="tool-card">
           <div class="tool-card-title">MD5 Hash Generator</div>
           <div class="tool-card-tag">Generate MD5 checksums — fast, widely supported, not for passwords</div>
         </a>
-        <a href="/tools/ripemd160-generator/" class="tool-card">
+        <a href="/cipherkit/tools/ripemd160-generator/" class="tool-card">
           <div class="tool-card-title">RIPEMD-160 Hash Generator</div>
           <div class="tool-card-tag">Generate RIPEMD-160 hashes — used in Bitcoin address generation</div>
         </a>
-        <a href="/tools/hmac-generator/" class="tool-card">
+        <a href="/cipherkit/tools/hmac-generator/" class="tool-card">
           <div class="tool-card-title">HMAC Generator</div>
           <div class="tool-card-tag">Generate HMAC message authentication codes — SHA256, SHA512, SHA1, MD5</div>
         </a>
-        <a href="/tools/rsa-key-generator/" class="tool-card">
+        <a href="/cipherkit/tools/rsa-key-generator/" class="tool-card">
           <div class="tool-card-title">RSA Key Pair Generator</div>
           <div class="tool-card-tag">Generate RSA public & private key pairs — 1024, 2048, or 4096-bit</div>
         </a>
-        <a href="/tools/hash-comparator/" class="tool-card">
+        <a href="/cipherkit/tools/hash-comparator/" class="tool-card">
           <div class="tool-card-title">Hash Comparator & Verifier</div>
           <div class="tool-card-tag">Compare and verify hash values — MD5, SHA-256, SHA-512 and more</div>
         </a>
-        <a href="/tools/checksum-generator/" class="tool-card">
+        <a href="/cipherkit/tools/checksum-generator/" class="tool-card">
           <div class="tool-card-title">Checksum Generator</div>
           <div class="tool-card-tag">Generate checksums for data integrity verification</div>
         </a>
-        <a href="/tools/bcrypt-generator/" class="tool-card">
+        <a href="/cipherkit/tools/bcrypt-generator/" class="tool-card">
           <div class="tool-card-title">Bcrypt Hash Generator</div>
           <div class="tool-card-tag">Hash passwords with bcrypt — configure cost factor, verify hashes</div>
         </a>
-        <a href="/tools/rsa-encrypt-decrypt/" class="tool-card">
+        <a href="/cipherkit/tools/rsa-encrypt-decrypt/" class="tool-card">
           <div class="tool-card-title">RSA Encrypt & Decrypt</div>
           <div class="tool-card-tag">Encrypt with RSA public key, decrypt with private key — OAEP padding</div>
         </a>
@@ -231,67 +231,67 @@
       </div>
       <div class="tools-grid">
         
-        <a href="/tools/base64-encode/" class="tool-card">
+        <a href="/cipherkit/tools/base64-encode/" class="tool-card">
           <div class="tool-card-title">Base64 Encoder</div>
           <div class="tool-card-tag">Encode text or binary data to Base64 — standard and URL-safe variants</div>
         </a>
-        <a href="/tools/base64-decode/" class="tool-card">
+        <a href="/cipherkit/tools/base64-decode/" class="tool-card">
           <div class="tool-card-title">Base64 Decoder</div>
           <div class="tool-card-tag">Decode Base64 strings back to plain text or binary data</div>
         </a>
-        <a href="/tools/url-encode/" class="tool-card">
+        <a href="/cipherkit/tools/url-encode/" class="tool-card">
           <div class="tool-card-title">URL Encoder</div>
           <div class="tool-card-tag">Percent-encode URLs and query strings for safe transmission</div>
         </a>
-        <a href="/tools/url-decode/" class="tool-card">
+        <a href="/cipherkit/tools/url-decode/" class="tool-card">
           <div class="tool-card-title">URL Decoder</div>
           <div class="tool-card-tag">Decode percent-encoded URLs back to readable query strings</div>
         </a>
-        <a href="/tools/html-encode/" class="tool-card">
+        <a href="/cipherkit/tools/html-encode/" class="tool-card">
           <div class="tool-card-title">HTML Entity Encoder</div>
           <div class="tool-card-tag">Escape HTML special characters to prevent XSS and display issues</div>
         </a>
-        <a href="/tools/html-decode/" class="tool-card">
+        <a href="/cipherkit/tools/html-decode/" class="tool-card">
           <div class="tool-card-title">HTML Entity Decoder</div>
           <div class="tool-card-tag">Decode HTML entities back to their original characters</div>
         </a>
-        <a href="/tools/hex-encode/" class="tool-card">
+        <a href="/cipherkit/tools/hex-encode/" class="tool-card">
           <div class="tool-card-title">Hex Encoder</div>
           <div class="tool-card-tag">Convert text to hexadecimal — useful for debugging and binary inspection</div>
         </a>
-        <a href="/tools/hex-decode/" class="tool-card">
+        <a href="/cipherkit/tools/hex-decode/" class="tool-card">
           <div class="tool-card-title">Hex Decoder</div>
           <div class="tool-card-tag">Decode hexadecimal strings back to plain text</div>
         </a>
-        <a href="/tools/binary-encode/" class="tool-card">
+        <a href="/cipherkit/tools/binary-encode/" class="tool-card">
           <div class="tool-card-title">Binary Encoder</div>
           <div class="tool-card-tag">Convert text to binary representation — byte by byte</div>
         </a>
-        <a href="/tools/binary-decode/" class="tool-card">
+        <a href="/cipherkit/tools/binary-decode/" class="tool-card">
           <div class="tool-card-title">Binary Decoder</div>
           <div class="tool-card-tag">Decode binary strings back to readable text</div>
         </a>
-        <a href="/tools/json-formatter/" class="tool-card">
+        <a href="/cipherkit/tools/json-formatter/" class="tool-card">
           <div class="tool-card-title">JSON Formatter & Validator</div>
           <div class="tool-card-tag">Beautify and validate JSON data — with syntax highlighting and error detection</div>
         </a>
-        <a href="/tools/json-minifier/" class="tool-card">
+        <a href="/cipherkit/tools/json-minifier/" class="tool-card">
           <div class="tool-card-title">JSON Minifier</div>
           <div class="tool-card-tag">Minify JSON by removing whitespace — reduce payload size</div>
         </a>
-        <a href="/tools/xml-json-converter/" class="tool-card">
+        <a href="/cipherkit/tools/xml-json-converter/" class="tool-card">
           <div class="tool-card-title">XML to JSON Converter</div>
           <div class="tool-card-tag">Convert XML data to JSON format — fast, free, client-side</div>
         </a>
-        <a href="/tools/json-xml-converter/" class="tool-card">
+        <a href="/cipherkit/tools/json-xml-converter/" class="tool-card">
           <div class="tool-card-title">JSON to XML Converter</div>
           <div class="tool-card-tag">Convert JSON data to XML format — browser-based, no server</div>
         </a>
-        <a href="/tools/csv-json-converter/" class="tool-card">
+        <a href="/cipherkit/tools/csv-json-converter/" class="tool-card">
           <div class="tool-card-title">CSV to JSON Converter</div>
           <div class="tool-card-tag">Convert CSV data to JSON — paste your CSV, get instant JSON</div>
         </a>
-        <a href="/tools/yaml-json-converter/" class="tool-card">
+        <a href="/cipherkit/tools/yaml-json-converter/" class="tool-card">
           <div class="tool-card-title">YAML to JSON Converter</div>
           <div class="tool-card-tag">Convert YAML to JSON — for config files, CI/CD, and API schemas</div>
         </a>
@@ -305,75 +305,75 @@
       </div>
       <div class="tools-grid">
         
-        <a href="/tools/jwt-decoder/" class="tool-card">
+        <a href="/cipherkit/tools/jwt-decoder/" class="tool-card">
           <div class="tool-card-title">JWT Decoder & Inspector</div>
           <div class="tool-card-tag">Decode and inspect JWT tokens — header, payload, claims at a glance</div>
         </a>
-        <a href="/tools/jwt-encoder/" class="tool-card">
+        <a href="/cipherkit/tools/jwt-encoder/" class="tool-card">
           <div class="tool-card-title">JWT Encoder</div>
           <div class="tool-card-tag">Create and sign JWT tokens with custom claims and headers</div>
         </a>
-        <a href="/tools/uuid-generator/" class="tool-card">
+        <a href="/cipherkit/tools/uuid-generator/" class="tool-card">
           <div class="tool-card-title">UUID / GUID Generator</div>
           <div class="tool-card-tag">Generate UUID v4, v1, and bulk UUIDs — cryptographically secure</div>
         </a>
-        <a href="/tools/random-password-generator/" class="tool-card">
+        <a href="/cipherkit/tools/random-password-generator/" class="tool-card">
           <div class="tool-card-title">Random Password Generator</div>
           <div class="tool-card-tag">Generate strong, cryptographically secure passwords — customizable length and charset</div>
         </a>
-        <a href="/tools/random-string-generator/" class="tool-card">
+        <a href="/cipherkit/tools/random-string-generator/" class="tool-card">
           <div class="tool-card-title">Random String Generator</div>
           <div class="tool-card-tag">Generate random strings, API keys, and tokens — custom length and charset</div>
         </a>
-        <a href="/tools/unix-timestamp-converter/" class="tool-card">
+        <a href="/cipherkit/tools/unix-timestamp-converter/" class="tool-card">
           <div class="tool-card-title">Unix Timestamp Converter</div>
           <div class="tool-card-tag">Convert Unix timestamps to dates and dates to timestamps — with timezone support</div>
         </a>
-        <a href="/tools/cron-expression-generator/" class="tool-card">
+        <a href="/cipherkit/tools/cron-expression-generator/" class="tool-card">
           <div class="tool-card-title">Cron Expression Generator</div>
           <div class="tool-card-tag">Build and validate cron expressions visually — no syntax memorization needed</div>
         </a>
-        <a href="/tools/cron-expression-explainer/" class="tool-card">
+        <a href="/cipherkit/tools/cron-expression-explainer/" class="tool-card">
           <div class="tool-card-title">Cron Expression Explainer</div>
           <div class="tool-card-tag">Understand any cron expression in plain English — with next run times</div>
         </a>
-        <a href="/tools/http-header-parser/" class="tool-card">
+        <a href="/cipherkit/tools/http-header-parser/" class="tool-card">
           <div class="tool-card-title">HTTP Header Parser</div>
           <div class="tool-card-tag">Parse and analyze raw HTTP request or response headers</div>
         </a>
-        <a href="/tools/regex-tester/" class="tool-card">
+        <a href="/cipherkit/tools/regex-tester/" class="tool-card">
           <div class="tool-card-title">Regex Tester</div>
           <div class="tool-card-tag">Test and debug regular expressions in real-time — with match highlighting</div>
         </a>
-        <a href="/tools/color-converter/" class="tool-card">
+        <a href="/cipherkit/tools/color-converter/" class="tool-card">
           <div class="tool-card-title">Color Code Converter</div>
           <div class="tool-card-tag">Convert HEX, RGB, RGBA, HSL, HSV color codes — with visual preview</div>
         </a>
-        <a href="/tools/number-base-converter/" class="tool-card">
+        <a href="/cipherkit/tools/number-base-converter/" class="tool-card">
           <div class="tool-card-title">Number Base Converter</div>
           <div class="tool-card-tag">Convert numbers between binary, octal, decimal, and hexadecimal</div>
         </a>
-        <a href="/tools/lorem-ipsum-generator/" class="tool-card">
+        <a href="/cipherkit/tools/lorem-ipsum-generator/" class="tool-card">
           <div class="tool-card-title">Lorem Ipsum Generator</div>
           <div class="tool-card-tag">Generate lorem ipsum placeholder text — by word, sentence, or paragraph count</div>
         </a>
-        <a href="/tools/sql-formatter/" class="tool-card">
+        <a href="/cipherkit/tools/sql-formatter/" class="tool-card">
           <div class="tool-card-title">SQL Formatter</div>
           <div class="tool-card-tag">Format and beautify SQL queries — supports MySQL, PostgreSQL, SQLite</div>
         </a>
-        <a href="/tools/markdown-preview/" class="tool-card">
+        <a href="/cipherkit/tools/markdown-preview/" class="tool-card">
           <div class="tool-card-title">Markdown Previewer</div>
           <div class="tool-card-tag">Preview markdown in real-time — GitHub-flavored Markdown support</div>
         </a>
-        <a href="/tools/diff-checker/" class="tool-card">
+        <a href="/cipherkit/tools/diff-checker/" class="tool-card">
           <div class="tool-card-title">Text Diff Checker</div>
           <div class="tool-card-tag">Compare two text blocks and highlight differences line by line</div>
         </a>
-        <a href="/tools/word-counter/" class="tool-card">
+        <a href="/cipherkit/tools/word-counter/" class="tool-card">
           <div class="tool-card-title">Word & Character Counter</div>
           <div class="tool-card-tag">Count words, characters, sentences, and estimate reading time</div>
         </a>
-        <a href="/tools/ip-address-tools/" class="tool-card">
+        <a href="/cipherkit/tools/ip-address-tools/" class="tool-card">
           <div class="tool-card-title">IP Address Tools</div>
           <div class="tool-card-tag">Subnet calculator, CIDR converter, and IPv4/IPv6 address analysis</div>
         </a>
@@ -386,7 +386,7 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="/" class="logo">
+      <a href="/cipherkit/" class="logo">
         <div class="logo-mark" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="#3dd68c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -405,34 +405,34 @@
       <div class="footer-col">
         <h3>🔐 Crypto Hub</h3>
         <ul>
-          <li><a href="/tools/aes-encryption/">AES Encryption Tool</a></li>
-        <li><a href="/tools/aes-decryption/">AES Decryption Tool</a></li>
-        <li><a href="/tools/sha256-generator/">SHA-256 Hash Generator</a></li>
-        <li><a href="/tools/sha512-generator/">SHA-512 Hash Generator</a></li>
-        <li><a href="/tools/sha1-generator/">SHA-1 Hash Generator</a></li>
-        <li><a href="/tools/sha3-generator/">SHA-3 Hash Generator</a></li>
+          <li><a href="/cipherkit/tools/aes-encryption/">AES Encryption Tool</a></li>
+        <li><a href="/cipherkit/tools/aes-decryption/">AES Decryption Tool</a></li>
+        <li><a href="/cipherkit/tools/sha256-generator/">SHA-256 Hash Generator</a></li>
+        <li><a href="/cipherkit/tools/sha512-generator/">SHA-512 Hash Generator</a></li>
+        <li><a href="/cipherkit/tools/sha1-generator/">SHA-1 Hash Generator</a></li>
+        <li><a href="/cipherkit/tools/sha3-generator/">SHA-3 Hash Generator</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h3>📦 Data Hub</h3>
         <ul>
-          <li><a href="/tools/base64-encode/">Base64 Encoder</a></li>
-        <li><a href="/tools/base64-decode/">Base64 Decoder</a></li>
-        <li><a href="/tools/url-encode/">URL Encoder</a></li>
-        <li><a href="/tools/url-decode/">URL Decoder</a></li>
-        <li><a href="/tools/html-encode/">HTML Entity Encoder</a></li>
-        <li><a href="/tools/html-decode/">HTML Entity Decoder</a></li>
+          <li><a href="/cipherkit/tools/base64-encode/">Base64 Encoder</a></li>
+        <li><a href="/cipherkit/tools/base64-decode/">Base64 Decoder</a></li>
+        <li><a href="/cipherkit/tools/url-encode/">URL Encoder</a></li>
+        <li><a href="/cipherkit/tools/url-decode/">URL Decoder</a></li>
+        <li><a href="/cipherkit/tools/html-encode/">HTML Entity Encoder</a></li>
+        <li><a href="/cipherkit/tools/html-decode/">HTML Entity Decoder</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h3>⚙️ Dev Hub</h3>
         <ul>
-          <li><a href="/tools/jwt-decoder/">JWT Decoder & Inspector</a></li>
-        <li><a href="/tools/jwt-encoder/">JWT Encoder</a></li>
-        <li><a href="/tools/uuid-generator/">UUID / GUID Generator</a></li>
-        <li><a href="/tools/random-password-generator/">Random Password Generator</a></li>
-        <li><a href="/tools/random-string-generator/">Random String Generator</a></li>
-        <li><a href="/tools/unix-timestamp-converter/">Unix Timestamp Converter</a></li>
+          <li><a href="/cipherkit/tools/jwt-decoder/">JWT Decoder & Inspector</a></li>
+        <li><a href="/cipherkit/tools/jwt-encoder/">JWT Encoder</a></li>
+        <li><a href="/cipherkit/tools/uuid-generator/">UUID / GUID Generator</a></li>
+        <li><a href="/cipherkit/tools/random-password-generator/">Random Password Generator</a></li>
+        <li><a href="/cipherkit/tools/random-string-generator/">Random String Generator</a></li>
+        <li><a href="/cipherkit/tools/unix-timestamp-converter/">Unix Timestamp Converter</a></li>
         </ul>
       </div>
     </div>
@@ -448,7 +448,7 @@
   <span id="toast-msg"></span>
 </div>
 
-<script src="/assets/js/core/ui.js" defer></script>
+<script src="/cipherkit/assets/js/core/ui.js" defer></script>
 <script defer>
 // ── SEARCH ──────────────────────────────────────────────────────────────────
 const TOOLS = [{"slug":"aes-encryption","title":"AES Encryption Tool","tagline":"Encrypt text with AES-128, 192, or 256-bit keys — 100% client-side","tags":["aes","encryption","cipher","symmetric","aes-256","aes-128"],"category":"crypto"},{"slug":"aes-decryption","title":"AES Decryption Tool","tagline":"Decrypt AES-encrypted ciphertext — supports Base64 and Hex input","tags":["aes","decryption","cipher","symmetric","aes-256","decrypt"],"category":"crypto"},{"slug":"sha256-generator","title":"SHA-256 Hash Generator","tagline":"Generate SHA-256 cryptographic hashes instantly — Hex or Base64 output","tags":["sha256","sha-256","hash","checksum","cryptographic hash"],"category":"crypto"},{"slug":"sha512-generator","title":"SHA-512 Hash Generator","tagline":"Generate SHA-512 cryptographic hashes — stronger than SHA-256","tags":["sha512","sha-512","hash","checksum","cryptographic hash"],"category":"crypto"},{"slug":"sha1-generator","title":"SHA-1 Hash Generator","tagline":"Generate SHA-1 hashes — for legacy compatibility checks","tags":["sha1","sha-1","hash","checksum"],"category":"crypto"},{"slug":"sha3-generator","title":"SHA-3 Hash Generator","tagline":"Generate SHA-3 (Keccak) hashes — the NIST standard successor","tags":["sha3","sha-3","keccak","hash","nist"],"category":"crypto"},{"slug":"md5-generator","title":"MD5 Hash Generator","tagline":"Generate MD5 checksums — fast, widely supported, not for passwords","tags":["md5","hash","checksum","md5 generator","md5 checksum"],"category":"crypto"},{"slug":"ripemd160-generator","title":"RIPEMD-160 Hash Generator","tagline":"Generate RIPEMD-160 hashes — used in Bitcoin address generation","tags":["ripemd160","ripemd-160","hash","bitcoin hash"],"category":"crypto"},{"slug":"hmac-generator","title":"HMAC Generator","tagline":"Generate HMAC message authentication codes — SHA256, SHA512, SHA1, MD5","tags":["hmac","hmac-sha256","hmac-sha512","mac","message authentication"],"category":"crypto"},{"slug":"rsa-key-generator","title":"RSA Key Pair Generator","tagline":"Generate RSA public & private key pairs — 1024, 2048, or 4096-bit","tags":["rsa","rsa key","public key","private key","asymmetric encryption","pkcs8"],"category":"crypto"},{"slug":"hash-comparator","title":"Hash Comparator & Verifier","tagline":"Compare and verify hash values — MD5, SHA-256, SHA-512 and more","tags":["hash comparator","hash verifier","compare hash","verify hash","checksum verify"],"category":"crypto"},{"slug":"checksum-generator","title":"Checksum Generator","tagline":"Generate checksums for data integrity verification","tags":["checksum","checksum generator","file checksum","data integrity"],"category":"crypto"},{"slug":"base64-encode","title":"Base64 Encoder","tagline":"Encode text or binary data to Base64 — standard and URL-safe variants","tags":["base64","base64 encode","base64 encoder","encode base64"],"category":"encoding"},{"slug":"base64-decode","title":"Base64 Decoder","tagline":"Decode Base64 strings back to plain text or binary data","tags":["base64","base64 decode","base64 decoder","decode base64"],"category":"encoding"},{"slug":"url-encode","title":"URL Encoder","tagline":"Percent-encode URLs and query strings for safe transmission","tags":["url encode","url encoder","percent encode","urlencode","query string encode"],"category":"encoding"},{"slug":"url-decode","title":"URL Decoder","tagline":"Decode percent-encoded URLs back to readable query strings","tags":["url decode","url decoder","percent decode","urldecode"],"category":"encoding"},{"slug":"html-encode","title":"HTML Entity Encoder","tagline":"Escape HTML special characters to prevent XSS and display issues","tags":["html encode","html entities","html escape","xss prevention"],"category":"encoding"},{"slug":"html-decode","title":"HTML Entity Decoder","tagline":"Decode HTML entities back to their original characters","tags":["html decode","html entities decode","html unescape"],"category":"encoding"},{"slug":"hex-encode","title":"Hex Encoder","tagline":"Convert text to hexadecimal — useful for debugging and binary inspection","tags":["hex encode","text to hex","hexadecimal encoder","ascii to hex"],"category":"encoding"},{"slug":"hex-decode","title":"Hex Decoder","tagline":"Decode hexadecimal strings back to plain text","tags":["hex decode","hex to text","hexadecimal decoder","hex to ascii"],"category":"encoding"},{"slug":"binary-encode","title":"Binary Encoder","tagline":"Convert text to binary representation — byte by byte","tags":["binary encode","text to binary","binary converter","ascii to binary"],"category":"encoding"},{"slug":"binary-decode","title":"Binary Decoder","tagline":"Decode binary strings back to readable text","tags":["binary decode","binary to text","binary converter"],"category":"encoding"},{"slug":"json-formatter","title":"JSON Formatter & Validator","tagline":"Beautify and validate JSON data — with syntax highlighting and error detection","tags":["json formatter","json validator","json beautifier","format json","json pretty print"],"category":"encoding"},{"slug":"json-minifier","title":"JSON Minifier","tagline":"Minify JSON by removing whitespace — reduce payload size","tags":["json minifier","json minify","compress json","json compressor"],"category":"encoding"},{"slug":"xml-json-converter","title":"XML to JSON Converter","tagline":"Convert XML data to JSON format — fast, free, client-side","tags":["xml to json","xml json converter","convert xml","xml parser"],"category":"encoding"},{"slug":"json-xml-converter","title":"JSON to XML Converter","tagline":"Convert JSON data to XML format — browser-based, no server","tags":["json to xml","json xml converter","convert json to xml"],"category":"encoding"},{"slug":"csv-json-converter","title":"CSV to JSON Converter","tagline":"Convert CSV data to JSON — paste your CSV, get instant JSON","tags":["csv to json","csv json converter","convert csv","csv parser"],"category":"encoding"},{"slug":"yaml-json-converter","title":"YAML to JSON Converter","tagline":"Convert YAML to JSON — for config files, CI/CD, and API schemas","tags":["yaml to json","yaml json","convert yaml","yaml parser"],"category":"encoding"},{"slug":"jwt-decoder","title":"JWT Decoder & Inspector","tagline":"Decode and inspect JWT tokens — header, payload, claims at a glance","tags":["jwt decoder","jwt","json web token","decode jwt","jwt inspector"],"category":"dev"},{"slug":"jwt-encoder","title":"JWT Encoder","tagline":"Create and sign JWT tokens with custom claims and headers","tags":["jwt encoder","jwt","create jwt","sign jwt","json web token generator"],"category":"dev"},{"slug":"uuid-generator","title":"UUID / GUID Generator","tagline":"Generate UUID v4, v1, and bulk UUIDs — cryptographically secure","tags":["uuid generator","guid generator","uuid v4","unique id","uuid online"],"category":"dev"},{"slug":"random-password-generator","title":"Random Password Generator","tagline":"Generate strong, cryptographically secure passwords — customizable length and charset","tags":["password generator","random password","strong password","secure password generator"],"category":"dev"},{"slug":"random-string-generator","title":"Random String Generator","tagline":"Generate random strings, API keys, and tokens — custom length and charset","tags":["random string generator","random string","api key generator","token generator"],"category":"dev"},{"slug":"unix-timestamp-converter","title":"Unix Timestamp Converter","tagline":"Convert Unix timestamps to dates and dates to timestamps — with timezone support","tags":["unix timestamp","epoch converter","timestamp converter","unix time","epoch time"],"category":"dev"},{"slug":"cron-expression-generator","title":"Cron Expression Generator","tagline":"Build and validate cron expressions visually — no syntax memorization needed","tags":["cron generator","cron expression","cron job","cron schedule","crontab generator"],"category":"dev"},{"slug":"cron-expression-explainer","title":"Cron Expression Explainer","tagline":"Understand any cron expression in plain English — with next run times","tags":["cron explainer","cron expression parser","cron to english","understand cron"],"category":"dev"},{"slug":"http-header-parser","title":"HTTP Header Parser","tagline":"Parse and analyze raw HTTP request or response headers","tags":["http header parser","http headers","parse headers","http request parser"],"category":"dev"},{"slug":"bcrypt-generator","title":"Bcrypt Hash Generator","tagline":"Hash passwords with bcrypt — configure cost factor, verify hashes","tags":["bcrypt","bcrypt generator","password hash","bcrypt hash"],"category":"crypto"},{"slug":"regex-tester","title":"Regex Tester","tagline":"Test and debug regular expressions in real-time — with match highlighting","tags":["regex tester","regular expression tester","regex online","regex matcher"],"category":"dev"},{"slug":"color-converter","title":"Color Code Converter","tagline":"Convert HEX, RGB, RGBA, HSL, HSV color codes — with visual preview","tags":["color converter","hex to rgb","rgb to hex","color code converter","hsl converter"],"category":"dev"},{"slug":"number-base-converter","title":"Number Base Converter","tagline":"Convert numbers between binary, octal, decimal, and hexadecimal","tags":["number base converter","binary to decimal","hex to decimal","base converter"],"category":"dev"},{"slug":"lorem-ipsum-generator","title":"Lorem Ipsum Generator","tagline":"Generate lorem ipsum placeholder text — by word, sentence, or paragraph count","tags":["lorem ipsum generator","placeholder text","dummy text generator","lorem ipsum"],"category":"dev"},{"slug":"sql-formatter","title":"SQL Formatter","tagline":"Format and beautify SQL queries — supports MySQL, PostgreSQL, SQLite","tags":["sql formatter","sql beautifier","format sql","sql query formatter"],"category":"dev"},{"slug":"markdown-preview","title":"Markdown Previewer","tagline":"Preview markdown in real-time — GitHub-flavored Markdown support","tags":["markdown preview","markdown editor","markdown renderer","markdown online"],"category":"dev"},{"slug":"diff-checker","title":"Text Diff Checker","tagline":"Compare two text blocks and highlight differences line by line","tags":["diff checker","text diff","compare text","text comparison","diff tool"],"category":"dev"},{"slug":"word-counter","title":"Word & Character Counter","tagline":"Count words, characters, sentences, and estimate reading time","tags":["word counter","character counter","word count online","text analyzer"],"category":"dev"},{"slug":"ip-address-tools","title":"IP Address Tools","tagline":"Subnet calculator, CIDR converter, and IPv4/IPv6 address analysis","tags":["ip address tools","subnet calculator","cidr calculator","ip calculator"],"category":"dev"},{"slug":"rsa-encrypt-decrypt","title":"RSA Encrypt & Decrypt","tagline":"Encrypt with RSA public key, decrypt with private key — OAEP padding","tags":["rsa encrypt","rsa decrypt","rsa encryption","asymmetric encryption","public key encryption"],"category":"crypto"}];
@@ -474,7 +474,7 @@ searchInput.addEventListener('input', function() {
 
   searchGrid.innerHTML = hits.length
     ? hits.map(t => `
-        <a href="/tools/${t.slug}/" class="tool-card">
+        <a href="/cipherkit/tools/${t.slug}/" class="tool-card">
           <div class="tool-card-title">${t.title}</div>
           <div class="tool-card-tag">${t.tagline}</div>
         </a>`).join('')
