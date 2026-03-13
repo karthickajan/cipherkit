@@ -69,7 +69,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'none'; img-src 'self' data:; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'none'; img-src 'self' data:; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="${pageTitle}">
@@ -277,6 +277,11 @@ function buildToolPage(tool) {
   // Tool JS path (loaded at bottom)
   const toolJsSrc  = `${BASE_PATH}/assets/js/tools/${tool.jsFile}`;
 
+  // Vendor JS (e.g. crypto-js CDN)
+  const vendorScripts = (tool.vendorJs || []).map(v =>
+    `<script src="${v.src}"${v.integrity ? ` integrity="${v.integrity}"` : ''}${v.crossorigin ? ` crossorigin="${v.crossorigin}"` : ''} defer></script>`
+  ).join('\n');
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -346,6 +351,9 @@ ${footer}
 
 <!-- Core JS -->
 <script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
+
+<!-- Vendor JS -->
+${vendorScripts}
 
 <!-- Tool-specific JS -->
 <script src="${toolJsSrc}" defer></script>
