@@ -62,8 +62,15 @@
       "tags": ["aes", "decryption", "cipher", "symmetric", "aes-256", "decrypt"],
       "relatedTools": ["aes-encryption", "hmac-generator", "rsa-key-generator"],
       "jsFile": "aes-decryption.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 2
     },
     {
@@ -78,8 +85,15 @@
       "tags": ["sha256", "sha-256", "hash", "checksum", "cryptographic hash"],
       "relatedTools": ["sha512-generator", "md5-generator", "hmac-generator", "hash-comparator"],
       "jsFile": "sha256-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 3
     },
     {
@@ -94,8 +108,15 @@
       "tags": ["sha512", "sha-512", "hash", "checksum", "cryptographic hash"],
       "relatedTools": ["sha256-generator", "md5-generator", "hmac-generator", "hash-comparator"],
       "jsFile": "sha512-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 4
     },
     {
@@ -110,8 +131,15 @@
       "tags": ["sha1", "sha-1", "hash", "checksum"],
       "relatedTools": ["sha256-generator", "sha512-generator", "md5-generator"],
       "jsFile": "sha1-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 5
     },
     {
@@ -126,8 +154,15 @@
       "tags": ["sha3", "sha-3", "keccak", "hash", "nist"],
       "relatedTools": ["sha256-generator", "sha512-generator", "md5-generator"],
       "jsFile": "sha3-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 6
     },
     {
@@ -142,8 +177,15 @@
       "tags": ["md5", "hash", "checksum", "md5 generator", "md5 checksum"],
       "relatedTools": ["sha256-generator", "sha512-generator", "hash-comparator", "checksum-generator"],
       "jsFile": "md5-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 7
     },
     {
@@ -158,8 +200,15 @@
       "tags": ["ripemd160", "ripemd-160", "hash", "bitcoin hash"],
       "relatedTools": ["sha256-generator", "sha512-generator", "md5-generator"],
       "jsFile": "ripemd160-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 8
     },
     {
@@ -174,8 +223,15 @@
       "tags": ["hmac", "hmac-sha256", "hmac-sha512", "mac", "message authentication"],
       "relatedTools": ["sha256-generator", "sha512-generator", "aes-encryption", "hash-comparator"],
       "jsFile": "hmac-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 9
     },
     {
@@ -191,7 +247,7 @@
       "relatedTools": ["rsa-encrypt-decrypt", "aes-encryption", "hmac-generator"],
       "jsFile": "rsa-key-generator.js",
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 10
     },
     {
@@ -207,7 +263,7 @@
       "relatedTools": ["sha256-generator", "md5-generator", "checksum-generator"],
       "jsFile": "hash-comparator.js",
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 11
     },
     {
@@ -222,8 +278,15 @@
       "tags": ["checksum", "checksum generator", "file checksum", "data integrity"],
       "relatedTools": ["md5-generator", "sha256-generator", "hash-comparator"],
       "jsFile": "checksum-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 2,
-      "status": "planned",
+      "status": "ready",
       "priority": 12
     },
     {
@@ -638,8 +701,15 @@
       "tags": ["bcrypt", "bcrypt generator", "password hash", "bcrypt hash"],
       "relatedTools": ["random-password-generator", "sha256-generator", "hash-comparator"],
       "jsFile": "bcrypt-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js",
+          "integrity": "sha512-DNI/FJdkfyeuPUal7lDkRVg0mFY2n4IZJJYqPbQWLL0COxLi6G6nmf5gr1vW1Bd4wYC09hOvZVsSclfXxUTU/w==",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 38
     },
     {
@@ -799,7 +869,7 @@
       "relatedTools": ["rsa-key-generator", "aes-encryption", "hmac-generator"],
       "jsFile": "rsa-encrypt-decrypt.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 48
     }
   ]

@@ -16,6 +16,14 @@ const BASE_PATH = '/cipherkit';
 const fs   = require('fs');
 const path = require('path');
 
+// ── INLINE SVG ICONS (no emojis anywhere) ────────────────────────────────────
+const SVG = {
+  lock:   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  box:    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+  gear:   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+  check:  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>',
+  shield: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+};
 // ── CONFIG ─────────────────────────────────────────────────────────────────
 const DOMAIN      = 'https://cipherkit.dev';   // ← change this when domain is ready
 const SRC         = path.join(__dirname, 'src');
@@ -116,15 +124,10 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
     .logo-name em{color:#3dd68c;font-style:normal}
   </style>
 
-  <!-- Non-critical styles deferred -->
-  <link rel="preload" href="${BASE_PATH}/assets/css/base.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="${BASE_PATH}/assets/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="${BASE_PATH}/assets/css/tool.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css">
-    <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css">
-    <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css">
-  </noscript>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css">
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css">
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css">
 `.trim();
 }
 
@@ -144,9 +147,9 @@ function buildNavbar() {
     </a>
 
     <nav class="header-nav" aria-label="Tool categories">
-      <a href="${BASE_PATH}/tools/crypto/" class="nav-link">🔐 Crypto</a>
-      <a href="${BASE_PATH}/tools/encoding/" class="nav-link">📦 Encoding</a>
-      <a href="${BASE_PATH}/tools/dev/" class="nav-link">⚙️ Dev</a>
+      <a href="${BASE_PATH}/tools/crypto/" class="nav-link"><span class="nav-icon">${SVG.lock}</span> Crypto</a>
+      <a href="${BASE_PATH}/tools/encoding/" class="nav-link"><span class="nav-icon">${SVG.box}</span> Encoding</a>
+      <a href="${BASE_PATH}/tools/dev/" class="nav-link"><span class="nav-icon">${SVG.gear}</span> Dev</a>
     </nav>
 
     <div class="header-badges" aria-label="Security guarantees">
@@ -194,19 +197,19 @@ function buildFooter() {
 
     <div class="footer-links">
       <div class="footer-col">
-        <h3>🔐 Crypto Hub</h3>
+        <h3><span class="footer-icon">${SVG.lock}</span> Crypto Hub</h3>
         <ul>
           ${linkList(cryptoTools)}
         </ul>
       </div>
       <div class="footer-col">
-        <h3>📦 Data Hub</h3>
+        <h3><span class="footer-icon">${SVG.box}</span> Data Hub</h3>
         <ul>
           ${linkList(encTools)}
         </ul>
       </div>
       <div class="footer-col">
-        <h3>⚙️ Dev Hub</h3>
+        <h3><span class="footer-icon">${SVG.gear}</span> Dev Hub</h3>
         <ul>
           ${linkList(devTools)}
         </ul>
@@ -308,10 +311,10 @@ ${navbar}
       <h1>${tool.h1}</h1>
       <p class="tool-tagline">${tool.tagline}</p>
       <div class="tool-badges">
-        <span class="badge badge-green">✓ Free</span>
-        <span class="badge badge-green">✓ Client-Side</span>
-        <span class="badge badge-green">✓ No Login</span>
-        <span class="badge badge-green">✓ No Storage</span>
+        <span class="badge badge-green">${SVG.check} Free</span>
+        <span class="badge badge-green">${SVG.check} Client-Side</span>
+        <span class="badge badge-green">${SVG.check} No Login</span>
+        <span class="badge badge-green">${SVG.check} No Storage</span>
       </div>
     </div>
   </div>
@@ -385,6 +388,9 @@ ${JSON.stringify({
 </script>`
   });
 
+  // Map category id to SVG icon
+  const catIcons = { crypto: SVG.lock, encoding: SVG.box, dev: SVG.gear };
+
   function categorySection(catId) {
     const cat       = categories.find(c => c.id === catId);
     const catTools  = tools.filter(t => t.category === catId);
@@ -397,7 +403,7 @@ ${JSON.stringify({
     return `
     <section class="hub-section" id="${catId}" aria-labelledby="${catId}-heading">
       <div class="hub-header">
-        <h2 id="${catId}-heading">${cat.icon} ${cat.label}</h2>
+        <h2 id="${catId}-heading"><span class="hub-icon">${catIcons[catId]}</span> ${cat.label}</h2>
         <p>${cat.description}</p>
       </div>
       <div class="tools-grid">
@@ -442,9 +448,9 @@ ${buildNavbar()}
 
       <!-- Hub quick-links -->
       <div class="hub-pills" aria-label="Jump to category">
-        <a href="#crypto" class="hub-pill">🔐 Crypto Hub</a>
-        <a href="#encoding" class="hub-pill">📦 Data Hub</a>
-        <a href="#dev" class="hub-pill">⚙️ Dev Hub</a>
+        <a href="#crypto" class="hub-pill"><span class="hub-pill-icon">${SVG.lock}</span> Crypto Hub</a>
+        <a href="#encoding" class="hub-pill"><span class="hub-pill-icon">${SVG.box}</span> Data Hub</a>
+        <a href="#dev" class="hub-pill"><span class="hub-pill-icon">${SVG.gear}</span> Dev Hub</a>
       </div>
     </div>
   </section>
@@ -535,6 +541,8 @@ function buildCategoryPage(cat) {
           <div class="tool-card-tag">${t.tagline}</div>
         </a>`).join('');
 
+  const catIcon = { crypto: SVG.lock, encoding: SVG.box, dev: SVG.gear }[cat.id] || '';
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -554,7 +562,7 @@ ${buildNavbar()}
         <span aria-hidden="true">›</span>
         <span aria-current="page">${cat.label}</span>
       </nav>
-      <h1>${cat.icon} ${cat.label}</h1>
+      <h1><span class="hub-icon">${catIcon}</span> ${cat.label}</h1>
       <p class="cat-desc">${cat.description} — ${catTools.length} tools, all free and client-side.</p>
     </div>
   </div>

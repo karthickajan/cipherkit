@@ -59,20 +59,31 @@
   display:  flex;
   gap:      4px;
   flex:     1;
+  align-items: center;
 }
 .nav-link {
+  display:     inline-flex;
+  align-items: center;
+  gap:         6px;
   font-size:   12px;
   color:       var(--muted);
   padding:     6px 12px;
   border-radius: 6px;
   transition:  all .15s;
   white-space: nowrap;
+  line-height: 1;
 }
 .nav-link:hover {
   color:      var(--text);
   background: var(--sf2);
   opacity:    1;
 }
+.nav-icon {
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-icon svg { width: 13px; height: 13px; }
 
 /* Header badges */
 .header-badges { display: flex; gap: 10px; margin-left: auto; }
@@ -142,12 +153,21 @@
 }
 
 .footer-col h3 {
+  display:       flex;
+  align-items:   center;
+  gap:           6px;
   font-size:     12px;
   color:         var(--muted);
   text-transform: uppercase;
   letter-spacing: .1em;
   margin-bottom: 12px;
 }
+.footer-icon {
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.footer-icon svg { width: 13px; height: 13px; }
 .footer-col ul {
   list-style: none;
   display:    flex;
@@ -192,7 +212,9 @@
   border-radius: 20px;
   padding:       5px 14px;
   margin-bottom: 20px;
+  line-height:   1;
 }
+.hero-pill svg { flex-shrink: 0; }
 
 .hero h1 {
   font-size:     clamp(32px, 5vw, 54px);
@@ -242,12 +264,16 @@
   flex-wrap:   wrap;
 }
 .hub-pill {
+  display:     inline-flex;
+  align-items: center;
+  gap:         6px;
   font-size:   12px;
   color:       var(--muted);
   border:      1px solid var(--border);
   border-radius: 20px;
   padding:     6px 14px;
   transition:  all .15s;
+  line-height: 1;
 }
 .hub-pill:hover {
   color:         var(--green);
@@ -255,6 +281,12 @@
   opacity:       1;
   background:    rgba(61,214,140,.04);
 }
+.hub-pill-icon {
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.hub-pill-icon svg { width: 12px; height: 12px; }
 
 /* ── TOOLS GRID ──────────────────────────────────────────────────────────── */
 .hubs-wrap {
@@ -271,8 +303,17 @@
   margin-bottom: 24px;
 }
 .hub-header h2 {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
   margin-bottom: 6px;
 }
+.hub-icon {
+  display:     inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.hub-icon svg { width: 18px; height: 18px; }
 .hub-header p {
   font-size: 13px;
 }
