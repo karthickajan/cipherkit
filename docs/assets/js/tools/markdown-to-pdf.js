@@ -1,16 +1,21 @@
 /**
  * CipherKit — Markdown to PDF  (marked.js tokens → jsPDF direct render)
  *
- * Pipeline:  markdown → marked.lexer() tokens → walk tokens → jsPDF text/line/rect
+ * Quality features:
+ *   • Page numbers in footer with separator line
+ *   • Proper heading typography with scaled sizes + h1/h2 underlines
+ *   • Inline code with grey background pill
+ *   • Fenced code blocks: grey background, line numbers, language label
+ *   • Blockquotes with coloured left border + light background
+ *   • Tables with header shading + alternating row stripes
+ *   • Nested lists with depth-aware bullets (•, ◦, ▪)
+ *   • Links rendered in blue with underline
+ *   • Proper paragraph / element spacing
  *
- * Supported: headings 1-6, bold, italic, bold-italic, inline code, fenced
- * code blocks, blockquotes, unordered & ordered lists (nested), horizontal
- * rules, links (rendered as text + URL), tables, paragraph text wrapping,
- * and page breaks.
- *
- * Why not jsPDF.html()? — html2canvas cannot capture off-screen elements
- * reliably, producing blank pages. Token-based rendering is deterministic,
- * produces small PDFs (~50-200 KB), and works 100% offline.
+ * Limitations (client-side only, no server):
+ *   • 14 built-in PDF fonts only (Helvetica, Times, Courier)
+ *   • No embedded images
+ *   • Complex CSS layouts impossible
  */
 (function () {
   'use strict';
@@ -54,7 +59,7 @@
     return null;
   }
 
-  /* ── PREVIEW (renders HTML via marked.parse for visual check) ── */
+  /* ── PREVIEW ── */
   $('btn-preview').addEventListener('click', function () {
     var md = $('t-input').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
@@ -62,11 +67,13 @@
     var m = getMarked();
     if (!m) { $('t-err').textContent = 'marked.js not loaded. Please refresh.'; $('t-err').style.display = 'block'; return; }
     var html = m.parse(md, { gfm: true, breaks: true });
-    $('t-result').innerHTML = '<div style="background:#fff;color:#1a1a1a;padding:24px;border-radius:6px;font-family:Helvetica,Arial,sans-serif;font-size:' + $('t-font').value + 'pt;line-height:1.7">' + html + '</div>';
+    var css = 'background:#fff;color:#1a1a1a;padding:28px 24px;border-radius:6px;'
+      + 'font-family:Georgia,\"Times New Roman\",serif;font-size:' + $('t-font').value + 'pt;line-height:1.8';
+    $('t-result').innerHTML = '<div style="' + css + '">' + html + '</div>';
   });
 
   /* ═══════════════════════════════════════════════════════════════════════
-     PDF GENERATOR  — walks marked.lexer() tokens and draws with jsPDF
+     PDF GENERATOR — walks marked.lexer() tokens → jsPDF draw commands
      ═══════════════════════════════════════════════════════════════════ */
   $('btn-gen').addEventListener('click', function () {
     var md = $('t-input').value.trim();
@@ -83,266 +90,352 @@
 
     $('t-result').innerHTML = '<span style="color:var(--muted)">Generating PDF\u2026</span>';
 
+    /* ── Config ── */
     var fontSize = parseInt($('t-font').value, 10);
     var doc = new jsPDFClass({ unit: 'pt', format: 'a4' });
-    var pw = doc.internal.pageSize.getWidth();    // ~595
-    var ph = doc.internal.pageSize.getHeight();   // ~842
-    var mx = 50, my = 50;                         // margins
-    var mw = pw - mx * 2;                         // max text width
-    var y = my;
-    var lineH = fontSize * 1.55;
+    var pw = doc.internal.pageSize.getWidth();
+    var ph = doc.internal.pageSize.getHeight();
+    var ml = 56, mr = 56, mt = 60, mb = 60;
+    var mw = pw - ml - mr;
+    var y = mt;
+    var lh = fontSize * 1.65;
 
-    /* ── Page check ── */
-    function needPage(h) {
-      if (y + h > ph - my) { doc.addPage(); y = my; }
+    /* Colours */
+    var C = {
+      black:   [30, 30, 30],
+      grey60:  [100, 100, 100],
+      grey90:  [220, 220, 220],
+      codeBg:  [245, 247, 250],
+      codeBdr: [215, 220, 228],
+      bqBg:    [245, 245, 250],
+      bqBar:   [120, 130, 220],
+      link:    [30, 80, 200],
+      tblHead: [235, 238, 245],
+      tblAlt:  [248, 249, 252]
+    };
+
+    /* ── Pages ── */
+    var pageNum = 1;
+
+    function addFooter() {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(160, 160, 160);
+      var fy = ph - 30;
+      doc.setDrawColor(230, 230, 230);
+      doc.setLineWidth(0.5);
+      doc.line(ml, fy - 12, pw - mr, fy - 12);
+      doc.text(pageNum.toString(), pw / 2, fy, { align: 'center' });
     }
 
-    /* ── Font helper ── */
-    function setFont(style, size) {
+    function newPage() {
+      addFooter();
+      doc.addPage();
+      pageNum++;
+      y = mt;
+    }
+
+    function needPage(h) {
+      if (y + h > ph - mb) newPage();
+    }
+
+    /* ── Fonts ── */
+    function setF(style, size) {
       var s = size || fontSize;
-      if (style === 'bold')       doc.setFont('helvetica', 'bold');
-      else if (style === 'italic') doc.setFont('helvetica', 'oblique');
-      else if (style === 'bolditalic') doc.setFont('helvetica', 'boldoblique');
-      else if (style === 'code')  doc.setFont('courier', 'normal');
-      else                        doc.setFont('helvetica', 'normal');
+      switch (style) {
+        case 'b':  doc.setFont('helvetica', 'bold'); break;
+        case 'i':  doc.setFont('helvetica', 'oblique'); break;
+        case 'bi': doc.setFont('helvetica', 'boldoblique'); break;
+        case 'c':  doc.setFont('courier', 'normal'); break;
+        case 'cb': doc.setFont('courier', 'bold'); break;
+        default:   doc.setFont('helvetica', 'normal');
+      }
       doc.setFontSize(s);
     }
 
-    /* ── Extract plain text from inline tokens ── */
-    function plainText(tokens) {
+    function setC(c) { doc.setTextColor(c[0], c[1], c[2]); }
+
+    /* ── Plain text extractor ── */
+    function plain(tokens) {
       if (!tokens) return '';
       var s = '';
       for (var i = 0; i < tokens.length; i++) {
         var t = tokens[i];
         if (t.type === 'text' || t.type === 'codespan') s += t.text || t.raw || '';
-        else if (t.type === 'strong' || t.type === 'em') s += plainText(t.tokens);
-        else if (t.type === 'link') s += plainText(t.tokens);
+        else if (t.type === 'strong' || t.type === 'em' || t.type === 'link') s += plain(t.tokens);
         else if (t.type === 'br') s += '\n';
         else s += t.text || t.raw || '';
       }
       return s;
     }
 
-    /* ── Render inline tokens with bold/italic/code styling ── */
-    function renderInline(tokens, xStart, maxWidth, baseSize) {
+    /* ── Render inline tokens with styling ── */
+    function renderInline(tokens, xStart, maxW, baseSz) {
       if (!tokens || !tokens.length) return;
-      var sz = baseSize || fontSize;
-      var lh = sz * 1.55;
+      var sz = baseSz || fontSize;
+      var ilh = sz * 1.65;
       var x = xStart;
-      var wrapW = maxWidth || mw;
+      var w = maxW || mw;
 
       for (var i = 0; i < tokens.length; i++) {
         var tk = tokens[i];
-        var txt = '';
-        var style = 'normal';
+        var txt = '', style = 'n', color = C.black, isLink = false, isCode = false;
 
-        if (tk.type === 'text') {
-          txt = tk.text || '';
-        } else if (tk.type === 'strong') {
-          txt = plainText(tk.tokens);
-          style = 'bold';
-        } else if (tk.type === 'em') {
-          txt = plainText(tk.tokens);
-          style = 'italic';
-        } else if (tk.type === 'codespan') {
-          txt = tk.text || '';
-          style = 'code';
-        } else if (tk.type === 'link') {
-          txt = plainText(tk.tokens) + ' (' + tk.href + ')';
-          style = 'normal';
-        } else if (tk.type === 'br') {
-          x = xStart;
-          y += lh;
-          needPage(lh);
-          continue;
-        } else if (tk.type === 'escape') {
-          txt = tk.text || '';
-        } else {
-          txt = tk.text || tk.raw || '';
+        switch (tk.type) {
+          case 'text':   txt = tk.text || ''; break;
+          case 'escape': txt = tk.text || ''; break;
+          case 'strong':
+            if (tk.tokens && tk.tokens.length === 1 && tk.tokens[0].type === 'em') {
+              txt = plain(tk.tokens[0].tokens); style = 'bi';
+            } else { txt = plain(tk.tokens); style = 'b'; }
+            break;
+          case 'em':
+            if (tk.tokens && tk.tokens.length === 1 && tk.tokens[0].type === 'strong') {
+              txt = plain(tk.tokens[0].tokens); style = 'bi';
+            } else { txt = plain(tk.tokens); style = 'i'; }
+            break;
+          case 'codespan':
+            txt = tk.text || ''; style = 'c'; isCode = true; break;
+          case 'link':
+            txt = plain(tk.tokens); isLink = true; color = C.link; break;
+          case 'br':
+            x = xStart; y += ilh; needPage(ilh); continue;
+          default:
+            txt = tk.text || tk.raw || '';
         }
 
         if (!txt) continue;
 
-        setFont(style, style === 'code' ? sz * 0.9 : sz);
-        // Word-wrap this text segment
+        var csz = isCode ? sz * 0.88 : sz;
+        setF(style, csz);
+        setC(color);
+
         var words = txt.split(/( +)/);
-        for (var w = 0; w < words.length; w++) {
-          var word = words[w];
+        for (var wi = 0; wi < words.length; wi++) {
+          var word = words[wi];
           if (!word) continue;
           var ww = doc.getTextWidth(word);
-          if (x + ww > xStart + wrapW && x > xStart) {
-            x = xStart;
-            y += lh;
-            needPage(lh);
+
+          if (x + ww > xStart + w && x > xStart) {
+            x = xStart; y += ilh; needPage(ilh);
           }
-          needPage(lh);
+          needPage(ilh);
+
+          // Code background pill
+          if (isCode && word.trim()) {
+            var p = 2.5;
+            doc.setFillColor(C.codeBg[0], C.codeBg[1], C.codeBg[2]);
+            doc.setDrawColor(C.codeBdr[0], C.codeBdr[1], C.codeBdr[2]);
+            doc.roundedRect(x - p, y - csz + 1, ww + p * 2, csz + 4, 2, 2, 'FD');
+            setC(C.black);
+          }
+
           doc.text(word, x, y);
+
+          // Link underline
+          if (isLink && word.trim()) {
+            doc.setDrawColor(C.link[0], C.link[1], C.link[2]);
+            doc.setLineWidth(0.5);
+            doc.line(x, y + 2, x + ww, y + 2);
+          }
+
           x += ww;
         }
-        setFont('normal', sz);
-      }
 
-      y += lh;
+        setF('n', sz); setC(C.black);
+      }
+      y += ilh;
     }
 
-    /* ── Render a list (recursive for nesting) ── */
+    /* ── Render a list ── */
     function renderList(items, ordered, depth) {
-      var indent = mx + depth * 18;
+      var indent = ml + depth * 20;
+      var bullets = ['\u2022', '\u25E6', '\u25AA'];
+
       for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        var bullet = ordered ? (i + 1) + '. ' : '\u2022 ';
-        needPage(lineH);
-        setFont('normal');
+        var bullet = ordered ? (i + 1) + '.' : bullets[Math.min(depth, 2)];
+
+        needPage(lh);
+        setF('n'); setC(C.grey60);
         doc.text(bullet, indent, y);
-        var bw = doc.getTextWidth(bullet);
-        // Get inline text from item tokens
-        var inlineTokens = [];
-        var subLists = [];
+        setC(C.black);
+        var bw = doc.getTextWidth(bullet + ' ');
+
+        var inlineTk = [], subLists = [];
         if (item.tokens) {
           for (var j = 0; j < item.tokens.length; j++) {
             var sub = item.tokens[j];
-            if (sub.type === 'text' && sub.tokens) {
-              inlineTokens = inlineTokens.concat(sub.tokens);
-            } else if (sub.type === 'paragraph' && sub.tokens) {
-              inlineTokens = inlineTokens.concat(sub.tokens);
-            } else if (sub.type === 'list') {
-              subLists.push(sub);
-            }
+            if ((sub.type === 'text' || sub.type === 'paragraph') && sub.tokens)
+              inlineTk = inlineTk.concat(sub.tokens);
+            else if (sub.type === 'list') subLists.push(sub);
           }
         }
-        if (inlineTokens.length) {
-          var startY = y;
-          y = startY - lineH; // renderInline adds lineH at end
-          renderInline(inlineTokens, indent + bw, mw - (indent - mx) - bw);
+
+        if (inlineTk.length) {
+          var sy = y;
+          y = sy - lh;
+          renderInline(inlineTk, indent + bw, mw - (indent - ml) - bw);
         } else {
-          var raw = plainText(item.tokens);
+          var raw = plain(item.tokens);
           if (raw) {
-            var wl = doc.splitTextToSize(raw, mw - (indent - mx) - bw);
+            setF('n');
+            var wl = doc.splitTextToSize(raw, mw - (indent - ml) - bw);
             for (var k = 0; k < wl.length; k++) {
-              needPage(lineH);
+              needPage(lh);
               doc.text(wl[k], indent + bw, y);
-              if (k < wl.length - 1) y += lineH;
+              if (k < wl.length - 1) y += lh;
             }
           }
-          y += lineH;
+          y += lh;
         }
-        // Render nested lists
-        for (var n = 0; n < subLists.length; n++) {
+
+        for (var n = 0; n < subLists.length; n++)
           renderList(subLists[n].items, subLists[n].ordered, depth + 1);
-        }
       }
     }
 
-    /* ── Walk top-level tokens ── */
+    /* ── Walk tokens ── */
     var tokens;
-    try {
-      tokens = m.lexer(md);
-    } catch (e) {
-      $('t-err').textContent = 'Markdown parse error: ' + e.message;
-      $('t-err').style.display = 'block';
-      return;
+    try { tokens = m.lexer(md); }
+    catch (e) {
+      $('t-err').textContent = 'Parse error: ' + e.message;
+      $('t-err').style.display = 'block'; return;
     }
+
+    setC(C.black);
 
     for (var i = 0; i < tokens.length; i++) {
       var token = tokens[i];
 
       /* ── Heading ── */
       if (token.type === 'heading') {
-        var hSizes = [0, fontSize + 12, fontSize + 8, fontSize + 5, fontSize + 3, fontSize + 1, fontSize];
-        var hs = hSizes[token.depth] || fontSize;
+        var hSz  = [0, fontSize + 14, fontSize + 10, fontSize + 6, fontSize + 3, fontSize + 1, fontSize];
+        var hClr = [null, C.black, C.black, [40,40,40], [50,50,50], C.grey60, C.grey60];
+        var hs = hSz[token.depth] || fontSize;
         var hlh = hs * 1.6;
-        needPage(hlh + 6);
-        y += 4;
-        setFont('bold', hs);
-        var hText = plainText(token.tokens);
+
+        y += token.depth <= 2 ? fontSize * 1.2 : fontSize * 0.7;
+        needPage(hlh + 10);
+
+        setF('b', hs);
+        setC(hClr[token.depth] || C.black);
+
+        var hText = plain(token.tokens);
         var hLines = doc.splitTextToSize(hText, mw);
         for (var hi = 0; hi < hLines.length; hi++) {
-          needPage(hlh);
-          doc.text(hLines[hi], mx, y);
-          y += hlh;
+          needPage(hlh); doc.text(hLines[hi], ml, y); y += hlh;
         }
-        // Underline for h1 and h2
+
         if (token.depth <= 2) {
-          doc.setDrawColor(200);
-          doc.setLineWidth(token.depth === 1 ? 1.5 : 0.5);
-          doc.line(mx, y - hlh + 4, pw - mx, y - hlh + 4);
+          doc.setDrawColor(C.grey90[0], C.grey90[1], C.grey90[2]);
+          doc.setLineWidth(token.depth === 1 ? 2 : 0.75);
+          doc.line(ml, y - hlh * 0.3, pw - mr, y - hlh * 0.3);
+          y += token.depth === 1 ? 4 : 2;
         }
-        y += 2;
-        setFont('normal');
+
+        y += fontSize * 0.3;
+        setF('n'); setC(C.black);
         continue;
       }
 
       /* ── Paragraph ── */
       if (token.type === 'paragraph') {
-        needPage(lineH);
-        renderInline(token.tokens, mx, mw);
-        y += 2;
+        needPage(lh);
+        renderInline(token.tokens, ml, mw);
+        y += fontSize * 0.35;
         continue;
       }
 
       /* ── Code block ── */
       if (token.type === 'code') {
-        var codeLines = (token.text || '').split('\n');
-        var codeLH = (fontSize * 0.85) * 1.5;
-        var blockH = codeLines.length * codeLH + 14;
-        needPage(Math.min(blockH, ph - my * 2));
-        // Background rect
-        doc.setFillColor(246, 248, 250);
-        doc.setDrawColor(220);
-        doc.roundedRect(mx, y - 2, mw, blockH, 3, 3, 'FD');
-        y += 8;
-        setFont('code', fontSize * 0.85);
-        for (var ci = 0; ci < codeLines.length; ci++) {
-          needPage(codeLH);
-          var cl = doc.splitTextToSize(codeLines[ci] || ' ', mw - 16);
-          for (var cli = 0; cli < cl.length; cli++) {
-            doc.text(cl[cli], mx + 8, y);
-            y += codeLH;
-          }
+        var codeText = token.text || '';
+        var codeLines = codeText.split('\n');
+        var cSz = fontSize * 0.82;
+        var cLH = cSz * 1.55;
+        var padV = 12, padH = 14;
+        var lnW = codeLines.length >= 100 ? 32 : codeLines.length >= 10 ? 24 : 18;
+        var blockH = codeLines.length * cLH + padV * 2;
+
+        y += 4;
+        needPage(Math.min(blockH, ph - mt - mb));
+        var bTop = y - padV + 2;
+
+        // Background
+        doc.setFillColor(C.codeBg[0], C.codeBg[1], C.codeBg[2]);
+        doc.setDrawColor(C.codeBdr[0], C.codeBdr[1], C.codeBdr[2]);
+        doc.setLineWidth(0.5);
+        doc.roundedRect(ml, bTop, mw, blockH, 4, 4, 'FD');
+
+        // Language label
+        if (token.lang) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(cSz * 0.85);
+          doc.setTextColor(150, 155, 165);
+          doc.text(token.lang.toUpperCase(), pw - mr - padH, bTop + cSz * 0.85 + 4, { align: 'right' });
         }
-        y += 6;
-        setFont('normal');
+
+        y += 2;
+        setF('c', cSz);
+
+        for (var ci = 0; ci < codeLines.length; ci++) {
+          needPage(cLH);
+          // Line number
+          doc.setTextColor(170, 175, 185);
+          doc.text((ci + 1).toString(), ml + padH + lnW - 2, y, { align: 'right' });
+          // Code text
+          doc.setTextColor(50, 55, 65);
+          var cl = doc.splitTextToSize(codeLines[ci] || ' ', mw - padH * 2 - lnW - 8);
+          for (var cli = 0; cli < cl.length; cli++) {
+            doc.text(cl[cli], ml + padH + lnW + 6, y);
+            if (cli < cl.length - 1) { y += cLH; needPage(cLH); }
+          }
+          y += cLH;
+        }
+
+        y += padV + 4;
+        setF('n'); setC(C.black);
         continue;
       }
 
       /* ── Blockquote ── */
       if (token.type === 'blockquote') {
-        var bqText = plainText(token.tokens);
-        var bqLines = doc.splitTextToSize(bqText, mw - 24);
-        var bqH = bqLines.length * lineH + 4;
-        needPage(bqH);
-        doc.setFillColor(245, 245, 245);
-        doc.roundedRect(mx, y - 4, mw, bqH + 4, 2, 2, 'F');
-        doc.setFillColor(180, 180, 180);
-        doc.rect(mx, y - 4, 3, bqH + 4, 'F');
-        setFont('italic');
-        doc.setTextColor(100);
-        for (var bi = 0; bi < bqLines.length; bi++) {
-          needPage(lineH);
-          doc.text(bqLines[bi], mx + 14, y);
-          y += lineH;
-        }
+        var bqText = plain(token.tokens);
+        setF('i');
+        var bqLines = doc.splitTextToSize(bqText, mw - 28);
+        var bqH = bqLines.length * lh + 12;
+
         y += 4;
-        doc.setTextColor(0);
-        setFont('normal');
+        needPage(bqH);
+
+        doc.setFillColor(C.bqBg[0], C.bqBg[1], C.bqBg[2]);
+        doc.roundedRect(ml, y - lh + 4, mw, bqH, 3, 3, 'F');
+        doc.setFillColor(C.bqBar[0], C.bqBar[1], C.bqBar[2]);
+        doc.rect(ml, y - lh + 4, 3.5, bqH, 'F');
+
+        setF('i'); setC(C.grey60);
+        for (var bi = 0; bi < bqLines.length; bi++) {
+          needPage(lh); doc.text(bqLines[bi], ml + 16, y); y += lh;
+        }
+        y += 8; setC(C.black); setF('n');
         continue;
       }
 
       /* ── List ── */
       if (token.type === 'list') {
+        y += 2;
         renderList(token.items, token.ordered, 0);
-        y += 4;
+        y += fontSize * 0.3;
         continue;
       }
 
-      /* ── Horizontal rule ── */
+      /* ── HR ── */
       if (token.type === 'hr') {
-        y += 6;
-        needPage(4);
-        doc.setDrawColor(200);
+        y += fontSize * 0.8; needPage(4);
+        doc.setDrawColor(C.grey90[0], C.grey90[1], C.grey90[2]);
         doc.setLineWidth(1);
-        doc.line(mx, y, pw - mx, y);
-        y += 10;
+        doc.line(ml + mw * 0.1, y, pw - mr - mw * 0.1, y);
+        y += fontSize * 0.8;
         continue;
       }
 
@@ -350,44 +443,57 @@
       if (token.type === 'table') {
         var cols = token.header.length;
         var colW = mw / cols;
-        var tLH = fontSize * 1.3;
+        var tSz = fontSize * 0.88;
+        var tLH = tSz * 1.5;
+        var cp = 6;
+
+        y += 6;
+
         // Header
-        needPage(tLH + 8);
-        doc.setFillColor(240, 242, 245);
-        doc.rect(mx, y - tLH + 2, mw, tLH + 4, 'F');
-        setFont('bold', fontSize * 0.9);
+        needPage(tLH + cp * 2);
+        doc.setFillColor(C.tblHead[0], C.tblHead[1], C.tblHead[2]);
+        doc.rect(ml, y - tLH + 2, mw, tLH + cp, 'F');
+        doc.setDrawColor(C.grey90[0], C.grey90[1], C.grey90[2]);
+        doc.setLineWidth(0.5);
+        doc.line(ml, y + cp + 2, pw - mr, y + cp + 2);
+
+        setF('b', tSz); setC(C.black);
         for (var hi2 = 0; hi2 < cols; hi2++) {
-          var ht = plainText(token.header[hi2].tokens);
-          doc.text(ht, mx + hi2 * colW + 4, y, { maxWidth: colW - 8 });
+          doc.text(plain(token.header[hi2].tokens), ml + hi2 * colW + cp, y, { maxWidth: colW - cp * 2 });
         }
-        y += tLH + 4;
-        doc.setDrawColor(200);
-        doc.line(mx, y - tLH, pw - mx, y - tLH);
+        y += tLH + cp;
+
         // Rows
-        setFont('normal', fontSize * 0.9);
+        setF('n', tSz);
         for (var ri = 0; ri < token.rows.length; ri++) {
-          needPage(tLH + 4);
+          needPage(tLH + cp);
+          if (ri % 2 === 1) {
+            doc.setFillColor(C.tblAlt[0], C.tblAlt[1], C.tblAlt[2]);
+            doc.rect(ml, y - tLH + 2, mw, tLH + cp - 2, 'F');
+          }
+          setC(C.black);
           for (var ci2 = 0; ci2 < cols; ci2++) {
-            var ct = plainText(token.rows[ri][ci2].tokens);
-            doc.text(ct, mx + ci2 * colW + 4, y, { maxWidth: colW - 8 });
+            doc.text(plain(token.rows[ri][ci2].tokens), ml + ci2 * colW + cp, y, { maxWidth: colW - cp * 2 });
           }
           y += tLH + 2;
-          doc.setDrawColor(230);
-          doc.line(mx, y - tLH, pw - mx, y - tLH);
+          doc.setDrawColor(240, 240, 242);
+          doc.setLineWidth(0.3);
+          doc.line(ml, y - tLH + 2, pw - mr, y - tLH + 2);
         }
-        y += 6;
+        doc.setDrawColor(C.grey90[0], C.grey90[1], C.grey90[2]);
+        doc.setLineWidth(0.5);
+        doc.line(ml, y - tLH + 2, pw - mr, y - tLH + 2);
+        y += 8;
         continue;
       }
 
       /* ── Space ── */
-      if (token.type === 'space') {
-        y += fontSize * 0.5;
-        continue;
-      }
+      if (token.type === 'space') { y += fontSize * 0.5; continue; }
     }
 
+    addFooter();
     doc.save('cipherkit-export.pdf');
-    $('t-result').innerHTML = '<span style="color:var(--green)">\u2713 PDF generated and downloaded as <code>cipherkit-export.pdf</code></span>';
+    $('t-result').innerHTML = '<span style="color:var(--purple)">\u2713 PDF generated and downloaded (' + pageNum + ' page' + (pageNum > 1 ? 's' : '') + ')</span>';
     CK.toast('PDF downloaded');
   });
 
@@ -400,15 +506,15 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.setUsageContent(
     '<ol><li>Type or paste <strong>Markdown</strong> text.</li>'
-    + '<li>Choose a <strong>font size</strong>.</li>'
+    + '<li>Choose a <strong>font size</strong> (10\u201314pt).</li>'
     + '<li>Click <strong>Preview</strong> to see rendered HTML output.</li>'
     + '<li>Click <strong>Generate PDF</strong> or press <kbd>Ctrl+Enter</kbd>.</li></ol>'
-    + '<p>Uses <strong>marked.js</strong> for full GitHub-Flavored Markdown parsing: '
-    + 'headings (with underlines for h1/h2), <strong>bold</strong>, <em>italic</em>, '
-    + '<code>inline code</code>, fenced code blocks (with grey background), '
-    + 'blockquotes (with left border), tables, links, ordered &amp; unordered lists '
-    + '(nested), horizontal rules, and paragraph wrapping.</p>'
-    + '<p>PDF is rendered directly via jsPDF text commands \u2014 no server, no html2canvas, '
-    + 'small file sizes (~50\u2013200 KB). All processing happens in your browser.</p>'
+    + '<p><strong>Supported formatting:</strong> headings with underlines, <strong>bold</strong>, <em>italic</em>, '
+    + '<code>inline code</code> (with background), fenced code blocks (with line numbers &amp; language label), '
+    + 'blockquotes (with left border), tables (with alternating row shading), links (blue + underline), '
+    + 'ordered &amp; unordered lists (with nesting), and horizontal rules.</p>'
+    + '<p><strong>Limitations:</strong> jsPDF can only use built-in PDF fonts (Helvetica, Times, Courier). '
+    + 'Custom fonts, images, and complex CSS layouts require a server-side renderer (Puppeteer/wkhtmltopdf). '
+    + 'This tool generates clean, well-formatted PDFs entirely in your browser.</p>'
   );
 })();
