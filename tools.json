@@ -1045,11 +1045,6 @@
           "src": "https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js",
           "integrity": "",
           "crossorigin": "anonymous"
-        },
-        {
-          "src": "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
-          "integrity": "",
-          "crossorigin": "anonymous"
         }
       ],
       "phase": 5,

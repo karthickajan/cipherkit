@@ -1,6 +1,30 @@
 /* CipherKit — tool.css
    Tool page layout and shared tool UI components */
 
+/* ── TOOL ACCENT COLOR SYSTEM ─────────────────────────────────────────────── */
+/* Each tool auto-inherits its accent from the tc-icon colour class.
+   Default is green; :has() overrides set purple / blue / amber accents.        */
+:root {
+  --accent:     var(--green);
+  --accent-dim: var(--gdim);
+  --accent-rgb: 61,214,140;
+}
+.tool-container:has(.tc-icon-purple) {
+  --accent:     var(--purple);
+  --accent-dim: rgba(176,131,240,.2);
+  --accent-rgb: 176,131,240;
+}
+.tool-container:has(.tc-icon-blue) {
+  --accent:     var(--blue);
+  --accent-dim: rgba(88,166,255,.2);
+  --accent-rgb: 88,166,255;
+}
+.tool-container:has(.tc-icon-amber) {
+  --accent:     var(--amber);
+  --accent-dim: rgba(232,160,32,.2);
+  --accent-rgb: 232,160,32;
+}
+
 /* ── TOOL PAGE LAYOUT ─────────────────────────────────────────────────────── */
 .tool-page { }
 
@@ -107,8 +131,8 @@
   transition:     all .18s;
 }
 .related-card:hover {
-  border-color: var(--green);
-  background:   rgba(61,214,140,.04);
+  border-color: var(--accent);
+  background:   rgba(var(--accent-rgb),.04);
   opacity:      1;
 }
 .related-title {
@@ -181,7 +205,7 @@
   flex-direction: column;
   transition:    border-color .25s;
 }
-.tool-card-ui:focus-within { border-color: #2a3e4e; }
+.tool-card-ui:focus-within { border-color: rgba(var(--accent-rgb),.15); }
 
 /* Card head */
 .tc-head {
@@ -282,8 +306,8 @@ select {
   background-repeat:   no-repeat;
   background-position: right 9px center;
 }
-select:focus         { border-color: rgba(61,214,140,.35); }
-select:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+select:focus         { border-color: rgba(var(--accent-rgb),.35); }
+select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Field */
 .field { display: flex; flex-direction: column; gap: 6px; }
@@ -319,10 +343,10 @@ select:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
   height:       20px;
 }
 .pill-btn svg   { width: 9px; height: 9px; flex-shrink: 0; }
-.pill-btn:hover { color: var(--green); border-color: var(--gdim); }
+.pill-btn:hover { color: var(--accent); border-color: var(--accent-dim); }
 .pill-btn.blue:hover  { color: var(--blue);  border-color: rgba(88,166,255,.3); }
 .pill-btn.amber:hover { color: var(--amber); border-color: rgba(232,160,32,.3); }
-.pill-btn:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.pill-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Textarea / Input */
 textarea,
@@ -347,11 +371,11 @@ textarea {
   display:    block;
 }
 textarea:focus, input[type=text]:focus, input[type=password]:focus, input[type=number]:focus {
-  border-color: rgba(61,214,140,.3);
-  box-shadow:   0 0 0 3px rgba(61,214,140,.05);
+  border-color: rgba(var(--accent-rgb),.3);
+  box-shadow:   0 0 0 3px rgba(var(--accent-rgb),.05);
 }
 textarea:focus-visible, input:focus-visible {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -384,7 +408,7 @@ textarea:focus-visible, input:focus-visible {
 .icon-btn svg   { width: 11px; height: 11px; }
 .icon-btn:hover { color: var(--amber); border-color: rgba(232,160,32,.35); }
 .icon-btn.vis:hover { color: var(--blue); border-color: rgba(88,166,255,.3); }
-.icon-btn:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Key strength bar */
 .kbar-wrap { height: 9px; margin-top: 2px; }
@@ -428,7 +452,7 @@ textarea:focus-visible, input:focus-visible {
   background: var(--sf2);
   color:      var(--text);
 }
-.mt:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.mt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Action button */
 .act-btn {
@@ -502,9 +526,9 @@ textarea:focus-visible, input:focus-visible {
   transition:  all .15s;
 }
 .copy-btn svg   { width: 10px; height: 10px; }
-.copy-btn:hover { color: var(--green); border-color: var(--gdim); }
-.copy-btn.ok    { color: var(--green); border-color: var(--gdim); }
-.copy-btn:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.copy-btn:hover { color: var(--accent); border-color: var(--accent-dim); }
+.copy-btn.ok    { color: var(--accent); border-color: var(--accent-dim); }
+.copy-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .out-body {
   padding:    13px 14px;
@@ -647,23 +671,23 @@ input[type="file"] {
   outline:       none;
 }
 input[type="file"]:hover {
-  border-color:  var(--green);
-  background:    rgba(61,214,140,.03);
+  border-color:  var(--accent);
+  background:    rgba(var(--accent-rgb),.03);
   color:         var(--text);
 }
 input[type="file"]:focus,
 input[type="file"]:focus-visible {
-  border-color:  var(--green);
-  background:    rgba(61,214,140,.04);
-  outline:       2px solid var(--green);
+  border-color:  var(--accent);
+  background:    rgba(var(--accent-rgb),.04);
+  outline:       2px solid var(--accent);
   outline-offset: 2px;
 }
 input[type="file"]::file-selector-button {
   padding:       8px 18px;
-  border:        1px solid var(--green);
+  border:        1px solid var(--accent);
   border-radius: 6px;
-  background:    rgba(61,214,140,.1);
-  color:         var(--green);
+  background:    rgba(var(--accent-rgb),.1);
+  color:         var(--accent);
   font-family:   var(--mono);
   font-size:     12px;
   font-weight:   700;
@@ -674,7 +698,7 @@ input[type="file"]::file-selector-button {
   letter-spacing: .06em;
 }
 input[type="file"]::file-selector-button:hover {
-  background:    var(--green);
+  background:    var(--accent);
   color:         #02150a;
 }
 
@@ -782,7 +806,7 @@ input[type="file"]::file-selector-button:hover {
 }
 .dl-btn svg   { width: 10px; height: 10px; }
 .dl-btn:hover { color: var(--blue); border-color: rgba(88,166,255,.3); }
-.dl-btn:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.dl-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ── INPUT META (char/byte counter) ──────────────────────────────────────── */
 .input-meta {
