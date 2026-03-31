@@ -558,7 +558,7 @@
       "relatedTools": ["jwt-encoder", "hmac-generator", "base64-decode"],
       "jsFile": "jwt-decoder.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 29
     },
     {
@@ -574,7 +574,7 @@
       "relatedTools": ["jwt-decoder", "hmac-generator", "base64-encode"],
       "jsFile": "jwt-encoder.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 30
     },
     {
@@ -590,7 +590,7 @@
       "relatedTools": ["random-string-generator", "random-password-generator"],
       "jsFile": "uuid-generator.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 31
     },
     {
@@ -606,7 +606,7 @@
       "relatedTools": ["random-string-generator", "uuid-generator", "hmac-generator"],
       "jsFile": "random-password-generator.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 32
     },
     {
@@ -622,7 +622,7 @@
       "relatedTools": ["random-password-generator", "uuid-generator"],
       "jsFile": "random-string-generator.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 33
     },
     {
@@ -638,7 +638,7 @@
       "relatedTools": ["uuid-generator", "random-string-generator"],
       "jsFile": "unix-timestamp-converter.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 34
     },
     {
@@ -654,7 +654,7 @@
       "relatedTools": ["cron-expression-explainer", "unix-timestamp-converter"],
       "jsFile": "cron-expression-generator.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 35
     },
     {
@@ -670,7 +670,7 @@
       "relatedTools": ["cron-expression-generator", "unix-timestamp-converter"],
       "jsFile": "cron-expression-explainer.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 36
     },
     {
@@ -686,7 +686,7 @@
       "relatedTools": ["jwt-decoder", "url-decode", "json-formatter"],
       "jsFile": "http-header-parser.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 37
     },
     {
@@ -725,7 +725,7 @@
       "relatedTools": ["json-formatter", "diff-checker"],
       "jsFile": "regex-tester.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 39
     },
     {
@@ -741,7 +741,7 @@
       "relatedTools": ["number-base-converter"],
       "jsFile": "color-converter.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 40
     },
     {
@@ -757,7 +757,7 @@
       "relatedTools": ["hex-encode", "binary-encode", "color-converter"],
       "jsFile": "number-base-converter.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 41
     },
     {
@@ -773,7 +773,7 @@
       "relatedTools": ["word-counter", "random-string-generator"],
       "jsFile": "lorem-ipsum-generator.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 42
     },
     {
@@ -789,7 +789,7 @@
       "relatedTools": ["json-formatter", "diff-checker"],
       "jsFile": "sql-formatter.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 43
     },
     {
@@ -805,7 +805,7 @@
       "relatedTools": ["json-formatter", "diff-checker", "word-counter"],
       "jsFile": "markdown-preview.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 44
     },
     {
@@ -821,7 +821,7 @@
       "relatedTools": ["json-formatter", "markdown-preview", "word-counter"],
       "jsFile": "diff-checker.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 45
     },
     {
@@ -837,7 +837,7 @@
       "relatedTools": ["lorem-ipsum-generator", "diff-checker", "markdown-preview"],
       "jsFile": "word-counter.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 46
     },
     {
@@ -853,7 +853,7 @@
       "relatedTools": ["http-header-parser", "number-base-converter"],
       "jsFile": "ip-address-tools.js",
       "phase": 4,
-      "status": "planned",
+      "status": "ready",
       "priority": 47
     },
     {
