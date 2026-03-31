@@ -467,6 +467,9 @@
   });
 
   /* ── USAGE CONTENT (SEO) ────────────────────────────────────────────────── */
+  
+  CK.wireCtrlEnter('btn-gen-key');
+
   CK.setUsageContent(
     '<ol>'
     + '<li><strong>Enter your plaintext</strong> in the left panel. This is the text you want to encrypt.</li>'

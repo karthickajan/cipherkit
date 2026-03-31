@@ -26,9 +26,9 @@
     +   '<div class="tc-body" role="region" aria-labelledby="h-heading">'
     +     '<div class="notice notice-amber" role="note"><span class="notice-icon">' + IC.warn + '</span><span>SHA-1 is considered cryptographically weak. Use SHA-256 or SHA-3 for security-critical applications.</span></div>'
     +     '<div class="ctrl-row"><div class="sel-group"><label for="h-fmt">Output Format</label><select id="h-fmt"><option>Hex</option><option>Base64</option></select></div></div>'
-    +     '<div class="field"><div class="field-hdr"><label for="h-input">Input Text</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear input">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="h-input" placeholder="Enter text to hash\u2026" rows="5"></textarea><div class="inline-error" id="h-err" role="alert"></div></div>'
+    +     '<div class="field"><div class="field-hdr"><label for="h-input">Input Text</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear input">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="h-input" placeholder="Enter text to hash\u2026" rows="5"></textarea><div class="input-meta" id="h-input-meta"></div><div class="inline-error" id="h-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-amber" id="btn-gen" aria-label="Generate SHA-1 hash">' + IC.hash + ' <span>Generate Hash</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>SHA-1 Hash</span></div><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy hash">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body mono ph" id="h-result" role="status" aria-live="polite">Hash will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>SHA-1 Hash</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy hash">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="h-result" role="status" aria-live="polite">Hash will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -47,6 +47,11 @@
     $('h-result').className = 'out-body mono b'; $('h-result').textContent = out;
     CK.toast('SHA-1 hash generated');
   });
+
+  
+  CK.wireCtrlEnter('btn-gen');
+  CK.wireCharCounter($('h-input'), $('h-input-meta'));
+  CK.wireDownload($('btn-dl'), function () { var t = $('h-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'sha1-generator-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter or paste text</strong> into the input field.</li><li>Select <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate Hash</strong> to compute the SHA-1 digest.</li></ol><p>SHA-1 produces a 160-bit (20-byte) hash. <strong>Warning:</strong> SHA-1 is deprecated for security use due to known collision attacks. Use it only for legacy compatibility or checksums.</p>');
 })();

@@ -10,7 +10,8 @@
     shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
     copy:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     trash:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
-    play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
 
   var algos = ['MD5', 'SHA-1', 'SHA-256', 'SHA-512', 'SHA-3 (256)', 'RIPEMD-160'];
@@ -65,6 +66,9 @@
     $('r-ripemd').textContent = CryptoJS.RIPEMD160(input).toString();
     CK.toast('All checksums generated');
   });
+
+  
+  CK.wireCtrlEnter('btn-gen');
 
   CK.setUsageContent('<ol><li><strong>Enter or paste text</strong> into the input field.</li><li>Click <strong>Generate Checksums</strong> to compute all hash digests at once.</li><li>Copy any individual hash by clicking the copy button beside it.</li></ol><p>This tool generates MD5, SHA-1, SHA-256, SHA-512, SHA-3 (256-bit), and RIPEMD-160 checksums simultaneously. Useful for verifying file integrity and comparing hash outputs across algorithms.</p>');
 })();

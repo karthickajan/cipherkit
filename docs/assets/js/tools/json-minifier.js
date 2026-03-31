@@ -24,9 +24,9 @@
     +     '<span class="tc-badge tc-badge-purple">Minify</span>'
     +   '</div>'
     +   '<div class="tc-body" role="region" aria-labelledby="t-heading">'
-    +     '<div class="field"><div class="field-hdr"><label for="t-input">JSON Input</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Paste your JSON here\u2026" rows="8" class="mono"></textarea><div class="inline-error" id="t-err" role="alert"></div></div>'
+    +     '<div class="field"><div class="field-hdr"><label for="t-input">JSON Input</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Paste your JSON here\u2026" rows="8" class="mono"></textarea><div class="input-meta" id="t-input-meta"></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-purple" id="btn-min" aria-label="Minify JSON">' + IC.zip + ' <span>Minify</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Minified JSON</span></div><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Minified JSON will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Minified JSON</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Minified JSON will appear here\u2026</div></div>'
     +     '<div class="out-box" id="t-stats-box" style="display:none"><div class="out-head"><div class="out-label">' + IC.code + ' <span>Stats</span></div></div><div class="out-body" id="t-stats"></div></div>'
     +   '</div>'
     + '</div>'
@@ -56,6 +56,10 @@
       $('t-err').textContent = 'Invalid JSON: ' + e.message; $('t-err').style.display = 'block';
     }
   });
+
+  
+  CK.wireCharCounter($('t-input'), $('t-input-meta'));
+  CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'json-minifier-output.json');
 
   CK.setUsageContent('<ol><li><strong>Paste</strong> your formatted or prettified JSON.</li><li>Click <strong>Minify</strong> to remove all whitespace.</li></ol><p>The minifier strips all unnecessary whitespace and newlines from valid JSON. Shows size reduction stats. Perfect for reducing payload size in APIs and config files.</p>');
 })();

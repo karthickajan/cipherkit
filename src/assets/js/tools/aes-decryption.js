@@ -12,7 +12,8 @@
     copy:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     eye:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
     trash:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
-    play:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    play:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
@@ -34,7 +35,7 @@
     +     '<div class="field"><div class="field-hdr"><label for="dec-key">Secret Key</label></div><div class="input-wrap"><input type="text" id="dec-key" placeholder="Enter the decryption key\u2026" autocomplete="off"><div class="input-suffix"><button type="button" class="icon-btn vis" id="btn-vis" aria-label="Toggle key visibility">' + IC.eye + '</button></div></div><div class="inline-error" id="dec-k-err" role="alert"></div></div>'
     +     '<div class="field" id="dec-iv-wrap"><div class="field-hdr"><label for="dec-iv">IV &mdash; Initialization Vector</label></div><input type="text" id="dec-iv" placeholder="IV used during encryption" autocomplete="off"></div>'
     +     '<button type="button" class="act-btn act-blue" id="btn-dec" aria-label="Decrypt AES ciphertext">' + IC.unlock + ' <span>Decrypt</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decrypted Output</span></div><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy decrypted output">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body ph" id="dec-result" role="status" aria-live="polite">Output will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decrypted Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy decrypted output">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body ph" id="dec-result" role="status" aria-live="polite">Output will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -76,6 +77,9 @@
       CK.toast('Decrypted successfully');
     } catch (e) { el.className = 'out-body err'; el.textContent = 'Decryption failed: ' + e.message; }
   });
+
+  
+  CK.wireCtrlEnter('btn-dec');
 
   CK.setUsageContent('<ol><li><strong>Paste the AES ciphertext</strong> you want to decrypt.</li><li><strong>Select the key size</strong> (128, 192, or 256-bit) used during encryption.</li><li><strong>Choose the mode</strong> (CBC, ECB, CTR, OFB, or CFB) — must match encryption mode.</li><li><strong>Enter the secret key</strong> and <strong>IV</strong> used during encryption.</li><li>Click <strong>Decrypt</strong> to recover the plaintext.</li></ol><p>All decryption runs 100% in your browser using CryptoJS.</p>');
 })();

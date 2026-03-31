@@ -10,7 +10,8 @@
     clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
-    play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
@@ -78,7 +79,7 @@
     +   '<div class="tc-body" role="region" aria-labelledby="t-heading">'
     +     '<div class="field"><div class="field-hdr"><label for="t-input">Cron Expression</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><input type="text" id="t-input" placeholder="e.g. */5 * * * *" class="mono" value="0 9 * * 1-5"><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-amber" id="btn-exp" aria-label="Explain">' + IC.clock + ' <span>Explain</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Explanation</span></div><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button></div><pre class="out-body mono ph" id="t-result" role="status">Explanation will appear here\u2026</pre></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Explanation</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><pre class="out-body mono ph" id="t-result" role="status">Explanation will appear here\u2026</pre></div>'
     +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.clock + ' <span>Next 5 Runs</span></div></div><pre class="out-body mono ph" id="t-runs" role="status">Next runs will appear here\u2026</pre></div>'
     +   '</div>'
     + '</div>'
@@ -96,6 +97,9 @@
     $('t-runs').className='out-body mono b'; $('t-runs').textContent = runs.length ? runs.join('\n') : 'Could not compute next runs';
     CK.toast('Cron explained');
   });
+
+  
+  CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'cron-expression-explainer-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter</strong> a cron expression (5 fields: minute hour day month weekday).</li><li>Click <strong>Explain</strong> to see a plain-English breakdown and the next 5 scheduled run times.</li></ol><p>Supports <code>*</code>, <code>*/N</code>, ranges (<code>1-5</code>), and lists (<code>1,3,5</code>).</p>');
 })();

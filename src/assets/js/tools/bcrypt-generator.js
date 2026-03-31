@@ -12,7 +12,8 @@
     copy:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     eye:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
     trash:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
-    play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
@@ -30,7 +31,7 @@
     +     '<div class="field"><div class="field-hdr"><label for="b-pass">Password</label></div><div class="input-wrap"><input type="password" id="b-pass" placeholder="Enter password\u2026" autocomplete="off"><div class="input-suffix"><button type="button" class="icon-btn vis" id="btn-vis" aria-label="Toggle password visibility">' + IC.eye + '</button></div></div><div class="inline-error" id="b-p-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-green" id="btn-hash" aria-label="Generate bcrypt hash">' + IC.lock + ' <span>Generate Hash</span></button>'
     +     '<div id="b-load" class="loading-msg" style="display:none" aria-live="polite">Hashing\u2026</div>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Bcrypt Hash</span></div><button type="button" class="copy-btn" id="btn-cp-h" aria-label="Copy bcrypt hash">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body mono ph" id="b-result" role="status" aria-live="polite">Hash will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Bcrypt Hash</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp-h" aria-label="Copy bcrypt hash">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl-h" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="b-result" role="status" aria-live="polite">Hash will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     /* --- VERIFY --- */
@@ -94,6 +95,9 @@
       }
     });
   });
+
+  
+  CK.wireCtrlEnter('btn-hash');
 
   CK.setUsageContent('<ol><li><strong>Hash:</strong> Enter a password, select the cost rounds, and click Generate Hash to produce a bcrypt hash.</li><li><strong>Verify:</strong> Enter the password and paste the bcrypt hash, then click Verify to check if they match.</li></ol><p>Bcrypt is a password-hashing function designed to be computationally expensive, making brute-force attacks impractical. Higher rounds = more secure but slower. 12 rounds is recommended for most use cases.</p>');
 })();

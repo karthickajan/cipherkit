@@ -119,6 +119,45 @@
     if (el) el.innerHTML = html;
   }
 
+  /* ── DOWNLOAD OUTPUT ──────────────────────────────────────────────────── */
+  function downloadOutput(content, filename) {
+    if (!content) return;
+    const blob = new Blob([content], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename || 'output.txt';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast('Downloaded ' + filename);
+  }
+
+  function wireDownload(btnEl, getTextFn, filename) {
+    if (!btnEl) return;
+    btnEl.addEventListener('click', function () { downloadOutput(getTextFn(), filename); });
+  }
+
+  /* ── CTRL+ENTER SHORTCUT ──────────────────────────────────────────────── */
+  function wireCtrlEnter(btnId) {
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        var btn = document.getElementById(btnId);
+        if (btn) { e.preventDefault(); btn.click(); }
+      }
+    });
+  }
+
+  /* ── CHAR / BYTE COUNTER ──────────────────────────────────────────────── */
+  function wireCharCounter(textareaEl, counterEl) {
+    if (!textareaEl || !counterEl) return;
+    function update() {
+      var txt = textareaEl.value;
+      var bytes = new TextEncoder().encode(txt).length;
+      counterEl.textContent = txt.length + ' chars \u00B7 ' + bytes + ' bytes';
+    }
+    textareaEl.addEventListener('input', update);
+    update();
+  }
+
   /* ── ACTIVE NAV LINK ──────────────────────────────────────────────────── */
   (function markActiveNav() {
     const path  = window.location.pathname;
@@ -143,6 +182,10 @@
     initAutoGrow,
     wirePassToggle,
     setUsageContent,
+    downloadOutput,
+    wireDownload,
+    wireCtrlEnter,
+    wireCharCounter,
   };
 
 })();

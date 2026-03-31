@@ -11,7 +11,8 @@
     unlock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
     copy:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     trash:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
-    play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
@@ -38,7 +39,7 @@
     +     '<div class="field"><div class="field-hdr"><label for="enc-key">Public Key (PEM)</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr-ek" aria-label="Clear public key">' + IC.trash + '</button></div></div><textarea id="enc-key" placeholder="Paste RSA public key\u2026" rows="4" spellcheck="false"></textarea><div class="inline-error" id="enc-k-err" role="alert"></div></div>'
     +     '<div class="field"><div class="field-hdr"><label for="enc-input">Plaintext</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr-ei" aria-label="Clear plaintext">' + IC.trash + '</button></div></div><textarea id="enc-input" placeholder="Enter text to encrypt\u2026" rows="3"></textarea><div class="inline-error" id="enc-i-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-green" id="btn-enc" aria-label="Encrypt with RSA">' + IC.lock + ' <span>Encrypt</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Ciphertext (Base64)</span></div><button type="button" class="copy-btn" id="btn-cp-enc" aria-label="Copy ciphertext">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body mono ph" id="enc-result" role="status" aria-live="polite">Ciphertext will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Ciphertext (Base64)</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp-enc" aria-label="Copy ciphertext">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl-enc" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="enc-result" role="status" aria-live="polite">Ciphertext will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     /* --- DECRYPT --- */
@@ -51,7 +52,7 @@
     +     '<div class="field"><div class="field-hdr"><label for="dec-key">Private Key (PEM)</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr-dk" aria-label="Clear private key">' + IC.trash + '</button></div></div><textarea id="dec-key" placeholder="Paste RSA private key\u2026" rows="4" spellcheck="false"></textarea><div class="inline-error" id="dec-k-err" role="alert"></div></div>'
     +     '<div class="field"><div class="field-hdr"><label for="dec-input">Ciphertext (Base64)</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr-di" aria-label="Clear ciphertext">' + IC.trash + '</button></div></div><textarea id="dec-input" placeholder="Paste Base64 ciphertext\u2026" rows="3" spellcheck="false"></textarea><div class="inline-error" id="dec-i-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-blue" id="btn-dec" aria-label="Decrypt with RSA">' + IC.unlock + ' <span>Decrypt</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decrypted Output</span></div><button type="button" class="copy-btn" id="btn-cp-dec" aria-label="Copy decrypted output">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body mono ph" id="dec-result" role="status" aria-live="polite">Plaintext will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decrypted Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp-dec" aria-label="Copy decrypted output">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl-dec" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="dec-result" role="status" aria-live="polite">Plaintext will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -104,6 +105,9 @@
       $('dec-result').textContent = 'Decryption failed: ' + e.message;
     }).finally(function () { $('btn-dec').disabled = false; });
   });
+
+  
+  CK.wireCtrlEnter('btn-enc');
 
   CK.setUsageContent('<ol><li><strong>Encrypt:</strong> Paste an RSA public key (PEM) and plaintext, then click Encrypt.</li><li><strong>Decrypt:</strong> Paste an RSA private key (PEM) and the Base64 ciphertext, then click Decrypt.</li></ol><p>RSA encryption uses the Web Crypto API (RSA-OAEP with SHA-256). Maximum message size depends on key size (e.g., ~190 bytes for 2048-bit keys). Generate key pairs using the RSA Key Generator tool.</p>');
 })();

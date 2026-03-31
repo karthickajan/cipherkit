@@ -9,7 +9,8 @@
   var IC = {
     clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
-    play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
@@ -32,7 +33,7 @@
     +       '<button type="button" class="pill-btn" data-cron="*/5 * * * *">Every 5 min</button>'
     +       '<button type="button" class="pill-btn" data-cron="0 9-17 * * 1-5">Business hrs</button>'
     +     '</div>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Cron Expression</span></div><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body mono" id="t-result" style="font-size:18px;font-weight:700;color:var(--amber);text-align:center;padding:14px" role="status" aria-live="polite">* * * * *</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Cron Expression</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono" id="t-result" style="font-size:18px;font-weight:700;color:var(--amber);text-align:center;padding:14px" role="status" aria-live="polite">* * * * *</div></div>'
     +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.clock + ' <span>Explanation</span></div></div><div class="out-body" id="t-explain" role="status">Every minute</div></div>'
     +   '</div>'
     + '</div>'
@@ -82,6 +83,9 @@
 
   CK.wireCopy($('btn-cp'), function () { return $('t-result').textContent; });
   update();
+
+  
+  CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'cron-expression-generator-output.txt');
 
   CK.setUsageContent('<ol><li>Edit each <strong>field</strong> (minute, hour, day, month, weekday) or use a <strong>preset</strong>.</li><li>The cron expression and plain-English explanation update in real time.</li></ol><p>Standard 5-field cron syntax. Use <code>*</code> for any, <code>*/N</code> for intervals, <code>1,3,5</code> for lists, <code>1-5</code> for ranges.</p>');
 })();

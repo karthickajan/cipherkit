@@ -10,7 +10,8 @@
     diff:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M18 6H6"/><path d="M18 18H6"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
-    play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
@@ -46,7 +47,7 @@
     +     '<div class="field"><div class="field-hdr"><label for="t-left">Original Text</label></div><textarea id="t-left" placeholder="Paste original text\u2026" rows="8" class="mono"></textarea></div>'
     +     '<div class="field"><div class="field-hdr"><label for="t-right">Changed Text</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-right" placeholder="Paste changed text\u2026" rows="8" class="mono"></textarea></div>'
     +     '<button type="button" class="act-btn act-amber" id="btn-diff" aria-label="Compare">' + IC.diff + ' <span>Compare</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Diff Result</span></div><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body mono ph" id="t-result" style="white-space:pre;overflow-x:auto" role="status" aria-live="polite">Diff will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Diff Result</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="t-result" style="white-space:pre;overflow-x:auto" role="status" aria-live="polite">Diff will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -69,6 +70,9 @@
     $('t-result').className = 'out-body mono'; $('t-result').innerHTML = html;
     CK.toast('Diff computed');
   });
+
+  
+  CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'diff-checker-output.txt');
 
   CK.setUsageContent('<ol><li>Paste <strong>original text</strong> in the first field.</li><li>Paste <strong>changed text</strong> in the second field.</li><li>Click <strong>Compare</strong> to see line-by-line differences.</li></ol><p>Added lines shown in <span style="color:#3dd68c">green</span>, removed in <span style="color:#ff6b6b">red</span>. Shows a summary of added, removed, and unchanged line counts.</p>');
 })();

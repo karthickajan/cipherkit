@@ -10,7 +10,8 @@
     code:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
-    play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+    play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
@@ -69,9 +70,9 @@
     +   '</div>'
     +   '<div class="tc-body" role="region" aria-labelledby="t-heading">'
     +     '<div class="ctrl-row"><div class="sel-group"><label for="t-indent">Indent</label><select id="t-indent"><option value="2" selected>2 Spaces</option><option value="4">4 Spaces</option><option value="tab">Tab</option></select></div></div>'
-    +     '<div class="field"><div class="field-hdr"><label for="t-input">SQL Query</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Paste your SQL query here\u2026" rows="8" class="mono"></textarea><div class="inline-error" id="t-err" role="alert"></div></div>'
+    +     '<div class="field"><div class="field-hdr"><label for="t-input">SQL Query</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Paste your SQL query here\u2026" rows="8" class="mono"></textarea><div class="input-meta" id="t-input-meta"></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-amber" id="btn-fmt" aria-label="Format SQL">' + IC.code + ' <span>Format</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Formatted SQL</span></div><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button></div><pre class="out-body mono ph" id="t-result" role="status" aria-live="polite">Formatted SQL will appear here\u2026</pre></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Formatted SQL</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><pre class="out-body mono ph" id="t-result" role="status" aria-live="polite">Formatted SQL will appear here\u2026</pre></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -89,6 +90,11 @@
     $('t-result').className='out-body mono b'; $('t-result').textContent = formatted;
     CK.toast('SQL formatted');
   });
+
+  
+  CK.wireCtrlEnter('btn-fmt');
+  CK.wireCharCounter($('t-input'), $('t-input-meta'));
+  CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'sql-formatter-output.sql');
 
   CK.setUsageContent('<ol><li><strong>Paste</strong> your SQL query.</li><li>Choose <strong>indent</strong> style.</li><li>Click <strong>Format</strong>.</li></ol><p>Formats SELECT, INSERT, UPDATE, DELETE, CREATE, and JOIN statements. Keywords are uppercased, commas start new lines, and parentheses are indented.</p>');
 })();

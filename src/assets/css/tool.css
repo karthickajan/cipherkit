@@ -512,6 +512,9 @@ textarea:focus-visible, input:focus-visible {
   word-break: break-all;
   line-height: 1.7;
   min-height: 52px;
+  max-height: 320px;
+  overflow-y: auto;
+  resize:     vertical;
   font-family: var(--mono);
   white-space: pre-wrap;
 }
@@ -712,6 +715,43 @@ textarea:focus-visible, input:focus-visible {
   display:    flex;
   gap:        6px;
   align-items: center;
+}
+
+/* ── DOWNLOAD BUTTON ─────────────────────────────────────────────────────── */
+.dl-btn {
+  display:     flex;
+  align-items: center;
+  gap:         5px;
+  font-size:   12px;
+  color:       var(--muted);
+  background:  none;
+  border:      1px solid var(--border);
+  border-radius: 4px;
+  padding:     3px 10px;
+  cursor:      pointer;
+  font-family: var(--mono);
+  transition:  all .15s;
+}
+.dl-btn svg   { width: 10px; height: 10px; }
+.dl-btn:hover { color: var(--blue); border-color: rgba(88,166,255,.3); }
+.dl-btn:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* ── INPUT META (char/byte counter) ──────────────────────────────────────── */
+.input-meta {
+  font-size:   11px;
+  color:       var(--muted);
+  text-align:  right;
+  padding-top: 2px;
+  letter-spacing: .02em;
+}
+
+/* ── KEYBOARD SHORTCUT HINT ──────────────────────────────────────────────── */
+.shortcut-hint {
+  font-size: 11px;
+  color:     var(--muted);
+  text-align: center;
+  margin-top: 4px;
+  letter-spacing: .02em;
 }
 
 /* ── MONOSPACE OUTPUT ────────────────────────────────────────────────────── */
