@@ -118,7 +118,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
     .site-header{border-bottom:1px solid #1e2530;background:rgba(7,9,13,.88);position:sticky;top:0;z-index:200;backdrop-filter:blur(16px)}
     .header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:24px}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-    .logo-mark{width:30px;height:30px;background:#3dd68c;border-radius:6px;display:grid;place-items:center;flex-shrink:0}
+    .logo-mark{width:30px;height:30px;border-radius:6px;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
     .logo-mark svg{width:16px;height:16px}
     .logo-name{font-family:'Syne',Arial,sans-serif;font-weight:800;font-size:17px;color:#dde4ed;letter-spacing:-.4px}
     .logo-name em{color:#3dd68c;font-style:normal}
@@ -132,15 +132,28 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
 }
 
 // ── NAVBAR ──────────────────────────────────────────────────────────────────
-function buildNavbar() {
+function buildNavbar(headerBadge) {
+  const badgeColorMap = {
+    green:  { dot: 'var(--green)',  text: 'var(--green)' },
+    purple: { dot: 'var(--purple)', text: 'var(--purple)' },
+    blue:   { dot: 'var(--blue)',   text: 'var(--blue)' },
+    amber:  { dot: 'var(--amber)',  text: 'var(--amber)' },
+  };
+  const badge = headerBadge || { text: '100% Client-Side', color: 'green' };
+  const bc    = badgeColorMap[badge.color] || badgeColorMap.green;
+  const badgeStyle = badge.color !== 'green' ? ` style="color:${bc.text};border-color:${bc.dot}"` : '';
+  const dotStyle   = badge.color !== 'green' ? ` style="background:${bc.dot}"` : '';
+
   return `
 <header class="site-header">
   <div class="header-inner">
     <a href="${BASE_PATH}/" class="logo" aria-label="CipherKit — home">
       <div class="logo-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#3dd68c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="7" fill="#3dd68c"/>
+          <rect x="9" y="15" width="14" height="10" rx="2" fill="#02150a"/>
+          <path d="M12 15v-3a4 4 0 0 1 8 0v3" stroke="#02150a" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="16" cy="20" r="1.5" fill="#3dd68c"/>
         </svg>
       </div>
       <span class="logo-name">Cipher<em>Kit</em></span>
@@ -153,9 +166,9 @@ function buildNavbar() {
     </nav>
 
     <div class="header-badges" aria-label="Security guarantees">
-      <span class="hdr-badge">
-        <span class="live-dot" aria-hidden="true"></span>
-        100% Client-Side
+      <span class="hdr-badge"${badgeStyle}>
+        <span class="live-dot"${dotStyle} aria-hidden="true"></span>
+        ${badge.text}
       </span>
     </div>
   </div>
@@ -182,9 +195,11 @@ function buildFooter() {
     <div class="footer-brand">
       <a href="${BASE_PATH}/" class="logo">
         <div class="logo-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#3dd68c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="7" fill="#3dd68c"/>
+            <rect x="9" y="15" width="14" height="10" rx="2" fill="#02150a"/>
+            <path d="M12 15v-3a4 4 0 0 1 8 0v3" stroke="#02150a" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="16" cy="20" r="1.5" fill="#3dd68c"/>
           </svg>
         </div>
         <span class="logo-name">Cipher<em>Kit</em></span>
@@ -306,7 +321,7 @@ function buildToolPage(tool) {
     extraMeta: `<script type="application/ld+json">${buildSchema(tool)}</script>`
   });
 
-  const navbar     = buildNavbar();
+  const navbar     = buildNavbar(tool.headerBadge);
   const footer     = buildFooter();
   const related    = buildRelatedTools(tool);
 

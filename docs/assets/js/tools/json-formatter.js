@@ -2,6 +2,9 @@
  * CipherKit — JSON Formatter & Validator
  * Tree renderer with syntax highlighting, collapse/expand, line numbers,
  * search/filter, copy path on hover, expand/collapse all.
+ *
+ * Collapse/expand uses a parent→children map (_groupParent) so nested
+ * groups collapse/expand recursively and correctly.
  */
 (function () {
   'use strict';
@@ -75,6 +78,9 @@
     + '</div>';
 
   var _raw = '';
+  /* ── STATE ──────────────────────────────────────────────────────────── */
+  var _nid = 0;
+  var _groupParent = {};   /* groupId → parentGroupId */
 
   /* ── CLEAR ──────────────────────────────────────────────────────────── */
   $('btn-clr').addEventListener('click', function () {
@@ -82,23 +88,20 @@
     var r = $('t-result');
     r.className = 'out-body mono ph'; r.style.padding = ''; r.style.maxHeight = ''; r.style.resize = '';
     r.innerHTML = 'Formatted JSON will appear here\u2026';
-    $('jt-tb').style.display = 'none'; _raw = '';
+    $('jt-tb').style.display = 'none'; _raw = ''; _groupParent = {};
   });
 
   CK.wireCopy($('btn-cp'), function () { return _raw; });
   CK.initAutoGrow($('t-input'));
 
-  /* ── ESCAPE HTML ────────────────────────────────────────────────────── */
   /* ── TREE BUILDER ───────────────────────────────────────────────────── */
-  var _nid = 0;
-
-  function renderVal(v, depth, path, last) {
-    if (v === null)         return [{ h: '<span class="jt-null">null</span>'   + (last ? '' : ','), p: path, d: depth }];
-    if (typeof v === 'boolean') return [{ h: '<span class="jt-bool">' + v + '</span>' + (last ? '' : ','), p: path, d: depth }];
-    if (typeof v === 'number')  return [{ h: '<span class="jt-num">' + v + '</span>'  + (last ? '' : ','), p: path, d: depth }];
-    if (typeof v === 'string')  return [{ h: '<span class="jt-str">"' + esc(v) + '"</span>' + (last ? '' : ','), p: path, d: depth }];
-    if (Array.isArray(v)) return renderArr(v, depth, path, last, '');
-    return renderObj(v, depth, path, last, '');
+  function renderVal(v, depth, path, last, parentGroup) {
+    if (v === null)             return [{ h: '<span class="jt-null">null</span>'   + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
+    if (typeof v === 'boolean') return [{ h: '<span class="jt-bool">' + v + '</span>' + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
+    if (typeof v === 'number')  return [{ h: '<span class="jt-num">' + v + '</span>'  + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
+    if (typeof v === 'string')  return [{ h: '<span class="jt-str">"' + esc(v) + '"</span>' + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
+    if (Array.isArray(v)) return renderArr(v, depth, path, last, '', parentGroup);
+    return renderObj(v, depth, path, last, '', parentGroup);
   }
 
   function inlineVal(v) {
@@ -109,39 +112,43 @@
     return esc(JSON.stringify(v));
   }
 
-  function renderObj(obj, depth, path, last, prefix) {
+  function renderObj(obj, depth, path, last, prefix, parentGroup) {
     var keys = Object.keys(obj);
-    if (!keys.length) return [{ h: prefix + '<span class="jt-brk">{}</span>' + (last ? '' : ','), p: path, d: depth }];
+    if (!keys.length) return [{ h: prefix + '<span class="jt-brk">{}</span>' + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
     var id = 'jn' + (_nid++), out = [];
-    out.push({ h: prefix + '<span class="jt-tog" data-n="' + id + '" data-c="' + keys.length + ' keys">\u25BE</span><span class="jt-brk">{</span>', p: path, d: depth, nOpen: id });
+    if (parentGroup) _groupParent[id] = parentGroup;
+    /* Opening brace line: belongs to parent group (so collapsing parent hides this line) */
+    out.push({ h: prefix + '<span class="jt-tog" data-n="' + id + '" data-c="' + keys.length + ' keys">\u25BE</span><span class="jt-brk">{</span>', p: path, d: depth, g: parentGroup, nOpen: id });
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i], cp = path + '.' + k, il = i === keys.length - 1, v = obj[k];
       var kh = '<span class="jt-key">"' + esc(k) + '"</span>: ';
       if (v !== null && typeof v === 'object') {
-        var sub = Array.isArray(v) ? renderArr(v, depth + 1, cp, il, kh) : renderObj(v, depth + 1, cp, il, kh);
-        sub.forEach(function (s) { if (!s.g) s.g = id; out.push(s); });
+        var sub = Array.isArray(v) ? renderArr(v, depth + 1, cp, il, kh, id) : renderObj(v, depth + 1, cp, il, kh, id);
+        for (var si = 0; si < sub.length; si++) out.push(sub[si]);
       } else {
         out.push({ h: kh + inlineVal(v) + (il ? '' : ','), p: cp, d: depth + 1, g: id });
       }
     }
-    out.push({ h: '<span class="jt-brk">}</span>' + (last ? '' : ','), p: path, d: depth, nClose: id, g: id });
+    /* Closing brace: belongs to THIS group (hidden when this group collapses) */
+    out.push({ h: '<span class="jt-brk">}</span>' + (last ? '' : ','), p: path, d: depth, g: id, nClose: id });
     return out;
   }
 
-  function renderArr(arr, depth, path, last, prefix) {
-    if (!arr.length) return [{ h: prefix + '<span class="jt-brk">[]</span>' + (last ? '' : ','), p: path, d: depth }];
+  function renderArr(arr, depth, path, last, prefix, parentGroup) {
+    if (!arr.length) return [{ h: prefix + '<span class="jt-brk">[]</span>' + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
     var id = 'jn' + (_nid++), out = [];
-    out.push({ h: prefix + '<span class="jt-tog" data-n="' + id + '" data-c="' + arr.length + ' items">\u25BE</span><span class="jt-brk">[</span>', p: path, d: depth, nOpen: id });
+    if (parentGroup) _groupParent[id] = parentGroup;
+    out.push({ h: prefix + '<span class="jt-tog" data-n="' + id + '" data-c="' + arr.length + ' items">\u25BE</span><span class="jt-brk">[</span>', p: path, d: depth, g: parentGroup, nOpen: id });
     for (var i = 0; i < arr.length; i++) {
       var cp = path + '[' + i + ']', il = i === arr.length - 1, v = arr[i];
       if (v !== null && typeof v === 'object') {
-        var sub = Array.isArray(v) ? renderArr(v, depth + 1, cp, il, '') : renderObj(v, depth + 1, cp, il, '');
-        sub.forEach(function (s) { if (!s.g) s.g = id; out.push(s); });
+        var sub = Array.isArray(v) ? renderArr(v, depth + 1, cp, il, '', id) : renderObj(v, depth + 1, cp, il, '', id);
+        for (var si = 0; si < sub.length; si++) out.push(sub[si]);
       } else {
         out.push({ h: inlineVal(v) + (il ? '' : ','), p: cp, d: depth + 1, g: id });
       }
     }
-    out.push({ h: '<span class="jt-brk">]</span>' + (last ? '' : ','), p: path, d: depth, nClose: id, g: id });
+    out.push({ h: '<span class="jt-brk">]</span>' + (last ? '' : ','), p: path, d: depth, g: id, nClose: id });
     return out;
   }
 
@@ -150,12 +157,28 @@
     for (var i = 0; i < lines.length; i++) {
       var l = lines[i], pad = '';
       for (var d = 0; d < l.d; d++) pad += '  ';
-      var attrs = ' data-p="' + esc(l.p) + '"';
+      var attrs = ' data-i="' + i + '" data-p="' + esc(l.p) + '"';
       if (l.g) attrs += ' data-g="' + l.g + '"';
       if (l.nClose) attrs += ' data-nc="' + l.nClose + '"';
+      if (l.nOpen) attrs += ' data-no="' + l.nOpen + '"';
       s += '<div class="jt-line"' + attrs + '><span class="jt-ln">' + (i + 1) + '</span><span class="jt-ct">' + pad + l.h + '</span></div>';
     }
     return s + '</div>';
+  }
+
+  /* ── GET ALL DESCENDANT GROUPS (BFS) ─────────────────────────────── */
+  function getDescendantGroups(gid) {
+    var result = [], queue = [gid];
+    while (queue.length) {
+      var cur = queue.shift();
+      for (var childId in _groupParent) {
+        if (_groupParent[childId] === cur) {
+          result.push(childId);
+          queue.push(childId);
+        }
+      }
+    }
+    return result;
   }
 
   /* ── TOGGLE (event delegation) ────────────────────────────────────── */
@@ -163,35 +186,43 @@
     var tog = e.target.closest('.jt-tog');
     if (!tog) return;
     var n = tog.dataset.n, wrap = $('t-result');
-    var isCol = tog.textContent === '\u25B8';
-    /* Only target direct children of this group (data-g matches) */
-    var els = wrap.querySelectorAll('[data-g="' + n + '"]');
-    if (isCol) {
-      /* Expand: show direct children only; nested collapsed groups stay collapsed */
-      els.forEach(function (el) { el.classList.remove('jt-hid'); });
+    var isCollapsed = tog.textContent === '\u25B8';
+
+    if (isCollapsed) {
+      /* EXPAND: show ONLY direct children of this group */
+      wrap.querySelectorAll('[data-g="' + n + '"]').forEach(function (el) {
+        el.classList.remove('jt-hid');
+      });
       tog.textContent = '\u25BE';
     } else {
-      /* Collapse: hide all descendants by finding nested groups too */
-      els.forEach(function (el) { el.classList.add('jt-hid'); });
-      /* Also collapse any nested toggles within this group */
-      els.forEach(function (el) {
-        var nestedTog = el.querySelector('.jt-tog');
-        if (nestedTog && nestedTog.dataset.n) {
-          nestedTog.textContent = '\u25B8';
-          var nestedEls = wrap.querySelectorAll('[data-g="' + nestedTog.dataset.n + '"]');
-          nestedEls.forEach(function (ne) { ne.classList.add('jt-hid'); });
+      /* COLLAPSE: hide ALL descendants recursively */
+      var allGroups = [n].concat(getDescendantGroups(n));
+      for (var i = 0; i < allGroups.length; i++) {
+        var gid = allGroups[i];
+        wrap.querySelectorAll('[data-g="' + gid + '"]').forEach(function (el) {
+          el.classList.add('jt-hid');
+        });
+        /* Also flip nested toggles to collapsed state */
+        if (gid !== n) {
+          var openLine = wrap.querySelector('[data-no="' + gid + '"]');
+          if (openLine) {
+            var childTog = openLine.querySelector('.jt-tog');
+            if (childTog) childTog.textContent = '\u25B8';
+          }
         }
-      });
+      }
       tog.textContent = '\u25B8';
     }
   });
 
-  /* ── EXPAND/COLLAPSE ALL ───────────────────────────────────────────── */
+  /* ── EXPAND ALL ────────────────────────────────────────────────────── */
   $('btn-exp').addEventListener('click', function () {
     var w = $('t-result');
     w.querySelectorAll('.jt-hid').forEach(function (el) { el.classList.remove('jt-hid'); });
     w.querySelectorAll('.jt-tog').forEach(function (t) { t.textContent = '\u25BE'; });
   });
+
+  /* ── COLLAPSE ALL ──────────────────────────────────────────────────── */
   $('btn-col').addEventListener('click', function () {
     var w = $('t-result');
     w.querySelectorAll('.jt-tog').forEach(function (t) {
@@ -210,8 +241,24 @@
     w.querySelectorAll('.jt-key').forEach(function (k) {
       if (k.textContent.toLowerCase().indexOf(q) !== -1) {
         k.classList.add('jt-hl');
+        /* Ensure the line + all its ancestor groups are visible */
         var line = k.closest('.jt-line');
-        if (line) line.classList.remove('jt-hid');
+        if (line) {
+          line.classList.remove('jt-hid');
+          var gid = line.dataset.g;
+          while (gid) {
+            /* Show opening line of this group and expand its toggle */
+            var openLine = w.querySelector('[data-no="' + gid + '"]');
+            if (openLine) {
+              openLine.classList.remove('jt-hid');
+              var t = openLine.querySelector('.jt-tog');
+              if (t) t.textContent = '\u25BE';
+            }
+            /* Also unhide elements so the group appears open */
+            w.querySelectorAll('[data-g="' + gid + '"]').forEach(function (el) { el.classList.remove('jt-hid'); });
+            gid = _groupParent[gid] || null;
+          }
+        }
       }
     });
   });
@@ -247,7 +294,8 @@
       var indent = iv === 'tab' ? '\t' : parseInt(iv, 10);
       _raw = JSON.stringify(obj, null, indent);
       _nid = 0;
-      var lines = renderVal(obj, 0, '$', true);
+      _groupParent = {};
+      var lines = renderVal(obj, 0, '$', true, null);
       var r = $('t-result');
       r.className = 'out-body mono';
       r.style.padding = '0'; r.style.maxHeight = 'none'; r.style.resize = 'none'; r.style.overflow = 'hidden';
@@ -267,5 +315,5 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { return _raw; }, 'json-formatter-output.json');
 
-  CK.setUsageContent('<ol><li><strong>Paste</strong> your raw or minified JSON.</li><li>Choose an <strong>indent level</strong> (2 spaces, 4 spaces, or tabs).</li><li>Click <strong>Format</strong> to prettify with syntax highlighting.</li></ol><p>Features: <strong>collapsible nodes</strong> (click \u25BE/\u25B8 toggles), <strong>line numbers</strong>, <strong>key search</strong>, <strong>copy JSON path</strong> on hover, and <strong>expand/collapse all</strong> buttons. Syntax colors: <span style="color:#3dd68c">strings</span>, <span style="color:#58a6ff">numbers</span>, <span style="color:#e0e0e0">keys</span>, <span style="color:#ff6b6b">null/booleans</span>.</p>');
+  CK.setUsageContent('<ol><li><strong>Paste</strong> your raw or minified JSON.</li><li>Choose an <strong>indent level</strong> (2 spaces, 4 spaces, or tabs).</li><li>Click <strong>Format</strong> to prettify with syntax highlighting.</li></ol><p>Features: <strong>collapsible nodes</strong> (click \u25BE/\u25B8 toggles), <strong>line numbers</strong>, <strong>key search</strong> (auto-expands matching ancestors), <strong>copy JSON path</strong> on hover, and <strong>expand/collapse all</strong> buttons. Syntax colors: <span style="color:#3dd68c">strings</span>, <span style="color:#58a6ff">numbers</span>, <span style="color:#e0e0e0">keys</span>, <span style="color:#ff6b6b">null/booleans</span>.</p>');
 })();

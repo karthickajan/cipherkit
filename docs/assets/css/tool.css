@@ -630,6 +630,54 @@ textarea:focus-visible, input:focus-visible {
   .tool-interface-wrap { padding: 16px; }
 }
 
+/* ── FILE INPUT — STYLED DROP ZONE ───────────────────────────────────────── */
+input[type="file"] {
+  display:       block;
+  width:         100%;
+  padding:       20px 16px;
+  border:        2px dashed var(--border);
+  border-radius: var(--r);
+  background:    var(--bg);
+  color:         var(--muted);
+  font-family:   var(--mono);
+  font-size:     13px;
+  cursor:        pointer;
+  transition:    border-color .2s, background .2s, color .2s;
+  text-align:    center;
+  outline:       none;
+}
+input[type="file"]:hover {
+  border-color:  var(--green);
+  background:    rgba(61,214,140,.03);
+  color:         var(--text);
+}
+input[type="file"]:focus,
+input[type="file"]:focus-visible {
+  border-color:  var(--green);
+  background:    rgba(61,214,140,.04);
+  outline:       2px solid var(--green);
+  outline-offset: 2px;
+}
+input[type="file"]::file-selector-button {
+  padding:       8px 18px;
+  border:        1px solid var(--green);
+  border-radius: 6px;
+  background:    rgba(61,214,140,.1);
+  color:         var(--green);
+  font-family:   var(--mono);
+  font-size:     12px;
+  font-weight:   700;
+  cursor:        pointer;
+  margin-right:  12px;
+  transition:    all .2s;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+input[type="file"]::file-selector-button:hover {
+  background:    var(--green);
+  color:         #02150a;
+}
+
 /* ── NOTICE BOX ──────────────────────────────────────────────────────────── */
 .notice {
   display:       flex;

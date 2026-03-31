@@ -1040,6 +1040,16 @@
           "src": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
           "integrity": "",
           "crossorigin": "anonymous"
+        },
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        },
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
         }
       ],
       "phase": 5,
@@ -1223,6 +1233,10 @@
       "tags": ["image enhancer", "image filter", "photo editor", "sharpen image", "ai enhance"],
       "relatedTools": ["image-converter", "image-resizer", "svg-to-png"],
       "jsFile": "image-enhancer.js",
+      "headerBadge": {
+        "text": "\u26a1 AI-Powered \u00b7 Secure Worker \u00b7 Not Stored",
+        "color": "purple"
+      },
       "phase": 5,
       "status": "ready",
       "priority": 68
