@@ -64,6 +64,6 @@
   $('btn-now').addEventListener('click',function(){$('t-epoch').value=Math.floor(Date.now()/1000);});
   $('btn-clr').addEventListener('click',function(){$('t-epoch').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Conversion result will appear here\u2026</span>';$('t-output').value='';});
   $('btn-clr2').addEventListener('click',function(){$('t-date').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Conversion result will appear here\u2026</span>';$('t-output').value='';});
-  CK.wireCopy('btn-copy','t-output');CK.wireCtrlEnter('btn-to-date');
+  CK.wireCopy($('btn-copy'),function(){return $('t-output').value;});CK.wireCtrlEnter('btn-to-date');
   CK.setUsageContent('<ol><li>Use <strong>Epoch \u2192 Date</strong> to convert a Unix timestamp to a human-readable date.</li><li>Use <strong>Date \u2192 Epoch</strong> to get the Unix timestamp from a date/time picker.</li><li>Auto-detects seconds vs. milliseconds.</li></ol><p>The live clock at the top shows the current epoch in real time.</p>');
 })();

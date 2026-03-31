@@ -43,6 +43,6 @@
       .catch(function(e){$('t-err').textContent='Lookup failed: '+e.message;$('t-err').style.display='block';$('t-result').innerHTML='';});
   });
   $('btn-clr').addEventListener('click',function(){$('t-domain').value='';$('t-output').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">DNS records will appear here\u2026</span>';});
-  CK.wireCopy('btn-copy','t-output');CK.wireCtrlEnter('btn-lookup');
+  CK.wireCopy($('btn-copy'),function(){return $('t-output').value;});CK.wireCtrlEnter('btn-lookup');
   CK.setUsageContent('<ol><li>Enter a <strong>domain name</strong> (e.g. example.com).</li><li>Select the <strong>record type</strong> (A, AAAA, MX, NS, TXT, etc.).</li><li>Click <strong>Lookup</strong> to query Google DNS-over-HTTPS.</li></ol><p>Uses the public <code>dns.google</code> DoH API. No server-side code required.</p>');
 })();

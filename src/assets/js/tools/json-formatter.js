@@ -25,7 +25,7 @@
   /* ── SCOPED STYLES ──────────────────────────────────────────────────── */
   var sty = document.createElement('style');
   sty.textContent =
-    '.jt-wrap{font-family:var(--mono);font-size:12px;line-height:1.7;background:#0a0a0a;overflow:auto;max-height:420px;resize:vertical;min-height:80px;padding:0}'
+    '.jt-wrap{font-family:var(--mono);font-size:12px;line-height:1.7;background:#0a0a0a;overflow:auto;height:60vh;min-height:200px;resize:vertical;padding:0}'
     + '.jt-line{display:flex;padding:0 12px;white-space:pre}'
     + '.jt-line:hover{background:rgba(61,214,140,.04)}'
     + '.jt-ln{display:inline-block;min-width:36px;text-align:right;padding-right:12px;color:#444;user-select:none;flex-shrink:0}'
@@ -119,7 +119,7 @@
       var kh = '<span class="jt-key">"' + esc(k) + '"</span>: ';
       if (v !== null && typeof v === 'object') {
         var sub = Array.isArray(v) ? renderArr(v, depth + 1, cp, il, kh) : renderObj(v, depth + 1, cp, il, kh);
-        sub.forEach(function (s) { s.g = id; out.push(s); });
+        sub.forEach(function (s) { if (!s.g) s.g = id; out.push(s); });
       } else {
         out.push({ h: kh + inlineVal(v) + (il ? '' : ','), p: cp, d: depth + 1, g: id });
       }
@@ -136,7 +136,7 @@
       var cp = path + '[' + i + ']', il = i === arr.length - 1, v = arr[i];
       if (v !== null && typeof v === 'object') {
         var sub = Array.isArray(v) ? renderArr(v, depth + 1, cp, il, '') : renderObj(v, depth + 1, cp, il, '');
-        sub.forEach(function (s) { s.g = s.g || id; out.push(s); });
+        sub.forEach(function (s) { if (!s.g) s.g = id; out.push(s); });
       } else {
         out.push({ h: inlineVal(v) + (il ? '' : ','), p: cp, d: depth + 1, g: id });
       }
@@ -158,19 +158,30 @@
     return s + '</div>';
   }
 
-  /* ── TOGGLE ─────────────────────────────────────────────────────────── */
+  /* ── TOGGLE (event delegation) ────────────────────────────────────── */
   document.addEventListener('click', function (e) {
     var tog = e.target.closest('.jt-tog');
     if (!tog) return;
     var n = tog.dataset.n, wrap = $('t-result');
     var isCol = tog.textContent === '\u25B8';
+    /* Only target direct children of this group (data-g matches) */
     var els = wrap.querySelectorAll('[data-g="' + n + '"]');
     if (isCol) {
+      /* Expand: show direct children only; nested collapsed groups stay collapsed */
       els.forEach(function (el) { el.classList.remove('jt-hid'); });
       tog.textContent = '\u25BE';
-      /* re-expand nested that were expanded before */
     } else {
+      /* Collapse: hide all descendants by finding nested groups too */
       els.forEach(function (el) { el.classList.add('jt-hid'); });
+      /* Also collapse any nested toggles within this group */
+      els.forEach(function (el) {
+        var nestedTog = el.querySelector('.jt-tog');
+        if (nestedTog && nestedTog.dataset.n) {
+          nestedTog.textContent = '\u25B8';
+          var nestedEls = wrap.querySelectorAll('[data-g="' + nestedTog.dataset.n + '"]');
+          nestedEls.forEach(function (ne) { ne.classList.add('jt-hid'); });
+        }
+      });
       tog.textContent = '\u25B8';
     }
   });
@@ -186,8 +197,8 @@
     w.querySelectorAll('.jt-tog').forEach(function (t) {
       var n = t.dataset.n;
       if (!n) return;
-      w.querySelectorAll('[data-g="' + n + '"]').forEach(function (el) { el.classList.add('jt-hid'); });
       t.textContent = '\u25B8';
+      w.querySelectorAll('[data-g="' + n + '"]').forEach(function (el) { el.classList.add('jt-hid'); });
     });
   });
 
@@ -239,7 +250,7 @@
       var lines = renderVal(obj, 0, '$', true);
       var r = $('t-result');
       r.className = 'out-body mono';
-      r.style.padding = '0'; r.style.maxHeight = 'none'; r.style.resize = 'none';
+      r.style.padding = '0'; r.style.maxHeight = 'none'; r.style.resize = 'none'; r.style.overflow = 'hidden';
       r.innerHTML = buildHTML(lines);
       $('jt-tb').style.display = 'flex';
       CK.toast('JSON formatted');

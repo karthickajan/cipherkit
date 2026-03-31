@@ -46,6 +46,6 @@
 
   $('btn-dl').addEventListener('click',function(){var v=$('t-output').value;if(!v){CK.toast('Sign a JWT first','err');return;}CK.downloadOutput(v,'token.jwt');CK.toast('Downloaded');});
   $('btn-clr').addEventListener('click',function(){$('t-payload').value=defPayload;$('t-output').value='';});
-  CK.wireCopy('btn-copy','t-output');CK.wireCtrlEnter('btn-sign');CK.wireCharCounter($('t-payload'),$('t-input-meta'));
+  CK.wireCopy($('btn-copy'),function(){return $('t-output').value;});CK.wireCtrlEnter('btn-sign');CK.wireCharCounter($('t-payload'),$('t-input-meta'));
   CK.setUsageContent('<ol><li>Edit the <strong>JSON payload</strong> with your claims (sub, iat, exp, etc.).</li><li>Choose <strong>HS256</strong> or <strong>none</strong> (unsigned).</li><li>Enter a <strong>secret key</strong> for HS256.</li><li>Click <strong>Sign JWT</strong>.</li></ol><p>Uses Web Crypto HMAC-SHA256 for signing. No data leaves your browser.</p>');
 })();

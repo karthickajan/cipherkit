@@ -199,11 +199,25 @@
     + '</div>'
     + '</div>';
 
+  /* Auto-detect direction from URL slug */
+  var _pathSlug = (window.location.pathname.match(/\/tools\/([^/]+)/) || [])[1] || '';
+  if (_pathSlug === 'json-to-yaml') {
+    $('t-mode').value = 'json2yaml';
+    $('lbl-input').textContent = 'JSON Input';
+    $('lbl-out').textContent = 'YAML Output';
+    $('t-input').placeholder = 'Paste JSON here\u2026';
+  }
+
+  var BASE = '/cipherkit';
   $('t-mode').addEventListener('change', function () {
     var y2j = this.value === 'yaml2json';
     $('lbl-input').textContent = y2j ? 'YAML Input' : 'JSON Input';
     $('lbl-out').textContent = y2j ? 'JSON Output' : 'YAML Output';
     $('t-input').placeholder = y2j ? 'Paste YAML here\u2026' : 'Paste JSON here\u2026';
+    /* pushState for SEO slug */
+    var newSlug = y2j ? 'yaml-json-converter' : 'json-to-yaml';
+    var newPath = BASE + '/tools/' + newSlug + '/';
+    if (window.location.pathname !== newPath) history.pushState(null, '', newPath);
   });
 
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Output will appear here\u2026'; });

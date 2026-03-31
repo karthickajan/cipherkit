@@ -35,6 +35,19 @@
   $('btn-clr').addEventListener('click', function () { $('t-input').value=''; $('t-result').className='out-body mono ph'; $('t-result').textContent='Results will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('appear')===-1?t:''; });
 
+  /* Auto-detect direction from URL slug */
+  var BASE='/cipherkit';
+  var _pathSlug=(window.location.pathname.match(/\/tools\/([^/]+)/)||[])[1]||'';
+  if(_pathSlug==='decimal-to-hex'){$('t-from').value='10';}
+  else if(_pathSlug==='hex-to-decimal'){$('t-from').value='16';}
+  $('t-from').addEventListener('change',function(){
+    var v=this.value;
+    var slugMap={'10':'decimal-to-hex','16':'hex-to-decimal'};
+    var newSlug=slugMap[v]||'number-base-converter';
+    var newPath=BASE+'/tools/'+newSlug+'/';
+    if(window.location.pathname!==newPath)history.pushState(null,'',newPath);
+  });
+
   $('btn-conv').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     var base = parseInt($('t-from').value, 10);

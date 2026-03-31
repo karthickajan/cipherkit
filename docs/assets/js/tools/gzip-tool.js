@@ -48,6 +48,6 @@
     var a=document.createElement('a');a.download='output'+ext;a.href=URL.createObjectURL(_blob);a.click();URL.revokeObjectURL(a.href);CK.toast('Downloaded');
   });
   $('btn-clr').addEventListener('click',function(){$('t-input').value='';$('t-output').value='';$('t-stats').textContent='';_blob=null;});
-  CK.wireCopy('btn-copy','t-output');CK.wireCtrlEnter('btn-run');CK.wireCharCounter($('t-input'),$('t-input-meta'));
+  CK.wireCopy($('btn-copy'),function(){return $('t-output').value;});CK.wireCtrlEnter('btn-run');CK.wireCharCounter($('t-input'),$('t-input-meta'));
   CK.setUsageContent('<ol><li>Choose <strong>Compress</strong> or <strong>Decompress</strong> mode.</li><li>Enter text (compress) or Base64-encoded gzip data (decompress).</li><li>Click the action button.</li><li>Copy or download the result.</li></ol><p>Powered by pako.js. All processing is client-side.</p>');
 })();
