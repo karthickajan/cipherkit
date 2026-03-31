@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="18 free crypto hub tools for developers. Encryption, decryption, and hashing tools. All client-side, no server, no tracking.">
+  <meta name="description" content="Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#07090d">
-  <link rel="canonical" href="https://cipherkit.dev/tools/crypto/">
+  <link rel="canonical" href="https://cipherkit.dev/tools/image-converter/">
 
   <!-- Security headers (meta fallbacks — real headers need a CDN/server) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -16,20 +16,70 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'none'; img-src 'self' data:; frame-ancestors 'none';">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Crypto Hub — Free Crypto Hub Tools for Developers | CipherKit">
-  <meta property="og:description" content="18 free crypto hub tools for developers. Encryption, decryption, and hashing tools. All client-side, no server, no tracking.">
+  <meta property="og:title" content="Image Format Converter – Convert Images Between Formats Online | CipherKit">
+  <meta property="og:description" content="Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cipherkit.dev/tools/crypto/">
+  <meta property="og:url" content="https://cipherkit.dev/tools/image-converter/">
   <meta property="og:site_name" content="CipherKit">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Crypto Hub — Free Crypto Hub Tools for Developers | CipherKit">
-  <meta name="twitter:description" content="18 free crypto hub tools for developers. Encryption, decryption, and hashing tools. All client-side, no server, no tracking.">
+  <meta name="twitter:title" content="Image Format Converter – Convert Images Between Formats Online | CipherKit">
+  <meta name="twitter:description" content="Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.">
 
-  
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Image Format Converter",
+  "url": "https://cipherkit.dev/tools/image-converter/",
+  "description": "Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "CipherKit",
+    "url": "https://cipherkit.dev"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is the Image Format Converter free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, completely free. No signup required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data sent to a server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the Image Format Converter do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local."
+      }
+    }
+  ]
+}</script>
 
-  <title>Crypto Hub — Free Crypto Hub Tools for Developers | CipherKit</title>
+  <title>Image Format Converter – Convert Images Between Formats Online | CipherKit</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/cipherkit/assets/favicon.svg">
@@ -67,7 +117,7 @@
 </head>
 <body>
 
-<a href="#main-content" class="skip-link">Skip to content</a>
+<a href="#tool-interface" class="skip-link">Skip to tool</a>
 
 <header class="site-header">
   <div class="header-inner">
@@ -96,96 +146,67 @@
   </div>
 </header>
 
-<main id="main-content" class="category-page">
-  <div class="cat-header">
-    <div class="cat-header-inner">
+<main class="tool-page" id="main-content">
+
+  <!-- Tool Header -->
+  <div class="tool-header">
+    <div class="tool-header-inner">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/cipherkit/">Home</a>
         <span aria-hidden="true">›</span>
-        <span aria-current="page">Crypto Hub</span>
+        <a href="/cipherkit/tools/dev/">Dev Hub</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">Image Format Converter</span>
       </nav>
-      <h1><span class="hub-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> Crypto Hub</h1>
-      <p class="cat-desc">Encryption, decryption, and hashing tools — 18 tools, all free and client-side.</p>
+      <h1>Image Format Converter</h1>
+      <p class="tool-tagline">Convert images between PNG, JPEG, and WebP — adjust quality, all client-side</p>
+      <div class="tool-badges">
+        <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Free</span>
+        <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Client-Side</span>
+        <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> No Login</span>
+        <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> No Storage</span>
+      </div>
     </div>
   </div>
 
-  <div class="tools-grid-wrap">
-    <div class="tools-grid">
-      
-        <a href="/cipherkit/tools/aes-encryption/" class="tool-card">
-          <div class="tool-card-title">AES Encryption Tool</div>
-          <div class="tool-card-tag">Encrypt text with AES-128, 192, or 256-bit keys — 100% client-side</div>
-        </a>
-        <a href="/cipherkit/tools/aes-decryption/" class="tool-card">
-          <div class="tool-card-title">AES Decryption Tool</div>
-          <div class="tool-card-tag">Decrypt AES-encrypted ciphertext — supports Base64 and Hex input</div>
-        </a>
-        <a href="/cipherkit/tools/sha256-generator/" class="tool-card">
-          <div class="tool-card-title">SHA-256 Hash Generator</div>
-          <div class="tool-card-tag">Generate SHA-256 cryptographic hashes instantly — Hex or Base64 output</div>
-        </a>
-        <a href="/cipherkit/tools/sha512-generator/" class="tool-card">
-          <div class="tool-card-title">SHA-512 Hash Generator</div>
-          <div class="tool-card-tag">Generate SHA-512 cryptographic hashes — stronger than SHA-256</div>
-        </a>
-        <a href="/cipherkit/tools/sha1-generator/" class="tool-card">
-          <div class="tool-card-title">SHA-1 Hash Generator</div>
-          <div class="tool-card-tag">Generate SHA-1 hashes — for legacy compatibility checks</div>
-        </a>
-        <a href="/cipherkit/tools/sha3-generator/" class="tool-card">
-          <div class="tool-card-title">SHA-3 Hash Generator</div>
-          <div class="tool-card-tag">Generate SHA-3 (Keccak) hashes — the NIST standard successor</div>
-        </a>
-        <a href="/cipherkit/tools/md5-generator/" class="tool-card">
-          <div class="tool-card-title">MD5 Hash Generator</div>
-          <div class="tool-card-tag">Generate MD5 checksums — fast, widely supported, not for passwords</div>
-        </a>
-        <a href="/cipherkit/tools/ripemd160-generator/" class="tool-card">
-          <div class="tool-card-title">RIPEMD-160 Hash Generator</div>
-          <div class="tool-card-tag">Generate RIPEMD-160 hashes — used in Bitcoin address generation</div>
-        </a>
-        <a href="/cipherkit/tools/hmac-generator/" class="tool-card">
-          <div class="tool-card-title">HMAC Generator</div>
-          <div class="tool-card-tag">Generate HMAC message authentication codes — SHA256, SHA512, SHA1, MD5</div>
-        </a>
-        <a href="/cipherkit/tools/rsa-key-generator/" class="tool-card">
-          <div class="tool-card-title">RSA Key Pair Generator</div>
-          <div class="tool-card-tag">Generate RSA public & private key pairs — 1024, 2048, or 4096-bit</div>
-        </a>
-        <a href="/cipherkit/tools/hash-comparator/" class="tool-card">
-          <div class="tool-card-title">Hash Comparator & Verifier</div>
-          <div class="tool-card-tag">Compare and verify hash values — MD5, SHA-256, SHA-512 and more</div>
-        </a>
-        <a href="/cipherkit/tools/checksum-generator/" class="tool-card">
-          <div class="tool-card-title">Checksum Generator</div>
-          <div class="tool-card-tag">Generate checksums for data integrity verification</div>
-        </a>
-        <a href="/cipherkit/tools/bcrypt-generator/" class="tool-card">
-          <div class="tool-card-title">Bcrypt Hash Generator</div>
-          <div class="tool-card-tag">Hash passwords with bcrypt — configure cost factor, verify hashes</div>
-        </a>
-        <a href="/cipherkit/tools/rsa-encrypt-decrypt/" class="tool-card">
-          <div class="tool-card-title">RSA Encrypt & Decrypt</div>
-          <div class="tool-card-tag">Encrypt with RSA public key, decrypt with private key — OAEP padding</div>
-        </a>
-        <a href="/cipherkit/tools/password-strength/" class="tool-card">
-          <div class="tool-card-title">Password Strength Checker</div>
-          <div class="tool-card-tag">Real-time password analysis with entropy, crack time, and improvement tips</div>
-        </a>
-        <a href="/cipherkit/tools/totp-generator/" class="tool-card">
-          <div class="tool-card-title">TOTP Generator</div>
-          <div class="tool-card-tag">Generate time-based one-time passwords for two-factor authentication</div>
-        </a>
-        <a href="/cipherkit/tools/ssl-cert-decoder/" class="tool-card">
-          <div class="tool-card-title">SSL Certificate Decoder</div>
-          <div class="tool-card-tag">Decode PEM X.509 certificates — view subject, issuer, validity, and serial</div>
-        </a>
-        <a href="/cipherkit/tools/jwt-builder/" class="tool-card">
-          <div class="tool-card-title">JWT Builder</div>
-          <div class="tool-card-tag">Build and sign JWTs with custom claims — HS256 via Web Crypto API</div>
-        </a>
+  <!-- Tool Interface (injected by tool JS) -->
+  <div class="tool-interface-wrap" id="tool-interface">
+    <div class="tool-container" id="tool-root">
+      <!-- Tool UI rendered here by image-converter.js -->
+      <div class="tool-loading">Loading tool...</div>
     </div>
   </div>
+
+  <!-- Related Tools -->
+  <div class="tool-page-lower">
+    <section class="related-tools" aria-labelledby="related-heading">
+    <h2 id="related-heading">Related Tools</h2>
+    <div class="related-grid">
+      
+      <a href="/cipherkit/tools/svg-to-png/" class="related-card">
+        <span class="related-title">SVG to PNG Converter</span>
+        <span class="related-tag">Convert SVG markup to PNG with adjustable scale — 100% client-side</span>
+      </a>
+      <a href="/cipherkit/tools/image-resizer/" class="related-card">
+        <span class="related-title">Image Resizer</span>
+        <span class="related-tag">Resize images to exact dimensions — lock aspect ratio, choose output format</span>
+      </a>
+      <a href="/cipherkit/tools/image-enhancer/" class="related-card">
+        <span class="related-title">AI Image Enhancer</span>
+        <span class="related-tag">Enhance images with sharpen, brighten, contrast, grayscale, sepia, and invert filters</span>
+      </a>
+    </div>
+  </section>
+
+    <!-- SEO Content Block — How to Use -->
+    <section class="usage-guide" aria-labelledby="usage-heading">
+      <h2 id="usage-heading">How to Use the Image Format Converter</h2>
+      <div class="usage-content" id="usage-content">
+        <!-- Populated by tool JS via setUsageContent() -->
+      </div>
+    </section>
+  </div>
+
 </main>
 
 <footer class="site-footer">
@@ -248,6 +269,22 @@
   </div>
 </footer>
 
+<!-- Toast notification -->
+<div class="toast" id="toast" role="alert" aria-live="assertive">
+  <span class="toast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg></span>
+  <span id="toast-msg">Copied to clipboard</span>
+</div>
+
+<!-- Core JS -->
 <script src="/cipherkit/assets/js/core/ui.js" defer></script>
+
+<!-- Vendor JS -->
+
+
+<!-- Tool-specific JS -->
+<script src="/cipherkit/assets/js/tools/image-converter.js" defer></script>
+
 </body>
 </html>
