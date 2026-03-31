@@ -41,7 +41,17 @@
   border:        1px solid;
   font-weight:   700;
   line-height:   1;
+  vertical-align: middle;
 }
+.badge-icon {
+  display:     inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width:       12px;
+  height:      12px;
+}
+.badge-icon svg { width: 12px; height: 12px; display: block; }
 .badge svg { flex-shrink: 0; }
 .badge-green {
   color:        var(--green);
@@ -465,6 +475,7 @@ textarea:focus-visible, input:focus-visible {
   align-items: center;
   gap:        6px;
 }
+.out-label svg { width: 12px; height: 12px; flex-shrink: 0; }
 .copy-btn {
   display:     flex;
   align-items: center;

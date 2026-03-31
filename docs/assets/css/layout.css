@@ -72,6 +72,7 @@
   transition:  all .15s;
   white-space: nowrap;
   line-height: 1;
+  vertical-align: middle;
 }
 .nav-link:hover {
   color:      var(--text);
@@ -81,9 +82,12 @@
 .nav-icon {
   display:     inline-flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  width:       14px;
+  height:      14px;
 }
-.nav-icon svg { width: 13px; height: 13px; }
+.nav-icon svg { width: 14px; height: 14px; display: block; }
 
 /* Header badges */
 .header-badges { display: flex; gap: 10px; margin-left: auto; }
@@ -161,13 +165,17 @@
   text-transform: uppercase;
   letter-spacing: .1em;
   margin-bottom: 12px;
+  line-height:   1;
 }
 .footer-icon {
   display:     inline-flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  width:       14px;
+  height:      14px;
 }
-.footer-icon svg { width: 13px; height: 13px; }
+.footer-icon svg { width: 14px; height: 14px; display: block; }
 .footer-col ul {
   list-style: none;
   display:    flex;
@@ -214,6 +222,15 @@
   margin-bottom: 20px;
   line-height:   1;
 }
+.hero-pill-icon {
+  display:     inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width:       12px;
+  height:      12px;
+}
+.hero-pill-icon svg { width: 12px; height: 12px; display: block; }
 .hero-pill svg { flex-shrink: 0; }
 
 .hero h1 {
@@ -284,9 +301,12 @@
 .hub-pill-icon {
   display:     inline-flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  width:       13px;
+  height:      13px;
 }
-.hub-pill-icon svg { width: 12px; height: 12px; }
+.hub-pill-icon svg { width: 13px; height: 13px; display: block; }
 
 /* ── TOOLS GRID ──────────────────────────────────────────────────────────── */
 .hubs-wrap {
@@ -311,9 +331,12 @@
 .hub-icon {
   display:     inline-flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  width:       20px;
+  height:      20px;
 }
-.hub-icon svg { width: 18px; height: 18px; }
+.hub-icon svg { width: 20px; height: 20px; display: block; }
 .hub-header p {
   font-size: 13px;
 }
@@ -376,6 +399,11 @@
 .cat-header-inner {
   max-width: var(--max-w);
   margin:    0 auto;
+}
+.cat-header-inner h1 {
+  display:     flex;
+  align-items: center;
+  gap:         10px;
 }
 .cat-desc {
   font-size: 14px;

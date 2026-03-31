@@ -302,7 +302,7 @@
       "relatedTools": ["base64-decode", "url-encode", "hex-encode", "binary-encode"],
       "jsFile": "base64-encode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 13
     },
     {
@@ -318,7 +318,7 @@
       "relatedTools": ["base64-encode", "url-decode", "hex-decode", "binary-decode"],
       "jsFile": "base64-decode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 14
     },
     {
@@ -334,7 +334,7 @@
       "relatedTools": ["url-decode", "base64-encode", "html-encode"],
       "jsFile": "url-encode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 15
     },
     {
@@ -350,7 +350,7 @@
       "relatedTools": ["url-encode", "base64-decode", "html-decode"],
       "jsFile": "url-decode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 16
     },
     {
@@ -366,7 +366,7 @@
       "relatedTools": ["html-decode", "url-encode", "base64-encode"],
       "jsFile": "html-encode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 17
     },
     {
@@ -382,7 +382,7 @@
       "relatedTools": ["html-encode", "url-decode", "base64-decode"],
       "jsFile": "html-decode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 18
     },
     {
@@ -398,7 +398,7 @@
       "relatedTools": ["hex-decode", "base64-encode", "binary-encode"],
       "jsFile": "hex-encode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 19
     },
     {
@@ -414,7 +414,7 @@
       "relatedTools": ["hex-encode", "base64-decode", "binary-decode"],
       "jsFile": "hex-decode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 20
     },
     {
@@ -430,7 +430,7 @@
       "relatedTools": ["binary-decode", "hex-encode", "base64-encode"],
       "jsFile": "binary-encode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 21
     },
     {
@@ -446,7 +446,7 @@
       "relatedTools": ["binary-encode", "hex-decode", "base64-decode"],
       "jsFile": "binary-decode.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 22
     },
     {
@@ -462,7 +462,7 @@
       "relatedTools": ["json-minifier", "xml-json-converter", "csv-json-converter", "yaml-json-converter"],
       "jsFile": "json-formatter.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 23
     },
     {
@@ -478,7 +478,7 @@
       "relatedTools": ["json-formatter", "xml-json-converter"],
       "jsFile": "json-minifier.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 24
     },
     {
@@ -494,7 +494,7 @@
       "relatedTools": ["json-xml-converter", "json-formatter", "csv-json-converter"],
       "jsFile": "xml-json-converter.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 25
     },
     {
@@ -510,7 +510,7 @@
       "relatedTools": ["xml-json-converter", "json-formatter", "json-minifier"],
       "jsFile": "json-xml-converter.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 26
     },
     {
@@ -526,7 +526,7 @@
       "relatedTools": ["json-formatter", "xml-json-converter", "yaml-json-converter"],
       "jsFile": "csv-json-converter.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 27
     },
     {
@@ -542,7 +542,7 @@
       "relatedTools": ["json-formatter", "xml-json-converter", "csv-json-converter"],
       "jsFile": "yaml-json-converter.js",
       "phase": 3,
-      "status": "planned",
+      "status": "ready",
       "priority": 28
     },
     {

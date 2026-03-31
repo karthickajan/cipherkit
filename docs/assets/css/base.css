@@ -145,6 +145,15 @@ pre  { padding: 16px; overflow-x: auto; border: 1px solid var(--border); }
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+.toast-icon {
+  display:     inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width:       12px;
+  height:      12px;
+}
+.toast-icon svg { width: 12px; height: 12px; display: block; }
 
 /* ── SCROLLBAR ───────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 6px; height: 6px; }

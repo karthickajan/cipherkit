@@ -1,0 +1,55 @@
+/**
+ * CipherKit — Binary Decoder
+ */
+(function () {
+  'use strict';
+  var root = document.getElementById('tool-root');
+  if (!root) return;
+
+  var IC = {
+    binary: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="8" height="18" rx="2"/><rect x="14" y="3" width="8" height="18" rx="2"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="18" y1="8" x2="18" y2="12"/></svg>',
+    copy:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+    trash:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
+    play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+  };
+
+  function $(id) { return document.getElementById(id); }
+
+  root.innerHTML =
+    '<div class="tool-single-col">'
+    + '<div class="tool-card-ui">'
+    +   '<div class="tc-head">'
+    +     '<div class="tc-title"><div class="tc-icon tc-icon-blue">' + IC.binary + '</div><h2 id="t-heading">Binary Decoder</h2></div>'
+    +     '<span class="tc-badge tc-badge-blue">Decode</span>'
+    +   '</div>'
+    +   '<div class="tc-body" role="region" aria-labelledby="t-heading">'
+    +     '<div class="field"><div class="field-hdr"><label for="t-input">Binary String</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Enter binary string (e.g. 01001000 01101001)\u2026" rows="5"></textarea><div class="inline-error" id="t-err" role="alert"></div></div>'
+    +     '<button type="button" class="act-btn act-blue" id="btn-dec" aria-label="Decode binary">' + IC.binary + ' <span>Decode</span></button>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decoded Text</span></div><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Decoded text will appear here\u2026</div></div>'
+    +   '</div>'
+    + '</div>'
+    + '</div>';
+
+  $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Decoded text will appear here\u2026'; });
+  CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
+  CK.initAutoGrow($('t-input'));
+
+  $('btn-dec').addEventListener('click', function () {
+    var input = $('t-input').value.trim();
+    $('t-err').textContent = ''; $('t-err').style.display = 'none';
+    if (!input) { $('t-err').textContent = 'Please enter a binary string.'; $('t-err').style.display = 'block'; return; }
+    /* Strip separators */
+    var chunks = input.replace(/[^01]/g, ' ').trim().split(/\s+/);
+    if (!chunks.length || !chunks[0]) { $('t-err').textContent = 'No valid binary data found.'; $('t-err').style.display = 'block'; return; }
+    var text = '';
+    for (var i = 0; i < chunks.length; i++) {
+      var code = parseInt(chunks[i], 2);
+      if (isNaN(code)) { $('t-err').textContent = 'Invalid binary chunk: ' + chunks[i]; $('t-err').style.display = 'block'; return; }
+      text += String.fromCharCode(code);
+    }
+    $('t-result').className = 'out-body mono b'; $('t-result').textContent = text;
+    CK.toast('Binary decoded');
+  });
+
+  CK.setUsageContent('<ol><li><strong>Enter a binary string</strong> (e.g. <code>01001000 01101001</code>).</li><li>Any separators (spaces, commas, newlines) are automatically handled.</li><li>Click <strong>Decode</strong> to convert back to text.</li></ol><p>Each group of binary digits is converted to its character code. Supports 8-bit, 16-bit, or any width binary groups.</p>');
+})();
