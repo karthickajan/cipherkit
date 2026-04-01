@@ -1,5 +1,6 @@
 /**
- * CipherKit — AI Image Enhancer (Cloudflare Worker proxy, 3/day rate limit)
+ * CipherKit — Image Filters & Effects
+ * Client-side Canvas API filters: sharpen, brighten, contrast, grayscale, sepia, invert.
  */
 (function(){
   'use strict';
@@ -7,9 +8,25 @@
   var IC={image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',play:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',dl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',sparkle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg>'};
   function $(id){return document.getElementById(id);}
 
-  root.innerHTML='<div class="tool-single-col"><div class="tool-card-ui"><div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-purple">'+IC.sparkle+'</div><h2 id="t-heading">AI Image Enhancer</h2></div><span class="tc-badge tc-badge-purple">AI</span></div><div class="tc-body" role="region" aria-labelledby="t-heading"><div class="field"><div class="field-hdr"><label>Upload Image</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">'+IC.trash+' <span>Clear</span></button></div></div><input type="file" id="t-file" accept="image/*"><div class="inline-error" id="t-err" role="alert"></div></div><div id="t-limit" style="color:var(--muted);font-size:.85rem;margin-bottom:8px"></div><div class="ctrl-row"><div class="sel-group"><label for="t-mode">Enhancement</label><select id="t-mode"><option value="sharpen">Sharpen</option><option value="brightness">Brighten</option><option value="contrast">High Contrast</option><option value="grayscale">Grayscale</option><option value="sepia">Sepia</option><option value="invert">Invert</option></select></div><div class="sel-group"><label for="t-intensity">Intensity</label><select id="t-intensity"><option value="0.5">Low</option><option value="1" selected>Medium</option><option value="1.5">High</option></select></div></div><button type="button" class="act-btn act-purple" id="btn-enhance">'+IC.sparkle+' <span>Enhance</span></button><div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div><div class="out-body" id="t-result" role="status" style="text-align:center;min-height:80px;padding:16px"><span style="color:var(--muted);font-style:italic">Enhanced image will appear here\u2026</span></div></div></div></div></div>';
+  root.innerHTML='<div class="tool-single-col"><div class="tool-card-ui">'
+    +'<div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-green">'+IC.image+'</div><h2 id="t-heading">Image Filters & Effects</h2></div><span class="tc-badge tc-badge-green">Filters</span></div>'
+    +'<div class="tc-body" role="region" aria-labelledby="t-heading">'
+    +'<div class="field"><div class="field-hdr"><label>Upload Image</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">'+IC.trash+' <span>Clear</span></button></div></div>'
+    +'<input type="file" id="t-file" accept="image/*"><div class="inline-error" id="t-err" role="alert"></div></div>'
+    +'<div id="t-limit" style="color:var(--muted);font-size:.85rem;margin-bottom:8px"></div>'
+    +'<div class="ctrl-row"><div class="sel-group"><label for="t-mode">Enhancement</label><select id="t-mode"><option value="sharpen">Sharpen</option><option value="brightness">Brighten</option><option value="contrast">High Contrast</option><option value="grayscale">Grayscale</option><option value="sepia">Sepia</option><option value="invert">Invert</option></select></div>'
+    +'<div class="sel-group"><label for="t-intensity">Intensity</label><select id="t-intensity"><option value="0.5">Low</option><option value="1" selected>Medium</option><option value="1.5">High</option></select></div></div>'
+    +'<button type="button" class="act-btn act-green" id="btn-enhance">'+IC.image+' <span>Enhance</span></button>'
+    +'<div class="notice notice-amber" style="margin-bottom:0">'
+    +'<div class="notice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg></div>'
+    +'<div><strong style="color:var(--amber)">\u26a1 AI Upscaling coming soon</strong>'
+    +'<br><span style="font-size:11px;color:var(--muted)">Real 2\u00d7/4\u00d7 AI upscaling via secure Cloudflare Worker \u00b7 Not stored \u00b7 Rate limited \u00b7 Free tier included</span></div>'
+    +'</div>'
+    +'<div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div>'
+    +'<div class="out-body" id="t-result" role="status" style="text-align:center;min-height:80px;padding:16px"><span style="color:var(--muted);font-style:italic">Enhanced image will appear here\u2026</span></div></div>'
+    +'</div></div></div>';
 
-  /* localStorage rate limit: 3 per day */
+  /* localStorage counter (informational only — does NOT block) */
   var RL_KEY='ck_imgenhance_uses';
   function getUsesToday(){
     try{var d=JSON.parse(localStorage.getItem(RL_KEY)||'{}');var today=new Date().toISOString().slice(0,10);if(d.date!==today)return 0;return d.count||0;}catch(e){return 0;}
@@ -18,12 +35,12 @@
     var today=new Date().toISOString().slice(0,10);var count=getUsesToday()+1;
     localStorage.setItem(RL_KEY,JSON.stringify({date:today,count:count}));
   }
-  function showLimit(){$('t-limit').textContent='Daily uses: '+getUsesToday()+' / 3 (resets at midnight)';}
+  function showLimit(){$('t-limit').textContent='Daily enhancements: '+getUsesToday()+' / 3 (resets midnight)';}
   showLimit();
 
   var _dataUrl='';
 
-  /* Client-side Canvas filters (no external API needed for basic enhancements) */
+  /* Client-side Canvas filters */
   function applyFilter(img,mode,intensity){
     var c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
     var ctx=c.getContext('2d');
@@ -44,7 +61,6 @@
     var data=imageData.data;
     var copy=new Uint8ClampedArray(data);
     var k=strength*0.5;
-    /* 3x3 sharpen kernel */
     for(var y=1;y<h-1;y++){
       for(var x=1;x<w-1;x++){
         var idx=(y*w+x)*4;
@@ -60,7 +76,6 @@
   $('btn-enhance').addEventListener('click',function(){
     var file=$('t-file').files[0];$('t-err').textContent='';$('t-err').style.display='none';
     if(!file){$('t-err').textContent='Select an image file.';$('t-err').style.display='block';return;}
-    if(getUsesToday()>=3){$('t-err').textContent='Daily limit reached (3/day). Try again tomorrow.';$('t-err').style.display='block';return;}
     var mode=$('t-mode').value;var intensity=$('t-intensity').value;
     $('t-result').innerHTML='<span style="color:var(--muted)">Processing\u2026</span>';
     var reader=new FileReader();
@@ -83,5 +98,5 @@
   $('btn-dl').addEventListener('click',function(){if(!_dataUrl){CK.toast('Enhance first','err');return;}var a=document.createElement('a');a.download='enhanced.png';a.href=_dataUrl;a.click();CK.toast('Downloaded');});
   $('btn-clr').addEventListener('click',function(){$('t-file').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Enhanced image will appear here\u2026</span>';_dataUrl='';});
   CK.wireCtrlEnter('btn-enhance');
-  CK.setUsageContent('<ol><li>Upload an <strong>image file</strong>.</li><li>Choose an <strong>enhancement mode</strong> (Sharpen, Brighten, Contrast, Grayscale, Sepia, Invert).</li><li>Select the <strong>intensity</strong> level.</li><li>Click <strong>Enhance</strong> and download the result.</li></ol><p>All processing is done locally using Canvas API. Rate-limited to 3 enhancements per day.</p>');
+  CK.setUsageContent('<ol><li>Upload an <strong>image file</strong>.</li><li>Choose an <strong>enhancement mode</strong> (Sharpen, Brighten, Contrast, Grayscale, Sepia, Invert).</li><li>Select the <strong>intensity</strong> level.</li><li>Click <strong>Enhance</strong> and download the result.</li></ol><p>All processing is done locally in your browser using Canvas API. No images are uploaded to any server.</p><p style="font-size:.85rem;color:var(--muted)">\u2139\ufe0f Basic filters are free and unlimited in a future update \u2014 rate limit will apply to AI upscaling only.</p>');
 })();
