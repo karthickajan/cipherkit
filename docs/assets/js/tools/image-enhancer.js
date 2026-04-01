@@ -49,9 +49,9 @@
     if(mode==='sharpen'){ctx.drawImage(img,0,0);sharpenCanvas(ctx,c.width,c.height,intVal);return c;}
     if(mode==='brightness')filterStr='brightness('+(1+0.3*intVal)+')';
     else if(mode==='contrast')filterStr='contrast('+(1+0.5*intVal)+')';
-    else if(mode==='grayscale')filterStr='grayscale('+(intVal/1.5)+')';
-    else if(mode==='sepia')filterStr='sepia('+(intVal/1.5)+')';
-    else if(mode==='invert')filterStr='invert(1)';
+    else if(mode==='grayscale')filterStr='grayscale('+Math.min(1,0.5+0.5*intVal)+')';
+    else if(mode==='sepia')filterStr='sepia('+Math.min(1,0.5+0.5*intVal)+')';
+    else if(mode==='invert')filterStr='invert('+Math.min(1,0.5+0.5*intVal)+')';
     ctx.filter=filterStr;ctx.drawImage(img,0,0);
     return c;
   }

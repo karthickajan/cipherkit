@@ -3,7 +3,7 @@
     "name": "CipherKit",
     "domain": "https://cipherkit.dev",
     "tagline": "Developer Cryptography & Utility Tools",
-    "description": "77 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, DNS lookup — all client-side, no server.",
+    "description": "77 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, format converters, DNS lookup — all client-side, no server.",
     "github": "https://github.com/karthickajan/cipherkit"
   },
   "categories": [
@@ -15,7 +15,7 @@
     },
     {
       "id": "encoding",
-      "label": "Data Hub",
+      "label": "Encoding Hub",
       "icon": "📦",
       "description": "Encoding, decoding, and data format tools"
     },
@@ -24,6 +24,18 @@
       "label": "Dev Hub",
       "icon": "⚙️",
       "description": "Developer utilities and generators"
+    },
+    {
+      "id": "converter",
+      "label": "Converter Hub",
+      "icon": "🔄",
+      "description": "Data format conversion and file transformation tools"
+    },
+    {
+      "id": "image",
+      "label": "Image Hub",
+      "icon": "🖼️",
+      "description": "Image editing, conversion, and visual tools"
     }
   ],
   "tools": [
@@ -36,8 +48,20 @@
       "tagline": "Encrypt text with AES-128, 192, or 256-bit keys — 100% client-side",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["aes", "encryption", "cipher", "symmetric", "aes-256", "aes-128"],
-      "relatedTools": ["aes-decryption", "hmac-generator", "rsa-key-generator", "sha256-generator"],
+      "tags": [
+        "aes",
+        "encryption",
+        "cipher",
+        "symmetric",
+        "aes-256",
+        "aes-128"
+      ],
+      "relatedTools": [
+        "aes-decryption",
+        "hmac-generator",
+        "rsa-key-generator",
+        "sha256-generator"
+      ],
       "jsFile": "aes-encryption.js",
       "vendorJs": [
         {
@@ -59,8 +83,19 @@
       "tagline": "Decrypt AES-encrypted ciphertext — supports Base64 and Hex input",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["aes", "decryption", "cipher", "symmetric", "aes-256", "decrypt"],
-      "relatedTools": ["aes-encryption", "hmac-generator", "rsa-key-generator"],
+      "tags": [
+        "aes",
+        "decryption",
+        "cipher",
+        "symmetric",
+        "aes-256",
+        "decrypt"
+      ],
+      "relatedTools": [
+        "aes-encryption",
+        "hmac-generator",
+        "rsa-key-generator"
+      ],
       "jsFile": "aes-decryption.js",
       "vendorJs": [
         {
@@ -82,8 +117,19 @@
       "tagline": "Generate SHA-256 cryptographic hashes instantly — Hex or Base64 output",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["sha256", "sha-256", "hash", "checksum", "cryptographic hash"],
-      "relatedTools": ["sha512-generator", "md5-generator", "hmac-generator", "hash-comparator"],
+      "tags": [
+        "sha256",
+        "sha-256",
+        "hash",
+        "checksum",
+        "cryptographic hash"
+      ],
+      "relatedTools": [
+        "sha512-generator",
+        "md5-generator",
+        "hmac-generator",
+        "hash-comparator"
+      ],
       "jsFile": "sha256-generator.js",
       "vendorJs": [
         {
@@ -105,8 +151,19 @@
       "tagline": "Generate SHA-512 cryptographic hashes — stronger than SHA-256",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["sha512", "sha-512", "hash", "checksum", "cryptographic hash"],
-      "relatedTools": ["sha256-generator", "md5-generator", "hmac-generator", "hash-comparator"],
+      "tags": [
+        "sha512",
+        "sha-512",
+        "hash",
+        "checksum",
+        "cryptographic hash"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "md5-generator",
+        "hmac-generator",
+        "hash-comparator"
+      ],
       "jsFile": "sha512-generator.js",
       "vendorJs": [
         {
@@ -128,8 +185,17 @@
       "tagline": "Generate SHA-1 hashes — for legacy compatibility checks",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["sha1", "sha-1", "hash", "checksum"],
-      "relatedTools": ["sha256-generator", "sha512-generator", "md5-generator"],
+      "tags": [
+        "sha1",
+        "sha-1",
+        "hash",
+        "checksum"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "md5-generator"
+      ],
       "jsFile": "sha1-generator.js",
       "vendorJs": [
         {
@@ -151,8 +217,18 @@
       "tagline": "Generate SHA-3 (Keccak) hashes — the NIST standard successor",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["sha3", "sha-3", "keccak", "hash", "nist"],
-      "relatedTools": ["sha256-generator", "sha512-generator", "md5-generator"],
+      "tags": [
+        "sha3",
+        "sha-3",
+        "keccak",
+        "hash",
+        "nist"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "md5-generator"
+      ],
       "jsFile": "sha3-generator.js",
       "vendorJs": [
         {
@@ -174,8 +250,19 @@
       "tagline": "Generate MD5 checksums — fast, widely supported, not for passwords",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["md5", "hash", "checksum", "md5 generator", "md5 checksum"],
-      "relatedTools": ["sha256-generator", "sha512-generator", "hash-comparator", "checksum-generator"],
+      "tags": [
+        "md5",
+        "hash",
+        "checksum",
+        "md5 generator",
+        "md5 checksum"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "hash-comparator",
+        "checksum-generator"
+      ],
       "jsFile": "md5-generator.js",
       "vendorJs": [
         {
@@ -197,8 +284,17 @@
       "tagline": "Generate RIPEMD-160 hashes — used in Bitcoin address generation",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["ripemd160", "ripemd-160", "hash", "bitcoin hash"],
-      "relatedTools": ["sha256-generator", "sha512-generator", "md5-generator"],
+      "tags": [
+        "ripemd160",
+        "ripemd-160",
+        "hash",
+        "bitcoin hash"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "md5-generator"
+      ],
       "jsFile": "ripemd160-generator.js",
       "vendorJs": [
         {
@@ -220,8 +316,19 @@
       "tagline": "Generate HMAC message authentication codes — SHA256, SHA512, SHA1, MD5",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["hmac", "hmac-sha256", "hmac-sha512", "mac", "message authentication"],
-      "relatedTools": ["sha256-generator", "sha512-generator", "aes-encryption", "hash-comparator"],
+      "tags": [
+        "hmac",
+        "hmac-sha256",
+        "hmac-sha512",
+        "mac",
+        "message authentication"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "aes-encryption",
+        "hash-comparator"
+      ],
       "jsFile": "hmac-generator.js",
       "vendorJs": [
         {
@@ -243,8 +350,19 @@
       "tagline": "Generate RSA public & private key pairs — 1024, 2048, or 4096-bit",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["rsa", "rsa key", "public key", "private key", "asymmetric encryption", "pkcs8"],
-      "relatedTools": ["rsa-encrypt-decrypt", "aes-encryption", "hmac-generator"],
+      "tags": [
+        "rsa",
+        "rsa key",
+        "public key",
+        "private key",
+        "asymmetric encryption",
+        "pkcs8"
+      ],
+      "relatedTools": [
+        "rsa-encrypt-decrypt",
+        "aes-encryption",
+        "hmac-generator"
+      ],
       "jsFile": "rsa-key-generator.js",
       "phase": 2,
       "status": "ready",
@@ -259,8 +377,18 @@
       "tagline": "Compare and verify hash values — MD5, SHA-256, SHA-512 and more",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["hash comparator", "hash verifier", "compare hash", "verify hash", "checksum verify"],
-      "relatedTools": ["sha256-generator", "md5-generator", "checksum-generator"],
+      "tags": [
+        "hash comparator",
+        "hash verifier",
+        "compare hash",
+        "verify hash",
+        "checksum verify"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "md5-generator",
+        "checksum-generator"
+      ],
       "jsFile": "hash-comparator.js",
       "phase": 2,
       "status": "ready",
@@ -275,8 +403,17 @@
       "tagline": "Generate checksums for data integrity verification",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["checksum", "checksum generator", "file checksum", "data integrity"],
-      "relatedTools": ["md5-generator", "sha256-generator", "hash-comparator"],
+      "tags": [
+        "checksum",
+        "checksum generator",
+        "file checksum",
+        "data integrity"
+      ],
+      "relatedTools": [
+        "md5-generator",
+        "sha256-generator",
+        "hash-comparator"
+      ],
       "jsFile": "checksum-generator.js",
       "vendorJs": [
         {
@@ -297,9 +434,19 @@
       "h1": "Base64 Encoder",
       "tagline": "Encode text or binary data to Base64 — standard and URL-safe variants",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["base64", "base64 encode", "base64 encoder", "encode base64"],
-      "relatedTools": ["base64-decode", "url-encode", "hex-encode", "binary-encode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "base64",
+        "base64 encode",
+        "base64 encoder",
+        "encode base64"
+      ],
+      "relatedTools": [
+        "base64-decode",
+        "url-encode",
+        "hex-encode",
+        "binary-encode"
+      ],
       "jsFile": "base64-encode.js",
       "phase": 3,
       "status": "ready",
@@ -313,9 +460,19 @@
       "h1": "Base64 Decoder",
       "tagline": "Decode Base64 strings back to plain text or binary data",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["base64", "base64 decode", "base64 decoder", "decode base64"],
-      "relatedTools": ["base64-encode", "url-decode", "hex-decode", "binary-decode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "base64",
+        "base64 decode",
+        "base64 decoder",
+        "decode base64"
+      ],
+      "relatedTools": [
+        "base64-encode",
+        "url-decode",
+        "hex-decode",
+        "binary-decode"
+      ],
       "jsFile": "base64-decode.js",
       "phase": 3,
       "status": "ready",
@@ -329,9 +486,19 @@
       "h1": "URL Encoder",
       "tagline": "Percent-encode URLs and query strings for safe transmission",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["url encode", "url encoder", "percent encode", "urlencode", "query string encode"],
-      "relatedTools": ["url-decode", "base64-encode", "html-encode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "url encode",
+        "url encoder",
+        "percent encode",
+        "urlencode",
+        "query string encode"
+      ],
+      "relatedTools": [
+        "url-decode",
+        "base64-encode",
+        "html-encode"
+      ],
       "jsFile": "url-encode.js",
       "phase": 3,
       "status": "ready",
@@ -345,9 +512,18 @@
       "h1": "URL Decoder",
       "tagline": "Decode percent-encoded URLs back to readable query strings",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["url decode", "url decoder", "percent decode", "urldecode"],
-      "relatedTools": ["url-encode", "base64-decode", "html-decode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "url decode",
+        "url decoder",
+        "percent decode",
+        "urldecode"
+      ],
+      "relatedTools": [
+        "url-encode",
+        "base64-decode",
+        "html-decode"
+      ],
       "jsFile": "url-decode.js",
       "phase": 3,
       "status": "ready",
@@ -361,9 +537,18 @@
       "h1": "HTML Entity Encoder",
       "tagline": "Escape HTML special characters to prevent XSS and display issues",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["html encode", "html entities", "html escape", "xss prevention"],
-      "relatedTools": ["html-decode", "url-encode", "base64-encode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "html encode",
+        "html entities",
+        "html escape",
+        "xss prevention"
+      ],
+      "relatedTools": [
+        "html-decode",
+        "url-encode",
+        "base64-encode"
+      ],
       "jsFile": "html-encode.js",
       "phase": 3,
       "status": "ready",
@@ -377,9 +562,17 @@
       "h1": "HTML Entity Decoder",
       "tagline": "Decode HTML entities back to their original characters",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["html decode", "html entities decode", "html unescape"],
-      "relatedTools": ["html-encode", "url-decode", "base64-decode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "html decode",
+        "html entities decode",
+        "html unescape"
+      ],
+      "relatedTools": [
+        "html-encode",
+        "url-decode",
+        "base64-decode"
+      ],
       "jsFile": "html-decode.js",
       "phase": 3,
       "status": "ready",
@@ -393,9 +586,18 @@
       "h1": "Hex Encoder",
       "tagline": "Convert text to hexadecimal — useful for debugging and binary inspection",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["hex encode", "text to hex", "hexadecimal encoder", "ascii to hex"],
-      "relatedTools": ["hex-decode", "base64-encode", "binary-encode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "hex encode",
+        "text to hex",
+        "hexadecimal encoder",
+        "ascii to hex"
+      ],
+      "relatedTools": [
+        "hex-decode",
+        "base64-encode",
+        "binary-encode"
+      ],
       "jsFile": "hex-encode.js",
       "phase": 3,
       "status": "ready",
@@ -409,9 +611,18 @@
       "h1": "Hex Decoder",
       "tagline": "Decode hexadecimal strings back to plain text",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["hex decode", "hex to text", "hexadecimal decoder", "hex to ascii"],
-      "relatedTools": ["hex-encode", "base64-decode", "binary-decode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "hex decode",
+        "hex to text",
+        "hexadecimal decoder",
+        "hex to ascii"
+      ],
+      "relatedTools": [
+        "hex-encode",
+        "base64-decode",
+        "binary-decode"
+      ],
       "jsFile": "hex-decode.js",
       "phase": 3,
       "status": "ready",
@@ -425,9 +636,18 @@
       "h1": "Binary Encoder",
       "tagline": "Convert text to binary representation — byte by byte",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["binary encode", "text to binary", "binary converter", "ascii to binary"],
-      "relatedTools": ["binary-decode", "hex-encode", "base64-encode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "binary encode",
+        "text to binary",
+        "binary converter",
+        "ascii to binary"
+      ],
+      "relatedTools": [
+        "binary-decode",
+        "hex-encode",
+        "base64-encode"
+      ],
       "jsFile": "binary-encode.js",
       "phase": 3,
       "status": "ready",
@@ -441,9 +661,17 @@
       "h1": "Binary Decoder",
       "tagline": "Decode binary strings back to readable text",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["binary decode", "binary to text", "binary converter"],
-      "relatedTools": ["binary-encode", "hex-decode", "base64-decode"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "binary decode",
+        "binary to text",
+        "binary converter"
+      ],
+      "relatedTools": [
+        "binary-encode",
+        "hex-decode",
+        "base64-decode"
+      ],
       "jsFile": "binary-decode.js",
       "phase": 3,
       "status": "ready",
@@ -457,9 +685,20 @@
       "h1": "JSON Formatter & Validator",
       "tagline": "Beautify and validate JSON data — with syntax highlighting and error detection",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["json formatter", "json validator", "json beautifier", "format json", "json pretty print"],
-      "relatedTools": ["json-minifier", "xml-json-converter", "csv-json-converter", "yaml-json-converter"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "json formatter",
+        "json validator",
+        "json beautifier",
+        "format json",
+        "json pretty print"
+      ],
+      "relatedTools": [
+        "json-minifier",
+        "xml-json-converter",
+        "csv-json-converter",
+        "yaml-json-converter"
+      ],
       "jsFile": "json-formatter.js",
       "phase": 3,
       "status": "ready",
@@ -473,9 +712,17 @@
       "h1": "JSON Minifier",
       "tagline": "Minify JSON by removing whitespace — reduce payload size",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["json minifier", "json minify", "compress json", "json compressor"],
-      "relatedTools": ["json-formatter", "xml-json-converter"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "json minifier",
+        "json minify",
+        "compress json",
+        "json compressor"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "xml-json-converter"
+      ],
       "jsFile": "json-minifier.js",
       "phase": 3,
       "status": "ready",
@@ -488,10 +735,19 @@
       "metaDescription": "Free online XML to JSON converter. Convert XML data to JSON format instantly in your browser. No file upload required.",
       "h1": "XML to JSON Converter",
       "tagline": "Convert XML data to JSON format — fast, free, client-side",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["xml to json", "xml json converter", "convert xml", "xml parser"],
-      "relatedTools": ["json-xml-converter", "json-formatter", "csv-json-converter"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "xml to json",
+        "xml json converter",
+        "convert xml",
+        "xml parser"
+      ],
+      "relatedTools": [
+        "json-xml-converter",
+        "json-formatter",
+        "csv-json-converter"
+      ],
       "jsFile": "xml-json-converter.js",
       "phase": 3,
       "status": "ready",
@@ -504,10 +760,18 @@
       "metaDescription": "Free online JSON to XML converter. Convert JSON data to XML format instantly in your browser.",
       "h1": "JSON to XML Converter",
       "tagline": "Convert JSON data to XML format — browser-based, no server",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["json to xml", "json xml converter", "convert json to xml"],
-      "relatedTools": ["xml-json-converter", "json-formatter", "json-minifier"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "json to xml",
+        "json xml converter",
+        "convert json to xml"
+      ],
+      "relatedTools": [
+        "xml-json-converter",
+        "json-formatter",
+        "json-minifier"
+      ],
       "jsFile": "json-xml-converter.js",
       "phase": 3,
       "status": "ready",
@@ -520,10 +784,19 @@
       "metaDescription": "Free online CSV to JSON converter. Convert CSV files or comma-separated data to JSON format instantly in your browser.",
       "h1": "CSV to JSON Converter",
       "tagline": "Convert CSV data to JSON — paste your CSV, get instant JSON",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["csv to json", "csv json converter", "convert csv", "csv parser"],
-      "relatedTools": ["json-formatter", "xml-json-converter", "yaml-json-converter"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "csv to json",
+        "csv json converter",
+        "convert csv",
+        "csv parser"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "xml-json-converter",
+        "yaml-json-converter"
+      ],
       "jsFile": "csv-json-converter.js",
       "phase": 3,
       "status": "ready",
@@ -536,10 +809,19 @@
       "metaDescription": "Free online YAML to JSON converter. Convert YAML configuration files or data to JSON format instantly in your browser.",
       "h1": "YAML to JSON Converter",
       "tagline": "Convert YAML to JSON — for config files, CI/CD, and API schemas",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["yaml to json", "yaml json", "convert yaml", "yaml parser"],
-      "relatedTools": ["json-formatter", "xml-json-converter", "csv-json-converter"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "yaml to json",
+        "yaml json",
+        "convert yaml",
+        "yaml parser"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "xml-json-converter",
+        "csv-json-converter"
+      ],
       "jsFile": "yaml-json-converter.js",
       "phase": 3,
       "status": "ready",
@@ -554,8 +836,18 @@
       "tagline": "Decode and inspect JWT tokens — header, payload, claims at a glance",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["jwt decoder", "jwt", "json web token", "decode jwt", "jwt inspector"],
-      "relatedTools": ["jwt-encoder", "hmac-generator", "base64-decode"],
+      "tags": [
+        "jwt decoder",
+        "jwt",
+        "json web token",
+        "decode jwt",
+        "jwt inspector"
+      ],
+      "relatedTools": [
+        "jwt-encoder",
+        "hmac-generator",
+        "base64-decode"
+      ],
       "jsFile": "jwt-decoder.js",
       "phase": 4,
       "status": "ready",
@@ -570,8 +862,18 @@
       "tagline": "Create and sign JWT tokens with custom claims and headers",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["jwt encoder", "jwt", "create jwt", "sign jwt", "json web token generator"],
-      "relatedTools": ["jwt-decoder", "hmac-generator", "base64-encode"],
+      "tags": [
+        "jwt encoder",
+        "jwt",
+        "create jwt",
+        "sign jwt",
+        "json web token generator"
+      ],
+      "relatedTools": [
+        "jwt-decoder",
+        "hmac-generator",
+        "base64-encode"
+      ],
       "jsFile": "jwt-encoder.js",
       "phase": 4,
       "status": "ready",
@@ -586,8 +888,17 @@
       "tagline": "Generate UUID v4, v1, and bulk UUIDs — cryptographically secure",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["uuid generator", "guid generator", "uuid v4", "unique id", "uuid online"],
-      "relatedTools": ["random-string-generator", "random-password-generator"],
+      "tags": [
+        "uuid generator",
+        "guid generator",
+        "uuid v4",
+        "unique id",
+        "uuid online"
+      ],
+      "relatedTools": [
+        "random-string-generator",
+        "random-password-generator"
+      ],
       "jsFile": "uuid-generator.js",
       "phase": 4,
       "status": "ready",
@@ -602,8 +913,17 @@
       "tagline": "Generate strong, cryptographically secure passwords — customizable length and charset",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["password generator", "random password", "strong password", "secure password generator"],
-      "relatedTools": ["random-string-generator", "uuid-generator", "hmac-generator"],
+      "tags": [
+        "password generator",
+        "random password",
+        "strong password",
+        "secure password generator"
+      ],
+      "relatedTools": [
+        "random-string-generator",
+        "uuid-generator",
+        "hmac-generator"
+      ],
       "jsFile": "random-password-generator.js",
       "phase": 4,
       "status": "ready",
@@ -618,8 +938,16 @@
       "tagline": "Generate random strings, API keys, and tokens — custom length and charset",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["random string generator", "random string", "api key generator", "token generator"],
-      "relatedTools": ["random-password-generator", "uuid-generator"],
+      "tags": [
+        "random string generator",
+        "random string",
+        "api key generator",
+        "token generator"
+      ],
+      "relatedTools": [
+        "random-password-generator",
+        "uuid-generator"
+      ],
       "jsFile": "random-string-generator.js",
       "phase": 4,
       "status": "ready",
@@ -634,8 +962,17 @@
       "tagline": "Convert Unix timestamps to dates and dates to timestamps — with timezone support",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["unix timestamp", "epoch converter", "timestamp converter", "unix time", "epoch time"],
-      "relatedTools": ["uuid-generator", "random-string-generator"],
+      "tags": [
+        "unix timestamp",
+        "epoch converter",
+        "timestamp converter",
+        "unix time",
+        "epoch time"
+      ],
+      "relatedTools": [
+        "uuid-generator",
+        "random-string-generator"
+      ],
       "jsFile": "unix-timestamp-converter.js",
       "phase": 4,
       "status": "ready",
@@ -650,8 +987,17 @@
       "tagline": "Build and validate cron expressions visually — no syntax memorization needed",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["cron generator", "cron expression", "cron job", "cron schedule", "crontab generator"],
-      "relatedTools": ["cron-expression-explainer", "unix-timestamp-converter"],
+      "tags": [
+        "cron generator",
+        "cron expression",
+        "cron job",
+        "cron schedule",
+        "crontab generator"
+      ],
+      "relatedTools": [
+        "cron-expression-explainer",
+        "unix-timestamp-converter"
+      ],
       "jsFile": "cron-expression-generator.js",
       "phase": 4,
       "status": "ready",
@@ -666,8 +1012,16 @@
       "tagline": "Understand any cron expression in plain English — with next run times",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["cron explainer", "cron expression parser", "cron to english", "understand cron"],
-      "relatedTools": ["cron-expression-generator", "unix-timestamp-converter"],
+      "tags": [
+        "cron explainer",
+        "cron expression parser",
+        "cron to english",
+        "understand cron"
+      ],
+      "relatedTools": [
+        "cron-expression-generator",
+        "unix-timestamp-converter"
+      ],
       "jsFile": "cron-expression-explainer.js",
       "phase": 4,
       "status": "ready",
@@ -682,8 +1036,17 @@
       "tagline": "Parse and analyze raw HTTP request or response headers",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["http header parser", "http headers", "parse headers", "http request parser"],
-      "relatedTools": ["jwt-decoder", "url-decode", "json-formatter"],
+      "tags": [
+        "http header parser",
+        "http headers",
+        "parse headers",
+        "http request parser"
+      ],
+      "relatedTools": [
+        "jwt-decoder",
+        "url-decode",
+        "json-formatter"
+      ],
       "jsFile": "http-header-parser.js",
       "phase": 4,
       "status": "ready",
@@ -698,8 +1061,17 @@
       "tagline": "Hash passwords with bcrypt — configure cost factor, verify hashes",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["bcrypt", "bcrypt generator", "password hash", "bcrypt hash"],
-      "relatedTools": ["random-password-generator", "sha256-generator", "hash-comparator"],
+      "tags": [
+        "bcrypt",
+        "bcrypt generator",
+        "password hash",
+        "bcrypt hash"
+      ],
+      "relatedTools": [
+        "random-password-generator",
+        "sha256-generator",
+        "hash-comparator"
+      ],
       "jsFile": "bcrypt-generator.js",
       "vendorJs": [
         {
@@ -721,8 +1093,16 @@
       "tagline": "Test and debug regular expressions in real-time — with match highlighting",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["regex tester", "regular expression tester", "regex online", "regex matcher"],
-      "relatedTools": ["json-formatter", "diff-checker"],
+      "tags": [
+        "regex tester",
+        "regular expression tester",
+        "regex online",
+        "regex matcher"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "diff-checker"
+      ],
       "jsFile": "regex-tester.js",
       "phase": 4,
       "status": "ready",
@@ -735,10 +1115,18 @@
       "metaDescription": "Free online color code converter. Convert colors between HEX, RGB, RGBA, HSL, and HSV formats instantly with a visual color picker.",
       "h1": "Color Code Converter",
       "tagline": "Convert HEX, RGB, RGBA, HSL, HSV color codes — with visual preview",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["color converter", "hex to rgb", "rgb to hex", "color code converter", "hsl converter"],
-      "relatedTools": ["number-base-converter"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "color converter",
+        "hex to rgb",
+        "rgb to hex",
+        "color code converter",
+        "hsl converter"
+      ],
+      "relatedTools": [
+        "number-base-converter"
+      ],
       "jsFile": "color-converter.js",
       "phase": 4,
       "status": "ready",
@@ -751,10 +1139,19 @@
       "metaDescription": "Free online number base converter. Convert numbers between binary, octal, decimal, and hexadecimal bases instantly in your browser.",
       "h1": "Number Base Converter",
       "tagline": "Convert numbers between binary, octal, decimal, and hexadecimal",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["number base converter", "binary to decimal", "hex to decimal", "base converter"],
-      "relatedTools": ["hex-encode", "binary-encode", "color-converter"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "number base converter",
+        "binary to decimal",
+        "hex to decimal",
+        "base converter"
+      ],
+      "relatedTools": [
+        "hex-encode",
+        "binary-encode",
+        "color-converter"
+      ],
       "jsFile": "number-base-converter.js",
       "phase": 4,
       "status": "ready",
@@ -769,8 +1166,16 @@
       "tagline": "Generate lorem ipsum placeholder text — by word, sentence, or paragraph count",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["lorem ipsum generator", "placeholder text", "dummy text generator", "lorem ipsum"],
-      "relatedTools": ["word-counter", "random-string-generator"],
+      "tags": [
+        "lorem ipsum generator",
+        "placeholder text",
+        "dummy text generator",
+        "lorem ipsum"
+      ],
+      "relatedTools": [
+        "word-counter",
+        "random-string-generator"
+      ],
       "jsFile": "lorem-ipsum-generator.js",
       "phase": 4,
       "status": "ready",
@@ -785,8 +1190,16 @@
       "tagline": "Format and beautify SQL queries — supports MySQL, PostgreSQL, SQLite",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["sql formatter", "sql beautifier", "format sql", "sql query formatter"],
-      "relatedTools": ["json-formatter", "diff-checker"],
+      "tags": [
+        "sql formatter",
+        "sql beautifier",
+        "format sql",
+        "sql query formatter"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "diff-checker"
+      ],
       "jsFile": "sql-formatter.js",
       "phase": 4,
       "status": "ready",
@@ -801,8 +1214,17 @@
       "tagline": "Preview markdown in real-time — GitHub-flavored Markdown support",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["markdown preview", "markdown editor", "markdown renderer", "markdown online"],
-      "relatedTools": ["json-formatter", "diff-checker", "word-counter"],
+      "tags": [
+        "markdown preview",
+        "markdown editor",
+        "markdown renderer",
+        "markdown online"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "diff-checker",
+        "word-counter"
+      ],
       "jsFile": "markdown-preview.js",
       "phase": 4,
       "status": "ready",
@@ -817,8 +1239,18 @@
       "tagline": "Compare two text blocks and highlight differences line by line",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["diff checker", "text diff", "compare text", "text comparison", "diff tool"],
-      "relatedTools": ["json-formatter", "markdown-preview", "word-counter"],
+      "tags": [
+        "diff checker",
+        "text diff",
+        "compare text",
+        "text comparison",
+        "diff tool"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "markdown-preview",
+        "word-counter"
+      ],
       "jsFile": "diff-checker.js",
       "phase": 4,
       "status": "ready",
@@ -833,8 +1265,17 @@
       "tagline": "Count words, characters, sentences, and estimate reading time",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["word counter", "character counter", "word count online", "text analyzer"],
-      "relatedTools": ["lorem-ipsum-generator", "diff-checker", "markdown-preview"],
+      "tags": [
+        "word counter",
+        "character counter",
+        "word count online",
+        "text analyzer"
+      ],
+      "relatedTools": [
+        "lorem-ipsum-generator",
+        "diff-checker",
+        "markdown-preview"
+      ],
       "jsFile": "word-counter.js",
       "phase": 4,
       "status": "ready",
@@ -849,8 +1290,16 @@
       "tagline": "Subnet calculator, CIDR converter, and IPv4/IPv6 address analysis",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["ip address tools", "subnet calculator", "cidr calculator", "ip calculator"],
-      "relatedTools": ["http-header-parser", "number-base-converter"],
+      "tags": [
+        "ip address tools",
+        "subnet calculator",
+        "cidr calculator",
+        "ip calculator"
+      ],
+      "relatedTools": [
+        "http-header-parser",
+        "number-base-converter"
+      ],
       "jsFile": "ip-address-tools.js",
       "phase": 4,
       "status": "ready",
@@ -865,8 +1314,18 @@
       "tagline": "Encrypt with RSA public key, decrypt with private key — OAEP padding",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["rsa encrypt", "rsa decrypt", "rsa encryption", "asymmetric encryption", "public key encryption"],
-      "relatedTools": ["rsa-key-generator", "aes-encryption", "hmac-generator"],
+      "tags": [
+        "rsa encrypt",
+        "rsa decrypt",
+        "rsa encryption",
+        "asymmetric encryption",
+        "public key encryption"
+      ],
+      "relatedTools": [
+        "rsa-key-generator",
+        "aes-encryption",
+        "hmac-generator"
+      ],
       "jsFile": "rsa-encrypt-decrypt.js",
       "phase": 4,
       "status": "ready",
@@ -881,8 +1340,18 @@
       "tagline": "Real-time password analysis with entropy, crack time, and improvement tips",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["password strength", "password checker", "password analyzer", "entropy", "password security"],
-      "relatedTools": ["random-password-generator", "bcrypt-generator", "hmac-generator"],
+      "tags": [
+        "password strength",
+        "password checker",
+        "password analyzer",
+        "entropy",
+        "password security"
+      ],
+      "relatedTools": [
+        "random-password-generator",
+        "bcrypt-generator",
+        "hmac-generator"
+      ],
       "jsFile": "password-strength.js",
       "phase": 5,
       "status": "ready",
@@ -897,8 +1366,19 @@
       "tagline": "Generate time-based one-time passwords for two-factor authentication",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["totp", "2fa", "two-factor", "otp", "authenticator", "time-based otp"],
-      "relatedTools": ["hmac-generator", "sha1-generator", "password-strength"],
+      "tags": [
+        "totp",
+        "2fa",
+        "two-factor",
+        "otp",
+        "authenticator",
+        "time-based otp"
+      ],
+      "relatedTools": [
+        "hmac-generator",
+        "sha1-generator",
+        "password-strength"
+      ],
       "jsFile": "totp-generator.js",
       "phase": 5,
       "status": "ready",
@@ -913,8 +1393,19 @@
       "tagline": "Decode PEM X.509 certificates — view subject, issuer, validity, and serial",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["ssl", "certificate", "pem", "x509", "cert decoder", "tls"],
-      "relatedTools": ["rsa-key-generator", "rsa-encrypt-decrypt", "sha256-generator"],
+      "tags": [
+        "ssl",
+        "certificate",
+        "pem",
+        "x509",
+        "cert decoder",
+        "tls"
+      ],
+      "relatedTools": [
+        "rsa-key-generator",
+        "rsa-encrypt-decrypt",
+        "sha256-generator"
+      ],
       "jsFile": "ssl-cert-decoder.js",
       "phase": 5,
       "status": "ready",
@@ -928,9 +1419,19 @@
       "h1": "JSON Schema Validator",
       "tagline": "Validate JSON data against a schema — supports type, required, pattern, and more",
       "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["json schema", "json validator", "schema validation", "json", "data validation"],
-      "relatedTools": ["json-formatter", "json-minifier", "json-xml-converter"],
+      "hub": "Encoding Hub",
+      "tags": [
+        "json schema",
+        "json validator",
+        "schema validation",
+        "json",
+        "data validation"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "json-minifier",
+        "json-xml-converter"
+      ],
       "jsFile": "json-schema-validator.js",
       "phase": 5,
       "status": "ready",
@@ -943,10 +1444,20 @@
       "metaDescription": "Free online JSON to CSV converter. Convert JSON arrays to CSV format with proper escaping. Download as .csv file.",
       "h1": "JSON to CSV Converter",
       "tagline": "Convert JSON arrays to CSV with proper escaping — download as .csv",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["json to csv", "json csv", "convert json", "csv export", "data converter"],
-      "relatedTools": ["csv-json-converter", "json-formatter", "json-minifier"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "json to csv",
+        "json csv",
+        "convert json",
+        "csv export",
+        "data converter"
+      ],
+      "relatedTools": [
+        "csv-json-converter",
+        "json-formatter",
+        "json-minifier"
+      ],
       "jsFile": "json-to-csv.js",
       "phase": 5,
       "status": "ready",
@@ -959,10 +1470,20 @@
       "metaDescription": "Free online QR code generator. Create QR codes from text, URLs, or data with customizable size, error correction, and colors.",
       "h1": "QR Code Generator",
       "tagline": "Generate QR codes from text, URLs, or any data — customize size and colors",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["qr code", "qr generator", "qr code maker", "barcode", "qr"],
-      "relatedTools": ["uuid-generator", "random-string-generator", "url-encode"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "qr code",
+        "qr generator",
+        "qr code maker",
+        "barcode",
+        "qr"
+      ],
+      "relatedTools": [
+        "uuid-generator",
+        "random-string-generator",
+        "url-encode"
+      ],
       "jsFile": "qr-generator.js",
       "vendorJs": [
         {
@@ -982,10 +1503,20 @@
       "metaDescription": "Free online SVG to PNG converter. Convert SVG markup to PNG images with customizable scale factor. Uses Canvas API — 100% client-side.",
       "h1": "SVG to PNG Converter",
       "tagline": "Convert SVG markup to PNG with adjustable scale — 100% client-side",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["svg to png", "svg converter", "image converter", "svg", "png"],
-      "relatedTools": ["image-converter", "image-resizer", "color-converter"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "svg to png",
+        "svg converter",
+        "image converter",
+        "svg",
+        "png"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "image-resizer",
+        "color-converter"
+      ],
       "jsFile": "svg-to-png.js",
       "phase": 5,
       "status": "ready",
@@ -998,10 +1529,20 @@
       "metaDescription": "Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.",
       "h1": "Image Format Converter",
       "tagline": "Convert images between PNG, JPEG, and WebP — adjust quality, all client-side",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["image converter", "png to jpg", "jpg to png", "webp converter", "format converter"],
-      "relatedTools": ["svg-to-png", "image-resizer", "image-enhancer"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "image converter",
+        "png to jpg",
+        "jpg to png",
+        "webp converter",
+        "format converter"
+      ],
+      "relatedTools": [
+        "svg-to-png",
+        "image-resizer",
+        "image-enhancer"
+      ],
       "jsFile": "image-converter.js",
       "phase": 5,
       "status": "ready",
@@ -1014,10 +1555,19 @@
       "metaDescription": "Free online image resizer. Resize images to exact dimensions with aspect ratio lock. Supports PNG, JPEG, and WebP output.",
       "h1": "Image Resizer",
       "tagline": "Resize images to exact dimensions — lock aspect ratio, choose output format",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["image resizer", "resize image", "image dimensions", "photo resizer"],
-      "relatedTools": ["image-converter", "svg-to-png", "image-enhancer"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "image resizer",
+        "resize image",
+        "image dimensions",
+        "photo resizer"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "svg-to-png",
+        "image-enhancer"
+      ],
       "jsFile": "image-resizer.js",
       "phase": 5,
       "status": "ready",
@@ -1030,10 +1580,19 @@
       "metaDescription": "Free online Markdown to PDF converter. Convert Markdown text to PDF with headings, lists, and basic formatting. Powered by jsPDF.",
       "h1": "Markdown to PDF",
       "tagline": "Convert Markdown to downloadable PDF — headings, lists, and basic formatting",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["markdown to pdf", "md to pdf", "pdf generator", "markdown converter"],
-      "relatedTools": ["markdown-preview", "json-formatter", "word-counter"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "markdown to pdf",
+        "md to pdf",
+        "pdf generator",
+        "markdown converter"
+      ],
+      "relatedTools": [
+        "markdown-preview",
+        "json-formatter",
+        "word-counter"
+      ],
       "jsFile": "markdown-to-pdf.js",
       "vendorJs": [
         {
@@ -1063,10 +1622,20 @@
       "metaDescription": "Free online CSV to Excel converter. Convert CSV data to .xlsx spreadsheet files with live preview. Powered by SheetJS.",
       "h1": "CSV to Excel Converter",
       "tagline": "Convert CSV data to downloadable .xlsx files — with live table preview",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["csv to excel", "csv to xlsx", "spreadsheet", "csv converter", "excel"],
-      "relatedTools": ["csv-json-converter", "json-to-csv", "json-formatter"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "csv to excel",
+        "csv to xlsx",
+        "spreadsheet",
+        "csv converter",
+        "excel"
+      ],
+      "relatedTools": [
+        "csv-json-converter",
+        "json-to-csv",
+        "json-formatter"
+      ],
       "jsFile": "csv-to-excel.js",
       "vendorJs": [
         {
@@ -1086,10 +1655,19 @@
       "metaDescription": "Free online DOCX to HTML converter. Convert Word documents to clean HTML with preview and source view. Powered by Mammoth.js.",
       "h1": "DOCX to HTML Converter",
       "tagline": "Convert Word .docx files to clean HTML — preview and source view",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["docx to html", "word to html", "document converter", "docx converter"],
-      "relatedTools": ["markdown-preview", "markdown-to-pdf", "json-formatter"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "docx to html",
+        "word to html",
+        "document converter",
+        "docx converter"
+      ],
+      "relatedTools": [
+        "markdown-preview",
+        "markdown-to-pdf",
+        "json-formatter"
+      ],
       "jsFile": "docx-to-html.js",
       "vendorJs": [
         {
@@ -1111,8 +1689,18 @@
       "tagline": "Compress or decompress text with Gzip — shows compression ratio",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["gzip", "compress", "decompress", "gzip online", "compression tool"],
-      "relatedTools": ["base64-encode", "base64-decode", "hex-encode"],
+      "tags": [
+        "gzip",
+        "compress",
+        "decompress",
+        "gzip online",
+        "compression tool"
+      ],
+      "relatedTools": [
+        "base64-encode",
+        "base64-decode",
+        "hex-encode"
+      ],
       "jsFile": "gzip-tool.js",
       "vendorJs": [
         {
@@ -1134,8 +1722,18 @@
       "tagline": "Complete ASCII reference chart — decimal, hex, octal, binary, and descriptions",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["ascii table", "ascii chart", "ascii reference", "character codes", "ascii"],
-      "relatedTools": ["number-base-converter", "binary-encode", "hex-encode"],
+      "tags": [
+        "ascii table",
+        "ascii chart",
+        "ascii reference",
+        "character codes",
+        "ascii"
+      ],
+      "relatedTools": [
+        "number-base-converter",
+        "binary-encode",
+        "hex-encode"
+      ],
       "jsFile": "ascii-table.js",
       "phase": 5,
       "status": "ready",
@@ -1150,8 +1748,18 @@
       "tagline": "Convert between bits, bytes, KB, MB, GB, TB — SI and IEC units",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["bit calculator", "byte converter", "data size", "mb to gb", "storage calculator"],
-      "relatedTools": ["number-base-converter", "ascii-table", "binary-encode"],
+      "tags": [
+        "bit calculator",
+        "byte converter",
+        "data size",
+        "mb to gb",
+        "storage calculator"
+      ],
+      "relatedTools": [
+        "number-base-converter",
+        "ascii-table",
+        "binary-encode"
+      ],
       "jsFile": "bit-calculator.js",
       "phase": 5,
       "status": "ready",
@@ -1166,8 +1774,19 @@
       "tagline": "Query DNS records (A, AAAA, MX, NS, TXT, SOA) via Google DNS-over-HTTPS",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["dns lookup", "dns query", "dns records", "mx lookup", "ns lookup", "dns tool"],
-      "relatedTools": ["ip-address-tools", "http-header-parser", "url-encode"],
+      "tags": [
+        "dns lookup",
+        "dns query",
+        "dns records",
+        "mx lookup",
+        "ns lookup",
+        "dns tool"
+      ],
+      "relatedTools": [
+        "ip-address-tools",
+        "http-header-parser",
+        "url-encode"
+      ],
       "jsFile": "dns-lookup.js",
       "phase": 5,
       "status": "ready",
@@ -1182,8 +1801,18 @@
       "tagline": "Convert Unix timestamps to dates and back — live clock, auto-detect s/ms",
       "category": "dev",
       "hub": "Dev Hub",
-      "tags": ["epoch converter", "unix timestamp", "timestamp converter", "epoch time", "date converter"],
-      "relatedTools": ["unix-timestamp-converter", "cron-expression-explainer", "uuid-generator"],
+      "tags": [
+        "epoch converter",
+        "unix timestamp",
+        "timestamp converter",
+        "epoch time",
+        "date converter"
+      ],
+      "relatedTools": [
+        "unix-timestamp-converter",
+        "cron-expression-explainer",
+        "uuid-generator"
+      ],
       "jsFile": "epoch-converter.js",
       "phase": 5,
       "status": "ready",
@@ -1198,8 +1827,18 @@
       "tagline": "Build and sign JWTs with custom claims — HS256 via Web Crypto API",
       "category": "crypto",
       "hub": "Crypto Hub",
-      "tags": ["jwt builder", "jwt creator", "jwt sign", "json web token", "hs256"],
-      "relatedTools": ["jwt-decoder", "jwt-encoder", "hmac-generator"],
+      "tags": [
+        "jwt builder",
+        "jwt creator",
+        "jwt sign",
+        "json web token",
+        "hs256"
+      ],
+      "relatedTools": [
+        "jwt-decoder",
+        "jwt-encoder",
+        "hmac-generator"
+      ],
       "jsFile": "jwt-builder.js",
       "phase": 5,
       "status": "ready",
@@ -1212,10 +1851,20 @@
       "metaDescription": "Free online color palette generator. Create beautiful color palettes with complementary, analogous, triadic, and monochrome harmonies.",
       "h1": "Color Palette Generator",
       "tagline": "Generate color palettes with harmonies — complementary, analogous, triadic, monochrome",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["color palette", "color generator", "color harmony", "palette maker", "color scheme"],
-      "relatedTools": ["color-converter", "svg-to-png", "image-enhancer"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "color palette",
+        "color generator",
+        "color harmony",
+        "palette maker",
+        "color scheme"
+      ],
+      "relatedTools": [
+        "color-converter",
+        "svg-to-png",
+        "image-enhancer"
+      ],
       "jsFile": "color-palette.js",
       "phase": 5,
       "status": "ready",
@@ -1228,10 +1877,20 @@
       "metaDescription": "Free online image filters and effects. Sharpen, brighten, contrast, grayscale, sepia, and invert — all client-side using Canvas API.",
       "h1": "Image Filters & Effects",
       "tagline": "Sharpen, brighten, contrast, grayscale, sepia, and invert. Canvas API, instant.",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["image enhancer", "image filter", "photo editor", "sharpen image", "image effects"],
-      "relatedTools": ["image-converter", "image-resizer", "svg-to-png"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "image enhancer",
+        "image filter",
+        "photo editor",
+        "sharpen image",
+        "image effects"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "image-resizer",
+        "svg-to-png"
+      ],
       "jsFile": "image-enhancer.js",
       "phase": 5,
       "status": "ready",
@@ -1244,10 +1903,20 @@
       "metaDescription": "Free online PNG to JPG converter. Convert PNG images to JPEG format with adjustable quality. 100% client-side using Canvas API — no uploads.",
       "h1": "PNG to JPG Converter",
       "tagline": "Convert PNG images to JPEG format — adjust quality, all client-side",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["png to jpg", "png to jpeg", "image converter", "png converter"],
-      "relatedTools": ["image-converter", "jpg-to-png", "png-to-webp", "svg-to-png"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "png to jpg",
+        "png to jpeg",
+        "image converter",
+        "png converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "jpg-to-png",
+        "png-to-webp",
+        "svg-to-png"
+      ],
       "jsFile": "image-converter.js",
       "phase": 6,
       "status": "ready",
@@ -1260,10 +1929,20 @@
       "metaDescription": "Free online JPG to PNG converter. Convert JPEG images to PNG format with lossless quality. 100% client-side using Canvas API — no uploads.",
       "h1": "JPG to PNG Converter",
       "tagline": "Convert JPEG images to PNG format — lossless output, all client-side",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["jpg to png", "jpeg to png", "image converter", "jpg converter"],
-      "relatedTools": ["image-converter", "png-to-jpg", "webp-to-png", "svg-to-png"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "jpg to png",
+        "jpeg to png",
+        "image converter",
+        "jpg converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "png-to-jpg",
+        "webp-to-png",
+        "svg-to-png"
+      ],
       "jsFile": "image-converter.js",
       "phase": 6,
       "status": "ready",
@@ -1276,10 +1955,20 @@
       "metaDescription": "Free online PNG to WebP converter. Convert PNG images to WebP format for smaller file sizes. 100% client-side using Canvas API — no uploads.",
       "h1": "PNG to WebP Converter",
       "tagline": "Convert PNG images to WebP format — smaller files, all client-side",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["png to webp", "image converter", "webp converter", "png converter"],
-      "relatedTools": ["image-converter", "jpg-to-webp", "webp-to-png", "svg-to-png"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "png to webp",
+        "image converter",
+        "webp converter",
+        "png converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "jpg-to-webp",
+        "webp-to-png",
+        "svg-to-png"
+      ],
       "jsFile": "image-converter.js",
       "phase": 6,
       "status": "ready",
@@ -1292,10 +1981,20 @@
       "metaDescription": "Free online JPG to WebP converter. Convert JPEG images to WebP format for better compression. 100% client-side using Canvas API — no uploads.",
       "h1": "JPG to WebP Converter",
       "tagline": "Convert JPEG images to WebP format — better compression, all client-side",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["jpg to webp", "jpeg to webp", "image converter", "webp converter"],
-      "relatedTools": ["image-converter", "png-to-webp", "webp-to-jpg", "svg-to-png"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "jpg to webp",
+        "jpeg to webp",
+        "image converter",
+        "webp converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "png-to-webp",
+        "webp-to-jpg",
+        "svg-to-png"
+      ],
       "jsFile": "image-converter.js",
       "phase": 6,
       "status": "ready",
@@ -1308,10 +2007,20 @@
       "metaDescription": "Free online WebP to PNG converter. Convert WebP images to PNG format for broader compatibility. 100% client-side using Canvas API — no uploads.",
       "h1": "WebP to PNG Converter",
       "tagline": "Convert WebP images to PNG format — universal compatibility, all client-side",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["webp to png", "image converter", "webp converter", "png converter"],
-      "relatedTools": ["image-converter", "webp-to-jpg", "png-to-webp", "svg-to-png"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "webp to png",
+        "image converter",
+        "webp converter",
+        "png converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "webp-to-jpg",
+        "png-to-webp",
+        "svg-to-png"
+      ],
       "jsFile": "image-converter.js",
       "phase": 6,
       "status": "ready",
@@ -1324,10 +2033,20 @@
       "metaDescription": "Free online WebP to JPG converter. Convert WebP images to JPEG format for universal compatibility. 100% client-side using Canvas API — no uploads.",
       "h1": "WebP to JPG Converter",
       "tagline": "Convert WebP images to JPEG format — universal compatibility, all client-side",
-      "category": "dev",
-      "hub": "Dev Hub",
-      "tags": ["webp to jpg", "webp to jpeg", "image converter", "webp converter"],
-      "relatedTools": ["image-converter", "webp-to-png", "jpg-to-webp", "svg-to-png"],
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "webp to jpg",
+        "webp to jpeg",
+        "image converter",
+        "webp converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "webp-to-png",
+        "jpg-to-webp",
+        "svg-to-png"
+      ],
       "jsFile": "image-converter.js",
       "phase": 6,
       "status": "ready",
@@ -1340,10 +2059,20 @@
       "metaDescription": "Free online JSON to YAML converter. Convert JSON data to YAML format instantly in your browser. Supports nested objects, arrays, and all data types.",
       "h1": "JSON to YAML Converter",
       "tagline": "Convert JSON data to YAML format — instant, all client-side",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["json to yaml", "yaml converter", "json converter", "data format"],
-      "relatedTools": ["yaml-json-converter", "json-formatter", "json-minifier", "json-xml-converter"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "json to yaml",
+        "yaml converter",
+        "json converter",
+        "data format"
+      ],
+      "relatedTools": [
+        "yaml-json-converter",
+        "json-formatter",
+        "json-minifier",
+        "json-xml-converter"
+      ],
       "jsFile": "yaml-json-converter.js",
       "phase": 6,
       "status": "ready",
@@ -1356,10 +2085,21 @@
       "metaDescription": "Free online decimal to hexadecimal converter. Convert decimal numbers to hex, binary, and octal instantly. Supports large numbers via BigInt.",
       "h1": "Decimal to Hex Converter",
       "tagline": "Convert decimal numbers to hexadecimal — supports large numbers via BigInt",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["decimal to hex", "dec to hex", "number converter", "hex converter", "base converter"],
-      "relatedTools": ["number-base-converter", "hex-to-decimal", "hex-encode", "binary-encode"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "decimal to hex",
+        "dec to hex",
+        "number converter",
+        "hex converter",
+        "base converter"
+      ],
+      "relatedTools": [
+        "number-base-converter",
+        "hex-to-decimal",
+        "hex-encode",
+        "binary-encode"
+      ],
       "jsFile": "number-base-converter.js",
       "phase": 6,
       "status": "ready",
@@ -1372,10 +2112,21 @@
       "metaDescription": "Free online hexadecimal to decimal converter. Convert hex numbers to decimal, binary, and octal instantly. Supports large numbers via BigInt.",
       "h1": "Hex to Decimal Converter",
       "tagline": "Convert hexadecimal numbers to decimal — supports large numbers via BigInt",
-      "category": "encoding",
-      "hub": "Data Hub",
-      "tags": ["hex to decimal", "hex to dec", "number converter", "hex converter", "base converter"],
-      "relatedTools": ["number-base-converter", "decimal-to-hex", "hex-decode", "binary-decode"],
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "hex to decimal",
+        "hex to dec",
+        "number converter",
+        "hex converter",
+        "base converter"
+      ],
+      "relatedTools": [
+        "number-base-converter",
+        "decimal-to-hex",
+        "hex-decode",
+        "binary-decode"
+      ],
       "jsFile": "number-base-converter.js",
       "phase": 6,
       "status": "ready",

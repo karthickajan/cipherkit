@@ -23,6 +23,8 @@ const SVG = {
   gear:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
   check:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>',
   shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  arrows: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>',
+  image:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>',
 };
 // ── CONFIG ─────────────────────────────────────────────────────────────────
 const DOMAIN      = 'https://cipherkit.dev';   // ← change this when domain is ready
@@ -162,7 +164,9 @@ function buildNavbar(headerBadge) {
     <nav class="header-nav" aria-label="Tool categories">
       <a href="${BASE_PATH}/tools/crypto/" class="nav-link"><span class="nav-icon">${SVG.lock}</span> Crypto</a>
       <a href="${BASE_PATH}/tools/encoding/" class="nav-link"><span class="nav-icon">${SVG.box}</span> Encoding</a>
+      <a href="${BASE_PATH}/tools/converter/" class="nav-link"><span class="nav-icon">${SVG.arrows}</span> Converter</a>
       <a href="${BASE_PATH}/tools/dev/" class="nav-link"><span class="nav-icon">${SVG.gear}</span> Dev</a>
+      <a href="${BASE_PATH}/tools/image/" class="nav-link"><span class="nav-icon">${SVG.image}</span> Image</a>
     </nav>
 
     <div class="header-badges" aria-label="Security guarantees">
@@ -179,9 +183,11 @@ function buildNavbar(headerBadge) {
 // ── FOOTER ──────────────────────────────────────────────────────────────────
 function buildFooter() {
   const year = new Date().getFullYear();
-  const cryptoTools = tools.filter(t => t.category === 'crypto').slice(0, 6);
-  const encTools    = tools.filter(t => t.category === 'encoding').slice(0, 6);
-  const devTools    = tools.filter(t => t.category === 'dev').slice(0, 6);
+  const cryptoTools    = tools.filter(t => t.category === 'crypto').slice(0, 6);
+  const encTools       = tools.filter(t => t.category === 'encoding').slice(0, 6);
+  const converterTools = tools.filter(t => t.category === 'converter').slice(0, 6);
+  const devTools       = tools.filter(t => t.category === 'dev').slice(0, 6);
+  const imageTools     = tools.filter(t => t.category === 'image').slice(0, 6);
 
   function linkList(arr) {
     return arr.map(t =>
@@ -218,15 +224,27 @@ function buildFooter() {
         </ul>
       </div>
       <div class="footer-col">
-        <h3><span class="footer-icon">${SVG.box}</span> Data Hub</h3>
+        <h3><span class="footer-icon">${SVG.box}</span> Encoding Hub</h3>
         <ul>
           ${linkList(encTools)}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3><span class="footer-icon">${SVG.arrows}</span> Converter Hub</h3>
+        <ul>
+          ${linkList(converterTools)}
         </ul>
       </div>
       <div class="footer-col">
         <h3><span class="footer-icon">${SVG.gear}</span> Dev Hub</h3>
         <ul>
           ${linkList(devTools)}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3><span class="footer-icon">${SVG.image}</span> Image Hub</h3>
+        <ul>
+          ${linkList(imageTools)}
         </ul>
       </div>
     </div>
@@ -437,7 +455,7 @@ ${JSON.stringify({
   });
 
   // Map category id to SVG icon
-  const catIcons = { crypto: SVG.lock, encoding: SVG.box, dev: SVG.gear };
+  const catIcons = { crypto: SVG.lock, encoding: SVG.box, converter: SVG.arrows, dev: SVG.gear, image: SVG.image };
 
   function categorySection(catId) {
     const cat       = categories.find(c => c.id === catId);
@@ -497,8 +515,10 @@ ${buildNavbar()}
       <!-- Hub quick-links -->
       <div class="hub-pills" aria-label="Jump to category">
         <a href="#crypto" class="hub-pill"><span class="hub-pill-icon">${SVG.lock}</span> Crypto Hub</a>
-        <a href="#encoding" class="hub-pill"><span class="hub-pill-icon">${SVG.box}</span> Data Hub</a>
+        <a href="#encoding" class="hub-pill"><span class="hub-pill-icon">${SVG.box}</span> Encoding Hub</a>
+        <a href="#converter" class="hub-pill"><span class="hub-pill-icon">${SVG.arrows}</span> Converter Hub</a>
         <a href="#dev" class="hub-pill"><span class="hub-pill-icon">${SVG.gear}</span> Dev Hub</a>
+        <a href="#image" class="hub-pill"><span class="hub-pill-icon">${SVG.image}</span> Image Hub</a>
       </div>
     </div>
   </section>
@@ -515,7 +535,9 @@ ${buildNavbar()}
   <div class="hubs-wrap" id="hubs-wrap">
     ${categorySection('crypto')}
     ${categorySection('encoding')}
+    ${categorySection('converter')}
     ${categorySection('dev')}
+    ${categorySection('image')}
   </div>
 
 </main>
@@ -589,7 +611,7 @@ function buildCategoryPage(cat) {
           <div class="tool-card-tag">${t.tagline}</div>
         </a>`).join('');
 
-  const catIcon = { crypto: SVG.lock, encoding: SVG.box, dev: SVG.gear }[cat.id] || '';
+  const catIcon = { crypto: SVG.lock, encoding: SVG.box, converter: SVG.arrows, dev: SVG.gear, image: SVG.image }[cat.id] || '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -634,10 +656,12 @@ function buildSitemap() {
   const today = new Date().toISOString().split('T')[0];
 
   const staticUrls = [
-    { loc: `${DOMAIN}/`,              priority: '1.0', freq: 'weekly' },
-    { loc: `${DOMAIN}/tools/crypto/`, priority: '0.8', freq: 'weekly' },
-    { loc: `${DOMAIN}/tools/encoding/`, priority: '0.8', freq: 'weekly' },
-    { loc: `${DOMAIN}/tools/dev/`,    priority: '0.8', freq: 'weekly' },
+    { loc: `${DOMAIN}/`,                  priority: '1.0', freq: 'weekly' },
+    { loc: `${DOMAIN}/tools/crypto/`,     priority: '0.8', freq: 'weekly' },
+    { loc: `${DOMAIN}/tools/encoding/`,   priority: '0.8', freq: 'weekly' },
+    { loc: `${DOMAIN}/tools/converter/`,  priority: '0.8', freq: 'weekly' },
+    { loc: `${DOMAIN}/tools/dev/`,        priority: '0.8', freq: 'weekly' },
+    { loc: `${DOMAIN}/tools/image/`,      priority: '0.8', freq: 'weekly' },
   ];
 
   const toolUrls = tools.map(t => ({

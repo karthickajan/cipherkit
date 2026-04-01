@@ -152,7 +152,7 @@
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 32px;
 }
 
@@ -436,7 +436,7 @@
     gap: 32px;
   }
   .footer-links {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .tools-grid {
     grid-template-columns: 1fr 1fr;
@@ -448,7 +448,7 @@
     grid-template-columns: 1fr;
   }
   .footer-links {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
   .header-nav .nav-link {
     font-size: 12px;
