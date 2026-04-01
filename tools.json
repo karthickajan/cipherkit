@@ -1037,12 +1037,17 @@
       "jsFile": "markdown-to-pdf.js",
       "vendorJs": [
         {
-          "src": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js",
           "integrity": "",
           "crossorigin": "anonymous"
         },
         {
-          "src": "https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js",
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        },
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
           "integrity": "",
           "crossorigin": "anonymous"
         }
