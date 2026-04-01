@@ -1,7 +1,7 @@
 /**
  * CipherKit — Markdown to PDF
  * Pipeline: marked.js → HTML → html2canvas → jsPDF (multi-page)
- * Browser handles all text layout, word wrap, code, tables.
+ * Smart page breaks avoid slicing through text mid-line.
  */
 (function () {
   'use strict';
@@ -19,6 +19,59 @@
   };
 
   function $(id) { return document.getElementById(id); }
+
+  /* ── FIX 1: Inject !important CSS for preview + render container ── */
+  var fixCSS = ''
+    /* Preview shell isolation */
+    + '#md-preview-shell,#md-live-preview,#md-live-preview *{box-sizing:border-box!important}'
+    + '#md-live-preview{color:#111!important;background:#fff!important}'
+    + '#md-live-preview h1{font-size:1.9em;color:#000!important;border-bottom:2px solid #ddd;padding-bottom:6px;margin:.8em 0 .4em;font-weight:700}'
+    + '#md-live-preview h2{font-size:1.45em;color:#1a1a1a!important;border-bottom:1px solid #eee;padding-bottom:4px;margin:1em 0 .4em;font-weight:700}'
+    + '#md-live-preview h3{font-size:1.15em;color:#222!important;margin:.8em 0 .3em;font-weight:700}'
+    + '#md-live-preview h4,#md-live-preview h5,#md-live-preview h6{color:#333!important;margin:.6em 0 .2em;font-weight:700}'
+    + '#md-live-preview p{color:#111!important;margin:.5em 0;word-break:break-word;overflow-wrap:break-word}'
+    + '#md-live-preview li{color:#111!important;margin:.2em 0}'
+    + '#md-live-preview strong{color:#000!important;font-weight:700}'
+    + '#md-live-preview em{color:#222!important;font-style:italic}'
+    + '#md-live-preview a{color:#0066cc!important;word-break:break-all}'
+    + '#md-live-preview blockquote{border-left:4px solid #ccc!important;color:#555!important;background:#f9f9f9!important;margin:.8em 0;padding:6px 16px}'
+    + '#md-live-preview code{background:#f0f0f0!important;color:#c7254e!important;padding:2px 5px!important;border-radius:3px!important;font-family:"Courier New",Courier,monospace!important;font-size:.87em!important;word-break:break-all!important;overflow-wrap:break-word!important;white-space:pre-wrap!important}'
+    + '#md-live-preview pre{background:#f5f5f5!important;border:1px solid #e0e0e0!important;border-radius:4px!important;padding:12px 16px!important;overflow-x:hidden!important;white-space:pre-wrap!important;word-break:break-all!important}'
+    + '#md-live-preview pre code{background:transparent!important;color:#333!important;padding:0!important;border-radius:0!important;font-size:.85em!important}'
+    + '#md-live-preview table{width:100%!important;border-collapse:collapse!important;table-layout:fixed!important;font-size:11px!important;color:#111!important}'
+    + '#md-live-preview th{background:#f0f0f0!important;color:#000!important;border:1px solid #ccc!important;padding:6px 10px!important;font-weight:700!important}'
+    + '#md-live-preview td{background:#fff!important;color:#111!important;border:1px solid #ccc!important;padding:6px 10px!important;word-break:break-word!important}'
+    + '#md-live-preview tr:nth-child(even) td{background:#fafafa!important}'
+    + '#md-live-preview hr{border:none!important;border-top:1px solid #ddd!important;margin:1em 0!important}'
+    + '#md-live-preview img{max-width:100%!important;height:auto!important}'
+    + '#md-live-preview ul,#md-live-preview ol{padding-left:1.5em;margin:.5em 0}'
+    /* Render container (same rules) */
+    + '#md-render-container{color:#111!important;background:#fff!important}'
+    + '#md-render-container *{box-sizing:border-box!important}'
+    + '#md-render-container h1{color:#000!important;font-size:1.9em;border-bottom:2px solid #ddd;padding-bottom:6px;margin:.8em 0 .4em;font-weight:700}'
+    + '#md-render-container h2{color:#1a1a1a!important;font-size:1.45em;border-bottom:1px solid #eee;padding-bottom:4px;margin:1em 0 .4em;font-weight:700}'
+    + '#md-render-container h3{color:#222!important;font-size:1.15em;margin:.8em 0 .3em;font-weight:700}'
+    + '#md-render-container h4,#md-render-container h5,#md-render-container h6{color:#333!important;margin:.6em 0 .2em;font-weight:700}'
+    + '#md-render-container p{color:#111!important;margin:.5em 0;word-break:break-word;overflow-wrap:break-word}'
+    + '#md-render-container li{color:#111!important}'
+    + '#md-render-container strong{color:#000!important;font-weight:700}'
+    + '#md-render-container em{color:#222!important;font-style:italic}'
+    + '#md-render-container a{color:#0066cc!important;word-break:break-all}'
+    + '#md-render-container blockquote{border-left:4px solid #ccc!important;color:#555!important;background:#f9f9f9!important;padding:6px 16px;margin:.8em 0}'
+    + '#md-render-container code{background:#f0f0f0!important;color:#c7254e!important;padding:2px 5px!important;border-radius:3px!important;font-family:"Courier New",Courier,monospace!important;font-size:.87em!important;word-break:break-all!important;overflow-wrap:break-word!important;white-space:pre-wrap!important}'
+    + '#md-render-container pre{background:#f5f5f5!important;border:1px solid #e0e0e0!important;border-radius:4px!important;padding:12px 16px!important;overflow-x:hidden!important;white-space:pre-wrap!important;word-break:break-all!important;max-width:100%!important}'
+    + '#md-render-container pre code{background:transparent!important;color:#333!important;padding:0!important;font-size:.85em!important}'
+    + '#md-render-container table{width:100%!important;border-collapse:collapse!important;table-layout:fixed!important;font-size:11px!important;color:#111!important}'
+    + '#md-render-container th{background:#f0f0f0!important;color:#000!important;border:1px solid #ccc!important;padding:6px 10px!important;font-weight:700!important}'
+    + '#md-render-container td{background:#fff!important;color:#111!important;border:1px solid #ccc!important;padding:6px 10px!important;word-break:break-word!important}'
+    + '#md-render-container tr:nth-child(even) td{background:#fafafa!important}'
+    + '#md-render-container hr{border:none!important;border-top:1px solid #ddd!important;margin:1em 0!important}'
+    + '#md-render-container img{max-width:100%!important;height:auto!important}'
+    + '#md-render-container ul,#md-render-container ol{padding-left:1.5em;margin:.5em 0}';
+
+  var styleTag = document.createElement('style');
+  styleTag.textContent = fixCSS;
+  document.head.appendChild(styleTag);
 
   /* ── Render tool UI ────────────────────────────────────────── */
   root.innerHTML =
@@ -38,42 +91,16 @@
     +   '</div>'
     +   '<button type="button" class="act-btn act-purple" id="btn-gen">' + IC.dl + ' <span>Generate PDF</span></button>'
     +   '<div id="md-status" style="margin-top:10px;min-height:24px" role="status"></div>'
-    /* preview */
-    +   '<div class="out-box">'
-    +     '<div class="out-head"><div class="out-label">' + IC.play + ' <span>Preview</span></div><div class="out-btns"><button type="button" class="pill-btn" id="btn-preview">' + IC.eye + ' <span>Preview</span></button></div></div>'
-    +     '<div class="out-body" id="t-result" role="status" style="max-height:400px;overflow-y:auto;resize:vertical"><span style="color:var(--muted);font-style:italic">Click Generate PDF or Preview to see output\u2026</span></div>'
+    /* FIX 2: Preview with all:initial isolation shell */
+    +   '<div id="md-preview-shell" style="all:initial;display:block;background:#ffffff;border:1px solid #333;border-radius:4px;max-height:420px;overflow-y:auto;resize:vertical;box-sizing:border-box;margin-top:8px">'
+    +     '<div id="md-live-preview" style="all:initial;display:block;font-family:Georgia,\'Times New Roman\',serif;font-size:13px;line-height:1.7;color:#111111;background:#ffffff;padding:24px 28px;box-sizing:border-box;width:100%;word-break:break-word;overflow-wrap:break-word"></div>'
     +   '</div>'
     + '</div></div></div>';
 
-  /* ── Hidden render container (white bg for PDF) ────────────── */
-  var renderCSS =
-    '#md-render-container h1{font-size:2em;margin:.6em 0 .3em;border-bottom:2px solid #ddd;padding-bottom:6px}'
-    + '#md-render-container h2{font-size:1.5em;margin:1em 0 .3em;border-bottom:1px solid #eee;padding-bottom:4px}'
-    + '#md-render-container h3{font-size:1.2em;margin:.8em 0 .2em}'
-    + '#md-render-container h4,#md-render-container h5,#md-render-container h6{font-size:1em;margin:.6em 0 .2em}'
-    + '#md-render-container p{margin:.5em 0;word-break:break-word;overflow-wrap:break-word}'
-    + '#md-render-container code{background:#f4f4f4;padding:2px 5px;border-radius:3px;font-family:"Courier New",monospace;font-size:.88em;word-break:break-all}'
-    + '#md-render-container pre{background:#f4f4f4;padding:12px 16px;border-radius:4px;overflow-x:hidden;white-space:pre-wrap;word-break:break-all;font-family:"Courier New",monospace;font-size:.85em}'
-    + '#md-render-container pre code{background:none;padding:0;border-radius:0;word-break:break-all}'
-    + '#md-render-container blockquote{border-left:4px solid #ccc;margin:.8em 0;padding:4px 16px;color:#555}'
-    + '#md-render-container table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.9em;table-layout:fixed;word-break:break-word}'
-    + '#md-render-container th,#md-render-container td{border:1px solid #ccc;padding:6px 10px;text-align:left}'
-    + '#md-render-container th{background:#f0f0f0;font-weight:700}'
-    + '#md-render-container ul,#md-render-container ol{padding-left:1.5em;margin:.5em 0}'
-    + '#md-render-container li{margin:.2em 0}'
-    + '#md-render-container a{color:#0066cc;word-break:break-all}'
-    + '#md-render-container hr{border:none;border-top:1px solid #ddd;margin:1em 0}'
-    + '#md-render-container img{max-width:100%;height:auto}'
-    + '#md-render-container strong{font-weight:700}'
-    + '#md-render-container em{font-style:italic}';
-
-  var styleTag = document.createElement('style');
-  styleTag.textContent = renderCSS;
-  document.head.appendChild(styleTag);
-
+  /* ── Hidden render container (FIX 3+4: overflow hidden, fixed width) ── */
   var container = document.createElement('div');
   container.id = 'md-render-container';
-  container.style.cssText = 'position:absolute;left:-9999px;top:0;width:794px;background:white;color:#111;padding:48px 56px;font-family:Georgia,serif;font-size:13px;line-height:1.7;box-sizing:border-box;';
+  container.style.cssText = 'position:absolute;left:-9999px;top:0;width:794px;max-width:794px;overflow:hidden;overflow-x:hidden;background:white;color:#111;padding:48px 56px;font-family:Georgia,serif;font-size:13px;line-height:1.7;box-sizing:border-box;';
   document.body.appendChild(container);
 
   /* ── Helpers ────────────────────────────────────────────────── */
@@ -95,6 +122,24 @@
     }
   }
 
+  /* ── FIX 5: Smart whitespace page-break finder ─────────────── */
+  function findSafeBreakPoint(canvas, startPixel, maxPixel) {
+    var ctx = canvas.getContext('2d');
+    var width = canvas.width;
+    for (var y = maxPixel; y > maxPixel - 80 && y > startPixel + 10; y--) {
+      var data = ctx.getImageData(0, y, width, 1).data;
+      var isWhite = true;
+      for (var x = 0; x < width * 4; x += 16) {
+        if (data[x] < 245 || data[x + 1] < 245 || data[x + 2] < 245) {
+          isWhite = false;
+          break;
+        }
+      }
+      if (isWhite) return y;
+    }
+    return maxPixel;
+  }
+
   /* ── Char / byte counter ────────────────────────────────────── */
   $('markdown-input').addEventListener('input', function () {
     var v = $('markdown-input').value;
@@ -103,7 +148,7 @@
     $('md-counter').textContent = v.length + ' chars \u00b7 ' + bytes + ' bytes';
   });
 
-  /* ── Preview ────────────────────────────────────────────────── */
+  /* ── Preview (renders into the isolated shell) ──────────────── */
   $('btn-preview').addEventListener('click', function () {
     var md = $('markdown-input').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
@@ -112,7 +157,9 @@
     if (!m) { $('t-err').textContent = 'marked.js not loaded.'; $('t-err').style.display = 'block'; return; }
     var html = m.parse(md, { gfm: true, breaks: true });
     var fs = $('font-size').value || '13';
-    $('t-result').innerHTML = '<div style="background:#fff;color:#1a1a1a;padding:28px 24px;border-radius:6px;font-family:Georgia,serif;font-size:' + fs + 'px;line-height:1.7">' + html + '</div>';
+    var lp = $('md-live-preview');
+    lp.style.fontSize = fs + 'px';
+    lp.innerHTML = html;
   });
 
   /* ── Generate PDF (marked → html2canvas → jsPDF) ───────────── */
@@ -140,56 +187,56 @@
     container.style.fontSize = fontSize + 'px';
     container.innerHTML = html;
 
-    /* 3. Wait a tick for browser layout */
+    /* 3. Wait for browser layout */
     await new Promise(function (r) { setTimeout(r, 150); });
 
     try {
-      /* 4. Capture with html2canvas */
+      /* 4. FIX 6: html2canvas with windowWidth: 900 */
       var canvas = await html2canvas(container, {
         scale: 2,
         useCORS: true,
         backgroundColor: '#ffffff',
         logging: false,
         width: 794,
-        windowWidth: 794
+        windowWidth: 900
       });
 
       /* 5. Build PDF — A4 in mm: 210 x 297 */
       var pdf = new J({ orientation: 'portrait', unit: 'mm', format: 'a4' });
       var pageW = pdf.internal.pageSize.getWidth();
       var pageH = pdf.internal.pageSize.getHeight();
-
       var imgW = pageW;
-      var imgH = (canvas.height * imgW) / canvas.width;
+      var totalImgH = (canvas.height * imgW) / canvas.width;
+      var pageCanvasH = Math.round((pageH / totalImgH) * canvas.height);
 
-      /* Multi-page: slice the canvas image across pages */
-      var yOffset = 0;
+      /* FIX 5: Smart page slicing — find whitespace rows to avoid mid-line cuts */
+      var startPixel = 0;
+      var firstPage = true;
       var pageCount = 0;
 
-      while (yOffset < imgH) {
-        if (yOffset > 0) pdf.addPage();
+      while (startPixel < canvas.height) {
+        if (!firstPage) pdf.addPage();
+        firstPage = false;
         pageCount++;
 
-        /* source slice from canvas */
-        var srcY = (yOffset / imgH) * canvas.height;
-        var srcH = Math.min(
-          (pageH / imgH) * canvas.height,
-          canvas.height - srcY
-        );
+        var rawEnd = startPixel + pageCanvasH;
+        var safeEnd = rawEnd >= canvas.height
+          ? canvas.height
+          : findSafeBreakPoint(canvas, startPixel, rawEnd);
 
-        /* create a temp canvas for this page slice */
+        var sliceH = safeEnd - startPixel;
+
         var sliceCanvas = document.createElement('canvas');
         sliceCanvas.width = canvas.width;
-        sliceCanvas.height = Math.ceil(srcH);
-        var ctx = sliceCanvas.getContext('2d');
-        ctx.drawImage(canvas, 0, srcY, canvas.width, srcH, 0, 0, canvas.width, srcH);
+        sliceCanvas.height = sliceH;
+        sliceCanvas.getContext('2d').drawImage(
+          canvas, 0, startPixel, canvas.width, sliceH, 0, 0, canvas.width, sliceH
+        );
 
-        var sliceData = sliceCanvas.toDataURL('image/jpeg', 0.95);
-        var sliceH = (srcH / canvas.height) * imgH;
+        var sliceMmH = (sliceH / canvas.height) * totalImgH;
+        pdf.addImage(sliceCanvas.toDataURL('image/jpeg', 0.82), 'JPEG', 0, 0, pageW, sliceMmH);
 
-        pdf.addImage(sliceData, 'JPEG', 0, 0, pageW, sliceH);
-
-        yOffset += pageH;
+        startPixel = safeEnd;
       }
 
       /* 6. Download */
@@ -209,7 +256,7 @@
   $('btn-clr').addEventListener('click', function () {
     $('markdown-input').value = '';
     $('md-counter').textContent = '0 chars \u00b7 0 bytes';
-    $('t-result').innerHTML = '<span style="color:var(--muted);font-style:italic">Click Generate PDF or Preview to see output\u2026</span>';
+    $('md-live-preview').innerHTML = '';
     $('md-status').innerHTML = '';
   });
 
