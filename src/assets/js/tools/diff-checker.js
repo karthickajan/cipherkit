@@ -1,5 +1,5 @@
 /**
- * CipherKit — 2-Pane Interactive Text Diff (Aligned Block Architecture)
+ * CipherKit — 2-Pane Interactive Text Diff & Merge (Sticky Gutter Build)
  */
 (function () {
   'use strict';
@@ -20,28 +20,33 @@
   function $(id) { return document.getElementById(id); }
   function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  /* ── SCOPED STYLES (Bulletproof Layout) ─────────────────────────────────── */
+  /* ── SCOPED STYLES (Sticky Block Layout) ────────────────────────────────── */
   var sty = document.createElement('style');
   sty.textContent = `
     .dm-pane { flex: 1; display: flex; flex-direction: column; gap: 8px; }
     
-    /* Toolbars & Stats */
     .dm-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .dm-stats-bar { display: flex; justify-content: space-between; padding: 10px 16px; background: rgba(0,0,0,0.15); border: 1px solid var(--border); border-bottom: none; border-radius: 6px 6px 0 0; font-size: 13px; }
     .dm-st-add { color: #3dd68c; margin-right: 12px; } .dm-st-rem { color: #ff6b6b; margin-right: 12px; } .dm-stats b { font-weight: 700; }
     
-    /* Toggle Switches in Toolbar */
     .dm-feature-toggle { display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; color: var(--muted); transition: 0.2s; user-select: none; }
     .dm-feature-toggle:hover { color: var(--text); }
     .dm-feature-toggle input { accent-color: var(--amber); cursor: pointer; width: 14px; height: 14px; }
 
-    /* Unified scroll wrapper */
-    .dm-res-wrap { max-height: 60vh; overflow-y: auto; overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0 0 6px 6px; }
-    .dm-res-grid { display: grid; grid-template-columns: 1fr 48px 1fr; min-width: 800px; }
-    .dm-res-col { padding: 8px 0; font-family: var(--mono); font-size: 13px; line-height: 24px; }
-    .dm-gutter { background: rgba(0,0,0,0.2); border-left: 1px solid var(--border); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 8px 0; user-select: none; }
+    /* The main scrollable container */
+    .dm-res-wrap { max-height: 60vh; overflow-y: auto; overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0 0 6px 6px; position: relative; }
     
-    /* Lines & Highlighting */
+    /* Block Grid: Now rows are dynamically created by appending 3 child divs at a time */
+    .dm-res-grid { display: grid; grid-template-columns: 1fr 48px 1fr; min-width: 800px; }
+    
+    /* Grid Columns */
+    .dm-block-col { padding: 4px 0; font-family: var(--mono); font-size: 13px; line-height: 24px; }
+    .dm-block-gutter { background: rgba(0,0,0,0.2); border-left: 1px solid var(--border); border-right: 1px solid var(--border); position: relative; }
+    
+    /* Sticky Magic */
+    .dm-sticky-arrows { position: sticky; top: 12px; display: flex; justify-content: center; width: 100%; padding: 4px; z-index: 5; }
+    
+    /* Lines */
     .dm-line { display: flex; align-items: flex-start; min-height: 24px; padding: 0 12px; }
     .dm-line-num { opacity: 0.4; font-size: 11px; width: 36px; flex-shrink: 0; text-align: right; margin-right: 16px; user-select: none; font-variant-numeric: tabular-nums; }
     .dm-line-txt { flex: 1; outline: none; transition: background 0.2s; }
@@ -52,9 +57,9 @@
     .dm-empty { background: rgba(255,255,255,0.02); }
     
     /* Action Buttons */
-    .dm-btn-grp { display: flex; width: 100%; height: 24px; justify-content: space-evenly; align-items: center; background: rgba(255,255,255,0.05); border-radius: 4px; }
-    .dm-btn-arrow { background: none; border: none; color: var(--muted); cursor: pointer; height: 18px; width: 18px; display: flex; align-items: center; justify-content: center; padding: 2px; transition: 0.2s; }
-    .dm-btn-arrow:hover { color: var(--text); background: rgba(255,255,255,0.15); border-radius: 4px; }
+    .dm-btn-grp { display: flex; width: 100%; height: 24px; justify-content: space-evenly; align-items: center; background: rgba(255,255,255,0.1); border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .dm-btn-arrow { background: none; border: none; color: var(--text); cursor: pointer; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center; padding: 2px; transition: 0.2s; }
+    .dm-btn-arrow:hover { background: rgba(255,255,255,0.2); border-radius: 4px; }
     .dm-history-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
     /* DYNAMIC TOGGLE CLASSES */
@@ -101,7 +106,6 @@
     let b = textB === '' ? [] : textB.split('\n');
     let matrix = Array(a.length + 1).fill().map(() => Array(b.length + 1).fill(0));
 
-    // Pass 1: Standard LCS
     for (let i = 1; i <= a.length; i++) {
       for (let j = 1; j <= b.length; j++) {
         if (a[i - 1] === b[j - 1]) matrix[i][j] = matrix[i - 1][j - 1] + 1;
@@ -109,7 +113,6 @@
       }
     }
 
-    // Pass 2: Extract Operations
     let i = a.length, j = b.length;
     let ops = [];
     while (i > 0 || j > 0) {
@@ -125,7 +128,6 @@
       }
     }
 
-    // Pass 3: Compaction & Block Zipping (Fixes the "Staircase" bug)
     let resA = [], resB = [];
     let blockId = 0, iOp = 0;
     let addCount = 0, remCount = 0, matchCount = 0;
@@ -139,26 +141,16 @@
         blockId++;
         let localRem = [], localAdd = [];
         
-        // Gather all contiguous diffs into a single block
         while (iOp < ops.length && ops[iOp].type !== 'match') {
           if (ops[iOp].type === 'remove') { localRem.push(ops[iOp].l); remCount++; }
           if (ops[iOp].type === 'add') { localAdd.push(ops[iOp].r); addCount++; }
           iOp++;
         }
         
-        // Zip them together side-by-side, padding the shorter side
         let maxLen = Math.max(localRem.length, localAdd.length);
         for (let k = 0; k < maxLen; k++) {
-          resA.push({
-            type: k < localRem.length ? 'remove' : 'empty',
-            text: k < localRem.length ? localRem[k] : '',
-            blockId: blockId
-          });
-          resB.push({
-            type: k < localAdd.length ? 'add' : 'empty',
-            text: k < localAdd.length ? localAdd[k] : '',
-            blockId: blockId
-          });
+          resA.push({ type: k < localRem.length ? 'remove' : 'empty', text: k < localRem.length ? localRem[k] : '', blockId: blockId });
+          resB.push({ type: k < localAdd.length ? 'add' : 'empty', text: k < localAdd.length ? localAdd[k] : '', blockId: blockId });
         }
       }
     }
@@ -207,11 +199,8 @@
             <div class="dm-stats-bar" id="dm-stats-bar"></div>
             
             <div class="dm-res-wrap wrap-active" id="dm-res-wrap">
-              <div class="dm-res-grid">
-                <div id="diff-left" class="dm-res-col"></div>
-                <div id="diff-gutter" class="dm-gutter"></div>
-                <div id="diff-right" class="dm-res-col"></div>
-              </div>
+              <div class="dm-res-grid" id="dm-res-grid">
+                </div>
             </div>
           </div>
 
@@ -236,7 +225,6 @@
     showResolveView();
   });
 
-  // Toggle Listeners
   $('cb-wrap').addEventListener('change', (e) => {
     settings.wrap = e.target.checked;
     $('dm-res-wrap').classList.toggle('wrap-active', settings.wrap);
@@ -247,7 +235,7 @@
     $('dm-res-wrap').classList.toggle('hide-match', settings.hideUnchanged);
   });
 
-  /* ── CORE RENDER LOGIC ──────────────────────────────────────────────────── */
+  /* ── CORE RENDER LOGIC (GRID ROWS) ──────────────────────────────────────── */
   function renderDiff() {
     let scrollContainer = $('dm-res-wrap');
     let savedScroll = scrollContainer ? scrollContainer.scrollTop : 0;
@@ -258,54 +246,69 @@
       `<div class="dm-stats"><span class="dm-st-rem"><b>-${currentDiff.stats.rem}</b> removed (Left)</span><span class="dm-st-add"><b>+${currentDiff.stats.add}</b> added (Right)</span></div>` +
       `<div class="dm-stats"><span style="color:var(--muted)"><b>${currentDiff.stats.match}</b> unchanged lines</span></div>`;
 
-    var leftHTML = '', gutterHTML = '', rightHTML = '';
-    var lLine = 1, rLine = 1, lastBlockId = null;
-    
+    // 1. Group operations into Blocks to map to CSS Grid Rows
+    let blocks = [];
+    let currentBlock = { isDiff: false, id: null, lines: [] };
+
     for (let k = 0; k < currentDiff.left.length; k++) {
       let lNode = currentDiff.left[k];
       let rNode = currentDiff.right[k];
       let bId = lNode.blockId;
-      
-      let isMatch = bId === null;
-      let rowVisibilityCls = isMatch ? 'dm-row-match' : 'dm-row-diff';
+      let isDiff = bId !== null;
 
-      let lcls = lNode.type === 'remove' ? 'dm-rem' : lNode.type === 'empty' ? 'dm-empty' : '';
-      let rcls = rNode.type === 'add' ? 'dm-add' : rNode.type === 'empty' ? 'dm-empty' : '';
-      
-      let lNum = lNode.type !== 'empty' ? lLine++ : '';
-      let rNum = rNode.type !== 'empty' ? rLine++ : '';
-      
-      let lText = lNode.type !== 'empty' ? esc(lNode.text) : '';
-      let rText = rNode.type !== 'empty' ? esc(rNode.text) : '';
-
-      leftHTML += `<div class="dm-line ${lcls} ${rowVisibilityCls}"><span class="dm-line-num">${lNum}</span><span class="dm-line-txt" ${lNode.type !== 'empty' ? 'contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit(\'left\', '+k+', this)"' : ''}>${lText}</span></div>`;
-      rightHTML += `<div class="dm-line ${rcls} ${rowVisibilityCls}"><span class="dm-line-num">${rNum}</span><span class="dm-line-txt" ${rNode.type !== 'empty' ? 'contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit(\'right\', '+k+', this)"' : ''}>${rText}</span></div>`;
-      
-      if (bId) {
-        let isFirstInBlock = bId !== lastBlockId;
-        lastBlockId = bId;
-
-        // Render Action Buttons ONLY on the first line of an aligned block
-        if (isFirstInBlock) {
-          gutterHTML += `
-            <div class="${rowVisibilityCls}" style="height:24px; display:flex; justify-content:center; align-items:flex-start; width:100%; padding: 0 4px;">
-              <div class="dm-btn-grp">
-                <button class="dm-btn-arrow" onclick="window._ckPushBlock(${bId}, 'toRight')" title="Take Left Block">${IC.arrowRight}</button>
-                <button class="dm-btn-arrow" onclick="window._ckPushBlock(${bId}, 'toLeft')" title="Take Right Block">${IC.arrowLeft}</button>
-              </div>
-            </div>`;
-        } else {
-          gutterHTML += `<div class="${rowVisibilityCls}" style="height:24px;"></div>`;
-        }
-      } else {
-        gutterHTML += `<div class="${rowVisibilityCls}" style="height:24px;"></div>`;
-        lastBlockId = null;
+      if (isDiff !== currentBlock.isDiff || bId !== currentBlock.id) {
+        if (currentBlock.lines.length > 0) blocks.push(currentBlock);
+        currentBlock = { isDiff: isDiff, id: bId, lines: [] };
       }
+      currentBlock.lines.push({ lNode, rNode, k });
     }
+    if (currentBlock.lines.length > 0) blocks.push(currentBlock);
 
-    $('diff-left').innerHTML = leftHTML;
-    $('diff-gutter').innerHTML = gutterHTML;
-    $('diff-right').innerHTML = rightHTML;
+    // 2. Render each Block as a set of 3 Grid Columns (which forces a CSS Row)
+    let gridHTML = '';
+    let lLine = 1, rLine = 1;
+
+    blocks.forEach(block => {
+      let leftStr = '', rightStr = '';
+      let rowVisibilityCls = block.isDiff ? 'dm-row-diff' : 'dm-row-match';
+
+      block.lines.forEach(lineItem => {
+        let lNode = lineItem.lNode;
+        let rNode = lineItem.rNode;
+        let k = lineItem.k;
+
+        let lcls = lNode.type === 'remove' ? 'dm-rem' : lNode.type === 'empty' ? 'dm-empty' : '';
+        let rcls = rNode.type === 'add' ? 'dm-add' : rNode.type === 'empty' ? 'dm-empty' : '';
+
+        let lNum = lNode.type !== 'empty' ? lLine++ : '';
+        let rNum = rNode.type !== 'empty' ? rLine++ : '';
+
+        let lText = lNode.type !== 'empty' ? esc(lNode.text) : '';
+        let rText = rNode.type !== 'empty' ? esc(rNode.text) : '';
+
+        leftStr += `<div class="dm-line ${lcls}"><span class="dm-line-num">${lNum}</span><span class="dm-line-txt" ${lNode.type !== 'empty' ? `contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit('left', ${k}, this)"` : ''}>${lText}</span></div>`;
+        rightStr += `<div class="dm-line ${rcls}"><span class="dm-line-num">${rNum}</span><span class="dm-line-txt" ${rNode.type !== 'empty' ? `contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit('right', ${k}, this)"` : ''}>${rText}</span></div>`;
+      });
+
+      let gutterStr = '';
+      if (block.isDiff) {
+        gutterStr = `
+          <div class="dm-sticky-arrows">
+            <div class="dm-btn-grp">
+              <button class="dm-btn-arrow" onclick="window._ckPushBlock(${block.id}, 'toRight')" title="Take Left Block">${IC.arrowRight}</button>
+              <button class="dm-btn-arrow" onclick="window._ckPushBlock(${block.id}, 'toLeft')" title="Take Right Block">${IC.arrowLeft}</button>
+            </div>
+          </div>`;
+      }
+
+      gridHTML += `
+        <div class="dm-block-col ${rowVisibilityCls}">${leftStr}</div>
+        <div class="dm-block-gutter ${rowVisibilityCls}">${gutterStr}</div>
+        <div class="dm-block-col ${rowVisibilityCls}">${rightStr}</div>
+      `;
+    });
+
+    $('dm-res-grid').innerHTML = gridHTML;
     if (scrollContainer) scrollContainer.scrollTop = savedScroll;
   }
 
@@ -322,7 +325,6 @@
   /* ── STATE SYNCHRONIZATION ──────────────────────────────────────────────── */
   function syncStateToEditors() {
     if (!currentDiff) return;
-    // Safely reconstruct the string, ensuring empty padded lines aren't injected as newlines
     var newLeft = currentDiff.left.filter(l => l.type !== 'empty' || l.text !== '').map(l => l.text).join('\n');
     var newRight = currentDiff.right.filter(r => r.type !== 'empty' || r.text !== '').map(r => r.text).join('\n');
     $('t-left').value = newLeft; $('t-right').value = newRight;
@@ -336,7 +338,6 @@
     
     let newLeft = [], newRight = [];
     
-    // Reconstruct the raw arrays, substituting the block entirely
     for(let i=0; i<currentDiff.left.length; i++) {
       let lNode = currentDiff.left[i];
       let rNode = currentDiff.right[i];
