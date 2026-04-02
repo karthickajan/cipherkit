@@ -1,5 +1,5 @@
 /**
- * CipherKit — 2-Pane Interactive Text Diff & Merge (Pro Version)
+ * CipherKit — 2-Pane Interactive Text Diff & Merge (Pro Architecture)
  */
 (function () {
   'use strict';
@@ -10,8 +10,6 @@
     diff:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M18 6H6"/><path d="M18 18H6"/></svg>',
     arrowRight: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>',
     arrowLeft: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
-    blockRight: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8m-8 7h8m-8 7h8M3 12h6m-3-3v6"/></svg>',
-    blockLeft: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H3m8 7H3m8 7H3m10-7h6m-3-3v6"/></svg>',
     trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
     edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>',
     copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -22,31 +20,37 @@
   function $(id) { return document.getElementById(id); }
   function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  /* ── SCOPED STYLES ──────────────────────────────────────────────────────── */
+  /* ── SCOPED STYLES (Bulletproof Layout) ─────────────────────────────────── */
   var sty = document.createElement('style');
   sty.textContent = 
     '.dm-pane { flex: 1; display: flex; flex-direction: column; gap: 8px; }' +
-    '.dm-res-wrap { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; max-height: 600px; background: var(--bg-card); }' +
-    '.dm-sticky-hdr { display: flex; justify-content: space-between; padding: 12px 16px; background: var(--bg-body); border-bottom: 1px solid var(--border); font-size: 13px; z-index: 10; }' +
-    '.dm-stats b { font-weight: 700; }' +
-    '.dm-st-add { color: #3dd68c; margin-right: 12px; }' +
-    '.dm-st-rem { color: #ff6b6b; margin-right: 12px; }' +
-    '.dm-res-grid { display: grid; grid-template-columns: 1fr 48px 1fr; flex: 1; overflow: hidden; }' +
-    '.dm-res-col { overflow: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; padding: 12px 0; }' +
-    '.dm-col-inner { min-width: max-content; }' + /* Fixes horizontal scroll color clipping */
-    '.dm-gutter { background: rgba(0,0,0,0.2); border-left: 1px solid var(--border); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 12px 0; overflow-y: auto; overflow-x: hidden; }' +
-    '.dm-gutter::-webkit-scrollbar { display: none; }' + /* Hide gutter scrollbar */
-    '.dm-line { display: flex; align-items: flex-start; min-height: 24px; padding: 0 12px; }' +
-    '.dm-line-num { opacity: 0.4; font-size: 11px; min-width: 32px; flex-shrink: 0; text-align: right; margin-right: 12px; user-select: none; font-variant-numeric: tabular-nums; }' +
+    
+    /* Unified scroll wrapper */
+    '.dm-res-wrap { max-height: 65vh; overflow-y: auto; overflow-x: hidden; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; display: flex; flex-direction: column; }' +
+    '.dm-sticky-hdr { position: sticky; top: 0; display: flex; justify-content: space-between; padding: 12px 16px; background: var(--bg-body); border-bottom: 1px solid var(--border); font-size: 13px; z-index: 10; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }' +
+    
+    /* Grid layout - stretches to natural content height */
+    '.dm-res-grid { display: grid; grid-template-columns: 1fr 50px 1fr; min-height: min-content; }' +
+    '.dm-res-col { overflow-x: auto; padding: 12px 0; font-family: var(--mono); font-size: 13px; line-height: 24px; }' +
+    '.dm-col-inner { min-width: max-content; }' + /* Fixes horizontal scroll color clip */
+    
+    /* Gutter - NO scroll properties, naturally matches height of neighbors */
+    '.dm-gutter { background: rgba(0,0,0,0.2); border-left: 1px solid var(--border); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 12px 0; }' +
+    
+    /* Lines & Highlighting */
+    '.dm-line { display: flex; align-items: flex-start; height: 24px; padding: 0 12px; box-sizing: border-box; }' +
+    '.dm-line-num { opacity: 0.4; font-size: 11px; width: 36px; flex-shrink: 0; text-align: right; margin-right: 16px; user-select: none; font-variant-numeric: tabular-nums; }' +
     '.dm-line-txt { white-space: pre; }' +
     '.dm-add { background: rgba(61,214,140,0.12); color: #3dd68c; }' +
     '.dm-rem { background: rgba(255,107,107,0.12); color: #ff6b6b; }' +
     '.dm-empty { background: rgba(255,255,255,0.02); }' +
-    '.dm-btn-grp { display: flex; width: 100%; height: 100%; justify-content: space-evenly; align-items: center; }' +
-    '.dm-btn-arrow { background: none; border: none; color: var(--muted); cursor: pointer; height: 24px; width: 20px; display: flex; align-items: center; justify-content: center; transition: 0.2s; padding: 2px; }' +
-    '.dm-btn-arrow:hover { color: var(--text); background: rgba(255,255,255,0.1); border-radius: 4px; }' +
-    '.dm-btn-block svg { stroke-width: 1.5; width: 14px; height: 14px; }' + /* Slightly smaller icon for block actions */
-    '.dm-history-btn:disabled { opacity: 0.3; cursor: not-allowed; }';
+    
+    /* Action Buttons */
+    '.dm-btn-grp { display: flex; width: 100%; height: 24px; justify-content: space-evenly; align-items: center; background: rgba(255,255,255,0.05); border-radius: 4px; padding: 0 4px; }' +
+    '.dm-btn-arrow { background: none; border: none; color: var(--muted); cursor: pointer; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center; transition: 0.2s; padding: 2px; }' +
+    '.dm-btn-arrow:hover { color: var(--text); background: rgba(255,255,255,0.15); border-radius: 4px; }' +
+    '.dm-history-btn:disabled { opacity: 0.3; cursor: not-allowed; }' +
+    '.dm-st-add { color: #3dd68c; margin-right: 12px; } .dm-st-rem { color: #ff6b6b; margin-right: 12px; } .dm-stats b { font-weight: 700; }';
   document.head.appendChild(sty);
 
   /* ── STATE & HISTORY ────────────────────────────────────────────────────── */
@@ -55,7 +59,7 @@
   var historyIndex = -1;
 
   function saveHistory(leftText, rightText) {
-    historyStack = historyStack.slice(0, historyIndex + 1); // Drop future if we diverged
+    historyStack = historyStack.slice(0, historyIndex + 1);
     historyStack.push({ l: leftText, r: rightText });
     historyIndex++;
     updateHistoryButtons();
@@ -174,13 +178,13 @@
     +         '</div>'
     +       '</div>'
     
-    // Sticky Stats & Diff Grid
+    // Unified Vertical Scroll Wrapper
     +       '<div class="dm-res-wrap">'
     +         '<div class="dm-sticky-hdr" id="dm-stats-bar">Stats Loading...</div>'
     +         '<div class="dm-res-grid">'
-    +           '<div id="diff-left" class="dm-res-col" onscroll="document.getElementById(\'diff-gutter\').scrollTop = this.scrollTop; document.getElementById(\'diff-right\').scrollTop = this.scrollTop;"><div class="dm-col-inner" id="diff-left-inner"></div></div>'
+    +           '<div id="diff-left" class="dm-res-col"><div class="dm-col-inner" id="diff-left-inner"></div></div>'
     +           '<div id="diff-gutter" class="dm-gutter"></div>'
-    +           '<div id="diff-right" class="dm-res-col" onscroll="document.getElementById(\'diff-gutter\').scrollTop = this.scrollTop; document.getElementById(\'diff-left\').scrollTop = this.scrollTop;"><div class="dm-col-inner" id="diff-right-inner"></div></div>'
+    +           '<div id="diff-right" class="dm-res-col"><div class="dm-col-inner" id="diff-right-inner"></div></div>'
     +         '</div>'
     +       '</div>'
     +     '</div>'
@@ -201,7 +205,6 @@
   $('btn-back').addEventListener('click', showInputView);
 
   $('btn-compare').addEventListener('click', function () {
-    // Reset history if we entered fresh
     if(historyIndex === -1) saveHistory($('t-left').value, $('t-right').value);
     renderDiff();
     showResolveView();
@@ -213,10 +216,9 @@
     var rightVal = $('t-right').value;
     currentDiff = lcsDiff(leftVal, rightVal);
     
-    // Render Stats
     $('dm-stats-bar').innerHTML = 
-      `<div><span class="dm-st-rem"><b>-${currentDiff.stats.rem}</b> removed (Left)</span><span class="dm-st-add"><b>+${currentDiff.stats.add}</b> added (Right)</span></div>` +
-      `<div><span style="color:var(--muted)"><b>${currentDiff.stats.match}</b> unchanged lines</span></div>`;
+      `<div class="dm-stats"><span class="dm-st-rem"><b>-${currentDiff.stats.rem}</b> removed (Left)</span><span class="dm-st-add"><b>+${currentDiff.stats.add}</b> added (Right)</span></div>` +
+      `<div class="dm-stats"><span style="color:var(--muted)"><b>${currentDiff.stats.match}</b> unchanged lines</span></div>`;
 
     var leftHTML = '', gutterHTML = '', rightHTML = '';
     var lLine = 1, rLine = 1;
@@ -233,21 +235,24 @@
       let lNum = lNode.type !== 'empty' ? lLine++ : '';
       let rNum = rNode.type !== 'empty' ? rLine++ : '';
 
-      leftHTML += `<div class="dm-line ${lcls}"><span class="dm-line-num">${lNum}</span><span class="dm-line-txt">${esc(lNode.text)}</span></div>`;
-      rightHTML += `<div class="dm-line ${rcls}"><span class="dm-line-num">${rNum}</span><span class="dm-line-txt">${esc(rNode.text)}</span></div>`;
+      leftHTML += `<div class="dm-line ${lcls}"><span class="dm-line-num">${lNum}</span><span class="dm-line-txt">${lNode.type !== 'empty' ? esc(lNode.text) || ' ' : ''}</span></div>`;
+      rightHTML += `<div class="dm-line ${rcls}"><span class="dm-line-num">${rNum}</span><span class="dm-line-txt">${rNode.type !== 'empty' ? esc(rNode.text) || ' ' : ''}</span></div>`;
       
-      if (lNode.type === 'remove' || rNode.type === 'add') {
+      if (bId) {
         let isFirstInBlock = bId !== lastBlockId;
         lastBlockId = bId;
 
-        // Gutter: Show block arrow if first line, else just line arrow
-        gutterHTML += `
-          <div style="height:24px; display:flex; justify-content:center; align-items:center; width:100%;">
-            <div class="dm-btn-grp">
-              <button class="dm-btn-arrow ${isFirstInBlock ? 'dm-btn-block' : ''}" onclick="window.${isFirstInBlock ? '_ckPushBlockRight('+bId+')' : '_ckPushRight('+k+')'}" title="${isFirstInBlock ? 'Push Entire Block Right' : 'Push Line Right'}">${isFirstInBlock ? IC.blockRight : IC.arrowRight}</button>
-              <button class="dm-btn-arrow ${isFirstInBlock ? 'dm-btn-block' : ''}" onclick="window.${isFirstInBlock ? '_ckPushBlockLeft('+bId+')' : '_ckPushLeft('+k+')'}" title="${isFirstInBlock ? 'Push Entire Block Left' : 'Push Line Left'}">${isFirstInBlock ? IC.blockLeft : IC.arrowLeft}</button>
-            </div>
-          </div>`;
+        if (isFirstInBlock) {
+          gutterHTML += `
+            <div style="height:24px; display:flex; justify-content:center; align-items:center; width:100%; padding: 0 4px;">
+              <div class="dm-btn-grp">
+                <button class="dm-btn-arrow" onclick="window._ckPushBlock(${bId}, 'toRight')" title="Accept Left Block">${IC.arrowRight}</button>
+                <button class="dm-btn-arrow" onclick="window._ckPushBlock(${bId}, 'toLeft')" title="Accept Right Block">${IC.arrowLeft}</button>
+              </div>
+            </div>`;
+        } else {
+          gutterHTML += `<div style="height:24px;"></div>`;
+        }
       } else {
         gutterHTML += `<div style="height:24px;"></div>`;
         lastBlockId = null;
@@ -266,51 +271,30 @@
     var newRight = currentDiff.right.filter(r => r.type !== 'empty').map(r => r.text).join('\n');
     $('t-left').value = newLeft;
     $('t-right').value = newRight;
-    saveHistory(newLeft, newRight); // Save to Undo stack
+    saveHistory(newLeft, newRight);
     renderDiff(); 
   }
 
-  /* ── LINE ACTIONS ───────────────────────────────────────────────────────── */
-  window._ckPushRight = function(idx) {
+  /* ── FLAWLESS BLOCK ACTIONS ─────────────────────────────────────────────── */
+  window._ckPushBlock = function(blockId, direction) {
     if(!currentDiff) return;
-    let lNode = currentDiff.left[idx];
-    let rNode = currentDiff.right[idx];
-    if (lNode.type === 'remove') { rNode.text = lNode.text; rNode.type = 'match'; lNode.type = 'match'; } 
-    else if (rNode.type === 'add') { rNode.text = ''; rNode.type = 'empty'; }
-    syncStateToEditors();
-  };
+    
+    currentDiff.left.forEach((lNode, i) => {
+      let rNode = currentDiff.right[i];
+      let bId = lNode.blockId || rNode.blockId;
 
-  window._ckPushLeft = function(idx) {
-    if(!currentDiff) return;
-    let lNode = currentDiff.left[idx];
-    let rNode = currentDiff.right[idx];
-    if (rNode.type === 'add') { lNode.text = rNode.text; lNode.type = 'match'; rNode.type = 'match'; } 
-    else if (lNode.type === 'remove') { lNode.text = ''; lNode.type = 'empty'; }
-    syncStateToEditors();
-  };
-
-  /* ── BLOCK ACTIONS ──────────────────────────────────────────────────────── */
-  window._ckPushBlockRight = function(blockId) {
-    if(!currentDiff) return;
-    for (let i = 0; i < currentDiff.left.length; i++) {
-      if (currentDiff.left[i].blockId === blockId || currentDiff.right[i].blockId === blockId) {
-        let lNode = currentDiff.left[i], rNode = currentDiff.right[i];
-        if (lNode.type === 'remove') { rNode.text = lNode.text; rNode.type = 'match'; lNode.type = 'match'; } 
-        else if (rNode.type === 'add') { rNode.text = ''; rNode.type = 'empty'; }
+      if (bId === blockId) {
+        if (direction === 'toRight') {
+          // Force Right to perfectly mirror Left
+          if (lNode.type === 'remove') { rNode.text = lNode.text; rNode.type = 'match'; lNode.type = 'match'; } 
+          else if (rNode.type === 'add') { rNode.text = ''; rNode.type = 'empty'; }
+        } else {
+          // Force Left to perfectly mirror Right
+          if (rNode.type === 'add') { lNode.text = rNode.text; lNode.type = 'match'; rNode.type = 'match'; } 
+          else if (lNode.type === 'remove') { lNode.text = ''; lNode.type = 'empty'; }
+        }
       }
-    }
-    syncStateToEditors();
-  };
-
-  window._ckPushBlockLeft = function(blockId) {
-    if(!currentDiff) return;
-    for (let i = 0; i < currentDiff.left.length; i++) {
-      if (currentDiff.left[i].blockId === blockId || currentDiff.right[i].blockId === blockId) {
-        let lNode = currentDiff.left[i], rNode = currentDiff.right[i];
-        if (rNode.type === 'add') { lNode.text = rNode.text; lNode.type = 'match'; rNode.type = 'match'; } 
-        else if (lNode.type === 'remove') { lNode.text = ''; lNode.type = 'empty'; }
-      }
-    }
+    });
     syncStateToEditors();
   };
 
@@ -319,6 +303,6 @@
   CK.wireCopy($('btn-cp-right'), function () { return $('t-right').value; });
 
   if (typeof CK !== 'undefined' && CK.setUsageContent) {
-    CK.setUsageContent('<ol><li>Paste text into <strong>Left</strong> and <strong>Right</strong>.</li><li>Click <strong>Compare</strong> to enter the workspace.</li><li>Use the arrows in the gutter to resolve conflicts.<br>➔ First arrow pushes the <strong>Entire Block</strong>.<br>➔ Subsequent arrows push <strong>Single Lines</strong>.</li><li>Use <strong>Undo/Redo</strong> if you make a mistake, or click <strong>Edit Manually</strong> to type in the editors.</li></ol>');
+    CK.setUsageContent('<ol><li>Paste text into <strong>Left</strong> and <strong>Right</strong>.</li><li>Click <strong>Compare</strong> to enter the workspace.</li><li>Use the arrows in the gutter to resolve conflicts.<br>➔ Push <strong>Entire Block Right</strong>.<br>⬅ Push <strong>Entire Block Left</strong>.</li><li>Use <strong>Undo/Redo</strong> if you make a mistake, or click <strong>Edit Manually</strong> to type directly.</li></ol>');
   }
 })();
