@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "CipherKit",
-    "domain": "https://cipherkit.dev",
+    "domain": "https://karthickajan.github.io/cipherkit",
     "tagline": "Developer Cryptography & Utility Tools",
     "description": "77 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, format converters, DNS lookup — all client-side, no server.",
     "github": "https://github.com/karthickajan/cipherkit"

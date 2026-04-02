@@ -2,499 +2,499 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://cipherkit.dev/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/crypto/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/crypto/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/encoding/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/encoding/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/dev/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/dev/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/image/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/image/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/aes-encryption/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/aes-encryption/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/aes-decryption/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/aes-decryption/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/sha256-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/sha256-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/sha512-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/sha512-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/sha1-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/sha1-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/sha3-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/sha3-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/md5-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/md5-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/ripemd160-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/ripemd160-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/hmac-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/hmac-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/rsa-key-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/rsa-key-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/hash-comparator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/hash-comparator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/checksum-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/checksum-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/base64-encode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/base64-encode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/base64-decode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/base64-decode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/url-encode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/url-encode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/url-decode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/url-decode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/html-encode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/html-encode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/html-decode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/html-decode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/hex-encode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/hex-encode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/hex-decode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/hex-decode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/binary-encode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/binary-encode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/binary-decode/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/binary-decode/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/json-formatter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/json-formatter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/json-minifier/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/json-minifier/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/xml-json-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/xml-json-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/json-xml-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/json-xml-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/csv-json-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/csv-json-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/yaml-json-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/yaml-json-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/jwt-decoder/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/jwt-decoder/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/jwt-encoder/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/jwt-encoder/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/uuid-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/uuid-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/random-password-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/random-password-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/random-string-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/random-string-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/unix-timestamp-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/unix-timestamp-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/cron-expression-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/cron-expression-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/cron-expression-explainer/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/cron-expression-explainer/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/http-header-parser/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/http-header-parser/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/bcrypt-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/bcrypt-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/regex-tester/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/regex-tester/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/color-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/color-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/number-base-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/number-base-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/lorem-ipsum-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/lorem-ipsum-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/sql-formatter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/sql-formatter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/markdown-preview/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/markdown-preview/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/diff-checker/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/diff-checker/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/word-counter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/word-counter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/ip-address-tools/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/ip-address-tools/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/rsa-encrypt-decrypt/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/rsa-encrypt-decrypt/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/password-strength/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/password-strength/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/totp-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/totp-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/ssl-cert-decoder/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/ssl-cert-decoder/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/json-schema-validator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/json-schema-validator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/json-to-csv/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/json-to-csv/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/qr-generator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/qr-generator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/svg-to-png/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/svg-to-png/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/image-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/image-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/image-resizer/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/image-resizer/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/markdown-to-pdf/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/markdown-to-pdf/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/csv-to-excel/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/csv-to-excel/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/docx-to-html/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/docx-to-html/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/gzip-tool/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/gzip-tool/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/ascii-table/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/ascii-table/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/bit-calculator/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/bit-calculator/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/dns-lookup/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/dns-lookup/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/epoch-converter/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/epoch-converter/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/jwt-builder/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/jwt-builder/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/color-palette/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/color-palette/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/image-enhancer/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/image-enhancer/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/png-to-jpg/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/png-to-jpg/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/jpg-to-png/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/jpg-to-png/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/png-to-webp/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/png-to-webp/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/jpg-to-webp/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/jpg-to-webp/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/webp-to-png/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/webp-to-png/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/webp-to-jpg/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/webp-to-jpg/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/json-to-yaml/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/json-to-yaml/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/decimal-to-hex/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/decimal-to-hex/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cipherkit.dev/tools/hex-to-decimal/</loc>
+    <loc>https://karthickajan.github.io/cipherkit/tools/hex-to-decimal/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
