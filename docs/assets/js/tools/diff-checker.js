@@ -1,93 +1,103 @@
 /**
- * CipherKit — Diff Engine (Commercial Grade Architecture)
+ * CipherKit — 2-Pane Interactive Text Diff & Merge (Production Grade)
  */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
 
-  // --- ICONS ---
   var IC = {
-    settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>',
+    diff:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M18 6H6"/><path d="M18 18H6"/></svg>',
     arrowRight: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>',
     arrowLeft: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
-    chevronDown: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>'
+    trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
+    edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>',
+    copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+    undo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>',
+    redo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
   function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  // --- STYLES ---
+  /* ── SCOPED STYLES (Bulletproof Layout) ─────────────────────────────────── */
   var sty = document.createElement('style');
-  sty.textContent = `
-    .ck-diff-app { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: start; max-width: 1600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  sty.textContent = 
+    '.dm-pane { flex: 1; display: flex; flex-direction: column; gap: 8px; }' +
     
-    /* Sidebar Settings */
-    .ck-sidebar { background: var(--bg-card, #161b22); border: 1px solid var(--border, #30363d); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 24px; position: sticky; top: 20px; }
-    .ck-sb-section { display: flex; flex-direction: column; gap: 12px; }
-    .ck-sb-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted, #8b949e); font-weight: 600; margin: 0; }
-    .ck-toggle { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text, #c9d1d9); cursor: pointer; }
+    /* Static Toolbars */
+    '.dm-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }' +
+    '.dm-stats-bar { display: flex; justify-content: space-between; padding: 10px 16px; background: rgba(0,0,0,0.15); border: 1px solid var(--border); border-bottom: none; border-radius: 6px 6px 0 0; font-size: 13px; }' +
+    '.dm-st-add { color: #3dd68c; margin-right: 12px; } .dm-st-rem { color: #ff6b6b; margin-right: 12px; } .dm-stats b { font-weight: 700; }' +
     
-    /* Custom Toggle Switch */
-    .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
-    .switch input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border, #30363d); transition: .2s; border-radius: 18px; }
-    .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; transition: .2s; border-radius: 50%; }
-    input:checked + .slider { background-color: #3dd68c; }
-    input:checked + .slider:before { transform: translateX(16px); }
-
-    /* Main Workspace */
-    .ck-workspace { border: 1px solid var(--border, #30363d); border-radius: 8px; background: var(--bg-card, #161b22); overflow: hidden; display: flex; flex-direction: column; }
-    .ck-toolbar { display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--border, #30363d); background: rgba(0,0,0,0.2); }
+    /* Unified scroll wrapper - ONE scrollbar rules them all */
+    '.dm-res-wrap { max-height: 60vh; overflow-y: auto; overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0 0 6px 6px; }' +
     
-    /* Diff Grid */
-    .ck-res-wrap { max-height: 70vh; overflow-y: auto; overflow-x: auto; position: relative; }
-    .ck-res-grid { display: grid; grid-template-columns: 1fr 1fr; min-width: 800px; }
-    .ck-pane-left { border-right: 1px solid var(--border, #30363d); }
+    /* Grid layout inside scroll container */
+    '.dm-res-grid { display: grid; grid-template-columns: 1fr 48px 1fr; min-width: 800px; }' +
+    '.dm-res-col { padding: 8px 0; font-family: var(--mono); font-size: 13px; line-height: 22px; }' +
     
-    /* Code Lines */
-    .ck-line { display: flex; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; font-size: 13px; line-height: 22px; position: relative; }
-    .ck-line-num { width: 40px; padding-right: 12px; text-align: right; color: var(--muted, #8b949e); opacity: 0.5; user-select: none; flex-shrink: 0; }
-    .ck-line-txt { flex: 1; padding: 0 12px 0 4px; white-space: pre; outline: none; }
+    /* Gutter */
+    '.dm-gutter { background: rgba(0,0,0,0.2); border-left: 1px solid var(--border); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 8px 0; user-select: none; }' +
     
-    /* Settings State Classes */
-    .ck-res-wrap.wrap-active .ck-line-txt { white-space: pre-wrap; word-break: break-all; }
-    .ck-res-wrap.hide-unchanged .ck-block-match { display: none; }
+    /* Lines & Highlighting */
+    '.dm-line { display: flex; align-items: flex-start; min-height: 22px; padding: 0 12px; }' +
+    '.dm-line-num { opacity: 0.4; font-size: 11px; width: 36px; flex-shrink: 0; text-align: right; margin-right: 16px; user-select: none; font-variant-numeric: tabular-nums; }' +
+    '.dm-line-txt { flex: 1; white-space: pre-wrap; word-break: break-all; outline: none; transition: background 0.2s; }' +
+    '.dm-line-txt[contenteditable="true"]:focus { background: rgba(255,255,255,0.05); border-radius: 2px; }' +
     
-    /* Colors & Intra-line Highlighting */
-    .ck-block-rem { background: rgba(255,107,107,0.08); color: #ff6b6b; }
-    .ck-block-add { background: rgba(61,214,140,0.08); color: #3dd68c; }
-    .char-diff-rem { background: rgba(255,107,107,0.3); padding: 2px 0; border-radius: 2px; }
-    .char-diff-add { background: rgba(61,214,140,0.3); padding: 2px 0; border-radius: 2px; }
-    .ck-block-empty { background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px); }
-
-    /* Diffchecker Style Floating Actions */
-    .ck-block-wrapper { position: relative; border-bottom: 1px solid transparent; }
-    .ck-block-wrapper:hover { border-bottom: 1px solid var(--border, #30363d); border-top: 1px solid var(--border, #30363d); z-index: 10; }
+    '.dm-add { background: rgba(61,214,140,0.12); color: #3dd68c; }' +
+    '.dm-rem { background: rgba(255,107,107,0.12); color: #ff6b6b; }' +
+    '.dm-empty { background: rgba(255,255,255,0.02); }' +
     
-    .merge-action-btn { position: absolute; top: 50%; transform: translateY(-50%); display: none; background: #e3b341; color: #000; border: none; padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 4px; cursor: pointer; z-index: 20; box-shadow: 0 4px 12px rgba(0,0,0,0.3); align-items: center; gap: 6px; }
-    .merge-action-btn:hover { filter: brightness(1.1); }
-    
-    .ck-pane-left .ck-block-wrapper:hover .merge-action-btn { display: flex; right: -60px; }
-    .ck-pane-right .ck-block-wrapper:hover .merge-action-btn { display: flex; left: -60px; background: #3dd68c; }
-
-    /* Hidden inputs */
-    #view-input { max-width: 1200px; margin: 0 auto; display: block; }
-  `;
+    /* Action Buttons */
+    '.dm-btn-grp { display: flex; width: 100%; height: 22px; justify-content: space-evenly; align-items: center; }' +
+    '.dm-btn-arrow { background: none; border: none; color: var(--muted); cursor: pointer; height: 18px; width: 18px; display: flex; align-items: center; justify-content: center; padding: 2px; }' +
+    '.dm-btn-arrow:hover { color: var(--text); background: rgba(255,255,255,0.15); border-radius: 4px; }' +
+    '.dm-history-btn:disabled { opacity: 0.3; cursor: not-allowed; }';
   document.head.appendChild(sty);
 
-  // --- STATE ---
-  let state = {
-    settings: { wrap: false, hideUnchanged: false, realtime: false },
-    diffData: null
-  };
+  /* ── STATE & HISTORY ────────────────────────────────────────────────────── */
+  var currentDiff = null;
+  var historyStack = [];
+  var historyIndex = -1;
 
-  // --- 2-PASS LCS DIFF ENGINE ---
-  // Pass 1: Line Level
-  function computeLineDiff(textA, textB) {
-    let a = textA === '' ? [] : textA.split('\n');
-    let b = textB === '' ? [] : textB.split('\n');
-    let matrix = Array(a.length + 1).fill().map(() => Array(b.length + 1).fill(0));
+  function saveHistory(leftText, rightText) {
+    historyStack = historyStack.slice(0, historyIndex + 1);
+    historyStack.push({ l: leftText, r: rightText });
+    historyIndex++;
+    updateHistoryButtons();
+  }
+
+  function updateHistoryButtons() {
+    $('btn-undo').disabled = historyIndex <= 0;
+    $('btn-redo').disabled = historyIndex >= historyStack.length - 1;
+  }
+
+  $('tool-root').addEventListener('click', function(e) {
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    if(btn.id === 'btn-undo' && historyIndex > 0) {
+      historyIndex--;
+      restoreHistoryState();
+    } else if(btn.id === 'btn-redo' && historyIndex < historyStack.length - 1) {
+      historyIndex++;
+      restoreHistoryState();
+    }
+  });
+
+  function restoreHistoryState() {
+    var state = historyStack[historyIndex];
+    $('t-left').value = state.l;
+    $('t-right').value = state.r;
+    renderDiff();
+  }
+
+  /* ── LCS DIFF ENGINE ────────────────────────────────────────────────────── */
+  function lcsDiff(textA, textB) {
+    var a = textA === '' ? [] : textA.split('\n');
+    var b = textB === '' ? [] : textB.split('\n');
+    var matrix = Array(a.length + 1).fill().map(() => Array(b.length + 1).fill(0));
 
     for (let i = 1; i <= a.length; i++) {
       for (let j = 1; j <= b.length; j++) {
@@ -98,176 +108,201 @@
 
     let i = a.length, j = b.length;
     let resA = [], resB = [];
+    let addCount = 0, remCount = 0, matchCount = 0;
 
     while (i > 0 || j > 0) {
       if (i > 0 && j > 0 && a[i - 1] === b[j - 1]) {
         resA.unshift({ text: a[i - 1], type: 'match' });
         resB.unshift({ text: b[j - 1], type: 'match' });
-        i--; j--;
+        matchCount++; i--; j--;
       } else if (j > 0 && (i === 0 || matrix[i][j - 1] >= matrix[i - 1][j])) {
         resA.unshift({ text: '', type: 'empty' });
         resB.unshift({ text: b[j - 1], type: 'add' });
-        j--;
+        addCount++; j--;
       } else if (i > 0 && (j === 0 || matrix[i][j - 1] < matrix[i - 1][j])) {
         resA.unshift({ text: a[i - 1], type: 'remove' });
         resB.unshift({ text: '', type: 'empty' });
-        i--;
+        remCount++; i--;
       }
     }
 
-    // Group into Blocks
-    let blocks = [], currentBlock = { id: 0, type: 'match', linesA: [], linesB: [] };
-    
-    for(let k=0; k<resA.length; k++) {
-      let type = resA[k].type === 'match' ? 'match' : 'diff';
-      if (type !== currentBlock.type) {
-        if (currentBlock.linesA.length > 0) blocks.push(currentBlock);
-        currentBlock = { id: blocks.length + 1, type: type, linesA: [], linesB: [] };
-      }
-      currentBlock.linesA.push(resA[k]);
-      currentBlock.linesB.push(resB[k]);
-    }
-    if (currentBlock.linesA.length > 0) blocks.push(currentBlock);
-
-    return blocks;
+    return { left: resA, right: resB, stats: { add: addCount, rem: remCount, match: matchCount } };
   }
 
-  // --- LAYOUT ---
-  root.innerHTML = `
-    <div id="view-input">
-      <div style="display:flex; gap:16px; margin-bottom:16px;">
-        <div style="flex:1"><label style="font-size:13px; font-weight:600; margin-bottom:8px; display:block;">Original File</label><textarea id="t-left" style="width:100%; height:300px; padding:12px; font-family:monospace; background:var(--bg-card); color:var(--text); border:1px solid var(--border); border-radius:6px;"></textarea></div>
-        <div style="flex:1"><label style="font-size:13px; font-weight:600; margin-bottom:8px; display:block;">Modified File</label><textarea id="t-right" style="width:100%; height:300px; padding:12px; font-family:monospace; background:var(--bg-card); color:var(--text); border:1px solid var(--border); border-radius:6px;"></textarea></div>
-      </div>
-      <button id="btn-init-compare" style="background:#3dd68c; color:#000; border:none; padding:10px 20px; font-weight:bold; border-radius:6px; cursor:pointer;">Run Comparison</button>
-    </div>
+  /* ── UI LAYOUT ──────────────────────────────────────────────────────────── */
+  root.innerHTML =
+    '<div class="tool-single-col" style="max-width: 1400px; margin: 0 auto;">'
+    + '<div class="tool-card-ui">'
+    +   '<div class="tc-head">'
+    +     '<div class="tc-title"><div class="tc-icon tc-icon-amber">' + IC.diff + '</div><h2 id="t-heading">Interactive Diff & Merge</h2></div>'
+    +     '<span class="tc-badge tc-badge-amber">2-Pane Editor</span>'
+    +   '</div>'
+    +   '<div class="tc-body">'
+    
+    // VIEW 1: Input Editors
+    +     '<div id="view-input">'
+    +       '<div style="display:flex; gap:16px; margin-bottom:16px;">'
+    +         '<div class="dm-pane"><div class="field-hdr"><label for="t-left">Left Editor (Original)</label></div><textarea id="t-left" placeholder="Paste left text..." rows="16" class="mono"></textarea></div>'
+    +         '<div class="dm-pane"><div class="field-hdr"><label for="t-right">Right Editor (Modified)</label></div><textarea id="t-right" placeholder="Paste right text..." rows="16" class="mono"></textarea></div>'
+    +       '</div>'
+    +       '<div style="display:flex; justify-content:space-between;">'
+    +         '<button type="button" class="act-btn act-amber" id="btn-compare">' + IC.diff + ' <span>Compare & Resolve Workspace</span></button>'
+    +         '<button type="button" class="pill-btn" id="btn-clr">' + IC.trash + ' <span>Clear All</span></button>'
+    +       '</div>'
+    +     '</div>'
 
-    <div id="view-resolve" class="ck-diff-app" style="display:none;">
-      
-      <aside class="ck-sidebar">
-        <div class="ck-sb-section">
-          <h3 class="ck-sb-title">Settings</h3>
-          <label class="ck-toggle">
-            Real-time editor
-            <div class="switch"><input type="checkbox" id="tg-realtime"><span class="slider"></span></div>
-          </label>
-          <label class="ck-toggle">
-            Disable line wrap
-            <div class="switch"><input type="checkbox" id="tg-wrap" checked><span class="slider"></span></div>
-          </label>
-          <label class="ck-toggle">
-            Hide unchanged lines
-            <div class="switch"><input type="checkbox" id="tg-hide"><span class="slider"></span></div>
-          </label>
-        </div>
-        <div class="ck-sb-section" style="margin-top:24px;">
-          <h3 class="ck-sb-title">Actions</h3>
-          <button id="btn-back-edit" style="width:100%; padding:8px; background:transparent; border:1px solid var(--border); color:var(--text); border-radius:4px; cursor:pointer;">Back to Input</button>
-        </div>
-      </aside>
+    // VIEW 2: Resolution Workspace
+    +     '<div id="view-resolve" style="display:none;">'
+    +       '<div class="dm-toolbar">'
+    +         '<div style="display:flex; gap:12px; align-items:center;">'
+    +           '<button type="button" class="pill-btn" id="btn-back">' + IC.edit + ' <span>Raw Editors</span></button>'
+    +           '<div style="width:1px; height:20px; background:var(--border); margin: 0 4px;"></div>'
+    +           '<button type="button" class="pill-btn dm-history-btn" id="btn-undo" title="Undo Last Change" disabled>' + IC.undo + '</button>'
+    +           '<button type="button" class="pill-btn dm-history-btn" id="btn-redo" title="Redo Change" disabled>' + IC.redo + '</button>'
+    +         '</div>'
+    +         '<div style="display:flex; gap:12px;">'
+    +           '<button type="button" class="pill-btn" id="btn-cp-left">' + IC.copy + ' <span>Copy Left</span></button>'
+    +           '<button type="button" class="pill-btn" id="btn-cp-right">' + IC.copy + ' <span>Copy Right</span></button>'
+    +         '</div>'
+    +       '</div>'
+    
+    // Static Stats Bar
+    +       '<div class="dm-stats-bar" id="dm-stats-bar"></div>'
+    
+    // Unified Vertical Scroll Wrapper
+    +       '<div class="dm-res-wrap" id="dm-res-wrap">'
+    +         '<div class="dm-res-grid">'
+    +           '<div id="diff-left" class="dm-res-col"></div>'
+    +           '<div id="diff-gutter" class="dm-gutter"></div>'
+    +           '<div id="diff-right" class="dm-res-col"></div>'
+    +         '</div>'
+    +       '</div>'
+    +     '</div>'
 
-      <main class="ck-workspace">
-        <div class="ck-toolbar">
-          <div id="diff-stats" style="font-size:13px; font-weight:500;">...</div>
-        </div>
-        <div class="ck-res-wrap" id="res-wrap">
-          <div class="ck-res-grid" id="diff-grid">
-            </div>
-        </div>
-      </main>
+    +   '</div>'
+    + '</div>'
+    + '</div>';
 
-    </div>
-  `;
+  /* ── VIEW ROUTING ───────────────────────────────────────────────────────── */
+  function showResolveView() { $('view-input').style.display = 'none'; $('view-resolve').style.display = 'block'; }
+  function showInputView() { $('view-input').style.display = 'block'; $('view-resolve').style.display = 'none'; }
 
-  // --- LOGIC ---
-  $('btn-init-compare').addEventListener('click', () => {
-    $('view-input').style.display = 'none';
-    $('view-resolve').style.display = 'grid';
-    renderDiff();
-  });
-
-  $('btn-back-edit').addEventListener('click', () => {
-    $('view-resolve').style.display = 'none';
-    $('view-input').style.display = 'block';
-  });
-
-  // Settings Toggles
-  $('tg-wrap').addEventListener('change', (e) => {
-    state.settings.wrap = !e.target.checked;
-    $('res-wrap').classList.toggle('wrap-active', state.settings.wrap);
+  $('btn-clr').addEventListener('click', function () { 
+    $('t-left').value=''; $('t-right').value=''; 
+    historyStack = []; historyIndex = -1; updateHistoryButtons();
   });
   
-  $('tg-hide').addEventListener('change', (e) => {
-    state.settings.hideUnchanged = e.target.checked;
-    $('res-wrap').classList.toggle('hide-unchanged', state.settings.hideUnchanged);
+  $('btn-back').addEventListener('click', showInputView);
+
+  $('btn-compare').addEventListener('click', function () {
+    if(historyIndex === -1) saveHistory($('t-left').value, $('t-right').value);
+    renderDiff();
+    showResolveView();
   });
 
-  $('tg-realtime').addEventListener('change', (e) => {
-    state.settings.realtime = e.target.checked;
-    // In a full implementation, this would attach 'input' listeners to contenteditable areas
-  });
-
-  // Render Engine
+  /* ── CORE RENDER LOGIC ──────────────────────────────────────────────────── */
   function renderDiff() {
-    let blocks = computeLineDiff($('t-left').value, $('t-right').value);
+    // Preserve scroll position across renders
+    let scrollContainer = $('dm-res-wrap');
+    let savedScroll = scrollContainer ? scrollContainer.scrollTop : 0;
+
+    var leftVal = $('t-left').value;
+    var rightVal = $('t-right').value;
+    currentDiff = lcsDiff(leftVal, rightVal);
     
-    let htmlLeft = '', htmlRight = '';
-    let lineA = 1, lineB = 1;
-    let totalRem = 0, totalAdd = 0;
+    $('dm-stats-bar').innerHTML = 
+      `<div class="dm-stats"><span class="dm-st-rem"><b>-${currentDiff.stats.rem}</b> removed (Left)</span><span class="dm-st-add"><b>+${currentDiff.stats.add}</b> added (Right)</span></div>` +
+      `<div class="dm-stats"><span style="color:var(--muted)"><b>${currentDiff.stats.match}</b> unchanged lines</span></div>`;
 
-    blocks.forEach(block => {
-      let isDiff = block.type === 'diff';
-      let wrapperCls = isDiff ? `ck-block-wrapper` : `ck-block-match`;
+    var leftHTML = '', gutterHTML = '', rightHTML = '';
+    var lLine = 1, rLine = 1;
+    
+    for (let k = 0; k < currentDiff.left.length; k++) {
+      let lNode = currentDiff.left[k];
+      let rNode = currentDiff.right[k];
       
-      let blockHtmlL = `<div class="${wrapperCls}">`;
-      let blockHtmlR = `<div class="${wrapperCls}">`;
+      let lcls = lNode.type === 'remove' ? 'dm-rem' : lNode.type === 'empty' ? 'dm-empty' : '';
+      let rcls = rNode.type === 'add' ? 'dm-add' : rNode.type === 'empty' ? 'dm-empty' : '';
       
-      if (isDiff) {
-        blockHtmlL += `<button class="merge-action-btn" onclick="window._ckMerge(${block.id}, 'right')">Merge change ${IC.arrowRight}</button>`;
-        blockHtmlR += `<button class="merge-action-btn" onclick="window._ckMerge(${block.id}, 'left')">${IC.arrowLeft} Merge change</button>`;
+      let lNum = lNode.type !== 'empty' ? lLine++ : '';
+      let rNum = rNode.type !== 'empty' ? rLine++ : '';
+      
+      // Lines are now contenteditable. On blur, they sync their edits back to the model.
+      let lText = lNode.type !== 'empty' ? esc(lNode.text) : '';
+      let rText = rNode.type !== 'empty' ? esc(rNode.text) : '';
+
+      leftHTML += `<div class="dm-line ${lcls}"><span class="dm-line-num">${lNum}</span><span class="dm-line-txt" ${lNode.type !== 'empty' ? 'contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit(\'left\', '+k+', this)"' : ''}>${lText}</span></div>`;
+      rightHTML += `<div class="dm-line ${rcls}"><span class="dm-line-num">${rNum}</span><span class="dm-line-txt" ${rNode.type !== 'empty' ? 'contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit(\'right\', '+k+', this)"' : ''}>${rText}</span></div>`;
+      
+      if (lNode.type === 'remove' || rNode.type === 'add') {
+        gutterHTML += `
+          <div style="height:22px; display:flex; justify-content:center; align-items:center; width:100%;">
+            <div class="dm-btn-grp">
+              <button class="dm-btn-arrow" onclick="window._ckPushLine(${k}, 'toRight')" title="Push Line Right">${IC.arrowRight}</button>
+              <button class="dm-btn-arrow" onclick="window._ckPushLine(${k}, 'toLeft')" title="Push Line Left">${IC.arrowLeft}</button>
+            </div>
+          </div>`;
+      } else {
+        gutterHTML += `<div style="height:22px;"></div>`;
       }
+    }
 
-      block.linesA.forEach((l, idx) => {
-        let r = block.linesB[idx];
-        
-        // Count stats
-        if (l.type === 'remove') totalRem++;
-        if (r.type === 'add') totalAdd++;
+    $('diff-left').innerHTML = leftHTML;
+    $('diff-gutter').innerHTML = gutterHTML;
+    $('diff-right').innerHTML = rightHTML;
 
-        let numL = l.type !== 'empty' ? lineA++ : '';
-        let numR = r.type !== 'empty' ? lineB++ : '';
-        
-        let clsL = l.type === 'remove' ? 'ck-block-rem' : l.type === 'empty' ? 'ck-block-empty' : '';
-        let clsR = r.type === 'add' ? 'ck-block-add' : r.type === 'empty' ? 'ck-block-empty' : '';
-
-        // TODO: Second-pass Word Diffing would wrap specific words in <span class="char-diff"> here.
-        let txtL = esc(l.text || '');
-        let txtR = esc(r.text || '');
-
-        blockHtmlL += `<div class="ck-line ${clsL}"><div class="ck-line-num">${numL}</div><div class="ck-line-txt">${txtL}</div></div>`;
-        blockHtmlR += `<div class="ck-line ${clsR}"><div class="ck-line-num">${numR}</div><div class="ck-line-txt">${txtR}</div></div>`;
-      });
-
-      blockHtmlL += `</div>`;
-      blockHtmlR += `</div>`;
-      
-      htmlLeft += blockHtmlL;
-      htmlRight += blockHtmlR;
-    });
-
-    $('diff-grid').innerHTML = `
-      <div class="ck-pane-left">${htmlLeft}</div>
-      <div class="ck-pane-right">${htmlRight}</div>
-    `;
-
-    $('diff-stats').innerHTML = `<span style="color:#ff6b6b">- ${totalRem} removals</span> &nbsp;|&nbsp; <span style="color:#3dd68c">+ ${totalAdd} additions</span>`;
+    // Restore scroll position
+    if (scrollContainer) scrollContainer.scrollTop = savedScroll;
   }
 
-  // Floating Actions Handler
-  window._ckMerge = function(blockId, direction) {
-    // In a robust implementation, this updates the underlying textarea string arrays 
-    // and re-renders the grid, similar to the syncStateToEditors() from the previous version.
-    alert(`Merge block ${blockId} ${direction}. (Requires state sync array update)`);
+  /* ── INLINE EDITING LOGIC ───────────────────────────────────────────────── */
+  window._ckInlineEdit = function(side, idx, el) {
+    if (!currentDiff) return;
+    let node = side === 'left' ? currentDiff.left[idx] : currentDiff.right[idx];
+    
+    // Extract text (handling cases where user pressed Enter to make newlines)
+    let newText = el.innerText || '';
+    if (node.text === newText) return; // Ignore if no changes were made
+
+    node.text = newText;
+    syncStateToEditors();
   };
 
+  /* ── STATE SYNCHRONIZATION ──────────────────────────────────────────────── */
+  function syncStateToEditors() {
+    if (!currentDiff) return;
+    // Reconstruct raw strings from the arrays
+    var newLeft = currentDiff.left.filter(l => l.type !== 'empty').map(l => l.text).join('\n');
+    var newRight = currentDiff.right.filter(r => r.type !== 'empty').map(r => r.text).join('\n');
+    
+    $('t-left').value = newLeft;
+    $('t-right').value = newRight;
+    
+    saveHistory(newLeft, newRight);
+    renderDiff(); // Re-run LCS and repaint
+  }
+
+  /* ── LINE ACTIONS ───────────────────────────────────────────────────────── */
+  window._ckPushLine = function(idx, direction) {
+    if(!currentDiff) return;
+    let lNode = currentDiff.left[idx];
+    let rNode = currentDiff.right[idx];
+
+    if (direction === 'toRight') {
+      if (lNode.type === 'remove') { rNode.text = lNode.text; rNode.type = 'match'; lNode.type = 'match'; } 
+      else if (rNode.type === 'add') { rNode.text = ''; rNode.type = 'empty'; }
+    } else {
+      if (rNode.type === 'add') { lNode.text = rNode.text; lNode.type = 'match'; rNode.type = 'match'; } 
+      else if (lNode.type === 'remove') { lNode.text = ''; lNode.type = 'empty'; }
+    }
+    syncStateToEditors();
+  };
+
+  /* ── EXPORT ACTIONS ─────────────────────────────────────────────────────── */
+  CK.wireCopy($('btn-cp-left'), function () { return $('t-left').value; });
+  CK.wireCopy($('btn-cp-right'), function () { return $('t-right').value; });
+
+  if (typeof CK !== 'undefined' && CK.setUsageContent) {
+    CK.setUsageContent('<ol><li>Paste text into <strong>Left</strong> and <strong>Right</strong>.</li><li>Click <strong>Compare</strong> to enter the workspace.</li><li>Click the <strong>Arrows</strong> in the center gutter to push specific lines from one side to the other.</li><li><strong>Click directly on any text</strong> in the workspace to edit it inline. Click away to save.</li><li>Use <strong>Undo/Redo</strong> if you make a mistake.</li></ol>');
+  }
 })();
