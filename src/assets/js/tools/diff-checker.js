@@ -1,5 +1,5 @@
 /**
- * CipherKit — 2-Pane Interactive Text Diff (Perfect Sync & Sticky Gutter)
+ * CipherKit — 2-Pane Interactive Text Diff (Perfect Sync + Pro Font)
  */
 (function () {
   'use strict';
@@ -43,12 +43,12 @@
     .dm-scroll-pane.wrap-active .dm-content { min-width: 100%; width: 100%; }
     .dm-scroll-pane:not(.wrap-active) .dm-content { min-width: max-content; }
     
-    /* Blocks & Lines */
+    /* Blocks & Lines - INDUSTRY STANDARD FONT STACK ADDED HERE */
     .dm-block-wrap { display: flex; flex-direction: column; }
     .dm-gutter-block { position: relative; }
     .dm-line { display: flex; align-items: flex-start; min-height: 24px; padding: 0 12px; box-sizing: border-box; }
-    .dm-line-num { opacity: 0.4; font-size: 11px; width: 36px; flex-shrink: 0; text-align: right; margin-right: 16px; user-select: none; font-variant-numeric: tabular-nums; }
-    .dm-line-txt { flex: 1; outline: none; transition: background 0.2s; }
+    .dm-line-num { opacity: 0.4; font-size: 11px; width: 36px; flex-shrink: 0; text-align: right; margin-right: 16px; user-select: none; font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important; }
+    .dm-line-txt { flex: 1; outline: none; transition: background 0.2s; font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important; font-size: 13px; line-height: 24px; }
     .dm-line-txt[contenteditable="true"]:focus { background: rgba(255,255,255,0.05); border-radius: 2px; }
     
     /* Sticky Magic for Arrows */
@@ -67,6 +67,11 @@
     .dm-scroll-pane.wrap-active .dm-line-txt { white-space: pre-wrap; word-break: break-all; }
     .dm-scroll-pane:not(.wrap-active) .dm-line-txt { white-space: pre; }
     .dm-workspace.hide-match .dm-row-match { display: none !important; }
+    
+    /* Usage Content Styles */
+    .ck-usage-list { margin: 0; padding-left: 20px; line-height: 1.6; }
+    .ck-usage-list li { margin-bottom: 8px; }
+    .ck-usage-note { margin-top: 16px; font-size: 0.9em; color: var(--amber); background: rgba(227, 179, 65, 0.1); padding: 12px; border-radius: 6px; }
   `;
   document.head.appendChild(sty);
 
@@ -239,7 +244,7 @@
     settings.wrap = e.target.checked;
     $('pane-left').classList.toggle('wrap-active', settings.wrap);
     $('pane-right').classList.toggle('wrap-active', settings.wrap);
-    setTimeout(syncRowHeights, 0); // Re-calculate heights after CSS wrap applies
+    setTimeout(syncRowHeights, 0); 
   });
 
   $('cb-hide').addEventListener('change', (e) => {
@@ -255,7 +260,7 @@
   function syncScroll(source, target, gutter) {
     target.scrollTop = source.scrollTop;
     gutter.scrollTop = source.scrollTop;
-    target.scrollLeft = source.scrollLeft; // Pixel-perfect horizontal sync
+    target.scrollLeft = source.scrollLeft; 
   }
 
   $('pane-left').addEventListener('scroll', function(e) {
@@ -274,7 +279,7 @@
     isSyncingRight = false;
   }, { passive: true });
 
-  /* ── DYNAMIC HEIGHT SYNC (Fixes Wrap Misalignment) ──────────────────────── */
+  /* ── DYNAMIC HEIGHT SYNC ────────────────────────────────────────────────── */
   function syncRowHeights() {
     let leftLines = document.querySelectorAll('#content-left .dm-line');
     let rightLines = document.querySelectorAll('#content-right .dm-line');
@@ -283,31 +288,27 @@
     
     let heights = new Array(leftLines.length);
 
-    // 1. Reset heights to Auto to read natural wrapped height
     for (let i = 0; i < leftLines.length; i++) {
       leftLines[i].style.height = 'auto';
       rightLines[i].style.height = 'auto';
     }
     
-    // 2. Read Max Heights (Batch Read to prevent layout thrashing)
     for (let i = 0; i < leftLines.length; i++) {
       heights[i] = Math.max(leftLines[i].offsetHeight, rightLines[i].offsetHeight);
     }
     
-    // 3. Write Heights
     for (let i = 0; i < leftLines.length; i++) {
       let h = heights[i] + 'px';
       leftLines[i].style.height = h;
       rightLines[i].style.height = h;
     }
 
-    // 4. Match Gutter Block heights to the combined height of the Left Block
     for (let j = 0; j < leftBlocks.length; j++) {
       gutterBlocks[j].style.height = leftBlocks[j].offsetHeight + 'px';
     }
   }
 
-  /* ── CORE RENDER LOGIC (3 PANES) ────────────────────────────────────────── */
+  /* ── CORE RENDER LOGIC ──────────────────────────────────────────────────── */
   function renderDiff() {
     currentDiff = lcsDiffAligned($('t-left').value, $('t-right').value);
     
@@ -315,7 +316,6 @@
       `<div class="dm-stats"><span class="dm-st-rem"><b>-${currentDiff.stats.rem}</b> removed (Left)</span><span class="dm-st-add"><b>+${currentDiff.stats.add}</b> added (Right)</span></div>` +
       `<div class="dm-stats"><span style="color:var(--muted)"><b>${currentDiff.stats.match}</b> unchanged lines</span></div>`;
 
-    // Group into Blocks
     let blocks = [];
     let currentBlock = { isDiff: false, id: null, lines: [] };
 
@@ -378,7 +378,6 @@
     $('content-gutter').innerHTML = gutterHTML;
     $('content-right').innerHTML = rightHTML;
 
-    // Run dynamic height alignment
     setTimeout(syncRowHeights, 0);
   }
 
@@ -396,7 +395,6 @@
   function syncStateToEditors() {
     if (!currentDiff) return;
     
-    // Read and save the scroll position before we destroy the DOM
     let savedScrollTop = $('pane-left').scrollTop;
     let savedScrollLeft = $('pane-left').scrollLeft;
 
@@ -407,7 +405,6 @@
     
     renderDiff(); 
 
-    // Restore scroll after render completes
     setTimeout(() => {
       $('pane-left').scrollTop = savedScrollTop;
       $('pane-right').scrollTop = savedScrollTop;
@@ -442,7 +439,6 @@
     $('t-right').value = newRight.join('\n');
     saveHistory($('t-left').value, $('t-right').value);
     
-    // Remember scroll before rerender
     let savedScrollTop = $('pane-left').scrollTop;
     renderDiff();
     setTimeout(() => {
@@ -455,4 +451,20 @@
   /* ── EXPORT ACTIONS ─────────────────────────────────────────────────────── */
   CK.wireCopy($('btn-cp-left'), function () { return $('t-left').value; });
   CK.wireCopy($('btn-cp-right'), function () { return $('t-right').value; });
+
+  /* ── USAGE GUIDE CONTENT ────────────────────────────────────────────────── */
+  if (typeof CK !== 'undefined' && CK.setUsageContent) {
+    var usageHTML = `
+      <ol class="ck-usage-list">
+        <li><strong>Input:</strong> Paste your original code into the <em>Left Editor</em> and your modified code into the <em>Right Editor</em>.</li>
+        <li><strong>Compare:</strong> Click <strong>Compare & Resolve Workspace</strong> to view the side-by-side visual difference.</li>
+        <li><strong>Resolve:</strong> Click the directional arrows in the center gutter to push an entire highlighted conflict block from one side to the other.</li>
+        <li><strong>Inline Edit:</strong> Click directly on any line of code within the workspace to make manual adjustments on the fly. Clicking away will automatically save and resync the workspace.</li>
+        <li><strong>Export:</strong> Once conflicts are resolved, use the <strong>Copy Left</strong> or <strong>Copy Right</strong> buttons at the top right to extract your final merged code.</li>
+      </ol>
+      <p class="ck-usage-note"><strong>Pro Tip:</strong> Use the <em>Wrap Lines</em> and <em>Hide Unchanged</em> toggles in the top toolbar to navigate large, complex files much faster.</p>
+    `;
+    CK.setUsageContent(usageHTML);
+  }
+
 })();
