@@ -1,5 +1,5 @@
 /**
- * CipherKit — 2-Pane Interactive Text Diff & Merge (Sticky Gutter Build)
+ * CipherKit — 2-Pane Interactive Text Diff (Perfect Sync & Sticky Gutter)
  */
 (function () {
   'use strict';
@@ -20,11 +20,10 @@
   function $(id) { return document.getElementById(id); }
   function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  /* ── SCOPED STYLES (Sticky Block Layout) ────────────────────────────────── */
+  /* ── SCOPED STYLES (3-Pane Synchronized Layout) ─────────────────────────── */
   var sty = document.createElement('style');
   sty.textContent = `
     .dm-pane { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-    
     .dm-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .dm-stats-bar { display: flex; justify-content: space-between; padding: 10px 16px; background: rgba(0,0,0,0.15); border: 1px solid var(--border); border-bottom: none; border-radius: 6px 6px 0 0; font-size: 13px; }
     .dm-st-add { color: #3dd68c; margin-right: 12px; } .dm-st-rem { color: #ff6b6b; margin-right: 12px; } .dm-stats b { font-weight: 700; }
@@ -33,39 +32,41 @@
     .dm-feature-toggle:hover { color: var(--text); }
     .dm-feature-toggle input { accent-color: var(--amber); cursor: pointer; width: 14px; height: 14px; }
 
-    /* The main scrollable container */
-    .dm-res-wrap { max-height: 60vh; overflow-y: auto; overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0 0 6px 6px; position: relative; }
+    /* The 3-Pane Workspace Container */
+    .dm-workspace { display: flex; height: 60vh; border: 1px solid var(--border); border-radius: 0 0 6px 6px; background: var(--bg-card); overflow: hidden; }
     
-    /* Block Grid: Now rows are dynamically created by appending 3 child divs at a time */
-    .dm-res-grid { display: grid; grid-template-columns: 1fr 48px 1fr; min-width: 800px; }
+    /* Individual Scrollable Panes */
+    .dm-scroll-pane { flex: 1; overflow: auto; background: var(--bg-body); position: relative; }
+    .dm-gutter-pane { width: 48px; flex-shrink: 0; overflow: hidden; background: rgba(0,0,0,0.2); border-left: 1px solid var(--border); border-right: 1px solid var(--border); position: relative; }
     
-    /* Grid Columns */
-    .dm-block-col { padding: 4px 0; font-family: var(--mono); font-size: 13px; line-height: 24px; }
-    .dm-block-gutter { background: rgba(0,0,0,0.2); border-left: 1px solid var(--border); border-right: 1px solid var(--border); position: relative; }
+    /* Content Constraints for Wrap logic */
+    .dm-scroll-pane.wrap-active .dm-content { min-width: 100%; width: 100%; }
+    .dm-scroll-pane:not(.wrap-active) .dm-content { min-width: max-content; }
     
-    /* Sticky Magic */
-    .dm-sticky-arrows { position: sticky; top: 12px; display: flex; justify-content: center; width: 100%; padding: 4px; z-index: 5; }
-    
-    /* Lines */
-    .dm-line { display: flex; align-items: flex-start; min-height: 24px; padding: 0 12px; }
+    /* Blocks & Lines */
+    .dm-block-wrap { display: flex; flex-direction: column; }
+    .dm-gutter-block { position: relative; }
+    .dm-line { display: flex; align-items: flex-start; min-height: 24px; padding: 0 12px; box-sizing: border-box; }
     .dm-line-num { opacity: 0.4; font-size: 11px; width: 36px; flex-shrink: 0; text-align: right; margin-right: 16px; user-select: none; font-variant-numeric: tabular-nums; }
     .dm-line-txt { flex: 1; outline: none; transition: background 0.2s; }
     .dm-line-txt[contenteditable="true"]:focus { background: rgba(255,255,255,0.05); border-radius: 2px; }
     
+    /* Sticky Magic for Arrows */
+    .dm-sticky-arrows { position: sticky; top: 12px; display: flex; justify-content: center; width: 100%; padding: 4px; z-index: 5; }
+    
+    /* Colors & Buttons */
     .dm-add { background: rgba(61,214,140,0.12); color: #3dd68c; }
     .dm-rem { background: rgba(255,107,107,0.12); color: #ff6b6b; }
     .dm-empty { background: rgba(255,255,255,0.02); }
-    
-    /* Action Buttons */
-    .dm-btn-grp { display: flex; width: 100%; height: 24px; justify-content: space-evenly; align-items: center; background: rgba(255,255,255,0.1); border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .dm-btn-grp { display: flex; width: 100%; height: 24px; justify-content: space-evenly; align-items: center; background: rgba(255,255,255,0.08); border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); backdrop-filter: blur(4px); }
     .dm-btn-arrow { background: none; border: none; color: var(--text); cursor: pointer; height: 20px; width: 20px; display: flex; align-items: center; justify-content: center; padding: 2px; transition: 0.2s; }
     .dm-btn-arrow:hover { background: rgba(255,255,255,0.2); border-radius: 4px; }
     .dm-history-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
     /* DYNAMIC TOGGLE CLASSES */
-    .dm-res-wrap.wrap-active .dm-line-txt { white-space: pre-wrap; word-break: break-all; }
-    .dm-res-wrap:not(.wrap-active) .dm-line-txt { white-space: pre; }
-    .dm-res-wrap.hide-match .dm-row-match { display: none !important; }
+    .dm-scroll-pane.wrap-active .dm-line-txt { white-space: pre-wrap; word-break: break-all; }
+    .dm-scroll-pane:not(.wrap-active) .dm-line-txt { white-space: pre; }
+    .dm-workspace.hide-match .dm-row-match { display: none !important; }
   `;
   document.head.appendChild(sty);
 
@@ -198,9 +199,18 @@
             
             <div class="dm-stats-bar" id="dm-stats-bar"></div>
             
-            <div class="dm-res-wrap wrap-active" id="dm-res-wrap">
-              <div class="dm-res-grid" id="dm-res-grid">
-                </div>
+            <div class="dm-workspace wrap-active" id="dm-workspace">
+              <div id="pane-left" class="dm-scroll-pane wrap-active">
+                <div class="dm-content" id="content-left"></div>
+              </div>
+              
+              <div id="pane-gutter" class="dm-gutter-pane">
+                <div class="dm-content" id="content-gutter" style="min-width:100%;"></div>
+              </div>
+              
+              <div id="pane-right" class="dm-scroll-pane wrap-active">
+                <div class="dm-content" id="content-right"></div>
+              </div>
             </div>
           </div>
 
@@ -227,26 +237,85 @@
 
   $('cb-wrap').addEventListener('change', (e) => {
     settings.wrap = e.target.checked;
-    $('dm-res-wrap').classList.toggle('wrap-active', settings.wrap);
+    $('pane-left').classList.toggle('wrap-active', settings.wrap);
+    $('pane-right').classList.toggle('wrap-active', settings.wrap);
+    setTimeout(syncRowHeights, 0); // Re-calculate heights after CSS wrap applies
   });
 
   $('cb-hide').addEventListener('change', (e) => {
     settings.hideUnchanged = e.target.checked;
-    $('dm-res-wrap').classList.toggle('hide-match', settings.hideUnchanged);
+    $('dm-workspace').classList.toggle('hide-match', settings.hideUnchanged);
+    setTimeout(syncRowHeights, 0); 
   });
 
-  /* ── CORE RENDER LOGIC (GRID ROWS) ──────────────────────────────────────── */
-  function renderDiff() {
-    let scrollContainer = $('dm-res-wrap');
-    let savedScroll = scrollContainer ? scrollContainer.scrollTop : 0;
+  /* ── SYNCHRONIZED SCROLLING LOGIC ───────────────────────────────────────── */
+  let isSyncingLeft = false;
+  let isSyncingRight = false;
 
+  function syncScroll(source, target, gutter) {
+    target.scrollTop = source.scrollTop;
+    gutter.scrollTop = source.scrollTop;
+    target.scrollLeft = source.scrollLeft; // Pixel-perfect horizontal sync
+  }
+
+  $('pane-left').addEventListener('scroll', function(e) {
+    if (!isSyncingLeft) {
+      isSyncingRight = true;
+      syncScroll(e.target, $('pane-right'), $('pane-gutter'));
+    }
+    isSyncingLeft = false;
+  }, { passive: true });
+
+  $('pane-right').addEventListener('scroll', function(e) {
+    if (!isSyncingRight) {
+      isSyncingLeft = true;
+      syncScroll(e.target, $('pane-left'), $('pane-gutter'));
+    }
+    isSyncingRight = false;
+  }, { passive: true });
+
+  /* ── DYNAMIC HEIGHT SYNC (Fixes Wrap Misalignment) ──────────────────────── */
+  function syncRowHeights() {
+    let leftLines = document.querySelectorAll('#content-left .dm-line');
+    let rightLines = document.querySelectorAll('#content-right .dm-line');
+    let leftBlocks = document.querySelectorAll('#content-left .dm-block-wrap');
+    let gutterBlocks = document.querySelectorAll('#content-gutter .dm-gutter-block');
+    
+    let heights = new Array(leftLines.length);
+
+    // 1. Reset heights to Auto to read natural wrapped height
+    for (let i = 0; i < leftLines.length; i++) {
+      leftLines[i].style.height = 'auto';
+      rightLines[i].style.height = 'auto';
+    }
+    
+    // 2. Read Max Heights (Batch Read to prevent layout thrashing)
+    for (let i = 0; i < leftLines.length; i++) {
+      heights[i] = Math.max(leftLines[i].offsetHeight, rightLines[i].offsetHeight);
+    }
+    
+    // 3. Write Heights
+    for (let i = 0; i < leftLines.length; i++) {
+      let h = heights[i] + 'px';
+      leftLines[i].style.height = h;
+      rightLines[i].style.height = h;
+    }
+
+    // 4. Match Gutter Block heights to the combined height of the Left Block
+    for (let j = 0; j < leftBlocks.length; j++) {
+      gutterBlocks[j].style.height = leftBlocks[j].offsetHeight + 'px';
+    }
+  }
+
+  /* ── CORE RENDER LOGIC (3 PANES) ────────────────────────────────────────── */
+  function renderDiff() {
     currentDiff = lcsDiffAligned($('t-left').value, $('t-right').value);
     
     $('dm-stats-bar').innerHTML = 
       `<div class="dm-stats"><span class="dm-st-rem"><b>-${currentDiff.stats.rem}</b> removed (Left)</span><span class="dm-st-add"><b>+${currentDiff.stats.add}</b> added (Right)</span></div>` +
       `<div class="dm-stats"><span style="color:var(--muted)"><b>${currentDiff.stats.match}</b> unchanged lines</span></div>`;
 
-    // 1. Group operations into Blocks to map to CSS Grid Rows
+    // Group into Blocks
     let blocks = [];
     let currentBlock = { isDiff: false, id: null, lines: [] };
 
@@ -264,12 +333,11 @@
     }
     if (currentBlock.lines.length > 0) blocks.push(currentBlock);
 
-    // 2. Render each Block as a set of 3 Grid Columns (which forces a CSS Row)
-    let gridHTML = '';
+    let leftHTML = '', rightHTML = '', gutterHTML = '';
     let lLine = 1, rLine = 1;
 
     blocks.forEach(block => {
-      let leftStr = '', rightStr = '';
+      let blockLeftLines = '', blockRightLines = '';
       let rowVisibilityCls = block.isDiff ? 'dm-row-diff' : 'dm-row-match';
 
       block.lines.forEach(lineItem => {
@@ -286,13 +354,16 @@
         let lText = lNode.type !== 'empty' ? esc(lNode.text) : '';
         let rText = rNode.type !== 'empty' ? esc(rNode.text) : '';
 
-        leftStr += `<div class="dm-line ${lcls}"><span class="dm-line-num">${lNum}</span><span class="dm-line-txt" ${lNode.type !== 'empty' ? `contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit('left', ${k}, this)"` : ''}>${lText}</span></div>`;
-        rightStr += `<div class="dm-line ${rcls}"><span class="dm-line-num">${rNum}</span><span class="dm-line-txt" ${rNode.type !== 'empty' ? `contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit('right', ${k}, this)"` : ''}>${rText}</span></div>`;
+        blockLeftLines += `<div class="dm-line ${lcls}"><span class="dm-line-num">${lNum}</span><span class="dm-line-txt" ${lNode.type !== 'empty' ? `contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit('left', ${k}, this)"` : ''}>${lText}</span></div>`;
+        blockRightLines += `<div class="dm-line ${rcls}"><span class="dm-line-num">${rNum}</span><span class="dm-line-txt" ${rNode.type !== 'empty' ? `contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit('right', ${k}, this)"` : ''}>${rText}</span></div>`;
       });
 
-      let gutterStr = '';
+      leftHTML += `<div class="dm-block-wrap ${rowVisibilityCls}">${blockLeftLines}</div>`;
+      rightHTML += `<div class="dm-block-wrap ${rowVisibilityCls}">${blockRightLines}</div>`;
+
+      let gutterContent = '';
       if (block.isDiff) {
-        gutterStr = `
+        gutterContent = `
           <div class="dm-sticky-arrows">
             <div class="dm-btn-grp">
               <button class="dm-btn-arrow" onclick="window._ckPushBlock(${block.id}, 'toRight')" title="Take Left Block">${IC.arrowRight}</button>
@@ -300,16 +371,15 @@
             </div>
           </div>`;
       }
-
-      gridHTML += `
-        <div class="dm-block-col ${rowVisibilityCls}">${leftStr}</div>
-        <div class="dm-block-gutter ${rowVisibilityCls}">${gutterStr}</div>
-        <div class="dm-block-col ${rowVisibilityCls}">${rightStr}</div>
-      `;
+      gutterHTML += `<div class="dm-gutter-block ${rowVisibilityCls}">${gutterContent}</div>`;
     });
 
-    $('dm-res-grid').innerHTML = gridHTML;
-    if (scrollContainer) scrollContainer.scrollTop = savedScroll;
+    $('content-left').innerHTML = leftHTML;
+    $('content-gutter').innerHTML = gutterHTML;
+    $('content-right').innerHTML = rightHTML;
+
+    // Run dynamic height alignment
+    setTimeout(syncRowHeights, 0);
   }
 
   /* ── INLINE EDITING LOGIC ───────────────────────────────────────────────── */
@@ -325,17 +395,31 @@
   /* ── STATE SYNCHRONIZATION ──────────────────────────────────────────────── */
   function syncStateToEditors() {
     if (!currentDiff) return;
+    
+    // Read and save the scroll position before we destroy the DOM
+    let savedScrollTop = $('pane-left').scrollTop;
+    let savedScrollLeft = $('pane-left').scrollLeft;
+
     var newLeft = currentDiff.left.filter(l => l.type !== 'empty' || l.text !== '').map(l => l.text).join('\n');
     var newRight = currentDiff.right.filter(r => r.type !== 'empty' || r.text !== '').map(r => r.text).join('\n');
     $('t-left').value = newLeft; $('t-right').value = newRight;
     saveHistory(newLeft, newRight);
+    
     renderDiff(); 
+
+    // Restore scroll after render completes
+    setTimeout(() => {
+      $('pane-left').scrollTop = savedScrollTop;
+      $('pane-right').scrollTop = savedScrollTop;
+      $('pane-gutter').scrollTop = savedScrollTop;
+      $('pane-left').scrollLeft = savedScrollLeft;
+      $('pane-right').scrollLeft = savedScrollLeft;
+    }, 10);
   }
 
   /* ── BLOCK RESOLUTION LOGIC ─────────────────────────────────────────────── */
   window._ckPushBlock = function(blockId, direction) {
     if(!currentDiff) return;
-    
     let newLeft = [], newRight = [];
     
     for(let i=0; i<currentDiff.left.length; i++) {
@@ -357,7 +441,15 @@
     $('t-left').value = newLeft.join('\n');
     $('t-right').value = newRight.join('\n');
     saveHistory($('t-left').value, $('t-right').value);
+    
+    // Remember scroll before rerender
+    let savedScrollTop = $('pane-left').scrollTop;
     renderDiff();
+    setTimeout(() => {
+      $('pane-left').scrollTop = savedScrollTop;
+      $('pane-right').scrollTop = savedScrollTop;
+      $('pane-gutter').scrollTop = savedScrollTop;
+    }, 10);
   };
 
   /* ── EXPORT ACTIONS ─────────────────────────────────────────────────────── */
