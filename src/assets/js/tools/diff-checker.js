@@ -1,5 +1,6 @@
 /**
  * CipherKit — Text Diff Checker
+ * VS Code-style side-by-side split view with LCS diff algorithm
  */
 (function () {
   'use strict';
@@ -15,64 +16,291 @@
   };
 
   function $(id) { return document.getElementById(id); }
-  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  /* Simple line-based diff */
-  function diff(a, b) {
-    var linesA = a.split('\n');
-    var linesB = b.split('\n');
-    var max = Math.max(linesA.length, linesB.length);
-    var result = [];
-    var added = 0, removed = 0, unchanged = 0;
-    for (var i = 0; i < max; i++) {
-      var la = i < linesA.length ? linesA[i] : undefined;
-      var lb = i < linesB.length ? linesB[i] : undefined;
-      if (la === lb) { result.push({ type: ' ', line: la, num: i+1 }); unchanged++; }
-      else {
-        if (la !== undefined) { result.push({ type: '-', line: la, num: i+1 }); removed++; }
-        if (lb !== undefined) { result.push({ type: '+', line: lb, num: i+1 }); added++; }
-      }
-    }
-    return { lines: result, added: added, removed: removed, unchanged: unchanged };
-  }
+  /* ── Inject scoped CSS ─────────────────────────────────────── */
+  var styleTag = document.createElement('style');
+  styleTag.textContent = [
+    '.diff-split{display:flex;gap:12px;min-height:0}',
+    '.diff-split>div{flex:1;min-width:0}',
+    '.diff-pane{font-family:"Courier New",monospace;font-size:12px;line-height:1.6;overflow:auto;max-height:400px;resize:vertical;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:0}',
+    '.diff-line{display:flex;align-items:stretch;min-width:0}',
+    '.diff-ln{min-width:36px;padding:0 8px;text-align:right;color:var(--muted);background:rgba(0,0,0,.2);user-select:none;flex-shrink:0;font-size:11px;line-height:1.6;border-right:1px solid var(--border)}',
+    '.diff-text{padding:0 10px;white-space:pre-wrap;word-break:break-all;flex:1;min-width:0}',
+    '.diff-removed{background:rgba(255,80,80,.15);color:#ff8080}',
+    '.diff-added{background:rgba(61,214,140,.12);color:#3dd68c}',
+    '.diff-unchanged{color:var(--muted)}',
+    '.diff-empty{background:rgba(100,100,100,.05);color:transparent}',
+    '.diff-action-bar{display:none;gap:10px;margin-bottom:8px;align-items:center;flex-wrap:wrap}',
+    '.diff-action-bar.visible{display:flex}',
+    '.diff-stats{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}',
+    '.stat-added{color:#3dd68c;font-weight:700}',
+    '.stat-removed{color:#ff6b6b;font-weight:700}',
+    '.stat-unchanged{color:var(--muted)}',
+    '.diff-panel-header{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}',
+    '@media(max-width:640px){.diff-split{flex-direction:column!important}}'
+  ].join('\n');
+  document.head.appendChild(styleTag);
 
+  /* ── Sample data ───────────────────────────────────────────── */
+  var SAMPLE_LEFT = 'function greet(name) {\n  console.log("Hello, " + name);\n  return true;\n}\n\nconst user = "Alice";\ngreet(user);';
+  var SAMPLE_RIGHT = 'function greet(name, greeting = "Hello") {\n  console.log(greeting + ", " + name + "!");\n  return name;\n}\n\nconst user = "Bob";\ngreet(user, "Hi");';
+
+  /* ── Build UI ──────────────────────────────────────────────── */
   root.innerHTML =
-    '<div class="tool-single-col">'
-    + '<div class="tool-card-ui">'
-    +   '<div class="tc-head">'
-    +     '<div class="tc-title"><div class="tc-icon tc-icon-amber">' + IC.diff + '</div><h2 id="t-heading">Diff Checker</h2></div>'
-    +     '<span class="tc-badge tc-badge-amber">Compare</span>'
+    '<div class="tool-single-col"><div class="tool-card-ui">'
+    + '<div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-amber">' + IC.diff + '</div><h2 id="t-heading">Diff Checker</h2></div><span class="tc-badge tc-badge-amber">Compare</span></div>'
+    + '<div class="tc-body" role="region" aria-labelledby="t-heading">'
+
+    /* --- Input textareas (side-by-side) --- */
+    + '<div class="diff-split">'
+    +   '<div>'
+    +     '<div class="diff-panel-header"><span>Original (Left)</span></div>'
+    +     '<textarea id="t-left" placeholder="Paste original text\u2026" rows="10" class="mono" style="width:100%;resize:vertical;min-height:200px"></textarea>'
     +   '</div>'
-    +   '<div class="tc-body" role="region" aria-labelledby="t-heading">'
-    +     '<div class="field"><div class="field-hdr"><label for="t-left">Original Text</label></div><textarea id="t-left" placeholder="Paste original text\u2026" rows="8" class="mono"></textarea></div>'
-    +     '<div class="field"><div class="field-hdr"><label for="t-right">Changed Text</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-right" placeholder="Paste changed text\u2026" rows="8" class="mono"></textarea></div>'
-    +     '<button type="button" class="act-btn act-amber" id="btn-diff" aria-label="Compare">' + IC.diff + ' <span>Compare</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Diff Result</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="t-result" style="white-space:pre;overflow-x:auto" role="status" aria-live="polite">Diff will appear here\u2026</div></div>'
+    +   '<div>'
+    +     '<div class="diff-panel-header"><span>Changed (Right)</span><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div>'
+    +     '<textarea id="t-right" placeholder="Paste changed text\u2026" rows="10" class="mono" style="width:100%;resize:vertical;min-height:200px"></textarea>'
     +   '</div>'
     + '</div>'
-    + '</div>';
 
-  $('btn-clr').addEventListener('click', function () { $('t-left').value=''; $('t-right').value=''; $('t-result').className='out-body mono ph'; $('t-result').innerHTML='Diff will appear here\u2026'; });
-  CK.wireCopy($('btn-cp'), function () { return $('t-result').textContent; });
-  CK.initAutoGrow($('t-left')); CK.initAutoGrow($('t-right'));
+    /* --- Compare button --- */
+    + '<button type="button" class="act-btn act-amber" id="btn-compare" aria-label="Compare">' + IC.diff + ' <span>Compare</span></button>'
+    + '<div class="shortcut-hint">\u2318/Ctrl + Enter to compare</div>'
 
-  $('btn-diff').addEventListener('click', function () {
+    /* --- Action bar (hidden until compared) --- */
+    + '<div class="diff-action-bar" id="diff-action-bar">'
+    +   '<button type="button" class="pill-btn" id="btn-use-left">\u2190 Use Left</button>'
+    +   '<button type="button" class="pill-btn" id="btn-use-right">Use Right \u2192</button>'
+    +   '<div style="flex:1"></div>'
+    +   '<button type="button" class="pill-btn" id="btn-cp-left">' + IC.copy + ' <span>Copy Left</span></button>'
+    +   '<button type="button" class="pill-btn" id="btn-cp-right">' + IC.copy + ' <span>Copy Right</span></button>'
+    +   '<button type="button" class="pill-btn" id="btn-dl-diff">' + IC.dl + ' <span>Download .diff</span></button>'
+    + '</div>'
+
+    /* --- Result panels (side-by-side) --- */
+    + '<div class="diff-split" id="diff-result-wrap" style="display:none">'
+    +   '<div>'
+    +     '<div class="diff-panel-header"><span>Original</span></div>'
+    +     '<div class="diff-pane" id="diff-left" role="status"></div>'
+    +   '</div>'
+    +   '<div>'
+    +     '<div class="diff-panel-header"><span>Changed</span></div>'
+    +     '<div class="diff-pane" id="diff-right" role="status"></div>'
+    +   '</div>'
+    + '</div>'
+
+    /* --- Stats --- */
+    + '<div class="diff-stats" id="diff-stats"></div>'
+
+    + '</div></div></div>';
+
+  /* ── Helpers ────────────────────────────────────────────────── */
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  /* ── LCS Diff Algorithm ─────────────────────────────────────── */
+  function computeDiff(originalLines, changedLines) {
+    var m = originalLines.length, n = changedLines.length;
+    var dp = [];
+    var i, j;
+    for (i = 0; i <= m; i++) {
+      dp[i] = new Array(n + 1);
+      for (j = 0; j <= n; j++) dp[i][j] = 0;
+    }
+    for (i = 1; i <= m; i++) {
+      for (j = 1; j <= n; j++) {
+        if (originalLines[i - 1] === changedLines[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1] + 1;
+        } else {
+          dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        }
+      }
+    }
+
+    var leftLines = [];
+    var rightLines = [];
+    i = m; j = n;
+
+    while (i > 0 || j > 0) {
+      if (i > 0 && j > 0 && originalLines[i - 1] === changedLines[j - 1]) {
+        leftLines.unshift({ type: 'unchanged', text: originalLines[i - 1], ln: i });
+        rightLines.unshift({ type: 'unchanged', text: changedLines[j - 1], ln: j });
+        i--; j--;
+      } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
+        leftLines.unshift({ type: 'empty', text: '', ln: null });
+        rightLines.unshift({ type: 'added', text: changedLines[j - 1], ln: j });
+        j--;
+      } else {
+        leftLines.unshift({ type: 'removed', text: originalLines[i - 1], ln: i });
+        rightLines.unshift({ type: 'empty', text: '', ln: null });
+        i--;
+      }
+    }
+
+    return { leftLines: leftLines, rightLines: rightLines };
+  }
+
+  /* ── Render a diff panel ────────────────────────────────────── */
+  function renderPanel(lines) {
+    return lines.map(function (line) {
+      var textCls = 'diff-text ';
+      if (line.type === 'removed') textCls += 'diff-removed';
+      else if (line.type === 'added') textCls += 'diff-added';
+      else if (line.type === 'empty') textCls += 'diff-empty';
+      else textCls += 'diff-unchanged';
+
+      var ln = line.ln !== null
+        ? '<span class="diff-ln">' + line.ln + '</span>'
+        : '<span class="diff-ln">&nbsp;</span>';
+
+      var prefix = line.type === 'removed' ? '\u2212 '
+                 : line.type === 'added'   ? '+ '
+                 : '  ';
+
+      var content = line.type === 'empty' ? '&nbsp;' : escapeHtml(line.text);
+
+      return '<div class="diff-line">'
+        + ln
+        + '<span class="' + textCls + '">'
+        + prefix + content
+        + '</span></div>';
+    }).join('');
+  }
+
+  /* ── State ──────────────────────────────────────────────────── */
+  var lastDiff = null;
+
+  /* ── Run diff ───────────────────────────────────────────────── */
+  function runDiff() {
     var left = $('t-left').value;
     var right = $('t-right').value;
-    if (!left && !right) { $('t-result').className='out-body mono ph'; $('t-result').innerHTML='Enter text in both fields.'; return; }
-    var d = diff(left, right);
-    var html = d.lines.map(function (l) {
-      var prefix = l.type;
-      var cls = l.type === '+' ? 'color:#3dd68c;background:rgba(61,214,140,.08)' : l.type === '-' ? 'color:#ff6b6b;background:rgba(255,107,107,.08)' : 'color:var(--muted)';
-      return '<span style="' + cls + '">' + prefix + ' ' + esc(l.line) + '</span>';
-    }).join('\n');
-    html += '\n\n<span style="color:var(--amber)">— Added: ' + d.added + ' | Removed: ' + d.removed + ' | Unchanged: ' + d.unchanged + '</span>';
-    $('t-result').className = 'out-body mono'; $('t-result').innerHTML = html;
+
+    if (!left && !right) {
+      $('diff-result-wrap').style.display = 'none';
+      $('diff-action-bar').className = 'diff-action-bar';
+      $('diff-stats').innerHTML = '';
+      return;
+    }
+
+    var origLines = left.split('\n');
+    var changedLines = right.split('\n');
+    var result = computeDiff(origLines, changedLines);
+    lastDiff = result;
+
+    $('diff-left').innerHTML = renderPanel(result.leftLines);
+    $('diff-right').innerHTML = renderPanel(result.rightLines);
+    $('diff-result-wrap').style.display = '';
+    $('diff-action-bar').className = 'diff-action-bar visible';
+
+    /* Stats */
+    var added = 0, removed = 0, unchanged = 0;
+    for (var k = 0; k < result.leftLines.length; k++) {
+      var lt = result.leftLines[k].type;
+      var rt = result.rightLines[k].type;
+      if (lt === 'removed') removed++;
+      if (rt === 'added') added++;
+      if (lt === 'unchanged') unchanged++;
+    }
+
+    $('diff-stats').innerHTML =
+      '<span class="stat-added">+' + added + ' added</span>'
+      + '<span class="stat-removed">\u2212' + removed + ' removed</span>'
+      + '<span class="stat-unchanged">=' + unchanged + ' unchanged</span>';
+
     CK.toast('Diff computed');
+  }
+
+  /* ── Compare button ─────────────────────────────────────────── */
+  $('btn-compare').addEventListener('click', runDiff);
+
+  /* ── Clear ──────────────────────────────────────────────────── */
+  $('btn-clr').addEventListener('click', function () {
+    $('t-left').value = '';
+    $('t-right').value = '';
+    $('diff-result-wrap').style.display = 'none';
+    $('diff-action-bar').className = 'diff-action-bar';
+    $('diff-stats').innerHTML = '';
+    lastDiff = null;
   });
 
-  
-  CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'diff-checker-output.txt');
+  /* ── Use Left / Use Right ───────────────────────────────────── */
+  $('btn-use-left').addEventListener('click', function () {
+    $('t-right').value = $('t-left').value;
+    runDiff();
+    CK.toast('Left copied to Right');
+  });
+  $('btn-use-right').addEventListener('click', function () {
+    $('t-left').value = $('t-right').value;
+    runDiff();
+    CK.toast('Right copied to Left');
+  });
 
-  CK.setUsageContent('<ol><li>Paste <strong>original text</strong> in the first field.</li><li>Paste <strong>changed text</strong> in the second field.</li><li>Click <strong>Compare</strong> to see line-by-line differences.</li></ol><p>Added lines shown in <span style="color:#3dd68c">green</span>, removed in <span style="color:#ff6b6b">red</span>. Shows a summary of added, removed, and unchanged line counts.</p>');
+  /* ── Copy left/right result ─────────────────────────────────── */
+  function extractText(lines) {
+    return lines.filter(function (l) { return l.type !== 'empty'; })
+      .map(function (l) { return l.text; }).join('\n');
+  }
+
+  CK.wireCopy($('btn-cp-left'), function () {
+    if (!lastDiff) return '';
+    return extractText(lastDiff.leftLines);
+  });
+  CK.wireCopy($('btn-cp-right'), function () {
+    if (!lastDiff) return '';
+    return extractText(lastDiff.rightLines);
+  });
+
+  /* ── Download unified diff ──────────────────────────────────── */
+  $('btn-dl-diff').addEventListener('click', function () {
+    if (!lastDiff) return;
+    var lines = ['--- Original', '+++ Changed'];
+    for (var k = 0; k < lastDiff.leftLines.length; k++) {
+      var ll = lastDiff.leftLines[k];
+      var rl = lastDiff.rightLines[k];
+      if (ll.type === 'removed') lines.push('- ' + ll.text);
+      else if (rl.type === 'added') lines.push('+ ' + rl.text);
+      else if (ll.type === 'unchanged') lines.push('  ' + ll.text);
+    }
+    var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'cipherkit-diff.diff';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    CK.toast('Diff downloaded');
+  });
+
+  /* ── Synchronized scrolling ─────────────────────────────────── */
+  var syncing = false;
+  $('diff-left').addEventListener('scroll', function () {
+    if (syncing) return;
+    syncing = true;
+    $('diff-right').scrollTop = $('diff-left').scrollTop;
+    syncing = false;
+  });
+  $('diff-right').addEventListener('scroll', function () {
+    if (syncing) return;
+    syncing = true;
+    $('diff-left').scrollTop = $('diff-right').scrollTop;
+    syncing = false;
+  });
+
+  /* ── Keyboard shortcut ──────────────────────────────────────── */
+  CK.wireCtrlEnter('btn-compare');
+
+  /* ── Pre-populate sample data and run diff ──────────────────── */
+  $('t-left').value = SAMPLE_LEFT;
+  $('t-right').value = SAMPLE_RIGHT;
+  runDiff();
+
+  /* ── Usage guide ────────────────────────────────────────────── */
+  CK.setUsageContent(
+    '<ol>'
+    + '<li>Paste <strong>original text</strong> in the left panel and <strong>changed text</strong> in the right panel.</li>'
+    + '<li>Click <strong>Compare</strong> or press <kbd>Ctrl+Enter</kbd> to see the diff.</li>'
+    + '<li>Results appear side-by-side: removed lines in <span style="color:#ff8080">red</span> (left) and added lines in <span style="color:#3dd68c">green</span> (right).</li>'
+    + '</ol>'
+    + '<p>Uses an LCS (Longest Common Subsequence) algorithm for accurate line-level diff. Panels scroll in sync. Use <strong>\u2190 Use Left</strong> or <strong>Use Right \u2192</strong> to accept one version. Download a unified <code>.diff</code> file for sharing.</p>'
+  );
 })();

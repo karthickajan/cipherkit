@@ -37,9 +37,6 @@
     + '<div class="sel-group"><label for="font-size">Font Size</label><select id="font-size"><option value="11">11px</option><option value="12">12px</option><option value="13" selected>13px</option><option value="14">14px</option><option value="16">16px</option></select></div>'
     + '</div>'
     + '<button type="button" class="act-btn act-purple" id="btn-gen">' + IC.dl + ' <span>Generate PDF</span></button>'
-    + '<p style="font-size:11px;color:var(--muted);text-align:center;margin:4px 0 0">'
-    + '\u2139\ufe0f Image-based PDF \u2014 text is not selectable, TOC links are not clickable.'
-    + '</p>'
     + '<div id="md-status" style="margin-top:10px;min-height:24px" role="status"></div>'
     /* preview */
     + '<div class="out-box">'
@@ -304,7 +301,4 @@
     + '<p>Limitation: The PDF contains rasterised text (image-based), so text is not selectable in the PDF. For selectable text, use a dedicated Markdown editor.</p>'
   );
 
-
-  /* CK-PATCHED — sample data */
-  (function(){var inp=$('markdown-input');if(inp&&!inp.value){inp.value='# Hello World\\n\\n## Introduction\\n\\nThis is a **sample** document with:\\n\\n- Lists\\n- **Bold** and *italic*\\n- `inline code`\\n\\n## Code Block\\n\\n```json\\n{"key": "value"}\\n```';inp.dispatchEvent(new Event('input'));}})();
 })();
