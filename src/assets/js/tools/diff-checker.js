@@ -1,12 +1,15 @@
 /**
  * CipherKit — Text Diff Checker
- * VS Code-style side-by-side split view with LCS diff algorithm
+ * Wide side-by-side layout with per-line take-left / take-right,
+ * live diff on input, and synchronized scrolling.
  */
 (function () {
   'use strict';
+
   var root = document.getElementById('tool-root');
   if (!root) return;
 
+  /* ── SVG ICONS ──────────────────────────────────────────────────────────── */
   var IC = {
     diff:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M18 6H6"/><path d="M18 18H6"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -16,291 +19,273 @@
   };
 
   function $(id) { return document.getElementById(id); }
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-  /* ── Inject scoped CSS ─────────────────────────────────────── */
-  var styleTag = document.createElement('style');
-  styleTag.textContent = [
-    '.diff-split{display:flex;gap:12px;min-height:0}',
-    '.diff-split>div{flex:1;min-width:0}',
-    '.diff-pane{font-family:"Courier New",monospace;font-size:12px;line-height:1.6;overflow:auto;max-height:400px;resize:vertical;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:0}',
-    '.diff-line{display:flex;align-items:stretch;min-width:0}',
-    '.diff-ln{min-width:36px;padding:0 8px;text-align:right;color:var(--muted);background:rgba(0,0,0,.2);user-select:none;flex-shrink:0;font-size:11px;line-height:1.6;border-right:1px solid var(--border)}',
-    '.diff-text{padding:0 10px;white-space:pre-wrap;word-break:break-all;flex:1;min-width:0}',
-    '.diff-removed{background:rgba(255,80,80,.15);color:#ff8080}',
-    '.diff-added{background:rgba(61,214,140,.12);color:#3dd68c}',
-    '.diff-unchanged{color:var(--muted)}',
-    '.diff-empty{background:rgba(100,100,100,.05);color:transparent}',
-    '.diff-action-bar{display:none;gap:10px;margin-bottom:8px;align-items:center;flex-wrap:wrap}',
-    '.diff-action-bar.visible{display:flex}',
-    '.diff-stats{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}',
-    '.stat-added{color:#3dd68c;font-weight:700}',
-    '.stat-removed{color:#ff6b6b;font-weight:700}',
-    '.stat-unchanged{color:var(--muted)}',
-    '.diff-panel-header{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}',
-    '@media(max-width:640px){.diff-split{flex-direction:column!important}}'
-  ].join('\n');
-  document.head.appendChild(styleTag);
+  /* ── SCOPED STYLES ──────────────────────────────────────────────────────── */
+  var style = document.createElement('style');
+  style.textContent =
+    '.dc-wrap{max-width:1400px;width:95%;margin:0 auto}'
+    + '.dc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}'
+    + '.dc-pane textarea{width:100%;min-height:200px;resize:vertical}'
+    + '.dc-stats{display:flex;gap:16px;flex-wrap:wrap;padding:10px 0;font-size:13px;color:var(--muted)}'
+    + '.dc-stats b{font-weight:700}'
+    + '.dc-stat-add{color:#3dd68c}.dc-stat-rem{color:#ff6b6b}.dc-stat-unc{color:var(--muted)}'
+    + '.dc-result{max-height:600px;overflow:auto;border:1px solid var(--border);border-radius:var(--r);background:var(--bg)}'
+    + '.dc-row{display:grid;grid-template-columns:36px 36px 1fr 40px 1fr 36px;align-items:stretch;border-bottom:1px solid rgba(255,255,255,.04);min-height:28px}'
+    + '.dc-ln{display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);opacity:.6;user-select:none;padding:0 2px}'
+    + '.dc-cell{font-family:var(--mono);font-size:13px;white-space:pre-wrap;word-break:break-all;padding:4px 8px;line-height:1.6;display:flex;align-items:center}'
+    + '.dc-sep{display:flex;align-items:center;justify-content:center;gap:2px;padding:0 2px}'
+    + '.dc-sep button{background:none;border:none;cursor:pointer;padding:2px;border-radius:3px;color:var(--muted);font-size:14px;line-height:1;transition:color .15s,background .15s}'
+    + '.dc-sep button:hover{color:var(--text);background:rgba(255,255,255,.08)}'
+    + '.dc-added{background:rgba(61,214,140,.12)}'
+    + '.dc-removed{background:rgba(255,107,107,.12)}'
+    + '.dc-empty{background:rgba(255,255,255,.02)}'
+    + '.dc-row-head{background:var(--sf2);font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}'
+    + '.dc-row-head .dc-cell{padding:8px}'
+    + '@media(max-width:768px){.dc-grid{grid-template-columns:1fr}.dc-row{grid-template-columns:28px 28px 1fr 32px 1fr 28px}.dc-cell{font-size:12px}}';
+  document.head.appendChild(style);
 
-  /* ── Sample data ───────────────────────────────────────────── */
-  var SAMPLE_LEFT = 'function greet(name) {\n  console.log("Hello, " + name);\n  return true;\n}\n\nconst user = "Alice";\ngreet(user);';
-  var SAMPLE_RIGHT = 'function greet(name, greeting = "Hello") {\n  console.log(greeting + ", " + name + "!");\n  return name;\n}\n\nconst user = "Bob";\ngreet(user, "Hi");';
-
-  /* ── Build UI ──────────────────────────────────────────────── */
-  root.innerHTML =
-    '<div class="tool-single-col"><div class="tool-card-ui">'
-    + '<div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-amber">' + IC.diff + '</div><h2 id="t-heading">Diff Checker</h2></div><span class="tc-badge tc-badge-amber">Compare</span></div>'
-    + '<div class="tc-body" role="region" aria-labelledby="t-heading">'
-
-    /* --- Input textareas (side-by-side) --- */
-    + '<div class="diff-split">'
-    +   '<div>'
-    +     '<div class="diff-panel-header"><span>Original (Left)</span></div>'
-    +     '<textarea id="t-left" placeholder="Paste original text\u2026" rows="10" class="mono" style="width:100%;resize:vertical;min-height:200px"></textarea>'
-    +   '</div>'
-    +   '<div>'
-    +     '<div class="diff-panel-header"><span>Changed (Right)</span><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div>'
-    +     '<textarea id="t-right" placeholder="Paste changed text\u2026" rows="10" class="mono" style="width:100%;resize:vertical;min-height:200px"></textarea>'
-    +   '</div>'
-    + '</div>'
-
-    /* --- Compare button --- */
-    + '<button type="button" class="act-btn act-amber" id="btn-compare" aria-label="Compare">' + IC.diff + ' <span>Compare</span></button>'
-    + '<div class="shortcut-hint">\u2318/Ctrl + Enter to compare</div>'
-
-    /* --- Action bar (hidden until compared) --- */
-    + '<div class="diff-action-bar" id="diff-action-bar">'
-    +   '<button type="button" class="pill-btn" id="btn-use-left">\u2190 Use Left</button>'
-    +   '<button type="button" class="pill-btn" id="btn-use-right">Use Right \u2192</button>'
-    +   '<div style="flex:1"></div>'
-    +   '<button type="button" class="pill-btn" id="btn-cp-left">' + IC.copy + ' <span>Copy Left</span></button>'
-    +   '<button type="button" class="pill-btn" id="btn-cp-right">' + IC.copy + ' <span>Copy Right</span></button>'
-    +   '<button type="button" class="pill-btn" id="btn-dl-diff">' + IC.dl + ' <span>Download .diff</span></button>'
-    + '</div>'
-
-    /* --- Result panels (side-by-side) --- */
-    + '<div class="diff-split" id="diff-result-wrap" style="display:none">'
-    +   '<div>'
-    +     '<div class="diff-panel-header"><span>Original</span></div>'
-    +     '<div class="diff-pane" id="diff-left" role="status"></div>'
-    +   '</div>'
-    +   '<div>'
-    +     '<div class="diff-panel-header"><span>Changed</span></div>'
-    +     '<div class="diff-pane" id="diff-right" role="status"></div>'
-    +   '</div>'
-    + '</div>'
-
-    /* --- Stats --- */
-    + '<div class="diff-stats" id="diff-stats"></div>'
-
-    + '</div></div></div>';
-
-  /* ── Helpers ────────────────────────────────────────────────── */
-  function escapeHtml(str) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-
-  /* ── LCS Diff Algorithm ─────────────────────────────────────── */
-  function computeDiff(originalLines, changedLines) {
-    var m = originalLines.length, n = changedLines.length;
-    var dp = [];
+  /* ── LCS-BASED DIFF ─────────────────────────────────────────────────────── */
+  function computeLCS(a, b) {
+    var m = a.length, n = b.length;
+    var dp = new Array(m + 1);
     var i, j;
-    for (i = 0; i <= m; i++) {
-      dp[i] = new Array(n + 1);
-      for (j = 0; j <= n; j++) dp[i][j] = 0;
-    }
-    for (i = 1; i <= m; i++) {
-      for (j = 1; j <= n; j++) {
-        if (originalLines[i - 1] === changedLines[j - 1]) {
-          dp[i][j] = dp[i - 1][j - 1] + 1;
-        } else {
-          dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-        }
-      }
-    }
-
-    var leftLines = [];
-    var rightLines = [];
+    for (i = 0; i <= m; i++) { dp[i] = new Array(n + 1); dp[i][0] = 0; }
+    for (j = 0; j <= n; j++) dp[0][j] = 0;
+    for (i = 1; i <= m; i++)
+      for (j = 1; j <= n; j++)
+        dp[i][j] = a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], dp[i][j - 1]);
+    /* backtrack */
+    var rows = [];
     i = m; j = n;
-
     while (i > 0 || j > 0) {
-      if (i > 0 && j > 0 && originalLines[i - 1] === changedLines[j - 1]) {
-        leftLines.unshift({ type: 'unchanged', text: originalLines[i - 1], ln: i });
-        rightLines.unshift({ type: 'unchanged', text: changedLines[j - 1], ln: j });
+      if (i > 0 && j > 0 && a[i - 1] === b[j - 1]) {
+        rows.push({ type: 'eq', li: i, ri: j, left: a[i - 1], right: b[j - 1] });
         i--; j--;
       } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
-        leftLines.unshift({ type: 'empty', text: '', ln: null });
-        rightLines.unshift({ type: 'added', text: changedLines[j - 1], ln: j });
+        rows.push({ type: 'add', li: null, ri: j, left: '', right: b[j - 1] });
         j--;
       } else {
-        leftLines.unshift({ type: 'removed', text: originalLines[i - 1], ln: i });
-        rightLines.unshift({ type: 'empty', text: '', ln: null });
+        rows.push({ type: 'rem', li: i, ri: null, left: a[i - 1], right: '' });
         i--;
       }
     }
-
-    return { leftLines: leftLines, rightLines: rightLines };
+    rows.reverse();
+    return rows;
   }
 
-  /* ── Render a diff panel ────────────────────────────────────── */
-  function renderPanel(lines) {
-    return lines.map(function (line) {
-      var textCls = 'diff-text ';
-      if (line.type === 'removed') textCls += 'diff-removed';
-      else if (line.type === 'added') textCls += 'diff-added';
-      else if (line.type === 'empty') textCls += 'diff-empty';
-      else textCls += 'diff-unchanged';
-
-      var ln = line.ln !== null
-        ? '<span class="diff-ln">' + line.ln + '</span>'
-        : '<span class="diff-ln">&nbsp;</span>';
-
-      var prefix = line.type === 'removed' ? '\u2212 '
-                 : line.type === 'added'   ? '+ '
-                 : '  ';
-
-      var content = line.type === 'empty' ? '&nbsp;' : escapeHtml(line.text);
-
-      return '<div class="diff-line">'
-        + ln
-        + '<span class="' + textCls + '">'
-        + prefix + content
-        + '</span></div>';
-    }).join('');
+  function diffLines(leftText, rightText) {
+    var a = leftText.split('\n');
+    var b = rightText.split('\n');
+    var rows = computeLCS(a, b);
+    var added = 0, removed = 0, unchanged = 0;
+    rows.forEach(function (r) {
+      if (r.type === 'add') added++;
+      else if (r.type === 'rem') removed++;
+      else unchanged++;
+    });
+    return { rows: rows, added: added, removed: removed, unchanged: unchanged };
   }
 
-  /* ── State ──────────────────────────────────────────────────── */
-  var lastDiff = null;
+  /* ── RENDER ─────────────────────────────────────────────────────────────── */
+  root.innerHTML =
+    '<div class="dc-wrap">'
+    +   '<div class="tool-card-ui">'
+    +     '<div class="tc-head">'
+    +       '<div class="tc-title"><div class="tc-icon tc-icon-amber">' + IC.diff + '</div><h2 id="t-heading">Diff Checker</h2></div>'
+    +       '<span class="tc-badge tc-badge-amber">Compare</span>'
+    +     '</div>'
+    +     '<div class="tc-body" role="region" aria-labelledby="t-heading">'
+    +       '<div class="dc-grid">'
+    +         '<div class="dc-pane field"><div class="field-hdr"><label for="t-left">Original Text</label></div><textarea id="t-left" placeholder="Paste original text\u2026" rows="10" class="mono"></textarea></div>'
+    +         '<div class="dc-pane field"><div class="field-hdr"><label for="t-right">Changed Text</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-right" placeholder="Paste changed text\u2026" rows="10" class="mono"></textarea></div>'
+    +       '</div>'
+    +       '<div class="dc-stats" id="dc-stats"></div>'
+    +       '<div class="out-box">'
+    +         '<div class="out-head">'
+    +           '<div class="out-label">' + IC.play + ' <span>Diff Result</span></div>'
+    +           '<div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div>'
+    +         '</div>'
+    +         '<div class="dc-result" id="dc-result">'
+    +           '<div class="dc-row dc-row-head"><div class="dc-ln"></div><div class="dc-ln"></div><div class="dc-cell">Original</div><div class="dc-sep"></div><div class="dc-cell">Changed</div><div class="dc-ln"></div></div>'
+    +           '<div id="dc-rows" style="color:var(--muted);padding:24px;text-align:center;font-size:13px">Start typing to see live diff\u2026</div>'
+    +         '</div>'
+    +       '</div>'
+    +     '</div>'
+    +   '</div>'
+    + '</div>';
 
-  /* ── Run diff ───────────────────────────────────────────────── */
-  function runDiff() {
-    var left = $('t-left').value;
-    var right = $('t-right').value;
+  /* ── REFS ───────────────────────────────────────────────────────────────── */
+  var elLeft   = $('t-left');
+  var elRight  = $('t-right');
+  var elRows   = $('dc-rows');
+  var elStats  = $('dc-stats');
+  var elResult = $('dc-result');
 
-    if (!left && !right) {
-      $('diff-result-wrap').style.display = 'none';
-      $('diff-action-bar').className = 'diff-action-bar';
-      $('diff-stats').innerHTML = '';
+  /* ── DIFF RENDERER ──────────────────────────────────────────────────────── */
+  function renderDiff() {
+    var leftVal  = elLeft.value;
+    var rightVal = elRight.value;
+
+    if (!leftVal && !rightVal) {
+      elRows.innerHTML = '<div style="color:var(--muted);padding:24px;text-align:center;font-size:13px">Start typing to see live diff\u2026</div>';
+      elStats.innerHTML = '';
       return;
     }
 
-    var origLines = left.split('\n');
-    var changedLines = right.split('\n');
-    var result = computeDiff(origLines, changedLines);
-    lastDiff = result;
+    var d = diffLines(leftVal, rightVal);
+    var html = '';
 
-    $('diff-left').innerHTML = renderPanel(result.leftLines);
-    $('diff-right').innerHTML = renderPanel(result.rightLines);
-    $('diff-result-wrap').style.display = '';
-    $('diff-action-bar').className = 'diff-action-bar visible';
+    d.rows.forEach(function (r) {
+      var lnL = r.li !== null ? r.li : '';
+      var lnR = r.ri !== null ? r.ri : '';
+      var clsL = '', clsR = '';
+      if (r.type === 'rem')      { clsL = ' dc-removed'; clsR = ' dc-empty'; }
+      else if (r.type === 'add') { clsL = ' dc-empty';   clsR = ' dc-added'; }
 
-    /* Stats */
-    var added = 0, removed = 0, unchanged = 0;
-    for (var k = 0; k < result.leftLines.length; k++) {
-      var lt = result.leftLines[k].type;
-      var rt = result.rightLines[k].type;
-      if (lt === 'removed') removed++;
-      if (rt === 'added') added++;
-      if (lt === 'unchanged') unchanged++;
-    }
+      html += '<div class="dc-row" data-type="' + r.type + '">'
+        + '<div class="dc-ln">' + lnL + '</div>'
+        + '<div class="dc-ln">' + lnR + '</div>'
+        + '<div class="dc-cell' + clsL + '">' + esc(r.left) + '</div>'
+        + '<div class="dc-sep">';
 
-    $('diff-stats').innerHTML =
-      '<span class="stat-added">+' + added + ' added</span>'
-      + '<span class="stat-removed">\u2212' + removed + ' removed</span>'
-      + '<span class="stat-unchanged">=' + unchanged + ' unchanged</span>';
+      if (r.type !== 'eq') {
+        html += '<button class="take-left" title="Use original">\u2190</button>'
+              + '<button class="take-right" title="Use changed">\u2192</button>';
+      }
 
-    CK.toast('Diff computed');
+      html += '</div>'
+        + '<div class="dc-cell' + clsR + '">' + esc(r.right) + '</div>'
+        + '<div class="dc-ln"></div>'
+        + '</div>';
+    });
+
+    elRows.innerHTML = html;
+
+    elStats.innerHTML =
+      '<span class="dc-stat-add"><b>+' + d.added + '</b> added</span>'
+      + '<span class="dc-stat-rem"><b>-' + d.removed + '</b> removed</span>'
+      + '<span class="dc-stat-unc"><b>' + d.unchanged + '</b> unchanged</span>';
   }
 
-  /* ── Compare button ─────────────────────────────────────────── */
-  $('btn-compare').addEventListener('click', runDiff);
-
-  /* ── Clear ──────────────────────────────────────────────────── */
-  $('btn-clr').addEventListener('click', function () {
-    $('t-left').value = '';
-    $('t-right').value = '';
-    $('diff-result-wrap').style.display = 'none';
-    $('diff-action-bar').className = 'diff-action-bar';
-    $('diff-stats').innerHTML = '';
-    lastDiff = null;
-  });
-
-  /* ── Use Left / Use Right ───────────────────────────────────── */
-  $('btn-use-left').addEventListener('click', function () {
-    $('t-right').value = $('t-left').value;
-    runDiff();
-    CK.toast('Left copied to Right');
-  });
-  $('btn-use-right').addEventListener('click', function () {
-    $('t-left').value = $('t-right').value;
-    runDiff();
-    CK.toast('Right copied to Left');
-  });
-
-  /* ── Copy left/right result ─────────────────────────────────── */
-  function extractText(lines) {
-    return lines.filter(function (l) { return l.type !== 'empty'; })
-      .map(function (l) { return l.text; }).join('\n');
+  /* ── LIVE DIFF (debounced) ──────────────────────────────────────────────── */
+  var debounceTimer;
+  function triggerDiff() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(renderDiff, 150);
   }
+  elLeft.addEventListener('input', triggerDiff);
+  elRight.addEventListener('input', triggerDiff);
 
-  CK.wireCopy($('btn-cp-left'), function () {
-    if (!lastDiff) return '';
-    return extractText(lastDiff.leftLines);
-  });
-  CK.wireCopy($('btn-cp-right'), function () {
-    if (!lastDiff) return '';
-    return extractText(lastDiff.rightLines);
-  });
-
-  /* ── Download unified diff ──────────────────────────────────── */
-  $('btn-dl-diff').addEventListener('click', function () {
-    if (!lastDiff) return;
-    var lines = ['--- Original', '+++ Changed'];
-    for (var k = 0; k < lastDiff.leftLines.length; k++) {
-      var ll = lastDiff.leftLines[k];
-      var rl = lastDiff.rightLines[k];
-      if (ll.type === 'removed') lines.push('- ' + ll.text);
-      else if (rl.type === 'added') lines.push('+ ' + rl.text);
-      else if (ll.type === 'unchanged') lines.push('  ' + ll.text);
-    }
-    var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'cipherkit-diff.diff';
-    a.click();
-    URL.revokeObjectURL(a.href);
-    CK.toast('Diff downloaded');
-  });
-
-  /* ── Synchronized scrolling ─────────────────────────────────── */
+  /* ── SYNC SCROLL (input textareas) ──────────────────────────────────────── */
   var syncing = false;
-  $('diff-left').addEventListener('scroll', function () {
+  function syncScroll(source, target) {
     if (syncing) return;
     syncing = true;
-    $('diff-right').scrollTop = $('diff-left').scrollTop;
+    target.scrollTop = source.scrollTop;
     syncing = false;
+  }
+  elLeft.addEventListener('scroll', function () { syncScroll(elLeft, elRight); });
+  elRight.addEventListener('scroll', function () { syncScroll(elRight, elLeft); });
+
+  /* ── PER-LINE TAKE LEFT / RIGHT ─────────────────────────────────────────── */
+  elRows.addEventListener('click', function (e) {
+    var btn = e.target.closest('.take-left, .take-right');
+    if (!btn) return;
+
+    var row = btn.closest('.dc-row');
+    if (!row) return;
+
+    var cells = row.querySelectorAll('.dc-cell');
+    var leftCell  = cells[0];
+    var rightCell = cells[1];
+    var type = row.getAttribute('data-type');
+
+    /* figure out which line indices we're operating on */
+    var lnDivs = row.querySelectorAll('.dc-ln');
+    var lnL = lnDivs[0].textContent.trim();
+    var lnR = lnDivs[1].textContent.trim();
+
+    var leftLines  = elLeft.value.split('\n');
+    var rightLines = elRight.value.split('\n');
+
+    if (btn.classList.contains('take-left')) {
+      /* push original → changed: replace or insert in right */
+      var srcText = leftCell.textContent;
+      if (type === 'rem') {
+        /* line only in left — insert into right at appropriate position */
+        var insertAt = lnR ? parseInt(lnR, 10) - 1 : rightLines.length;
+        rightLines.splice(insertAt, 0, srcText);
+      } else if (type === 'add') {
+        /* line only in right — replace it with left (empty) = remove it */
+        var rIdx = parseInt(lnR, 10) - 1;
+        rightLines.splice(rIdx, 1);
+      } else {
+        /* modified — overwrite right with left */
+        if (lnR) rightLines[parseInt(lnR, 10) - 1] = srcText;
+      }
+      elRight.value = rightLines.join('\n');
+    } else {
+      /* push changed → original: replace or insert in left */
+      var srcText2 = rightCell.textContent;
+      if (type === 'add') {
+        var insertAt2 = lnL ? parseInt(lnL, 10) - 1 : leftLines.length;
+        leftLines.splice(insertAt2, 0, srcText2);
+      } else if (type === 'rem') {
+        var lIdx = parseInt(lnL, 10) - 1;
+        leftLines.splice(lIdx, 1);
+      } else {
+        if (lnL) leftLines[parseInt(lnL, 10) - 1] = srcText2;
+      }
+      elLeft.value = leftLines.join('\n');
+    }
+
+    /* re-run diff to reflect the change */
+    renderDiff();
+    CK.toast('Line applied');
   });
-  $('diff-right').addEventListener('scroll', function () {
-    if (syncing) return;
-    syncing = true;
-    $('diff-left').scrollTop = $('diff-right').scrollTop;
-    syncing = false;
+
+  /* ── CLEAR ──────────────────────────────────────────────────────────────── */
+  $('btn-clr').addEventListener('click', function () {
+    elLeft.value = '';
+    elRight.value = '';
+    renderDiff();
   });
 
-  /* ── Keyboard shortcut ──────────────────────────────────────── */
-  CK.wireCtrlEnter('btn-compare');
+  /* ── COPY / DOWNLOAD ────────────────────────────────────────────────────── */
+  function getPlainDiff() {
+    var left  = elLeft.value;
+    var right = elRight.value;
+    if (!left && !right) return '';
+    var d = diffLines(left, right);
+    return d.rows.map(function (r) {
+      if (r.type === 'eq')  return '  ' + r.left;
+      if (r.type === 'rem') return '- ' + r.left;
+      if (r.type === 'add') return '+ ' + r.right;
+      return '';
+    }).join('\n');
+  }
 
-  /* ── Pre-populate sample data and run diff ──────────────────── */
-  $('t-left').value = SAMPLE_LEFT;
-  $('t-right').value = SAMPLE_RIGHT;
-  runDiff();
+  CK.wireCopy($('btn-cp'), getPlainDiff);
+  CK.wireDownload($('btn-dl'), getPlainDiff, 'diff-checker-output.diff');
 
-  /* ── Usage guide ────────────────────────────────────────────── */
+  /* ── AUTO-GROW TEXTAREAS ────────────────────────────────────────────────── */
+  CK.initAutoGrow(elLeft);
+  CK.initAutoGrow(elRight);
+
+  /* ── SAMPLE DATA ────────────────────────────────────────────────────────── */
+  elLeft.value  = 'function greet(name) {\n  console.log("Hello, " + name);\n  return true;\n}\n\ngreet("World");';
+  elRight.value = 'function greet(name, greeting) {\n  const msg = `${greeting}, ${name}!`;\n  console.log(msg);\n  return msg;\n}\n\ngreet("World", "Hi");';
+  renderDiff();
+
+  /* ── USAGE ──────────────────────────────────────────────────────────────── */
   CK.setUsageContent(
     '<ol>'
-    + '<li>Paste <strong>original text</strong> in the left panel and <strong>changed text</strong> in the right panel.</li>'
-    + '<li>Click <strong>Compare</strong> or press <kbd>Ctrl+Enter</kbd> to see the diff.</li>'
-    + '<li>Results appear side-by-side: removed lines in <span style="color:#ff8080">red</span> (left) and added lines in <span style="color:#3dd68c">green</span> (right).</li>'
+    + '<li>Paste <strong>original text</strong> on the left and <strong>changed text</strong> on the right.</li>'
+    + '<li>Diff updates <strong>live</strong> as you type — no button click needed.</li>'
+    + '<li>Each changed line shows <strong>\u2190</strong> / <strong>\u2192</strong> buttons to accept that specific change.</li>'
+    + '<li>Use <strong>Copy</strong> or <strong>Download</strong> to export the unified diff.</li>'
     + '</ol>'
-    + '<p>Uses an LCS (Longest Common Subsequence) algorithm for accurate line-level diff. Panels scroll in sync. Use <strong>\u2190 Use Left</strong> or <strong>Use Right \u2192</strong> to accept one version. Download a unified <code>.diff</code> file for sharing.</p>'
+    + '<p>Added lines shown in <span style="color:#3dd68c">green</span>, removed in <span style="color:#ff6b6b">red</span>.</p>'
   );
 })();
