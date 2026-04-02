@@ -26,7 +26,7 @@
     +   '<div class="tc-body" role="region" aria-labelledby="t-heading">'
     +     '<div class="field"><div class="field-hdr"><label for="t-input">Binary String</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Enter binary string (e.g. 01001000 01101001)\u2026" rows="5"></textarea><div class="input-meta" id="t-input-meta"></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-blue" id="btn-dec" aria-label="Decode binary">' + IC.binary + ' <span>Decode</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decoded Text</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Decoded text will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decoded Text</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button><button type="button" class="pill-btn" id="btn-swap" aria-label="Use output as input">⇄ <span>Use as Input</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Decoded text will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -58,4 +58,13 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'binary-decode-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter a binary string</strong> (e.g. <code>01001000 01101001</code>).</li><li>Any separators (spaces, commas, newlines) are automatically handled.</li><li>Click <strong>Decode</strong> to convert back to text.</li></ol><p>Each group of binary digits is converted to its character code. Supports 8-bit, 16-bit, or any width binary groups.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='01001000 01101001';inp.dispatchEvent(new Event('input'));var b=$('btn-dec');if(b)b.click();}})();
+
+  /* CK-PATCHED — live output */
+  (function(){var _dt;var _inp=$('t-input');var _btn=$('btn-dec');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
+
+  /* CK-PATCHED — swap button */
+  (function(){var sb=$('btn-swap');if(sb){sb.addEventListener('click',function(){var oe=$('t-result');var ie=$('t-input');var ov=oe?oe.value||oe.textContent:'';if(!ov||ov.indexOf('appear')!==-1)return;ie.value=ov;ie.dispatchEvent(new Event('input'));ie.scrollIntoView({behavior:'smooth',block:'start'});CK.toast('Output moved to input')})}})();
 })();

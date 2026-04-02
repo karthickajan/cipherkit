@@ -78,4 +78,10 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'number-base-converter-output.txt');
 
   CK.setUsageContent('<ol><li>Select the <strong>source base</strong> (binary, octal, decimal, hex).</li><li>Enter the <strong>number</strong> and click <strong>Convert</strong>.</li></ol><p>Supports arbitrarily large numbers via <code>BigInt</code>. Outputs in all four bases simultaneously.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='255';inp.dispatchEvent(new Event('input'));}})();
+
+  /* CK-PATCHED — live output */
+  (function(){var _dt;var _inp=$('t-input');var _btn=$('btn-conv');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
 })();

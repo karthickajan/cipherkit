@@ -251,4 +251,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'yaml-json-converter-output.json');
 
   CK.setUsageContent('<ol><li>Choose <strong>direction</strong> (YAML → JSON or JSON → YAML).</li><li><strong>Paste data</strong> and click <strong>Convert</strong>.</li></ol><p>Supports common YAML features: key-value pairs, nested objects, lists, inline arrays/objects, block scalars (<code>|</code> and <code>&gt;</code>), comments, and quoted strings. For complex YAML with anchors and aliases, consider a full YAML library.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='name: John\nage: 30\ncity: New York\nhobbies:\n  - reading\n  - coding';inp.dispatchEvent(new Event('input'));}})();
 })();

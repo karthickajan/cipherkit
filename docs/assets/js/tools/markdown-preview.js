@@ -85,4 +85,7 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
 
   CK.setUsageContent('<ol><li>Type or paste <strong>Markdown</strong> in the editor.</li><li>The preview updates in <strong>real time</strong>.</li><li>Click <strong>Copy HTML</strong> to copy the rendered HTML.</li></ol><p>Supports headings, bold, italic, strikethrough, code blocks, links, images, lists, blockquotes, and horizontal rules.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='# Hello World\\n\\n## Introduction\\n\\nThis is a **sample** document with:\\n\\n- Lists\\n- **Bold** and *italic*\\n- `inline code`\\n\\n## Code Block\\n\\n```json\\n{"key": "value"}\\n```';inp.dispatchEvent(new Event('input'));}})();
 })();

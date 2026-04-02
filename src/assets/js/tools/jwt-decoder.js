@@ -73,4 +73,7 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
 
   CK.setUsageContent('<ol><li><strong>Paste</strong> a JWT token (e.g. from an API response or auth header).</li><li>Click <strong>Decode</strong> to see the header, payload, and signature.</li></ol><p>Timestamps like <code>iat</code>, <code>exp</code>, and <code>nbf</code> are automatically shown as ISO dates. <strong>Note:</strong> This tool decodes only — it does not verify signatures.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('j-input');if(inp&&!inp.value){inp.value='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';inp.dispatchEvent(new Event('input'));}})();
 })();

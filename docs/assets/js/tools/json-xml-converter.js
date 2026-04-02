@@ -93,4 +93,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'json-xml-converter-output.json');
 
   CK.setUsageContent('<ol><li><strong>Paste</strong> your JSON data.</li><li>Optionally set a <strong>root element</strong> name.</li><li>Click <strong>Convert</strong> to transform it to XML.</li></ol><p>Keys starting with <code>@</code> become XML attributes. <code>#text</code> becomes text content. Arrays become repeated elements. The converter handles nested objects recursively.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='{"person":{"name":"John","age":30,"city":"New York"}}';inp.dispatchEvent(new Event('input'));}})();
 })();

@@ -316,4 +316,7 @@
   CK.wireDownload($('btn-dl'), function () { return _raw; }, 'json-formatter-output.json');
 
   CK.setUsageContent('<ol><li><strong>Paste</strong> your raw or minified JSON.</li><li>Choose an <strong>indent level</strong> (2 spaces, 4 spaces, or tabs).</li><li>Click <strong>Format</strong> to prettify with syntax highlighting.</li></ol><p>Features: <strong>collapsible nodes</strong> (click \u25BE/\u25B8 toggles), <strong>line numbers</strong>, <strong>key search</strong> (auto-expands matching ancestors), <strong>copy JSON path</strong> on hover, and <strong>expand/collapse all</strong> buttons. Syntax colors: <span style="color:#3dd68c">strings</span>, <span style="color:#58a6ff">numbers</span>, <span style="color:#e0e0e0">keys</span>, <span style="color:#ff6b6b">null/booleans</span>.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='{"name":"John","age":30,"city":"New York","hobbies":["reading","coding"]}';inp.dispatchEvent(new Event('input'));var b=$('btn-fmt');if(b)b.click();}})();
 })();

@@ -27,7 +27,7 @@
     +     '<div class="ctrl-row"><div class="sel-group"><label for="t-bits">Bit Width</label><select id="t-bits"><option value="8" selected>8-bit</option><option value="16">16-bit</option></select></div><div class="sel-group"><label for="t-sep">Separator</label><select id="t-sep"><option value=" " selected>Space</option><option value="">None</option><option value="\n">Newline</option></select></div></div>'
     +     '<div class="field"><div class="field-hdr"><label for="t-input">Plain Text</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Enter text to convert to binary\u2026" rows="5"></textarea><div class="input-meta" id="t-input-meta"></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-green" id="btn-enc" aria-label="Convert to binary">' + IC.binary + ' <span>Encode</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Binary Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Binary output will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Binary Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button><button type="button" class="pill-btn" id="btn-swap" aria-label="Use output as input">⇄ <span>Use as Input</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Binary output will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -58,4 +58,13 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'binary-encode-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter text</strong> you want to convert to binary.</li><li>Choose <strong>bit width</strong> (8-bit for ASCII, 16-bit for Unicode) and a <strong>separator</strong>.</li><li>Click <strong>Encode</strong> to get the binary representation.</li></ol><p>Each character is converted to its binary value based on its character code. Useful for learning binary, digital electronics, and low-level programming.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='Hi';inp.dispatchEvent(new Event('input'));var b=$('btn-enc');if(b)b.click();}})();
+
+  /* CK-PATCHED — live output */
+  (function(){var _dt;var _inp=$('t-input');var _btn=$('btn-enc');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
+
+  /* CK-PATCHED — swap button */
+  (function(){var sb=$('btn-swap');if(sb){sb.addEventListener('click',function(){var oe=$('t-result');var ie=$('t-input');var ov=oe?oe.value||oe.textContent:'';if(!ov||ov.indexOf('appear')!==-1)return;ie.value=ov;ie.dispatchEvent(new Event('input'));ie.scrollIntoView({behavior:'smooth',block:'start'});CK.toast('Output moved to input')})}})();
 })();

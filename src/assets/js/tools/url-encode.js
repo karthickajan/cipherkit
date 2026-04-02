@@ -27,7 +27,7 @@
     +     '<div class="ctrl-row"><div class="sel-group"><label for="t-mode">Mode</label><select id="t-mode"><option value="component">encodeURIComponent</option><option value="uri">encodeURI (full URL)</option></select></div></div>'
     +     '<div class="field"><div class="field-hdr"><label for="t-input">Input</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Enter URL or text to encode\u2026" rows="5"></textarea><div class="input-meta" id="t-input-meta"></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-green" id="btn-enc" aria-label="URL Encode">' + IC.link + ' <span>Encode</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Encoded Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Encoded output will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Encoded Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button><button type="button" class="pill-btn" id="btn-swap" aria-label="Use output as input">⇄ <span>Use as Input</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Encoded output will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -51,4 +51,13 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'url-encode-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter a URL or text</strong> into the input field.</li><li>Select <strong>encodeURIComponent</strong> (for query params) or <strong>encodeURI</strong> (for full URLs).</li><li>Click <strong>Encode</strong> to percent-encode.</li></ol><p><code>encodeURIComponent</code> encodes all special characters except <code>-_.!~*\'()</code>. <code>encodeURI</code> preserves URL structure characters like <code>:</code>, <code>/</code>, <code>?</code>, <code>#</code>.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='https://example.com/search?q=hello world&lang=en';inp.dispatchEvent(new Event('input'));var b=$('btn-enc');if(b)b.click();}})();
+
+  /* CK-PATCHED — live output */
+  (function(){var _dt;var _inp=$('t-input');var _btn=$('btn-enc');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
+
+  /* CK-PATCHED — swap button */
+  (function(){var sb=$('btn-swap');if(sb){sb.addEventListener('click',function(){var oe=$('t-result');var ie=$('t-input');var ov=oe?oe.value||oe.textContent:'';if(!ov||ov.indexOf('appear')!==-1)return;ie.value=ov;ie.dispatchEvent(new Event('input'));ie.scrollIntoView({behavior:'smooth',block:'start'});CK.toast('Output moved to input')})}})();
 })();

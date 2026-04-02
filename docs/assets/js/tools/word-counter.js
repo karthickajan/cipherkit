@@ -61,4 +61,7 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
 
   CK.setUsageContent('<ol><li><strong>Type or paste</strong> text in the editor.</li><li>Statistics update in <strong>real time</strong>.</li></ol><p>Counts characters, characters excluding spaces, words, sentences, paragraphs, and lines. Estimates reading time (200 wpm) and speaking time (130 wpm).</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs.';inp.dispatchEvent(new Event('input'));}})();
 })();

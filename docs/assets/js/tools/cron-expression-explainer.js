@@ -102,4 +102,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'cron-expression-explainer-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter</strong> a cron expression (5 fields: minute hour day month weekday).</li><li>Click <strong>Explain</strong> to see a plain-English breakdown and the next 5 scheduled run times.</li></ol><p>Supports <code>*</code>, <code>*/N</code>, ranges (<code>1-5</code>), and lists (<code>1,3,5</code>).</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='0 9 * * 1-5';inp.dispatchEvent(new Event('input'));}})();
 })();

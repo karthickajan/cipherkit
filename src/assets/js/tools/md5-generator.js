@@ -54,4 +54,10 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('h-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'md5-generator-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter or paste text</strong> into the input field.</li><li>Select <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate Hash</strong> to compute the MD5 digest.</li></ol><p>MD5 produces a 128-bit (16-byte) hash. <strong>Warning:</strong> MD5 is considered broken for security use due to known collision attacks. Use it only for legacy compatibility or non-security checksums.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('h-input');if(inp&&!inp.value){inp.value='Hello, World!';inp.dispatchEvent(new Event('input'));var b=$('btn-gen');if(b)b.click();}})();
+
+  /* CK-PATCHED — live output */
+  (function(){var _dt;var _inp=$('h-input');var _btn=$('btn-gen');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
 })();

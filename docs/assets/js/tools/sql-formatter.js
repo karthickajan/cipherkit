@@ -97,4 +97,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'sql-formatter-output.sql');
 
   CK.setUsageContent('<ol><li><strong>Paste</strong> your SQL query.</li><li>Choose <strong>indent</strong> style.</li><li>Click <strong>Format</strong>.</li></ol><p>Formats SELECT, INSERT, UPDATE, DELETE, CREATE, and JOIN statements. Keywords are uppercased, commas start new lines, and parentheses are indented.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='SELECT u.id,u.name,o.total FROM users u LEFT JOIN orders o ON u.id=o.user_id WHERE u.active=1 ORDER BY o.total DESC';inp.dispatchEvent(new Event('input'));}})();
 })();

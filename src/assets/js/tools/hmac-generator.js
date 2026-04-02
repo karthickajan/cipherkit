@@ -64,4 +64,7 @@
   CK.wireCtrlEnter('btn-gen');
 
   CK.setUsageContent('<ol><li><strong>Enter the message</strong> you want to authenticate.</li><li><strong>Enter a secret key</strong> shared between sender and receiver.</li><li>Select the <strong>hash algorithm</strong> (SHA-256, SHA-512, SHA-1, SHA-3, or MD5).</li><li>Choose <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate HMAC</strong> to produce the authentication code.</li></ol><p>HMAC (Hash-based Message Authentication Code) provides message integrity and authenticity. It combines a cryptographic hash function with a secret key, making it resistant to length-extension attacks.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('h-input');if(inp&&!inp.value){inp.value='Hello, World!';inp.dispatchEvent(new Event('input'));}})();
 })();

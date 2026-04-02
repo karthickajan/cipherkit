@@ -77,4 +77,7 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
 
   CK.setUsageContent('<ol><li><strong>Type or paste</strong> a password into the input field.</li><li>The strength meter updates <strong>in real-time</strong>.</li><li>Follow the <strong>suggestions</strong> to improve your password.</li></ol><p>Analysis includes length, character variety, entropy estimation, and common pattern detection. Your password never leaves your device.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='P@ssw0rd!2024#Str0ng';inp.dispatchEvent(new Event('input'));}})();
 })();

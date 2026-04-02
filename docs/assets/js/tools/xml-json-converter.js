@@ -95,4 +95,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'xml-json-converter-output.json');
 
   CK.setUsageContent('<ol><li><strong>Paste</strong> your XML data.</li><li>Click <strong>Convert</strong> to transform it to JSON.</li></ol><p>Attributes become <code>@attribute</code> keys. Text content becomes the value or <code>#text</code> key. Repeated elements become arrays. CDATA sections are preserved as <code>#cdata</code>.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='<person><name>John</name><age>30</age><city>New York</city></person>';inp.dispatchEvent(new Event('input'));}})();
 })();

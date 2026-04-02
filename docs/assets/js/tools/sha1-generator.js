@@ -54,4 +54,10 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('h-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'sha1-generator-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter or paste text</strong> into the input field.</li><li>Select <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate Hash</strong> to compute the SHA-1 digest.</li></ol><p>SHA-1 produces a 160-bit (20-byte) hash. <strong>Warning:</strong> SHA-1 is deprecated for security use due to known collision attacks. Use it only for legacy compatibility or checksums.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('h-input');if(inp&&!inp.value){inp.value='Hello, World!';inp.dispatchEvent(new Event('input'));var b=$('btn-gen');if(b)b.click();}})();
+
+  /* CK-PATCHED — live output */
+  (function(){var _dt;var _inp=$('h-input');var _btn=$('btn-gen');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
 })();

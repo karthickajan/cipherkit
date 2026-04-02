@@ -92,4 +92,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'regex-tester-output.txt');
 
   CK.setUsageContent('<ol><li>Enter a <strong>regular expression</strong>.</li><li>Set <strong>flags</strong> (global, case-insensitive, multiline, dotall).</li><li>Type or paste the <strong>test string</strong> — matches update in real time.</li></ol><p>Shows match positions, capture groups, and total count. Uses JavaScript\'s native <code>RegExp</code> engine.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='The quick brown fox jumps over the lazy dog';inp.dispatchEvent(new Event('input'));}})();
 })();

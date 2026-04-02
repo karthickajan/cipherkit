@@ -28,4 +28,7 @@
   CK.wireDownload($('btn-dl'),function(){var t=$('t-result').textContent;return t.indexOf('appear')===-1?t:'';}, 'output.csv');
   CK.wireCtrlEnter('btn-conv');CK.wireCharCounter($('t-input'),$('t-input-meta'));
   CK.setUsageContent('<ol><li>Paste a <strong>JSON array of objects</strong>.</li><li>Click <strong>Convert to CSV</strong>.</li><li>Copy or download the CSV output.</li></ol><p>Automatically extracts all unique keys as column headers. Handles special characters, commas, and quotes in values.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='[{"name":"Alice","age":30,"city":"New York"},{"name":"Bob","age":25,"city":"London"}]';inp.dispatchEvent(new Event('input'));}})();
 })();

@@ -37,6 +37,9 @@
     + '<div class="sel-group"><label for="font-size">Font Size</label><select id="font-size"><option value="11">11px</option><option value="12">12px</option><option value="13" selected>13px</option><option value="14">14px</option><option value="16">16px</option></select></div>'
     + '</div>'
     + '<button type="button" class="act-btn act-purple" id="btn-gen">' + IC.dl + ' <span>Generate PDF</span></button>'
+    + '<p style="font-size:11px;color:var(--muted);text-align:center;margin:4px 0 0">'
+    + '\u2139\ufe0f Image-based PDF \u2014 text is not selectable, TOC links are not clickable.'
+    + '</p>'
     + '<div id="md-status" style="margin-top:10px;min-height:24px" role="status"></div>'
     /* preview */
     + '<div class="out-box">'
@@ -53,8 +56,8 @@
   var styleTag = document.createElement('style');
   styleTag.textContent = [
     /* === RENDER CONTAINER (off-screen, used for PDF capture) === */
-    '#md-render-container{all:initial;display:block;position:absolute;left:-9999px;top:0;width:794px;background:#ffffff!important;color:#111111!important;padding:48px 56px;font-family:Georgia,serif;font-size:13px;line-height:1.7;box-sizing:border-box;overflow:hidden}',
-    '#md-render-container *{box-sizing:border-box!important}',
+    '#md-render-container{all:initial;display:block;position:absolute;left:-9999px;top:0;width:794px;background:#ffffff!important;color:#111111!important;padding:48px 56px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:13px;line-height:1.7;box-sizing:border-box;overflow:hidden}',
+    '#md-render-container *{max-width:100%!important;box-sizing:border-box!important}',
     '#md-render-container h1{font-size:2em!important;color:#000!important;margin:.6em 0 .3em!important;border-bottom:2px solid #ddd!important;padding-bottom:6px!important;font-weight:700!important}',
     '#md-render-container h2{font-size:1.5em!important;color:#111!important;margin:1em 0 .3em!important;border-bottom:1px solid #eee!important;padding-bottom:4px!important;font-weight:700!important}',
     '#md-render-container h3{font-size:1.2em!important;color:#222!important;margin:.8em 0 .2em!important;font-weight:700!important}',
@@ -64,7 +67,7 @@
     '#md-render-container strong{color:#000!important;font-weight:700!important}',
     '#md-render-container em{color:#222!important;font-style:italic!important}',
     '#md-render-container a{color:#0066cc!important;word-break:break-all!important}',
-    '#md-render-container blockquote{border-left:4px solid #ccc!important;margin:.8em 0!important;padding:4px 16px!important;color:#555!important;background:#fafafa!important}',
+    '#md-render-container blockquote{border-left:4px solid #ccc!important;margin:.8em 0!important;padding:4px 12px!important;color:#444!important;background:#f9f9f9!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;overflow:hidden!important;word-break:break-word!important;overflow-wrap:break-word!important;display:block!important}',
     '#md-render-container code{background:#f0f0f0!important;color:#c7254e!important;padding:2px 5px!important;border-radius:3px!important;font-family:"Courier New",monospace!important;font-size:.88em!important;word-break:break-all!important;overflow-wrap:break-word!important;white-space:pre-wrap!important}',
     '#md-render-container pre{background:#f5f5f5!important;border:1px solid #e0e0e0!important;padding:12px 16px!important;border-radius:4px!important;overflow-x:hidden!important;white-space:pre-wrap!important;word-break:break-all!important;max-width:100%!important}',
     '#md-render-container pre code{background:transparent!important;color:#333!important;padding:0!important;border-radius:0!important;white-space:pre-wrap!important;word-break:break-all!important}',
@@ -77,7 +80,7 @@
     '#md-render-container img{max-width:100%!important;height:auto!important}',
 
     /* === LIVE PREVIEW (visible in page, inside #t-result) === */
-    '#md-preview-content{all:initial;display:block;font-family:Georgia,serif;font-size:13px;line-height:1.7;color:#111111!important;background:#ffffff!important;padding:20px 24px;box-sizing:border-box;width:100%;word-break:break-word;overflow-wrap:break-word}',
+    '#md-preview-content{all:initial;display:block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:13px;line-height:1.7;color:#111111!important;background:#ffffff!important;padding:20px 24px;box-sizing:border-box;width:100%;word-break:break-word;overflow-wrap:break-word}',
     '#md-preview-content *{box-sizing:border-box!important;font-family:inherit}',
     '#md-preview-content h1{font-size:2em!important;color:#000!important;margin:.6em 0 .3em!important;border-bottom:2px solid #ddd!important;padding-bottom:6px!important;font-weight:700!important;line-height:1.3!important}',
     '#md-preview-content h2{font-size:1.5em!important;color:#1a1a1a!important;margin:1em 0 .3em!important;border-bottom:1px solid #eee!important;padding-bottom:4px!important;font-weight:700!important}',
@@ -88,7 +91,7 @@
     '#md-preview-content strong{color:#000!important;font-weight:700!important}',
     '#md-preview-content em{color:#222!important;font-style:italic!important}',
     '#md-preview-content a{color:#0066cc!important;word-break:break-all!important}',
-    '#md-preview-content blockquote{border-left:4px solid #ccc!important;margin:.8em 0!important;padding:4px 16px!important;color:#555!important;background:#fafafa!important}',
+    '#md-preview-content blockquote{border-left:4px solid #ccc!important;margin:.8em 0!important;padding:4px 12px!important;color:#444!important;background:#f9f9f9!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;overflow:hidden!important;word-break:break-word!important;overflow-wrap:break-word!important;display:block!important}',
     '#md-preview-content code{background:#f0f0f0!important;color:#c7254e!important;padding:2px 5px!important;border-radius:3px!important;font-family:"Courier New",monospace!important;font-size:.88em!important;word-break:break-all!important;overflow-wrap:break-word!important;white-space:pre-wrap!important}',
     '#md-preview-content pre{background:#f5f5f5!important;border:1px solid #e0e0e0!important;padding:12px 16px!important;border-radius:4px!important;overflow-x:hidden!important;white-space:pre-wrap!important;word-break:break-all!important;max-width:100%!important;margin:.5em 0!important}',
     '#md-preview-content pre code{background:transparent!important;color:#333!important;padding:0!important;border-radius:0!important;white-space:pre-wrap!important;word-break:break-all!important}',
@@ -105,6 +108,8 @@
   /* ── Hidden render container (off-screen, white bg for PDF) ── */
   var container = document.createElement('div');
   container.id = 'md-render-container';
+  /* Use system sans-serif — Georgia (serif) causes uneven number/data
+     alignment in table cells due to proportional character widths */
   document.body.appendChild(container);
 
   /* ── Helpers ────────────────────────────────────────────────── */
@@ -137,8 +142,6 @@
   /* ── Render preview HTML safely isolated ────────────────────── */
   function renderPreview(html, fontSize) {
     var result = $('t-result');
-    /* Wrap in a div with id=md-preview-content — CSS above targets this ID
-       with !important overrides, beating tool.css color inheritance */
     result.innerHTML = '<div id="md-preview-content" style="font-size:' + (fontSize || 13) + 'px">' + html + '</div>';
   }
 
@@ -158,17 +161,31 @@
   function findSafeBreakPoint(canvas, startPixel, maxPixel) {
     var ctx = canvas.getContext('2d');
     var width = canvas.width;
-    for (var y = maxPixel; y > maxPixel - 80 && y > startPixel + 10; y--) {
+    var consecutiveWhite = 0;
+    var requiredGap = 8;
+    var lastWhiteStart = -1;
+
+    for (var y = maxPixel; y > maxPixel - 120 && y > startPixel + 20; y--) {
       var data = ctx.getImageData(0, y, width, 1).data;
       var isWhite = true;
-      for (var x = 0; x < width * 4; x += 16) {
-        if (data[x] < 240 || data[x + 1] < 240 || data[x + 2] < 240) {
+      for (var x = 0; x < width * 4; x += 32) {
+        if (data[x] < 240 || data[x+1] < 240 || data[x+2] < 240) {
           isWhite = false;
           break;
         }
       }
-      if (isWhite) return y;
+      if (isWhite) {
+        consecutiveWhite++;
+        if (consecutiveWhite === 1) lastWhiteStart = y;
+      } else {
+        if (consecutiveWhite >= requiredGap) {
+          return lastWhiteStart + consecutiveWhite;
+        }
+        consecutiveWhite = 0;
+        lastWhiteStart = -1;
+      }
     }
+
     return maxPixel;
   }
 
@@ -287,4 +304,7 @@
     + '<p>Limitation: The PDF contains rasterised text (image-based), so text is not selectable in the PDF. For selectable text, use a dedicated Markdown editor.</p>'
   );
 
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('markdown-input');if(inp&&!inp.value){inp.value='# Hello World\\n\\n## Introduction\\n\\nThis is a **sample** document with:\\n\\n- Lists\\n- **Bold** and *italic*\\n- `inline code`\\n\\n## Code Block\\n\\n```json\\n{"key": "value"}\\n```';inp.dispatchEvent(new Event('input'));}})();
 })();

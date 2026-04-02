@@ -54,4 +54,10 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('h-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'sha3-generator-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Enter or paste text</strong> into the input field.</li><li>Select the <strong>bit length</strong> (224, 256, 384, or 512).</li><li>Choose <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate Hash</strong> to compute the SHA-3 digest.</li></ol><p>SHA-3 (Keccak) is the newest member of the Secure Hash Algorithm family. It provides an alternative to SHA-2 with a completely different internal structure, offering defence-in-depth against future cryptanalytic advances.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('h-input');if(inp&&!inp.value){inp.value='Hello, World!';inp.dispatchEvent(new Event('input'));var b=$('btn-gen');if(b)b.click();}})();
+
+  /* CK-PATCHED — live output */
+  (function(){var _dt;var _inp=$('h-input');var _btn=$('btn-gen');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
 })();

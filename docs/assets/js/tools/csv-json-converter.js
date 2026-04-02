@@ -126,4 +126,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'csv-json-converter-output.json');
 
   CK.setUsageContent('<ol><li>Choose <strong>direction</strong> (CSV → JSON or JSON → CSV).</li><li>Select the <strong>delimiter</strong> used in your CSV (comma, semicolon, tab, pipe).</li><li><strong>Paste data</strong> and click <strong>Convert</strong>.</li></ol><p>CSV → JSON uses the first row as headers and produces an array of objects. JSON → CSV requires an array of flat objects. Handles quoted fields with commas and newlines correctly.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='name,age,city\nAlice,30,New York\nBob,25,London\nCarol,35,Tokyo';inp.dispatchEvent(new Event('input'));}})();
 })();

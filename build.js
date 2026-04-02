@@ -134,7 +134,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
 }
 
 // ── NAVBAR ──────────────────────────────────────────────────────────────────
-function buildNavbar(headerBadge) {
+function buildNavbar(headerBadge, activeCategory) {
   const badgeColorMap = {
     green:  { dot: 'var(--green)',  text: 'var(--green)' },
     purple: { dot: 'var(--purple)', text: 'var(--purple)' },
@@ -145,6 +145,18 @@ function buildNavbar(headerBadge) {
   const bc    = badgeColorMap[badge.color] || badgeColorMap.green;
   const badgeStyle = badge.color !== 'green' ? ` style="color:${bc.text};border-color:${bc.dot}"` : '';
   const dotStyle   = badge.color !== 'green' ? ` style="background:${bc.dot}"` : '';
+
+  const navLinks = [
+    { href: `${BASE_PATH}/tools/crypto/`,    icon: SVG.lock,   label: 'Crypto',    cat: 'crypto' },
+    { href: `${BASE_PATH}/tools/encoding/`,  icon: SVG.box,    label: 'Encoding',  cat: 'encoding' },
+    { href: `${BASE_PATH}/tools/converter/`, icon: SVG.arrows, label: 'Converter', cat: 'converter' },
+    { href: `${BASE_PATH}/tools/dev/`,       icon: SVG.gear,   label: 'Dev',       cat: 'dev' },
+    { href: `${BASE_PATH}/tools/image/`,     icon: SVG.image,  label: 'Image',     cat: 'image' },
+  ];
+  const navHtml = navLinks.map(l => {
+    const cls = l.cat === activeCategory ? 'nav-link nav-link--active' : 'nav-link';
+    return `<a href="${l.href}" class="${cls}"><span class="nav-icon">${l.icon}</span> ${l.label}</a>`;
+  }).join('\n      ');
 
   return `
 <header class="site-header">
@@ -162,11 +174,7 @@ function buildNavbar(headerBadge) {
     </a>
 
     <nav class="header-nav" aria-label="Tool categories">
-      <a href="${BASE_PATH}/tools/crypto/" class="nav-link"><span class="nav-icon">${SVG.lock}</span> Crypto</a>
-      <a href="${BASE_PATH}/tools/encoding/" class="nav-link"><span class="nav-icon">${SVG.box}</span> Encoding</a>
-      <a href="${BASE_PATH}/tools/converter/" class="nav-link"><span class="nav-icon">${SVG.arrows}</span> Converter</a>
-      <a href="${BASE_PATH}/tools/dev/" class="nav-link"><span class="nav-icon">${SVG.gear}</span> Dev</a>
-      <a href="${BASE_PATH}/tools/image/" class="nav-link"><span class="nav-icon">${SVG.image}</span> Image</a>
+      ${navHtml}
     </nav>
 
     <div class="header-badges" aria-label="Security guarantees">
@@ -339,9 +347,33 @@ function buildToolPage(tool) {
     extraMeta: `<script type="application/ld+json">${buildSchema(tool)}</script>`
   });
 
-  const navbar     = buildNavbar(tool.headerBadge);
+  const navbar     = buildNavbar(tool.headerBadge, tool.category);
   const footer     = buildFooter();
   const related    = buildRelatedTools(tool);
+
+  // Extract usage HTML from tool JS (the argument passed to CK.setUsageContent())
+  let usageHtml = '';
+  try {
+    const jsPath = path.join(SRC, 'assets', 'js', 'tools', tool.jsFile);
+    if (fs.existsSync(jsPath)) {
+      const jsContent = fs.readFileSync(jsPath, 'utf8');
+      const marker = 'CK.setUsageContent(';
+      const idx = jsContent.indexOf(marker);
+      if (idx !== -1) {
+        const start = idx + marker.length;
+        let depth = 0, end = start;
+        for (let i = start; i < jsContent.length; i++) {
+          if (jsContent[i] === '(') depth++;
+          if (jsContent[i] === ')') {
+            if (depth === 0) { end = i; break; }
+            depth--;
+          }
+        }
+        const arg = jsContent.slice(start, end);
+        try { usageHtml = (new Function('return ' + arg))(); } catch (_) {}
+      }
+    }
+  } catch (_) { /* ignore */ }
 
   // Tool JS path (loaded at bottom)
   const toolJsSrc  = `${BASE_PATH}/assets/js/tools/${tool.jsFile}`;
@@ -401,7 +433,7 @@ ${navbar}
     <section class="usage-guide" aria-labelledby="usage-heading">
       <h2 id="usage-heading">How to Use the ${tool.h1}</h2>
       <div class="usage-content" id="usage-content">
-        <!-- Populated by tool JS via setUsageContent() -->
+        ${usageHtml}
       </div>
     </section>
   </div>
@@ -599,11 +631,47 @@ searchInput.addEventListener('input', function() {
 // ── CATEGORY HUB PAGES ───────────────────────────────────────────────────────
 function buildCategoryPage(cat) {
   const catTools = tools.filter(t => t.category === cat.id);
+
+  // Better SEO titles per hub
+  const seoTitles = {
+    crypto:    'Crypto Hub — Encryption, Hashing & Security Tools',
+    encoding:  'Encoding Hub — Base64, URL, Hex & Data Format Tools',
+    converter: 'Converter Hub — Format & File Conversion Tools',
+    dev:       'Dev Hub — Developer Utilities & Generators',
+    image:     'Image Hub — Image Editing & Conversion Tools',
+  };
+  const pageTitle = (seoTitles[cat.id] || `${cat.label} — Free Tools`) + ' | CipherKit';
+
   const head = buildHead({
-    pageTitle:       `${cat.label} — Free ${cat.label} Tools for Developers | CipherKit`,
+    pageTitle,
     metaDescription: `${catTools.length} free ${cat.label.toLowerCase()} tools for developers. ${cat.description}. All client-side, no server, no tracking.`,
     canonicalPath:   `/tools/${cat.id}/`
   });
+
+  // Featured tools per hub
+  const featuredSlugs = {
+    crypto:    ['aes-encryption', 'sha256-generator', 'bcrypt-generator'],
+    encoding:  ['base64-encode', 'json-formatter', 'url-encode'],
+    converter: ['csv-json-converter', 'markdown-to-pdf', 'xml-json-converter'],
+    dev:       ['jwt-decoder', 'uuid-generator', 'regex-tester'],
+    image:     ['qr-generator', 'image-resizer', 'png-to-jpg'],
+  };
+  const featured = (featuredSlugs[cat.id] || [])
+    .map(slug => tools.find(t => t.slug === slug))
+    .filter(Boolean);
+
+  const featuredHtml = featured.length ? `
+  <div class="hub-featured">
+    <h2>Most Used</h2>
+    <div class="hub-featured-grid">
+      ${featured.map(t => `
+      <a href="${BASE_PATH}/tools/${t.slug}/" class="featured-card">
+        <div class="featured-card-title">${t.title}</div>
+        <div class="featured-card-tag">${t.tagline}</div>
+        <span class="featured-card-arrow">→</span>
+      </a>`).join('')}
+    </div>
+  </div>` : '';
 
   const cards = catTools.map(t => `
         <a href="${BASE_PATH}/tools/${t.slug}/" class="tool-card">
@@ -622,7 +690,7 @@ ${head}
 
 <a href="#main-content" class="skip-link">Skip to content</a>
 
-${buildNavbar()}
+${buildNavbar(null, cat.id)}
 
 <main id="main-content" class="category-page">
   <div class="cat-header">
@@ -636,6 +704,8 @@ ${buildNavbar()}
       <p class="cat-desc">${cat.description} — ${catTools.length} tools, all free and client-side.</p>
     </div>
   </div>
+
+  ${featuredHtml}
 
   <div class="tools-grid-wrap">
     <div class="tools-grid">

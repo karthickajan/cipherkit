@@ -62,4 +62,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'json-minifier-output.json');
 
   CK.setUsageContent('<ol><li><strong>Paste</strong> your formatted or prettified JSON.</li><li>Click <strong>Minify</strong> to remove all whitespace.</li></ol><p>The minifier strips all unnecessary whitespace and newlines from valid JSON. Shows size reduction stats. Perfect for reducing payload size in APIs and config files.</p>');
+
+  /* CK-PATCHED — sample data */
+  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='{\n  "name": "John",\n  "age": 30,\n  "city": "New York"\n}';inp.dispatchEvent(new Event('input'));var b=$('btn-min');if(b)b.click();}})();
 })();
