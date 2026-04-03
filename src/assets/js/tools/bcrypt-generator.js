@@ -99,5 +99,5 @@
   
   CK.wireCtrlEnter('btn-hash');
 
-  CK.setUsageContent('<ol><li><strong>Hash:</strong> Enter a password, select the cost rounds, and click Generate Hash to produce a bcrypt hash.</li><li><strong>Verify:</strong> Enter the password and paste the bcrypt hash, then click Verify to check if they match.</li></ol><p>Bcrypt is a password-hashing function designed to be computationally expensive, making brute-force attacks impractical. Higher rounds = more secure but slower. 12 rounds is recommended for most use cases.</p>');
+  CK.setUsageContent('<ol><li>Enter the password you want to hash.</li><li>Choose a cost factor (10-12 recommended for production).</li><li>Click <strong>Hash</strong>. Copy the bcrypt hash.</li><li>Use <strong>Verify</strong> to check if a password matches a stored hash.</li></ol><h3>Why bcrypt for passwords?</h3><p>Unlike SHA-256 or MD5, bcrypt is specifically designed for password hashing. It is intentionally slow (configurable via the cost factor) and includes a random salt automatically, making rainbow table attacks and brute-force attacks impractical.</p><p><strong>Cost factor guide:</strong> 10 = ~100ms, 12 = ~400ms, 14 = ~1.5s. Higher is more secure but slower. For most web apps, 10-12 is the right balance.</p>');
 })();

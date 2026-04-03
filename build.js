@@ -72,6 +72,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   <meta name="description" content="${metaDescription}">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#07090d">
+  <meta name="google-site-verification" content="UC-6PSV0VLbnfHxe9FoC2l7MWoX1Qi1CY1-_bV7lxQw" />
   <link rel="canonical" href="${canonical}">
 
   <!-- Security headers (meta fallbacks — real headers need a CDN/server) -->
@@ -370,7 +371,7 @@ function buildToolPage(tool) {
           }
         }
         const arg = jsContent.slice(start, end);
-        try { usageHtml = (new Function('return ' + arg))(); } catch (_) {}
+        try { usageHtml = (new Function('return (' + arg + ')'))(); } catch (_) {}
       }
     }
   } catch (_) { /* ignore */ }
@@ -433,7 +434,7 @@ ${navbar}
     <section class="usage-guide" aria-labelledby="usage-heading">
       <h2 id="usage-heading">How to Use the ${tool.h1}</h2>
       <div class="usage-content" id="usage-content">
-        ${usageHtml}
+        ${usageHtml || ''}
       </div>
     </section>
   </div>

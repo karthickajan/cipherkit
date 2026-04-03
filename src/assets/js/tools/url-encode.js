@@ -50,7 +50,7 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'url-encode-output.txt');
 
-  CK.setUsageContent('<ol><li><strong>Enter a URL or text</strong> into the input field.</li><li>Select <strong>encodeURIComponent</strong> (for query params) or <strong>encodeURI</strong> (for full URLs).</li><li>Click <strong>Encode</strong> to percent-encode.</li></ol><p><code>encodeURIComponent</code> encodes all special characters except <code>-_.!~*\'()</code>. <code>encodeURI</code> preserves URL structure characters like <code>:</code>, <code>/</code>, <code>?</code>, <code>#</code>.</p>');
+  CK.setUsageContent('<ol><li>Paste a URL or query string into the input.</li><li>The percent-encoded output appears instantly.</li><li>Use <strong>encodeURIComponent</strong> to encode parameter values, or <strong>encodeURI</strong> to preserve URL structure and only encode unsafe characters.</li></ol><h3>What is URL encoding?</h3><p>URL encoding (percent encoding) replaces unsafe ASCII characters with a % followed by two hexadecimal digits. For example, a space becomes %20, and &amp; becomes %26.</p><h3>Common uses</h3><ul><li><strong>Query parameters</strong> — encode values before appending to URLs</li><li><strong>Form submission</strong> — browsers encode form data before sending</li><li><strong>API requests</strong> — encode special characters in API query strings</li></ul>');
 
   /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='https://example.com/search?q=hello world&lang=en';inp.dispatchEvent(new Event('input'));var b=$('btn-enc');if(b)b.click();}})();

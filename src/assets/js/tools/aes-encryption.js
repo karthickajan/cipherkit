@@ -472,16 +472,15 @@
 
   CK.setUsageContent(
     '<ol>'
-    + '<li><strong>Enter your plaintext</strong> in the left panel. This is the text you want to encrypt.</li>'
-    + '<li><strong>Choose key size</strong> (128, 192, or 256-bit). AES-256 is recommended for maximum security.</li>'
-    + '<li><strong>Select a mode</strong> (CBC, ECB, CTR, OFB, or CFB). CBC is the most widely used.</li>'
-    + '<li><strong>Enter or generate a secret key</strong>. Click the refresh icon to auto-generate a random key.</li>'
-    + '<li><strong>IV (Initialization Vector)</strong> is auto-generated if left blank. ECB mode does not use an IV.</li>'
-    + '<li>Click <strong>Encrypt</strong> to produce the ciphertext.</li>'
-    + '<li>To <strong>decrypt</strong>, use the right panel. Paste the ciphertext, enter the same key and IV, then click Decrypt.</li>'
-    + '<li>Use the <strong>"From Encrypt"</strong> button to auto-fill ciphertext and settings from the encrypt panel.</li>'
+    + '<li>Enter the text you want to encrypt.</li>'
+    + '<li>Enter a secret key (password). Use a strong, unique key.</li>'
+    + '<li>Choose key size: 128, 192, or 256-bit (256 recommended).</li>'
+    + '<li>Click <strong>Encrypt</strong>. Copy the output ciphertext.</li>'
+    + '<li>To decrypt, use the AES Decryption tool with the same key.</li>'
     + '</ol>'
-    + '<p>All encryption runs 100% in your browser using <strong>CryptoJS</strong>. No data is ever sent to a server.</p>'
+    + '<h3>What is AES?</h3>'
+    + '<p>AES (Advanced Encryption Standard) is a symmetric block cipher — the same key encrypts and decrypts. It is the most widely used encryption algorithm, adopted by the US government and used in TLS, WPA2, and most secure applications.</p>'
+    + '<p><strong>Security note:</strong> This tool uses AES-GCM mode with a random IV for each encryption. Never reuse the same key for highly sensitive data in production — use a proper key management system.</p>'
   );
 
 })();

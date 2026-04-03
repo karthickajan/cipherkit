@@ -76,7 +76,7 @@
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('Type') === -1 ? t : ''; }, 'password-strength-output.txt');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
 
-  CK.setUsageContent('<ol><li><strong>Type or paste</strong> a password into the input field.</li><li>The strength meter updates <strong>in real-time</strong>.</li><li>Follow the <strong>suggestions</strong> to improve your password.</li></ol><p>Analysis includes length, character variety, entropy estimation, and common pattern detection. Your password never leaves your device.</p>');
+  CK.setUsageContent('<ol><li>Type or paste a password into the field.</li><li>Strength score, entropy (bits), and estimated crack time are shown instantly.</li><li>Follow the suggestions to improve weak passwords.</li></ol><h3>What makes a strong password?</h3><ul><li><strong>Length</strong> — 16+ characters is significantly stronger than 8</li><li><strong>Character variety</strong> — mix uppercase, lowercase, numbers, and symbols</li><li><strong>Unpredictability</strong> — avoid dictionary words, names, or keyboard patterns</li><li><strong>Uniqueness</strong> — never reuse passwords across sites</li></ul><p><strong>Privacy note:</strong> Your password never leaves your browser. All analysis is done client-side with zero network requests.</p>');
 
   /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='P@ssw0rd!2024#Str0ng';inp.dispatchEvent(new Event('input'));}})();

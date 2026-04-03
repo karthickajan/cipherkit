@@ -6,6 +6,7 @@
   <meta name="description" content="Free online JWT decoder. Decode and inspect JSON Web Tokens (JWT) — view header, payload, and signature claims instantly without a secret key.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#07090d">
+  <meta name="google-site-verification" content="UC-6PSV0VLbnfHxe9FoC2l7MWoX1Qi1CY1-_bV7lxQw" />
   <link rel="canonical" href="https://karthickajan.github.io/cipherkit/tools/jwt-decoder/">
 
   <!-- Security headers (meta fallbacks — real headers need a CDN/server) -->
@@ -206,7 +207,7 @@
     <section class="usage-guide" aria-labelledby="usage-heading">
       <h2 id="usage-heading">How to Use the JWT Decoder & Inspector</h2>
       <div class="usage-content" id="usage-content">
-        <ol><li><strong>Paste</strong> a JWT token (e.g. from an API response or auth header).</li><li>Click <strong>Decode</strong> to see the header, payload, and signature.</li></ol><p>Timestamps like <code>iat</code>, <code>exp</code>, and <code>nbf</code> are automatically shown as ISO dates. <strong>Note:</strong> This tool decodes only — it does not verify signatures.</p>
+        <ol><li>Paste any JWT token into the input field.</li><li>The header, payload, and signature are decoded and displayed instantly.</li><li>Claims like <code>exp</code>, <code>iat</code>, <code>sub</code> are shown with human-readable timestamps.</li></ol><h3>What is a JWT?</h3><p>A JSON Web Token (JWT) is a compact, URL-safe token format used to represent claims between two parties. It consists of three Base64URL-encoded parts separated by dots: <strong>Header.Payload.Signature</strong>.</p><h3>Common uses</h3><ul><li><strong>Authentication</strong> — servers issue JWTs after login; clients send them with each request</li><li><strong>API authorization</strong> — REST APIs use JWTs in the Authorization header</li><li><strong>SSO</strong> — single sign-on systems share identity via JWT</li></ul><p><strong>Security note:</strong> JWTs are <em>not encrypted</em> by default — the payload is only Base64-encoded and readable by anyone. Never store sensitive data (passwords, card numbers) in a JWT payload unless using JWE (JSON Web Encryption).</p>
       </div>
     </section>
   </div>

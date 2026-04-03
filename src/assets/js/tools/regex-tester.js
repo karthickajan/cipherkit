@@ -91,7 +91,7 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'regex-tester-output.txt');
 
-  CK.setUsageContent('<ol><li>Enter a <strong>regular expression</strong>.</li><li>Set <strong>flags</strong> (global, case-insensitive, multiline, dotall).</li><li>Type or paste the <strong>test string</strong> — matches update in real time.</li></ol><p>Shows match positions, capture groups, and total count. Uses JavaScript\'s native <code>RegExp</code> engine.</p>');
+  CK.setUsageContent('<ol><li>Enter your regular expression in the pattern field.</li><li>Paste test text in the input area.</li><li>Matches are highlighted in real-time as you type.</li><li>Add flags: g (global), i (case-insensitive), m (multiline).</li></ol><h3>Quick regex reference</h3><ul><li><code>\\d</code> — digit (0-9)</li><li><code>\\w</code> — word character (a-z, A-Z, 0-9, _)</li><li><code>\\s</code> — whitespace</li><li><code>+</code> — one or more</li><li><code>*</code> — zero or more</li><li><code>?</code> — zero or one</li><li><code>^</code> — start of line</li><li><code>$</code> — end of line</li><li><code>[abc]</code> — character class</li><li><code>(group)</code> — capture group</li></ul>');
 
   /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='The quick brown fox jumps over the lazy dog';inp.dispatchEvent(new Event('input'));}})();
