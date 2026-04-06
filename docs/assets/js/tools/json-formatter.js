@@ -233,34 +233,90 @@
     });
   });
 
-  /* ── SEARCH ─────────────────────────────────────────────────────────── */
+  /* ── SEARCH (TreeWalker + <mark> highlighting) ───────────────────────── */
+  var _searchMarks = [];
   $('jt-si').addEventListener('input', function () {
-    var q = this.value.toLowerCase(), w = $('t-result');
+    var q = this.value, w = $('t-result');
+
+    /* Remove previous marks */
+    for (var mi = 0; mi < _searchMarks.length; mi++) {
+      var mk = _searchMarks[mi];
+      if (mk.parentNode) {
+        mk.parentNode.replaceChild(document.createTextNode(mk.textContent), mk);
+      }
+    }
+    _searchMarks = [];
+    w.normalize(); /* merge adjacent text nodes */
+
+    /* Remove old highlight classes */
     w.querySelectorAll('.jt-hl').forEach(function (el) { el.classList.remove('jt-hl'); });
-    if (!q) return;
-    w.querySelectorAll('.jt-key').forEach(function (k) {
-      if (k.textContent.toLowerCase().indexOf(q) !== -1) {
-        k.classList.add('jt-hl');
-        /* Ensure the line + all its ancestor groups are visible */
-        var line = k.closest('.jt-line');
-        if (line) {
-          line.classList.remove('jt-hid');
-          var gid = line.dataset.g;
-          while (gid) {
-            /* Show opening line of this group and expand its toggle */
-            var openLine = w.querySelector('[data-no="' + gid + '"]');
-            if (openLine) {
-              openLine.classList.remove('jt-hid');
-              var t = openLine.querySelector('.jt-tog');
-              if (t) t.textContent = '\u25BE';
-            }
-            /* Also unhide elements so the group appears open */
-            w.querySelectorAll('[data-g="' + gid + '"]').forEach(function (el) { el.classList.remove('jt-hid'); });
-            gid = _groupParent[gid] || null;
+
+    /* Clear match count */
+    var badge = $('jt-match-count');
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.id = 'jt-match-count';
+      badge.style.cssText = 'font-size:11px;color:var(--muted);white-space:nowrap;font-family:var(--mono)';
+      $('jt-si').parentNode.insertBefore(badge, $('jt-si').nextSibling);
+    }
+
+    if (!q) { badge.textContent = ''; return; }
+
+    var qLower = q.toLowerCase();
+    var count = 0;
+    var jtWrap = w.querySelector('.jt-wrap');
+    if (!jtWrap) { badge.textContent = ''; return; }
+
+    /* Walk all text nodes */
+    var walker = document.createTreeWalker(jtWrap, NodeFilter.SHOW_TEXT, null, false);
+    var textNodes = [];
+    var node;
+    while ((node = walker.nextNode())) textNodes.push(node);
+
+    for (var ti = 0; ti < textNodes.length; ti++) {
+      var tn = textNodes[ti];
+      var text = tn.textContent;
+      var textLower = text.toLowerCase();
+      var idx = textLower.indexOf(qLower);
+      if (idx === -1) continue;
+
+      /* Split the text node and wrap matches */
+      var parent = tn.parentNode;
+      var frag = document.createDocumentFragment();
+      var lastIdx = 0;
+      while (idx !== -1) {
+        if (idx > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, idx)));
+        var mark = document.createElement('mark');
+        mark.style.cssText = 'background:#00ff8844;color:inherit;border-radius:2px';
+        mark.textContent = text.slice(idx, idx + q.length);
+        frag.appendChild(mark);
+        _searchMarks.push(mark);
+        count++;
+        lastIdx = idx + q.length;
+        idx = textLower.indexOf(qLower, lastIdx);
+      }
+      if (lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+      parent.replaceChild(frag, tn);
+
+      /* Expand ancestor groups */
+      var line = parent.closest('.jt-line');
+      if (line) {
+        line.classList.remove('jt-hid');
+        var gid = line.dataset.g;
+        while (gid) {
+          w.querySelectorAll('[data-g="' + gid + '"]').forEach(function (el) { el.classList.remove('jt-hid'); });
+          var openLine = w.querySelector('[data-no="' + gid + '"]');
+          if (openLine) {
+            openLine.classList.remove('jt-hid');
+            var t = openLine.querySelector('.jt-tog');
+            if (t) t.textContent = '\u25BE';
           }
+          gid = _groupParent[gid] || null;
         }
       }
-    });
+    }
+
+    badge.textContent = count + ' match' + (count !== 1 ? 'es' : '');
   });
 
   /* ── COPY PATH ON HOVER ────────────────────────────────────────────── */

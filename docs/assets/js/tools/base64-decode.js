@@ -11,10 +11,19 @@
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
-    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
+    dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+    upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>'
   };
 
   function $(id) { return document.getElementById(id); }
+
+  var sty = document.createElement('style');
+  sty.textContent =
+    '.b64-drop{border:2px dashed var(--border);border-radius:8px;padding:16px;text-align:center;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;margin-bottom:12px}'
+    + '.b64-drop:hover,.b64-drop.drag-over{border-color:var(--blue);color:var(--blue);background:rgba(88,166,255,.04)}'
+    + '.b64-drop input[type=file]{display:none}'
+    + '.b64-drop svg{width:20px;height:20px;vertical-align:middle;margin-right:6px}';
+  document.head.appendChild(sty);
 
   root.innerHTML =
     '<div class="tool-single-col">'
@@ -24,18 +33,25 @@
     +     '<span class="tc-badge tc-badge-blue">Decode</span>'
     +   '</div>'
     +   '<div class="tc-body" role="region" aria-labelledby="t-heading">'
+    +     '<div class="b64-drop" id="drop-zone">' + IC.upload + ' Drop a Base64 file here or <strong>Browse</strong><input type="file" id="file-input" accept=".txt,.b64,.pem,.crt,.key"></div>'
     +     '<div class="field"><div class="field-hdr"><label for="t-input">Base64 Input</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear input">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Paste Base64 string to decode\u2026" rows="5" spellcheck="false"></textarea><div class="input-meta" id="t-input-meta"></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-blue" id="btn-dec" aria-label="Decode Base64">' + IC.code + ' <span>Decode</span></button>'
-    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decoded Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy result">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button><button type="button" class="pill-btn" id="btn-swap" aria-label="Use output as input">⇄ <span>Use as Input</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Decoded output will appear here\u2026</div></div>'
+    +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decoded Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy result">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button><button type="button" class="pill-btn" id="btn-swap" aria-label="Use output as input">\u21C4 <span>Use as Input</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Decoded output will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
     + '</div>';
 
-  $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Decoded output will appear here\u2026'; });
-  CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
+  function isPlaceholder() { return $('t-result').textContent.indexOf('appear') !== -1; }
+
+  $('btn-clr').addEventListener('click', function () {
+    $('t-input').value = '';
+    $('t-result').className = 'out-body mono ph';
+    $('t-result').textContent = 'Decoded output will appear here\u2026';
+  });
+  CK.wireCopy($('btn-cp'), function () { return isPlaceholder() ? '' : $('t-result').textContent; });
   CK.initAutoGrow($('t-input'));
 
-  $('btn-dec').addEventListener('click', function () {
+  function doDecode() {
     var input = $('t-input').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
     if (!input) { $('t-err').textContent = 'Please enter Base64 to decode.'; $('t-err').style.display = 'block'; return; }
@@ -46,21 +62,58 @@
       $('t-result').className = 'out-body mono b'; $('t-result').textContent = decoded;
       CK.toast('Base64 decoded');
     } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Invalid Base64 input: ' + e.message; }
+  }
+  $('btn-dec').addEventListener('click', doDecode);
+
+  /* File upload (read as text → paste into input) */
+  function handleFile(file) {
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      $('t-input').value = reader.result || '';
+      $('t-input').dispatchEvent(new Event('input'));
+      CK.toast('File loaded');
+    };
+    reader.readAsText(file);
+  }
+  $('file-input').addEventListener('change', function () { if (this.files[0]) handleFile(this.files[0]); });
+  var dz = $('drop-zone');
+  dz.addEventListener('click', function () { $('file-input').click(); });
+  dz.addEventListener('dragover', function (e) { e.preventDefault(); this.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', function () { this.classList.remove('drag-over'); });
+  dz.addEventListener('drop', function (e) { e.preventDefault(); this.classList.remove('drag-over'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+
+  /* Swap */
+  $('btn-swap').addEventListener('click', function () {
+    var ov = isPlaceholder() ? '' : $('t-result').textContent;
+    if (!ov) return;
+    $('t-input').value = ov; $('t-input').dispatchEvent(new Event('input'));
+    $('t-input').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    CK.toast('Output moved to input');
   });
 
-  
   CK.wireCtrlEnter('btn-dec');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
-  CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'base64-decode-output.txt');
+  CK.wireDownload($('btn-dl'), function () { return isPlaceholder() ? '' : $('t-result').textContent; }, 'base64-decode-output.txt');
 
   CK.setUsageContent('<ol><li><strong>Paste a Base64 string</strong> into the input field.</li><li>Click <strong>Decode</strong> to convert back to plain text.</li></ol><p>Supports both standard and URL-safe Base64 input. The decoder automatically handles missing padding and URL-safe character substitutions.</p>');
 
-  /* CK-PATCHED — sample data */
-  (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='SGVsbG8sIFdvcmxkIQ==';inp.dispatchEvent(new Event('input'));var b=$('btn-dec');if(b)b.click();}})();
+  /* sessionStorage transfer from encoder */
+  (function () {
+    try {
+      var transferred = sessionStorage.getItem('ck_b64_transfer');
+      if (transferred) {
+        sessionStorage.removeItem('ck_b64_transfer');
+        $('t-input').value = transferred;
+        doDecode();
+        return;
+      }
+    } catch (_) {}
+    /* Default sample */
+    var inp = $('t-input');
+    if (inp && !inp.value) { inp.value = 'SGVsbG8sIFdvcmxkIQ=='; doDecode(); }
+  })();
 
-  /* CK-PATCHED — live output */
-  (function(){var _dt;var _inp=$('t-input');var _btn=$('btn-dec');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
-
-  /* CK-PATCHED — swap button */
-  (function(){var sb=$('btn-swap');if(sb){sb.addEventListener('click',function(){var oe=$('t-result');var ie=$('t-input');var ov=oe?oe.value||oe.textContent:'';if(!ov||ov.indexOf('appear')!==-1)return;ie.value=ov;ie.dispatchEvent(new Event('input'));ie.scrollIntoView({behavior:'smooth',block:'start'});CK.toast('Output moved to input')})}})();
+  /* Live decode */
+  (function () { var dt; $('t-input').addEventListener('input', function () { clearTimeout(dt); dt = setTimeout(doDecode, 150); }); })();
 })();
