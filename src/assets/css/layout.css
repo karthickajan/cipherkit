@@ -499,9 +499,55 @@
 .breadcrumb a:hover { color: var(--green); opacity: 1; }
 .breadcrumb [aria-current="page"] { color: var(--text); }
 
+/* ── HAMBURGER (hidden on desktop) ────────────────────────────────────── */
+.hamburger-btn {
+  display:    none;
+  background: none;
+  border:     none;
+  color:      var(--green);
+  font-size:  1.4rem;
+  cursor:     pointer;
+  padding:    4px;
+  margin-left: auto;
+  line-height: 1;
+}
+
 /* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  .hamburger-btn { display: block; }
   .header-badges { display: none; }
+
+  .header-nav {
+    display:        none;
+    position:       absolute;
+    top:            56px;
+    left:           0;
+    right:          0;
+    background:     #111;
+    flex-direction: column;
+    gap:            0;
+    z-index:        199;
+    border-bottom:  1px solid #1e1e1e;
+  }
+  .header-nav.nav-open {
+    display: flex;
+  }
+  .header-nav .nav-link {
+    padding:       14px 24px;
+    border-radius: 0;
+    color:         #ccc;
+    font-size:     13px;
+    width:         100%;
+  }
+  .header-nav .nav-link:hover,
+  .header-nav .nav-link:focus {
+    color:      var(--green);
+    background: rgba(61,214,140,.06);
+  }
+  .header-nav .nav-link--active {
+    color: var(--green) !important;
+  }
+
   .footer-inner  {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -523,9 +569,5 @@
   }
   .footer-links {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .header-nav .nav-link {
-    font-size: 12px;
-    padding: 6px 8px;
   }
 }

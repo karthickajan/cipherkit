@@ -170,6 +170,47 @@
     });
   })();
 
+  /* ── MOBILE HAMBURGER MENU ────────────────────────────────────────────── */
+  (function initHamburger() {
+    const btn = document.getElementById('nav-hamburger');
+    const nav = document.getElementById('header-nav');
+    if (!btn || !nav) return;
+
+    btn.addEventListener('click', function () {
+      const open = nav.classList.toggle('nav-open');
+      btn.setAttribute('aria-expanded', open);
+      btn.textContent = open ? '\u2715' : '\u2630'; // ✕ or ☰
+    });
+
+    // close on nav-link click
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest('.nav-link')) {
+        nav.classList.remove('nav-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = '\u2630';
+      }
+    });
+
+    // close on outside click
+    document.addEventListener('click', function (e) {
+      if (!nav.contains(e.target) && !btn.contains(e.target)) {
+        nav.classList.remove('nav-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = '\u2630';
+      }
+    });
+
+    // close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('nav-open')) {
+        nav.classList.remove('nav-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = '\u2630';
+        btn.focus();
+      }
+    });
+  })();
+
   /* ── PUBLIC API ───────────────────────────────────────────────────────── */
   window.CK = {
     toast,

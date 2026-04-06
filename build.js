@@ -120,6 +120,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
     .skip-link:focus{top:8px}
     .site-header{border-bottom:1px solid #1e2530;background:rgba(7,9,13,.88);position:sticky;top:0;z-index:200;backdrop-filter:blur(16px)}
     .header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:24px}
+    .hamburger-btn{display:none;background:none;border:none;color:#3dd68c;font-size:1.4rem;cursor:pointer;padding:4px;margin-left:auto;line-height:1}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
     .logo-mark{width:30px;height:30px;border-radius:6px;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
     .logo-mark svg{width:16px;height:16px}
@@ -183,7 +184,9 @@ function buildNavbar(headerBadge, activeCategory) {
       <span class="logo-name">Cipher<em>Kit</em></span>
     </a>
 
-    <nav class="header-nav" aria-label="Tool categories">
+    <button class="hamburger-btn" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+
+    <nav class="header-nav" id="header-nav" aria-label="Tool categories">
       ${navHtml}
     </nav>
 
