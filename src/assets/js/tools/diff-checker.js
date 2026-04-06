@@ -483,8 +483,9 @@
       diffBlockEls = Array.from(document.querySelectorAll('#content-left .dm-row-diff'));
       currentNavIndex = -1;
       updateNavButtons();
-      renderOverviewBar();
       updateViewportIndicator();
+      // Defer tick rendering until browser has reflowed after syncRowHeights
+      setTimeout(function () { requestAnimationFrame(function () { renderOverviewBar(); }); }, 50);
     }, 0);
   }
 
@@ -554,6 +555,17 @@
     var barH = bar.offsetHeight;
     if (scrollH === 0 || barH === 0) return;
 
+    // Walk offsetTop chain to get position relative to the scrollable pane
+    function getOffsetInPane(el) {
+      var top = 0;
+      var cur = el;
+      while (cur && cur !== pane) {
+        top += cur.offsetTop;
+        cur = cur.offsetParent;
+      }
+      return top;
+    }
+
     var leftLines = document.querySelectorAll('#content-left .dm-line');
     var rightLines = document.querySelectorAll('#content-right .dm-line');
     var maxLen = Math.min(leftLines.length, rightLines.length);
@@ -565,7 +577,8 @@
       var isAdd = rl.classList.contains('dm-add');
       if (!isRem && !isAdd) continue;
 
-      var tickTop = (ll.offsetTop / scrollH) * barH;
+      var lineTop = getOffsetInPane(ll);
+      var tickTop = (lineTop / scrollH) * barH;
       var tick = document.createElement('div');
       tick.className = 'dm-overview-tick';
       tick.style.top = tickTop + 'px';
@@ -593,6 +606,12 @@
   $('pane-left').addEventListener('scroll', function () {
     updateViewportIndicator();
   }, { passive: true });
+
+  // Recalculate ticks + viewport on window resize
+  window.addEventListener('resize', function () {
+    if (!currentDiff) return;
+    setTimeout(function () { requestAnimationFrame(function () { renderOverviewBar(); updateViewportIndicator(); }); }, 50);
+  });
 
   /* ── INLINE EDITING LOGIC ───────────────────────────────────────────────── */
   window._ckInlineEdit = function(side, idx, el) {
