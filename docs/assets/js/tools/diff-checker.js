@@ -63,6 +63,10 @@
     .dm-btn-arrow:hover { background: rgba(255,255,255,0.2); border-radius: 4px; }
     .dm-history-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
+    /* Inline Character-Level Diff Highlights */
+    .diff-del-inline { background: rgba(255,107,107,0.25); border-radius: 2px; padding: 0 1px; }
+    .diff-add-inline { background: rgba(61,214,140,0.25); border-radius: 2px; padding: 0 1px; }
+
     /* DYNAMIC TOGGLE CLASSES */
     .dm-scroll-pane.wrap-active .dm-line-txt { white-space: pre-wrap; word-break: break-all; }
     .dm-scroll-pane:not(.wrap-active) .dm-line-txt { white-space: pre; }
@@ -164,7 +168,72 @@
     return { left: resA, right: resB, stats: { add: addCount, rem: remCount, match: matchCount } };
   }
 
-  /* ── UI LAYOUT ──────────────────────────────────────────────────────────── */
+  /* ── CHARACTER-LEVEL INLINE DIFF ────────────────────────────────────────── */
+  function inlineDiffChars(oldStr, newStr) {
+    var a = Array.from(oldStr);
+    var b = Array.from(newStr);
+    var m = a.length, n = b.length;
+
+    // LCS on characters
+    var prev = new Uint16Array(n + 1);
+    var curr = new Uint16Array(n + 1);
+    for (var i = 1; i <= m; i++) {
+      for (var j = 1; j <= n; j++) {
+        if (a[i - 1] === b[j - 1]) curr[j] = prev[j - 1] + 1;
+        else curr[j] = curr[j - 1] > prev[j] ? curr[j - 1] : prev[j];
+      }
+      var tmp = prev; prev = curr; curr = tmp;
+      curr.fill(0);
+    }
+
+    // Backtrack to get edit ops
+    var ops = [];
+    i = m; var jj = n;
+    // Rebuild full matrix for backtrack (space-optimized won't work for backtrack)
+    var mat = [];
+    for (var x = 0; x <= m; x++) mat[x] = new Uint16Array(n + 1);
+    for (x = 1; x <= m; x++) {
+      for (var y = 1; y <= n; y++) {
+        if (a[x - 1] === b[y - 1]) mat[x][y] = mat[x - 1][y - 1] + 1;
+        else mat[x][y] = mat[x - 1][y] > mat[x][y - 1] ? mat[x - 1][y] : mat[x][y - 1];
+      }
+    }
+    i = m; jj = n;
+    while (i > 0 || jj > 0) {
+      if (i > 0 && jj > 0 && a[i - 1] === b[jj - 1]) {
+        ops.unshift({ t: '=', c: a[i - 1] }); i--; jj--;
+      } else if (jj > 0 && (i === 0 || mat[i][jj - 1] >= mat[i - 1][jj])) {
+        ops.unshift({ t: '+', c: b[jj - 1] }); jj--;
+      } else {
+        ops.unshift({ t: '-', c: a[i - 1] }); i--;
+      }
+    }
+
+    // Build HTML for left (old) and right (new)
+    var leftH = '', rightH = '';
+    var lBuf = '', lInDel = false;
+    var rBuf = '', rInAdd = false;
+
+    for (var k = 0; k < ops.length; k++) {
+      var op = ops[k];
+      if (op.t === '=') {
+        if (lInDel) { leftH += '<span class="diff-del-inline">' + esc(lBuf) + '</span>'; lBuf = ''; lInDel = false; }
+        if (rInAdd) { rightH += '<span class="diff-add-inline">' + esc(rBuf) + '</span>'; rBuf = ''; rInAdd = false; }
+        leftH += esc(op.c);
+        rightH += esc(op.c);
+      } else if (op.t === '-') {
+        lInDel = true; lBuf += op.c;
+      } else {
+        rInAdd = true; rBuf += op.c;
+      }
+    }
+    if (lInDel) leftH += '<span class="diff-del-inline">' + esc(lBuf) + '</span>';
+    if (rInAdd) rightH += '<span class="diff-add-inline">' + esc(rBuf) + '</span>';
+
+    return { leftHtml: leftH, rightHtml: rightH };
+  }
+
+  /* ── LAYOUT ─────────────────────────────────────────────────────────────── */
   root.innerHTML = `
     <div class="tool-single-col" style="max-width: 1400px; margin: 0 auto;">
       <div class="tool-card-ui">
@@ -351,8 +420,16 @@
         let lNum = lNode.type !== 'empty' ? lLine++ : '';
         let rNum = rNode.type !== 'empty' ? rLine++ : '';
 
-        let lText = lNode.type !== 'empty' ? esc(lNode.text) : '';
-        let rText = rNode.type !== 'empty' ? esc(rNode.text) : '';
+        let lText, rText;
+        // Paired change → run character-level inline diff
+        if (lNode.type === 'remove' && rNode.type === 'add') {
+          var inl = inlineDiffChars(lNode.text, rNode.text);
+          lText = inl.leftHtml;
+          rText = inl.rightHtml;
+        } else {
+          lText = lNode.type !== 'empty' ? esc(lNode.text) : '';
+          rText = rNode.type !== 'empty' ? esc(rNode.text) : '';
+        }
 
         blockLeftLines += `<div class="dm-line ${lcls}"><span class="dm-line-num">${lNum}</span><span class="dm-line-txt" ${lNode.type !== 'empty' ? `contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit('left', ${k}, this)"` : ''}>${lText}</span></div>`;
         blockRightLines += `<div class="dm-line ${rcls}"><span class="dm-line-num">${rNum}</span><span class="dm-line-txt" ${rNode.type !== 'empty' ? `contenteditable="true" spellcheck="false" onblur="window._ckInlineEdit('right', ${k}, this)"` : ''}>${rText}</span></div>`;
