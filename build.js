@@ -80,7 +80,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google; img-src 'self' data: blob:; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="${pageTitle}">
@@ -131,6 +131,15 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css">
+
+  <!-- GA4 anonymous analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-31DPEW6FGL', { anonymize_ip: true });
+  </script>
 `.trim();
 }
 
@@ -260,7 +269,7 @@ function buildFooter() {
   </div>
 
   <div class="footer-bottom">
-    <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>.</p>
+    <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>.</p>
   </div>
 </footer>
 `.trim();
@@ -733,6 +742,7 @@ function buildSitemap() {
     { loc: `${DOMAIN}/tools/converter/`,  priority: '0.8', freq: 'weekly' },
     { loc: `${DOMAIN}/tools/dev/`,        priority: '0.8', freq: 'weekly' },
     { loc: `${DOMAIN}/tools/image/`,      priority: '0.8', freq: 'weekly' },
+    { loc: `${DOMAIN}/tools/privacy-policy/`, priority: '0.3', freq: 'yearly' },
   ];
 
   const toolUrls = tools.map(t => ({
@@ -797,6 +807,116 @@ function copyAssets() {
   copyDir(assetSrc, assetDist);
 }
 
+// ── PRIVACY POLICY PAGE ──────────────────────────────────────────────────────
+function buildPrivacyPage() {
+  const head = buildHead({
+    pageTitle:       'Privacy Policy — CipherKit',
+    metaDescription: 'CipherKit privacy policy. 100% client-side tools, anonymous analytics, no personal data collected.',
+    canonicalPath:   '/tools/privacy-policy/'
+  });
+  const navbar = buildNavbar();
+  const footer = buildFooter();
+  const year   = new Date().getFullYear();
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+${head}
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+${navbar}
+
+<main id="main-content" class="tool-page">
+
+  <div class="tool-header">
+    <div class="tool-header-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="${BASE_PATH}/">Home</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">Privacy Policy</span>
+      </nav>
+      <h1>Privacy Policy</h1>
+      <p class="tool-tagline">Last updated: ${year}</p>
+    </div>
+  </div>
+
+  <div class="tool-interface-wrap">
+    <div style="max-width:800px;margin:0 auto">
+      <div class="tool-card-ui">
+        <div class="tc-head">
+          <div class="tc-title">
+            <div class="tc-icon tc-icon-green">${SVG.shield}</div>
+            <h2>Your Privacy Matters</h2>
+          </div>
+        </div>
+        <div class="tc-body" style="padding:24px;font-size:14px;line-height:1.8;color:var(--text)">
+
+          <h3 style="color:var(--green);margin-bottom:8px">100% Client-Side Processing</h3>
+          <p style="margin-bottom:20px;color:var(--muted)">
+            CipherKit runs entirely in your web browser. All encryption, hashing, encoding, formatting,
+            and conversion operations are performed using client-side JavaScript. <strong style="color:var(--text)">No user data is ever
+            sent to any server.</strong> Your inputs, passwords, keys, and outputs never leave your device.
+          </p>
+
+          <h3 style="color:var(--green);margin-bottom:8px">Analytics</h3>
+          <p style="margin-bottom:20px;color:var(--muted)">
+            We use <strong style="color:var(--text)">Google Analytics 4</strong> to collect anonymous usage statistics such as
+            page views, referral sources, and general geographic region. IP addresses are anonymized.
+            No personally identifiable information (PII) is collected. Analytics data helps us understand
+            which tools are most used so we can prioritize improvements.
+          </p>
+
+          <h3 style="color:var(--green);margin-bottom:8px">Cookies</h3>
+          <p style="margin-bottom:20px;color:var(--muted)">
+            CipherKit itself does not set any cookies. Google Analytics may set first-party cookies
+            (e.g. <code style="background:var(--bg);padding:2px 6px;border-radius:3px;border:1px solid var(--border);font-size:12px">_ga</code>)
+            for anonymous visitor identification. You can block these via your browser settings or a
+            cookie blocker extension without affecting tool functionality.
+          </p>
+
+          <h3 style="color:var(--green);margin-bottom:8px">GitHub Pages Hosting</h3>
+          <p style="margin-bottom:20px;color:var(--muted)">
+            CipherKit is hosted on GitHub Pages. GitHub may log IP addresses and request metadata
+            as part of their infrastructure. For details, see the
+            <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener" style="color:var(--green)">GitHub Privacy Statement</a>.
+          </p>
+
+          <h3 style="color:var(--green);margin-bottom:8px">No Accounts or Personal Data</h3>
+          <p style="margin-bottom:20px;color:var(--muted)">
+            CipherKit does not require any account, login, email address, or personal information.
+            There is no user registration, no database, and no server-side storage of any kind.
+          </p>
+
+          <h3 style="color:var(--green);margin-bottom:8px">Contact</h3>
+          <p style="color:var(--muted)">
+            Questions about this privacy policy? Reach out via
+            <a href="${site.github}" target="_blank" rel="noopener" style="color:var(--green)">GitHub</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+${footer}
+
+<!-- Toast notification -->
+<div class="toast" id="toast" role="alert" aria-live="assertive">
+  <span class="toast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg></span>
+  <span id="toast-msg">Copied to clipboard</span>
+</div>
+
+</body>
+</html>`;
+}
+
 // ── MAIN BUILD ────────────────────────────────────────────────────────────────
 function build() {
   console.log('\n🔨 CipherKit Build Starting...\n');
@@ -829,17 +949,22 @@ function build() {
   }
   console.log('');
 
-  // 6. SEO files
+  // 6. Privacy Policy page
+  console.log('📜 Building privacy policy...');
+  writeDist('tools/privacy-policy/index.html', buildPrivacyPage());
+  console.log('');
+
+  // 7. SEO files
   console.log('🗺️  Building SEO files...');
   writeDist('sitemap.xml', buildSitemap());
   writeDist('robots.txt',  buildRobots());
   console.log('');
 
-  // 7. GitHub Pages requirements
+  // 8. GitHub Pages requirements
   writeDist('.nojekyll', ''); // Prevents Jekyll processing
   console.log('  ✓ .nojekyll');
 
-  // 8. 404 page
+  // 9. 404 page
   const notFoundHead = buildHead({
     pageTitle:       '404 — Page Not Found | CipherKit',
     metaDescription: 'The page you are looking for does not exist. Browse our free developer tools.',

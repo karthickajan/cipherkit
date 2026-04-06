@@ -14,7 +14,7 @@
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google; img-src 'self' data: blob:; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Bcrypt Hash Generator – Hash Passwords with Bcrypt Online | CipherKit">
@@ -115,6 +115,15 @@
   <link rel="stylesheet" href="/cipherkit/assets/css/base.css">
   <link rel="stylesheet" href="/cipherkit/assets/css/layout.css">
   <link rel="stylesheet" href="/cipherkit/assets/css/tool.css">
+
+  <!-- GA4 anonymous analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-31DPEW6FGL', { anonymize_ip: true });
+  </script>
 </head>
 <body>
 
@@ -294,7 +303,7 @@
   </div>
 
   <div class="footer-bottom">
-    <p>© 2026 CipherKit. Open source. <a href="https://github.com/karthickajan/cipherkit">GitHub</a>.</p>
+    <p>© 2026 CipherKit. Open source. <a href="https://github.com/karthickajan/cipherkit">GitHub</a>. <a href="/cipherkit/tools/privacy-policy/">Privacy Policy</a>.</p>
   </div>
 </footer>
 
