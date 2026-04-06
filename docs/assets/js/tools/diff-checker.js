@@ -77,6 +77,7 @@
     /* VS Code-Style Overview / Minimap Strip */
     .dm-overview-bar { width: 10px; flex-shrink: 0; background: #0d0d0d; border-left: 1px solid #1e1e1e; position: relative; cursor: pointer; }
     .dm-overview-tick { position: absolute; left: 0; width: 100%; min-height: 3px; pointer-events: none; }
+    .dm-overview-viewport { position: absolute; left: 0; width: 100%; background: rgba(255,255,255,0.12); border-radius: 1px; pointer-events: none; min-height: 4px; transition: top 0.08s linear, height 0.08s linear; }
 
     /* DYNAMIC TOGGLE CLASSES */
     .dm-scroll-pane.wrap-active .dm-line-txt { white-space: pre-wrap; word-break: break-all; }
@@ -95,8 +96,8 @@
   var historyStack = [];
   var historyIndex = -1;
   var settings = { wrap: true, hideUnchanged: false };
-  var diffBlockEls = [];   // DOM elements for each diff block
-  var currentNavIndex = -1; // currently focused diff block index
+  var diffBlockEls = [];
+  var currentNavIndex = -1;
 
   function saveHistory(leftText, rightText) {
     historyStack = historyStack.slice(0, historyIndex + 1);
@@ -305,7 +306,9 @@
                 <div class="dm-content" id="content-right"></div>
               </div>
               
-              <div id="pane-overview" class="dm-overview-bar"></div>
+              <div id="pane-overview" class="dm-overview-bar">
+                <div id="overview-viewport" class="dm-overview-viewport"></div>
+              </div>
             </div>
           </div>
 
@@ -442,7 +445,6 @@
         let rNum = rNode.type !== 'empty' ? rLine++ : '';
 
         let lText, rText;
-        // Paired change → run character-level inline diff
         if (lNode.type === 'remove' && rNode.type === 'add') {
           var inl = inlineDiffChars(lNode.text, rNode.text);
           lText = inl.leftHtml;
@@ -476,15 +478,14 @@
     $('content-gutter').innerHTML = gutterHTML;
     $('content-right').innerHTML = rightHTML;
 
-    setTimeout(syncRowHeights, 0);
-
-    // ── POST-RENDER: Diff navigation index + overview bar ──
     setTimeout(function () {
+      syncRowHeights();
       diffBlockEls = Array.from(document.querySelectorAll('#content-left .dm-row-diff'));
       currentNavIndex = -1;
       updateNavButtons();
       renderOverviewBar();
-    }, 20);
+      updateViewportIndicator();
+    }, 0);
   }
 
   /* ── PREV / NEXT DIFF NAVIGATION ──────────────────────────────────────── */
@@ -507,10 +508,12 @@
     updateNavButtons();
     var el = diffBlockEls[idx];
     var pane = $('pane-left');
-    var top = el.offsetTop - pane.offsetTop - 40;
-    pane.scrollTop = top;
-    $('pane-right').scrollTop = top;
-    $('pane-gutter').scrollTop = top;
+    var scrollTo = el.offsetTop - 40;
+    if (scrollTo < 0) scrollTo = 0;
+    pane.scrollTop = scrollTo;
+    $('pane-right').scrollTop = scrollTo;
+    $('pane-gutter').scrollTop = scrollTo;
+    updateViewportIndicator();
   }
 
   $('btn-prev-diff').addEventListener('click', function () {
@@ -524,63 +527,72 @@
   });
 
   /* ── GUTTER OVERVIEW BAR (MINIMAP STRIP) ────────────────────────────────── */
+  function updateViewportIndicator() {
+    var pane = $('pane-left');
+    var bar = $('pane-overview');
+    var vp = $('overview-viewport');
+    if (!pane || !bar || !vp) return;
+    var scrollH = pane.scrollHeight;
+    var barH = bar.offsetHeight;
+    if (scrollH === 0 || barH === 0) { vp.style.display = 'none'; return; }
+    vp.style.display = '';
+    var vpTop = (pane.scrollTop / scrollH) * barH;
+    var vpHeight = (pane.clientHeight / scrollH) * barH;
+    if (vpHeight < 4) vpHeight = 4;
+    vp.style.top = vpTop + 'px';
+    vp.style.height = vpHeight + 'px';
+  }
+
   function renderOverviewBar() {
     var bar = $('pane-overview');
-    bar.innerHTML = '';
-    var contentEl = $('content-left');
-    var totalH = contentEl.scrollHeight || contentEl.offsetHeight;
-    if (totalH === 0) return;
-    var barH = bar.offsetHeight || bar.clientHeight;
-    if (barH === 0) return;
+    var pane = $('pane-left');
+    // Remove old ticks but keep the viewport indicator
+    var oldTicks = bar.querySelectorAll('.dm-overview-tick');
+    for (var t = 0; t < oldTicks.length; t++) oldTicks[t].remove();
 
-    var allLines = document.querySelectorAll('#content-left .dm-line');
-    for (var i = 0; i < allLines.length; i++) {
-      var line = allLines[i];
-      var isRem = line.classList.contains('dm-rem');
-      var isEmpty = line.classList.contains('dm-empty');
-      if (!isRem && !isEmpty) {
-        // check right pane counterpart for add
-        continue;
-      }
-      if (isEmpty) continue;
-      // removed line
-      var top = (line.offsetTop / totalH) * barH;
+    var scrollH = pane.scrollHeight;
+    var barH = bar.offsetHeight;
+    if (scrollH === 0 || barH === 0) return;
+
+    var leftLines = document.querySelectorAll('#content-left .dm-line');
+    var rightLines = document.querySelectorAll('#content-right .dm-line');
+    var maxLen = Math.min(leftLines.length, rightLines.length);
+
+    for (var i = 0; i < maxLen; i++) {
+      var ll = leftLines[i];
+      var rl = rightLines[i];
+      var isRem = ll.classList.contains('dm-rem');
+      var isAdd = rl.classList.contains('dm-add');
+      if (!isRem && !isAdd) continue;
+
+      var tickTop = (ll.offsetTop / scrollH) * barH;
       var tick = document.createElement('div');
       tick.className = 'dm-overview-tick';
-      tick.style.top = top + 'px';
-      tick.style.background = '#ff444466';
+      tick.style.top = tickTop + 'px';
+      tick.style.background = isRem ? '#ff444466' : '#00ff8866';
       bar.appendChild(tick);
-    }
-
-    var rightLines = document.querySelectorAll('#content-right .dm-line');
-    for (var j = 0; j < rightLines.length; j++) {
-      var rline = rightLines[j];
-      if (!rline.classList.contains('dm-add')) continue;
-      // Use corresponding left-side line for position reference
-      var leftLine = allLines[j];
-      if (!leftLine) continue;
-      var rtop = (leftLine.offsetTop / totalH) * barH;
-      var rtick = document.createElement('div');
-      rtick.className = 'dm-overview-tick';
-      rtick.style.top = rtop + 'px';
-      rtick.style.background = '#00ff8866';
-      bar.appendChild(rtick);
     }
   }
 
+  // Click overview bar → jump to proportional scroll position
   $('pane-overview').addEventListener('click', function (e) {
     var bar = this;
     var barH = bar.offsetHeight;
     if (barH === 0) return;
     var clickY = e.clientY - bar.getBoundingClientRect().top;
     var ratio = clickY / barH;
-    var contentEl = $('content-left');
-    var totalH = contentEl.scrollHeight || contentEl.offsetHeight;
-    var scrollTo = ratio * totalH;
-    $('pane-left').scrollTop = scrollTo;
+    var pane = $('pane-left');
+    var scrollTo = ratio * pane.scrollHeight;
+    pane.scrollTop = scrollTo;
     $('pane-right').scrollTop = scrollTo;
     $('pane-gutter').scrollTop = scrollTo;
+    updateViewportIndicator();
   });
+
+  // Update viewport indicator on every scroll of the left pane
+  $('pane-left').addEventListener('scroll', function () {
+    updateViewportIndicator();
+  }, { passive: true });
 
   /* ── INLINE EDITING LOGIC ───────────────────────────────────────────────── */
   window._ckInlineEdit = function(side, idx, el) {
