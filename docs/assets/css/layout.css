@@ -271,9 +271,9 @@
 .hero-search input {
   width:           100%;
   max-width:       500px;
-  background:      var(--surface);
-  border:          1px solid var(--border);
-  border-radius:   var(--r);
+  background:      #0a0a0a;
+  border:          1px solid transparent;
+  border-radius:   8px;
   color:           var(--text);
   font-family:     var(--mono);
   font-size:       13px;
@@ -282,8 +282,8 @@
   transition:      border-color .2s;
 }
 .hero-search input:focus {
-  border-color: var(--green);
-  box-shadow:   0 0 0 3px rgba(61,214,140,.08);
+  border-color: transparent;   /* let the glow wrapper handle it */
+  box-shadow:   none;
 }
 .hero-search input::placeholder { color: var(--muted); }
 
@@ -592,6 +592,8 @@
   border-radius: 10px;
   display: inline-block;
   width: 100%;
+  max-width: 500px;        /* ← ADD THIS — matches input max-width */
+  padding: 2px;            /* ← ADD THIS — gives gradient 2px breathing room */
 }
 
 @property --ck-angle {
