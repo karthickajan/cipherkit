@@ -592,7 +592,6 @@
   border-radius: 10px;
   display: inline-block;
   width: 100%;
-  overflow: hidden;
 }
 
 @property --ck-angle {
@@ -615,18 +614,19 @@
   );
   animation: ck-spin 3s linear infinite;
   z-index: 0;
-  opacity: 0.5;
+  opacity: 0.4;
   transition: opacity .3s ease;
 }
 
 .search-glow-wrapper:focus-within::before {
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .search-glow-wrapper > * {
   position: relative;
   z-index: 1;
-  transition: all .3s ease;
+  border-radius: 8px;         /* match input's own border-radius */
+  background: #0a0a0a;        /* solid background so gradient only shows as border */
 }
 
 @keyframes ck-spin {
