@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the HMAC Generator free?",
+      "name": "What is the difference between HMAC and a regular hash?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "A regular hash (SHA-256) of a message can be computed by anyone. An HMAC requires a secret key, so only parties who know the key can produce or verify the MAC. This prevents attackers from forging valid hashes."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "How do I verify a GitHub webhook with HMAC?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "GitHub signs webhook payloads with HMAC-SHA256 using your webhook secret as the key. Compute HMAC-SHA256 of the raw request body with your secret, prefix it with \"sha256=\", and compare it to the X-Hub-Signature-256 header using a constant-time comparison."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the HMAC Generator do?",
+      "name": "Which hash algorithm should I use with HMAC?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online HMAC generator. Generate HMAC-SHA256, HMAC-SHA512, HMAC-SHA1, and HMAC-MD5 message authentication codes directly in your browser."
+        "text": "HMAC-SHA256 is the most common and recommended choice. It offers a good balance of security and performance. HMAC-SHA512 provides a longer MAC but is rarely needed. Avoid HMAC-MD5 and HMAC-SHA1 for new systems."
       }
     }
   ]
@@ -225,6 +225,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li><strong>Enter the message</strong> you want to authenticate.</li><li><strong>Enter a secret key</strong> shared between sender and receiver.</li><li>Select the <strong>hash algorithm</strong> (SHA-256, SHA-512, SHA-1, SHA-3, or MD5).</li><li>Choose <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate HMAC</strong> to produce the authentication code.</li></ol><p>HMAC (Hash-based Message Authentication Code) provides message integrity and authenticity. It combines a cryptographic hash function with a secret key, making it resistant to length-extension attacks.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is HMAC?</h2>
+      <p>HMAC (Hash-based Message Authentication Code) is a specific construction for creating a message authentication code using a cryptographic hash function (SHA-256, SHA-512, etc.) combined with a secret key. It provides both data integrity (the message wasn't changed) and authenticity (it came from someone who knows the key).</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>API request signing — verify that requests come from authorised clients</li>
+      <li>Webhook payload verification (GitHub, Stripe, and others use HMAC-SHA256)</li>
+      <li>JWT signature generation (HS256 = HMAC with SHA-256)</li>
+      <li>Verifying file downloads haven't been tampered with</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is the difference between HMAC and a regular hash?</h3>
+    <p>A regular hash (SHA-256) of a message can be computed by anyone. An HMAC requires a secret key, so only parties who know the key can produce or verify the MAC. This prevents attackers from forging valid hashes.</p>
+
+    <h3>How do I verify a GitHub webhook with HMAC?</h3>
+    <p>GitHub signs webhook payloads with HMAC-SHA256 using your webhook secret as the key. Compute HMAC-SHA256 of the raw request body with your secret, prefix it with "sha256=", and compare it to the X-Hub-Signature-256 header using a constant-time comparison.</p>
+
+    <h3>Which hash algorithm should I use with HMAC?</h3>
+    <p>HMAC-SHA256 is the most common and recommended choice. It offers a good balance of security and performance. HMAC-SHA512 provides a longer MAC but is rarely needed. Avoid HMAC-MD5 and HMAC-SHA1 for new systems.</p>
     </section>
   </div>
 

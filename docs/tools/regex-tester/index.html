@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Regex Tester free?",
+      "name": "What does .* mean in regex?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": ". matches any single character except newline. * means zero or more of the preceding element. So .* means \"match any characters, any number of times\" — essentially a wildcard for an entire section of text."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What is the difference between greedy and lazy matching?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Greedy matching (default) matches as much text as possible. Lazy matching (add ? after a quantifier, e.g. .*?) matches as little as possible. For example, <.+> on \"<b>hello</b>\" — greedy returns the whole string, lazy returns just \"<b>\"."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Regex Tester do?",
+      "name": "How do I test a regex for email validation?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online regex tester. Test regular expressions in real-time with match highlighting, group capture, and flag support."
+        "text": "A basic email regex is: ^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$ — paste it into the pattern field and test with valid and invalid emails. Note that fully RFC 5322-compliant email validation via regex is extremely complex — for production use, validate via DNS or a sending attempt instead."
       }
     }
   ]
@@ -217,6 +217,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Enter your regular expression in the pattern field.</li><li>Paste test text in the input area.</li><li>Matches are highlighted in real-time as you type.</li><li>Add flags: g (global), i (case-insensitive), m (multiline).</li></ol><h3>Quick regex reference</h3><ul><li><code>\d</code> — digit (0-9)</li><li><code>\w</code> — word character (a-z, A-Z, 0-9, _)</li><li><code>\s</code> — whitespace</li><li><code>+</code> — one or more</li><li><code>*</code> — zero or more</li><li><code>?</code> — zero or one</li><li><code>^</code> — start of line</li><li><code>$</code> — end of line</li><li><code>[abc]</code> — character class</li><li><code>(group)</code> — capture group</li></ul>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is a Regular Expression?</h2>
+      <p>A regular expression (regex or regexp) is a sequence of characters that defines a search pattern. Regex engines use these patterns to find, match, replace, or split strings. They are supported natively in virtually every programming language and are essential for text processing, validation, and parsing tasks.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Form validation — validate email addresses, phone numbers, postcodes</li>
+      <li>Log parsing — extract timestamps, error codes, and IP addresses from logs</li>
+      <li>Find and replace in code editors and terminal (grep, sed, awk)</li>
+      <li>URL routing — matching dynamic path segments in web frameworks</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What does .* mean in regex?</h3>
+    <p>. matches any single character except newline. * means zero or more of the preceding element. So .* means "match any characters, any number of times" — essentially a wildcard for an entire section of text.</p>
+
+    <h3>What is the difference between greedy and lazy matching?</h3>
+    <p>Greedy matching (default) matches as much text as possible. Lazy matching (add ? after a quantifier, e.g. .*?) matches as little as possible. For example, <.+> on "<b>hello</b>" — greedy returns the whole string, lazy returns just "<b>".</p>
+
+    <h3>How do I test a regex for email validation?</h3>
+    <p>A basic email regex is: ^[^\s@]+@[^\s@]+\.[^\s@]+$ — paste it into the pattern field and test with valid and invalid emails. Note that fully RFC 5322-compliant email validation via regex is extremely complex — for production use, validate via DNS or a sending attempt instead.</p>
     </section>
   </div>
 

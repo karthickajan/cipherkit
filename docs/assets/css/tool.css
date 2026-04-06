@@ -180,6 +180,44 @@
   border:     1px solid var(--border);
 }
 
+/* ── SEO CONTENT SECTION ─────────────────────────────────────────────────── */
+.seo-content {
+  background:    var(--surface);
+  border:        1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding:       28px;
+  margin-top:    24px;
+}
+.seo-content h2 {
+  font-size:     16px;
+  margin-bottom: 12px;
+  color:         var(--text);
+}
+.seo-content h2:not(:first-child) {
+  margin-top: 28px;
+}
+.seo-content h3 {
+  font-size:     14px;
+  color:         var(--green);
+  margin-top:    20px;
+  margin-bottom: 6px;
+}
+.seo-content p {
+  font-size:     13px;
+  color:         var(--muted);
+  line-height:   1.8;
+  margin-bottom: 8px;
+}
+.seo-content ul {
+  padding-left:  20px;
+  color:         var(--muted);
+  font-size:     13px;
+  line-height:   1.9;
+}
+.seo-content ul li {
+  margin-bottom: 4px;
+}
+
 /* ── SHARED TOOL UI COMPONENTS ───────────────────────────────────────────── */
 
 /* Two-column tool layout */

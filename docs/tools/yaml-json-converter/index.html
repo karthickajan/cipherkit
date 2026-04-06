@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the YAML to JSON Converter free?",
+      "name": "What is the main difference between YAML and JSON?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "YAML is a superset of JSON — all valid JSON is valid YAML. YAML adds human-friendly features: no quotes needed for strings, comments (# syntax), multiline strings, and indentation-based structure instead of braces. JSON is stricter but universally supported by parsers."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Why does my YAML fail to convert?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Common issues: inconsistent indentation (mix of tabs and spaces), missing colons after keys, or special characters in unquoted strings. YAML is whitespace-sensitive — use spaces only, never tabs."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the YAML to JSON Converter do?",
+      "name": "Can I convert JSON to YAML?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online YAML to JSON converter. Convert YAML configuration files or data to JSON format instantly in your browser."
+        "text": "Yes. CipherKit supports bidirectional conversion. Paste valid JSON and it will be converted to properly indented YAML with correct formatting."
       }
     }
   ]
@@ -221,6 +221,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Choose <strong>direction</strong> (YAML → JSON or JSON → YAML).</li><li><strong>Paste data</strong> and click <strong>Convert</strong>.</li></ol><p>Supports common YAML features: key-value pairs, nested objects, lists, inline arrays/objects, block scalars (<code>|</code> and <code>&gt;</code>), comments, and quoted strings. For complex YAML with anchors and aliases, consider a full YAML library.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is YAML to JSON Conversion?</h2>
+      <p>YAML (YAML Ain't Markup Language) is a human-friendly data serialisation format widely used in configuration files (Docker Compose, Kubernetes, GitHub Actions, Ansible). JSON is the standard data format for APIs and JavaScript. Converting between them is a common developer task when moving configs between tools.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Converting Kubernetes or Docker Compose YAML to JSON for API submissions</li>
+      <li>Transforming GitHub Actions workflow files for inspection or processing</li>
+      <li>Converting OpenAPI/Swagger YAML specs to JSON format</li>
+      <li>Debugging YAML config files by viewing them as JSON</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is the main difference between YAML and JSON?</h3>
+    <p>YAML is a superset of JSON — all valid JSON is valid YAML. YAML adds human-friendly features: no quotes needed for strings, comments (# syntax), multiline strings, and indentation-based structure instead of braces. JSON is stricter but universally supported by parsers.</p>
+
+    <h3>Why does my YAML fail to convert?</h3>
+    <p>Common issues: inconsistent indentation (mix of tabs and spaces), missing colons after keys, or special characters in unquoted strings. YAML is whitespace-sensitive — use spaces only, never tabs.</p>
+
+    <h3>Can I convert JSON to YAML?</h3>
+    <p>Yes. CipherKit supports bidirectional conversion. Paste valid JSON and it will be converted to properly indented YAML with correct formatting.</p>
     </section>
   </div>
 

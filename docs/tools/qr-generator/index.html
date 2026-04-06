@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the QR Code Generator free?",
+      "name": "How much data can a QR code hold?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "A QR code can hold up to 4,296 alphanumeric characters or 7,089 numeric characters. In practice, shorter data (like a URL) produces a less dense QR code that's easier to scan, especially when printed small."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What is QR code error correction?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "QR codes have built-in error correction that allows them to be read even if partially damaged or obscured. Level L (7 %), M (15 %), Q (25 %), H (30 %) — higher levels add redundancy at the cost of a denser code."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the QR Code Generator do?",
+      "name": "Can I add a logo to the centre of a QR code?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online QR code generator. Create QR codes from text, URLs, or data with customizable size, error correction, and colors."
+        "text": "Yes — QR codes use error correction, so a logo covering up to ~30 % of the code (Level H) can still be scanned. CipherKit generates standard QR codes which you can overlay a logo onto using any image editor."
       }
     }
   ]
@@ -221,6 +221,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Enter <strong>text or URL</strong> to encode.</li><li>Choose size, error correction level, and colors.</li><li>Click <strong>Generate QR Code</strong>.</li><li>Download as PNG.</li></ol><p>Uses qrcode.js library. Supports custom foreground/background colors and 4 error correction levels.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is a QR Code?</h2>
+      <p>A QR (Quick Response) code is a two-dimensional barcode that encodes data (URLs, text, contact info) in a matrix of black and white squares. Invented by Denso Wave in 1994, QR codes can store up to 4,296 characters and are readable by any smartphone camera.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Encoding URLs for print materials, business cards, and posters</li>
+      <li>Sharing Wi-Fi credentials without typing (WIFI:S:networkname;T:WPA;P:password;;)</li>
+      <li>Contactless menus, payment links, and event check-ins</li>
+      <li>Encoding app download links for mobile marketing campaigns</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>How much data can a QR code hold?</h3>
+    <p>A QR code can hold up to 4,296 alphanumeric characters or 7,089 numeric characters. In practice, shorter data (like a URL) produces a less dense QR code that's easier to scan, especially when printed small.</p>
+
+    <h3>What is QR code error correction?</h3>
+    <p>QR codes have built-in error correction that allows them to be read even if partially damaged or obscured. Level L (7 %), M (15 %), Q (25 %), H (30 %) — higher levels add redundancy at the cost of a denser code.</p>
+
+    <h3>Can I add a logo to the centre of a QR code?</h3>
+    <p>Yes — QR codes use error correction, so a logo covering up to ~30 % of the code (Level H) can still be scanned. CipherKit generates standard QR codes which you can overlay a logo onto using any image editor.</p>
     </section>
   </div>
 

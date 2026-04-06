@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Base64 Encoder free?",
+      "name": "Is Base64 the same as encryption?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "No. Base64 is encoding, not encryption. Anyone can decode a Base64 string instantly — it provides no security. Use AES or RSA for actual encryption."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What is the difference between standard Base64 and URL-safe Base64?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Standard Base64 uses + and / characters which have special meaning in URLs. URL-safe Base64 replaces + with - and / with _ so the output can be safely used in URLs and filenames without percent-encoding."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Base64 Encoder do?",
+      "name": "Why does my Base64 string end with = or ==?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online Base64 encoder. Encode any text or string to Base64 format instantly in your browser. Supports standard and URL-safe Base64."
+        "text": "The = characters are padding. Base64 encodes 3 bytes at a time into 4 characters. If the input length isn't divisible by 3, padding is added to make the output a multiple of 4 characters."
       }
     }
   ]
@@ -225,6 +225,30 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Paste text or drag-drop a file into the input.</li><li>The Base64-encoded output appears instantly.</li><li>Toggle <strong>URL-safe</strong> mode to replace + and / with - and _ (safe for URLs and filenames).</li><li>Copy or download the result.</li></ol><h3>What is Base64?</h3><p>Base64 is an encoding scheme that converts binary data into ASCII text using 64 printable characters (A-Z, a-z, 0-9, +, /). It is not encryption — it is purely an encoding format.</p><h3>Common uses</h3><ul><li><strong>Email attachments</strong> — MIME encoding for binary files in email</li><li><strong>Data URIs</strong> — embed images directly in HTML/CSS as base64 strings</li><li><strong>API payloads</strong> — safely transmit binary data in JSON</li><li><strong>JWT tokens</strong> — the header and payload sections are Base64URL encoded</li><li><strong>Basic Auth</strong> — HTTP Basic Authentication encodes credentials as Base64</li></ul><p><strong>Note:</strong> Base64 increases data size by ~33%. It is not suitable for large files.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is Base64 Encoding?</h2>
+      <p>Base64 is an encoding scheme that converts binary data into ASCII text using 64 printable characters (A–Z, a–z, 0–9, +, /). It was designed for safely transmitting binary data over systems built to handle text, like email (MIME) and HTTP headers. Encoding increases data size by roughly 33 % but ensures safe transmission across any text-based channel.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Encoding images or files as data URIs in HTML/CSS (src="data:image/png;base64,…")</li>
+      <li>Sending binary data in JSON API payloads</li>
+      <li>HTTP Basic Auth header encoding (username:password → Base64)</li>
+      <li>Storing binary data in environment variables or config files</li>
+      <li>JWT token payloads are Base64URL-encoded</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>Is Base64 the same as encryption?</h3>
+    <p>No. Base64 is encoding, not encryption. Anyone can decode a Base64 string instantly — it provides no security. Use AES or RSA for actual encryption.</p>
+
+    <h3>What is the difference between standard Base64 and URL-safe Base64?</h3>
+    <p>Standard Base64 uses + and / characters which have special meaning in URLs. URL-safe Base64 replaces + with - and / with _ so the output can be safely used in URLs and filenames without percent-encoding.</p>
+
+    <h3>Why does my Base64 string end with = or ==?</h3>
+    <p>The = characters are padding. Base64 encodes 3 bytes at a time into 4 characters. If the input length isn't divisible by 3, padding is added to make the output a multiple of 4 characters.</p>
     </section>
   </div>
 

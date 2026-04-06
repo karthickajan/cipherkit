@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the JSON Formatter & Validator free?",
+      "name": "How do I validate JSON online?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Paste your JSON into the formatter. If it contains errors, the validator will highlight the exact line and character where the syntax breaks. Common errors include trailing commas, unquoted keys, and single quotes instead of double quotes."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What is the difference between JSON and JavaScript objects?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "JSON is a strict text format — all keys must be double-quoted strings, trailing commas are not allowed, and functions are not supported. JavaScript objects are more flexible and are runtime constructs, not text."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the JSON Formatter & Validator do?",
+      "name": "What does \"unexpected token\" mean in JSON?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online JSON formatter and validator. Beautify, format, and validate JSON data instantly. Supports syntax highlighting and error detection."
+        "text": "It means the parser found a character it didn't expect. Common causes: a trailing comma after the last item in an array or object, single quotes instead of double quotes, or an unquoted key name."
       }
     }
   ]
@@ -225,6 +225,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Paste raw or minified JSON into the input field.</li><li>Click <strong>Format</strong> to beautify with syntax highlighting.</li><li>Use the <strong>tree view</strong> to collapse and expand individual nodes.</li><li>Click any key to copy its JSON path.</li><li>Use <strong>Search</strong> to find keys in large JSON objects.</li></ol><h3>What does this tool do?</h3><p>The JSON Formatter validates your JSON for syntax errors and displays it in a readable, indented format with colour-coded keys, strings, numbers, and booleans. The collapsible tree view lets you navigate large JSON structures without scrolling through thousands of lines.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is a JSON Formatter?</h2>
+      <p>A JSON formatter (also called JSON beautifier or JSON prettifier) takes minified or unformatted JSON and adds proper indentation and line breaks to make it human-readable. JSON (JavaScript Object Notation) is a lightweight data format widely used in APIs, config files, and data storage.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Formatting API responses for debugging and readability</li>
+      <li>Validating JSON structure before using it in code</li>
+      <li>Prettifying JSON config files (package.json, tsconfig.json, etc.)</li>
+      <li>Inspecting nested JSON objects and arrays from logs</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>How do I validate JSON online?</h3>
+    <p>Paste your JSON into the formatter. If it contains errors, the validator will highlight the exact line and character where the syntax breaks. Common errors include trailing commas, unquoted keys, and single quotes instead of double quotes.</p>
+
+    <h3>What is the difference between JSON and JavaScript objects?</h3>
+    <p>JSON is a strict text format — all keys must be double-quoted strings, trailing commas are not allowed, and functions are not supported. JavaScript objects are more flexible and are runtime constructs, not text.</p>
+
+    <h3>What does "unexpected token" mean in JSON?</h3>
+    <p>It means the parser found a character it didn't expect. Common causes: a trailing comma after the last item in an array or object, single quotes instead of double quotes, or an unquoted key name.</p>
     </section>
   </div>
 

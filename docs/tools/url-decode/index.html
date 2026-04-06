@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the URL Decoder free?",
+      "name": "Why do I see %20 in my URL?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "%20 is the URL-encoded form of a space character. Spaces are not allowed in URLs so browsers and servers automatically encode them. You'll also see this in file download URLs that contain spaces in the filename."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What is the difference between decodeURI and decodeURIComponent in JavaScript?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "decodeURI decodes a full URL but preserves structural characters like /, ?, &amp;. decodeURIComponent decodes everything including those structural characters — use it for decoding individual parameter values, not entire URLs."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the URL Decoder do?",
+      "name": "Is it safe to decode URLs in the browser?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online URL decoder. Decode percent-encoded URLs and query strings back to readable text instantly in your browser."
+        "text": "Yes. CipherKit runs 100 % client-side — no data is sent to any server. It is safe to decode any URL here, including those containing sensitive query parameters."
       }
     }
   ]
@@ -221,6 +221,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li><strong>Paste a percent-encoded URL</strong> into the input field.</li><li>Click <strong>Decode</strong> to convert back to readable text.</li></ol><p>URL decoding converts percent-encoded characters (like <code>%20</code> for space, <code>%3D</code> for <code>=</code>) back to their original characters.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is URL Decoding?</h2>
+      <p>URL decoding reverses percent-encoding, converting %XX sequences back to their original characters. For example %20 becomes a space, %40 becomes @, %2F becomes /. This is essential when reading URL parameters that were encoded before transmission.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Decoding query parameters from server logs or analytics data</li>
+      <li>Debugging encoded redirects and OAuth callback URLs</li>
+      <li>Reading encoded data from browser URL bars</li>
+      <li>Inspecting encoded API request parameters</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>Why do I see %20 in my URL?</h3>
+    <p>%20 is the URL-encoded form of a space character. Spaces are not allowed in URLs so browsers and servers automatically encode them. You'll also see this in file download URLs that contain spaces in the filename.</p>
+
+    <h3>What is the difference between decodeURI and decodeURIComponent in JavaScript?</h3>
+    <p>decodeURI decodes a full URL but preserves structural characters like /, ?, &amp;. decodeURIComponent decodes everything including those structural characters — use it for decoding individual parameter values, not entire URLs.</p>
+
+    <h3>Is it safe to decode URLs in the browser?</h3>
+    <p>Yes. CipherKit runs 100 % client-side — no data is sent to any server. It is safe to decode any URL here, including those containing sensitive query parameters.</p>
     </section>
   </div>
 

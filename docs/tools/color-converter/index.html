@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Color Code Converter free?",
+      "name": "What is the difference between RGB and HSL?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "RGB (Red, Green, Blue) defines colour by mixing light primaries. HSL (Hue, Saturation, Lightness) is more intuitive for humans — hue is the colour type (0–360°), saturation is intensity, lightness is brightness. HSL makes it easy to create colour variants (e.g., change only lightness for hover states)."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What does the alpha channel mean in RGBA/HSLA?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Alpha represents opacity from 0 (fully transparent) to 1 (fully opaque). rgba(255,0,0,0.5) is a 50 % transparent red."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Color Code Converter do?",
+      "name": "How do I convert a HEX colour to RGB?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online color code converter. Convert colors between HEX, RGB, RGBA, HSL, and HSV formats instantly with a visual color picker."
+        "text": "Split the 6-digit hex into 3 pairs (RR, GG, BB) and convert each from hexadecimal to decimal. For example, #FF5733 → R=255, G=87, B=51 → rgb(255, 87, 51). CipherKit does this conversion instantly."
       }
     }
   ]
@@ -213,6 +213,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Use the <strong>color picker</strong> or type a color in any format (HEX, RGB, HSL).</li><li>All formats update automatically.</li></ol><p>Convert between <code>#hex</code>, <code>rgb(r,g,b)</code>, and <code>hsl(h,s%,l%)</code> instantly. Copy any format with one click.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is a Color Code Converter?</h2>
+      <p>A color code converter translates colours between different notation systems used in web development and design: HEX (#ff5733), RGB (rgb(255,87,51)), HSL (hsl(11,100%,60%)), RGBA, and HSV. Each format represents the same colour differently — HEX and RGB for web/CSS, HSL for human-intuitive adjustments.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Converting design tool colours (Figma outputs HSL, CSS uses HEX)</li>
+      <li>Adjusting colour lightness/saturation in HSL format</li>
+      <li>Converting brand colours between formats for consistency</li>
+      <li>Debugging CSS colour values that aren't rendering as expected</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is the difference between RGB and HSL?</h3>
+    <p>RGB (Red, Green, Blue) defines colour by mixing light primaries. HSL (Hue, Saturation, Lightness) is more intuitive for humans — hue is the colour type (0–360°), saturation is intensity, lightness is brightness. HSL makes it easy to create colour variants (e.g., change only lightness for hover states).</p>
+
+    <h3>What does the alpha channel mean in RGBA/HSLA?</h3>
+    <p>Alpha represents opacity from 0 (fully transparent) to 1 (fully opaque). rgba(255,0,0,0.5) is a 50 % transparent red.</p>
+
+    <h3>How do I convert a HEX colour to RGB?</h3>
+    <p>Split the 6-digit hex into 3 pairs (RR, GG, BB) and convert each from hexadecimal to decimal. For example, #FF5733 → R=255, G=87, B=51 → rgb(255, 87, 51). CipherKit does this conversion instantly.</p>
     </section>
   </div>
 

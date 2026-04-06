@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Text Diff Checker free?",
+      "name": "What algorithm does this diff checker use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "CipherKit uses LCS (Longest Common Subsequence), the standard algorithm for diff computation. It finds the longest sequence of lines that appear in both texts in the same order, then marks everything else as added or removed. This is the same approach as git diff."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Can I compare code files?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Yes. Paste any text — code, JSON, YAML, config files, prose — into both panels. For file comparison, use the upload button to load files directly without copy-pasting."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Text Diff Checker do?",
+      "name": "What does the gutter bar on the right show?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online text diff checker. Compare two blocks of text and highlight the differences line by line. Useful for code reviews and document comparison."
+        "text": "The gutter bar is a proportional minimap of the entire diff. Red and green marks show where changes are located relative to the full document length. Click anywhere on the gutter to jump to that position."
       }
     }
   ]
@@ -221,6 +221,29 @@
       <div class="usage-content" id="usage-content">
         
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is a Text Diff Checker?</h2>
+      <p>A diff checker compares two versions of text and highlights the differences — added lines (green), removed lines (red), and unchanged lines. The underlying algorithm is LCS (Longest Common Subsequence), the same algorithm used by git diff and most code review tools. CipherKit's diff checker adds inline character-level highlighting within changed lines.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Comparing two versions of a configuration file or code snippet</li>
+      <li>Reviewing changes in documents before accepting them</li>
+      <li>Finding differences between API responses across environments</li>
+      <li>Comparing original vs modified text to audit changes</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What algorithm does this diff checker use?</h3>
+    <p>CipherKit uses LCS (Longest Common Subsequence), the standard algorithm for diff computation. It finds the longest sequence of lines that appear in both texts in the same order, then marks everything else as added or removed. This is the same approach as git diff.</p>
+
+    <h3>Can I compare code files?</h3>
+    <p>Yes. Paste any text — code, JSON, YAML, config files, prose — into both panels. For file comparison, use the upload button to load files directly without copy-pasting.</p>
+
+    <h3>What does the gutter bar on the right show?</h3>
+    <p>The gutter bar is a proportional minimap of the entire diff. Red and green marks show where changes are located relative to the full document length. Click anywhere on the gutter to jump to that position.</p>
     </section>
   </div>
 

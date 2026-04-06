@@ -1,0 +1,554 @@
+{
+  "base64-encode": {
+    "heading": "Base64 Encoding",
+    "description": "Base64 is an encoding scheme that converts binary data into ASCII text using 64 printable characters (A–Z, a–z, 0–9, +, /). It was designed for safely transmitting binary data over systems built to handle text, like email (MIME) and HTTP headers. Encoding increases data size by roughly 33 % but ensures safe transmission across any text-based channel.",
+    "commonUses": [
+      "Encoding images or files as data URIs in HTML/CSS (src=\"data:image/png;base64,…\")",
+      "Sending binary data in JSON API payloads",
+      "HTTP Basic Auth header encoding (username:password → Base64)",
+      "Storing binary data in environment variables or config files",
+      "JWT token payloads are Base64URL-encoded"
+    ],
+    "faq": [
+      {
+        "q": "Is Base64 the same as encryption?",
+        "a": "No. Base64 is encoding, not encryption. Anyone can decode a Base64 string instantly — it provides no security. Use AES or RSA for actual encryption."
+      },
+      {
+        "q": "What is the difference between standard Base64 and URL-safe Base64?",
+        "a": "Standard Base64 uses + and / characters which have special meaning in URLs. URL-safe Base64 replaces + with - and / with _ so the output can be safely used in URLs and filenames without percent-encoding."
+      },
+      {
+        "q": "Why does my Base64 string end with = or ==?",
+        "a": "The = characters are padding. Base64 encodes 3 bytes at a time into 4 characters. If the input length isn't divisible by 3, padding is added to make the output a multiple of 4 characters."
+      }
+    ]
+  },
+  "base64-decode": {
+    "heading": "Base64 Decoding",
+    "description": "Base64 decoding reverses the encoding process, converting Base64-encoded ASCII text back to its original binary or text form. The decoder reads groups of 4 Base64 characters and converts them back to 3 bytes of original data.",
+    "commonUses": [
+      "Inspecting JWT token payloads (header and payload are Base64URL-encoded)",
+      "Decoding images or files embedded as data URIs",
+      "Debugging API responses that contain Base64-encoded fields",
+      "Reading Base64-encoded email attachments (MIME format)"
+    ],
+    "faq": [
+      {
+        "q": "Why do I get garbled output when decoding?",
+        "a": "The original data was binary (like an image or compressed file), not plain text. Base64 can encode any binary data — if the original wasn't text, decoding to text will show garbled characters."
+      },
+      {
+        "q": "Can I decode a JWT with this tool?",
+        "a": "Yes for the header and payload — split the JWT at the dots, take the first or second part, and decode it. The signature (third part) is a cryptographic hash and won't decode to readable text."
+      },
+      {
+        "q": "Is Base64 decoding safe to do online?",
+        "a": "CipherKit runs 100 % in your browser — no data is sent to any server. It is safe to decode sensitive Base64 strings here."
+      }
+    ]
+  },
+  "sha256-generator": {
+    "heading": "SHA-256 Hashing",
+    "description": "SHA-256 (Secure Hash Algorithm 256-bit) is a cryptographic hash function that converts any input into a fixed 64-character hexadecimal string. It is part of the SHA-2 family, designed by the NSA and published by NIST in 2001. SHA-256 is used in TLS/SSL certificates, blockchain, digital signatures, and file integrity verification.",
+    "commonUses": [
+      "File integrity verification — compare hashes before and after download",
+      "Digital signatures in SSL/TLS certificates and code signing",
+      "Blockchain — Bitcoin uses SHA-256 for block hashing and proof-of-work",
+      "Password storage (though bcrypt or Argon2 are preferred for passwords)"
+    ],
+    "faq": [
+      {
+        "q": "Can SHA-256 be reversed or decrypted?",
+        "a": "No. SHA-256 is a one-way function — you cannot reverse a hash to get the original input. The only way to find an input that produces a given hash is brute-force, which is computationally infeasible for SHA-256."
+      },
+      {
+        "q": "Is SHA-256 still secure?",
+        "a": "Yes. As of 2026, SHA-256 has no known practical attacks. It remains the standard for cryptographic hashing and is used by Bitcoin, TLS 1.3, and virtually all modern security systems."
+      },
+      {
+        "q": "What is the difference between SHA-256 and SHA-512?",
+        "a": "SHA-256 produces a 256-bit (64 hex character) hash, while SHA-512 produces a 512-bit (128 hex character) hash. SHA-512 is slightly faster on 64-bit systems but both are equally secure for practical purposes."
+      }
+    ]
+  },
+  "md5-generator": {
+    "heading": "MD5",
+    "description": "MD5 (Message Digest Algorithm 5) is a widely used cryptographic hash function that produces a 128-bit (32 hex character) hash value. Created in 1991 by Ronald Rivest, MD5 is fast and universally supported, though it is no longer considered cryptographically secure due to known collision vulnerabilities.",
+    "commonUses": [
+      "File integrity verification — compare MD5 checksums before and after download",
+      "Checksums in software distribution (not for security, just for corruption detection)",
+      "Database deduplication — hash content to find duplicate records",
+      "Legacy system compatibility where MD5 is still required"
+    ],
+    "faq": [
+      {
+        "q": "Is MD5 safe for passwords?",
+        "a": "No. Never use MD5 for password storage. It is fast (meaning brute-force is easy), has known collision attacks, and rainbow tables exist for common passwords. Use bcrypt, scrypt, or Argon2 for passwords."
+      },
+      {
+        "q": "What is the difference between MD5 and SHA-256?",
+        "a": "MD5 produces a 32-character hash and is broken for security purposes. SHA-256 produces a 64-character hash and remains cryptographically secure. Use SHA-256 for any security-sensitive hashing."
+      },
+      {
+        "q": "Can MD5 be reversed?",
+        "a": "MD5 is a one-way function and cannot be mathematically reversed. However, precomputed rainbow tables exist for common strings, so simple inputs like passwords can be \"cracked\" by lookup. For arbitrary data this is not feasible."
+      }
+    ]
+  },
+  "jwt-decoder": {
+    "heading": "a JWT",
+    "description": "A JSON Web Token (JWT) is a compact, URL-safe token format used for securely transmitting information between parties as a JSON object. A JWT has three parts separated by dots: Header (algorithm and token type), Payload (claims/data), and Signature (verification). The header and payload are Base64URL-encoded — not encrypted — so anyone can read them.",
+    "commonUses": [
+      "Debugging authentication issues in APIs and web apps",
+      "Inspecting token expiry (exp claim) to diagnose \"token expired\" errors",
+      "Verifying token structure in OAuth 2.0 and OpenID Connect flows",
+      "Reading user claims (sub, email, roles) from a token during development"
+    ],
+    "faq": [
+      {
+        "q": "Is it safe to paste my JWT into an online decoder?",
+        "a": "CipherKit decodes JWTs 100 % in your browser — no data is sent to any server. However, treat JWTs as sensitive — they may contain user data and are used for authentication. For production tokens, using a client-side tool like CipherKit is the safe choice."
+      },
+      {
+        "q": "Why can I read the JWT payload without a secret key?",
+        "a": "JWT payloads are only encoded (Base64URL), not encrypted. Anyone who has the token can read the payload. The signature prevents tampering but does not hide the data. Never put sensitive data in a JWT payload unless using JWE (encrypted JWTs)."
+      },
+      {
+        "q": "What does \"signature not verified\" mean?",
+        "a": "It means the decoder cannot confirm the token was signed with a valid key. To verify a signature you need the secret key (HS256) or public key (RS256). You can still read the header and payload without verification."
+      }
+    ]
+  },
+  "uuid-generator": {
+    "heading": "a UUID",
+    "description": "A UUID (Universally Unique Identifier), also called GUID, is a 128-bit identifier formatted as 8-4-4-4-12 hexadecimal characters (e.g., 550e8400-e29b-41d4-a716-446655440000). UUID v4 is randomly generated using a cryptographically secure random number generator, making collisions statistically impossible (1 in 5.3×10³⁶ chance).",
+    "commonUses": [
+      "Database primary keys — avoids sequential IDs that expose record counts",
+      "Distributed systems — generate unique IDs without a central coordinator",
+      "File naming — unique filenames for user uploads to avoid collisions",
+      "Session tokens and correlation IDs for request tracing"
+    ],
+    "faq": [
+      {
+        "q": "What is the difference between UUID v1 and UUID v4?",
+        "a": "UUID v1 is generated from the current timestamp and MAC address of the machine — it encodes when and where it was created. UUID v4 is purely random. For most use cases, v4 is preferred because it doesn't leak machine or time information."
+      },
+      {
+        "q": "Can two UUIDs ever be the same?",
+        "a": "In theory yes, in practice no. The probability of generating a duplicate UUID v4 is approximately 1 in 5.3 undecillion. You would need to generate 1 billion UUIDs per second for 85 years to have a 50 % chance of a single collision."
+      },
+      {
+        "q": "Is UUID the same as GUID?",
+        "a": "Yes. GUID (Globally Unique Identifier) is Microsoft's term for the same concept. They follow the same RFC 4122 standard and are interchangeable."
+      }
+    ]
+  },
+  "url-encode": {
+    "heading": "URL Encoding",
+    "description": "URL encoding (also called percent-encoding) converts characters that are not allowed in URLs into a safe format using a % followed by two hex digits. For example, a space becomes %20, &amp; becomes %26. This is required by RFC 3986 for any character outside the unreserved set (A–Z, a–z, 0–9, -, _, ., ~).",
+    "commonUses": [
+      "Encoding query string parameters before appending to URLs",
+      "Safely passing special characters like &amp;, =, +, #, ? in URL parameters",
+      "Encoding form data submitted via GET requests",
+      "Building API request URLs programmatically"
+    ],
+    "faq": [
+      {
+        "q": "What is the difference between URL encoding and Base64 encoding?",
+        "a": "URL encoding makes text safe to include in URLs using % notation. Base64 encoding converts binary data to ASCII text. They serve different purposes — URL encoding is for URLs, Base64 is for data transmission."
+      },
+      {
+        "q": "Why does + sometimes mean a space in URLs?",
+        "a": "In the application/x-www-form-urlencoded format (HTML forms), + represents a space. In strict RFC 3986 URL encoding, a space is %20. This is why URL-safe Base64 uses - instead of + — to avoid this ambiguity."
+      },
+      {
+        "q": "Should I encode the entire URL or just the parameters?",
+        "a": "Only encode the parameter values (and keys), not the entire URL. Encoding the full URL would also encode the /, ?, and &amp; characters that give the URL its structure."
+      }
+    ]
+  },
+  "url-decode": {
+    "heading": "URL Decoding",
+    "description": "URL decoding reverses percent-encoding, converting %XX sequences back to their original characters. For example %20 becomes a space, %40 becomes @, %2F becomes /. This is essential when reading URL parameters that were encoded before transmission.",
+    "commonUses": [
+      "Decoding query parameters from server logs or analytics data",
+      "Debugging encoded redirects and OAuth callback URLs",
+      "Reading encoded data from browser URL bars",
+      "Inspecting encoded API request parameters"
+    ],
+    "faq": [
+      {
+        "q": "Why do I see %20 in my URL?",
+        "a": "%20 is the URL-encoded form of a space character. Spaces are not allowed in URLs so browsers and servers automatically encode them. You'll also see this in file download URLs that contain spaces in the filename."
+      },
+      {
+        "q": "What is the difference between decodeURI and decodeURIComponent in JavaScript?",
+        "a": "decodeURI decodes a full URL but preserves structural characters like /, ?, &amp;. decodeURIComponent decodes everything including those structural characters — use it for decoding individual parameter values, not entire URLs."
+      },
+      {
+        "q": "Is it safe to decode URLs in the browser?",
+        "a": "Yes. CipherKit runs 100 % client-side — no data is sent to any server. It is safe to decode any URL here, including those containing sensitive query parameters."
+      }
+    ]
+  },
+  "json-formatter": {
+    "heading": "a JSON Formatter",
+    "description": "A JSON formatter (also called JSON beautifier or JSON prettifier) takes minified or unformatted JSON and adds proper indentation and line breaks to make it human-readable. JSON (JavaScript Object Notation) is a lightweight data format widely used in APIs, config files, and data storage.",
+    "commonUses": [
+      "Formatting API responses for debugging and readability",
+      "Validating JSON structure before using it in code",
+      "Prettifying JSON config files (package.json, tsconfig.json, etc.)",
+      "Inspecting nested JSON objects and arrays from logs"
+    ],
+    "faq": [
+      {
+        "q": "How do I validate JSON online?",
+        "a": "Paste your JSON into the formatter. If it contains errors, the validator will highlight the exact line and character where the syntax breaks. Common errors include trailing commas, unquoted keys, and single quotes instead of double quotes."
+      },
+      {
+        "q": "What is the difference between JSON and JavaScript objects?",
+        "a": "JSON is a strict text format — all keys must be double-quoted strings, trailing commas are not allowed, and functions are not supported. JavaScript objects are more flexible and are runtime constructs, not text."
+      },
+      {
+        "q": "What does \"unexpected token\" mean in JSON?",
+        "a": "It means the parser found a character it didn't expect. Common causes: a trailing comma after the last item in an array or object, single quotes instead of double quotes, or an unquoted key name."
+      }
+    ]
+  },
+  "regex-tester": {
+    "heading": "a Regular Expression",
+    "description": "A regular expression (regex or regexp) is a sequence of characters that defines a search pattern. Regex engines use these patterns to find, match, replace, or split strings. They are supported natively in virtually every programming language and are essential for text processing, validation, and parsing tasks.",
+    "commonUses": [
+      "Form validation — validate email addresses, phone numbers, postcodes",
+      "Log parsing — extract timestamps, error codes, and IP addresses from logs",
+      "Find and replace in code editors and terminal (grep, sed, awk)",
+      "URL routing — matching dynamic path segments in web frameworks"
+    ],
+    "faq": [
+      {
+        "q": "What does .* mean in regex?",
+        "a": ". matches any single character except newline. * means zero or more of the preceding element. So .* means \"match any characters, any number of times\" — essentially a wildcard for an entire section of text."
+      },
+      {
+        "q": "What is the difference between greedy and lazy matching?",
+        "a": "Greedy matching (default) matches as much text as possible. Lazy matching (add ? after a quantifier, e.g. .*?) matches as little as possible. For example, <.+> on \"<b>hello</b>\" — greedy returns the whole string, lazy returns just \"<b>\"."
+      },
+      {
+        "q": "How do I test a regex for email validation?",
+        "a": "A basic email regex is: ^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$ — paste it into the pattern field and test with valid and invalid emails. Note that fully RFC 5322-compliant email validation via regex is extremely complex — for production use, validate via DNS or a sending attempt instead."
+      }
+    ]
+  },
+  "random-password-generator": {
+    "heading": "a Secure Password Generator",
+    "description": "A cryptographically secure password generator uses the browser's Web Crypto API (crypto.getRandomValues) to generate truly random passwords. Unlike Math.random() which is pseudorandom and predictable, Web Crypto produces randomness suitable for security-sensitive applications.",
+    "commonUses": [
+      "Generating strong passwords for new accounts",
+      "Creating API keys and service account passwords",
+      "Generating temporary passwords for user onboarding",
+      "Creating passphrases for encrypted archives or vaults"
+    ],
+    "faq": [
+      {
+        "q": "How long should a secure password be?",
+        "a": "NIST guidelines recommend at least 12 characters, with 16+ being better. Length matters more than complexity — a 20-character random lowercase string is stronger than an 8-character mixed-case string with symbols."
+      },
+      {
+        "q": "Is it safe to generate passwords in a browser?",
+        "a": "CipherKit uses the Web Crypto API (crypto.getRandomValues) which provides cryptographically strong randomness and runs entirely in your browser. No generated password is ever transmitted or stored."
+      },
+      {
+        "q": "What characters should a strong password include?",
+        "a": "A combination of uppercase letters, lowercase letters, numbers, and symbols maximises the character space. For a 16-character password with 94 possible characters, there are 94¹⁶ ≈ 3.7×10³¹ possible combinations."
+      }
+    ]
+  },
+  "hmac-generator": {
+    "heading": "HMAC",
+    "description": "HMAC (Hash-based Message Authentication Code) is a specific construction for creating a message authentication code using a cryptographic hash function (SHA-256, SHA-512, etc.) combined with a secret key. It provides both data integrity (the message wasn't changed) and authenticity (it came from someone who knows the key).",
+    "commonUses": [
+      "API request signing — verify that requests come from authorised clients",
+      "Webhook payload verification (GitHub, Stripe, and others use HMAC-SHA256)",
+      "JWT signature generation (HS256 = HMAC with SHA-256)",
+      "Verifying file downloads haven't been tampered with"
+    ],
+    "faq": [
+      {
+        "q": "What is the difference between HMAC and a regular hash?",
+        "a": "A regular hash (SHA-256) of a message can be computed by anyone. An HMAC requires a secret key, so only parties who know the key can produce or verify the MAC. This prevents attackers from forging valid hashes."
+      },
+      {
+        "q": "How do I verify a GitHub webhook with HMAC?",
+        "a": "GitHub signs webhook payloads with HMAC-SHA256 using your webhook secret as the key. Compute HMAC-SHA256 of the raw request body with your secret, prefix it with \"sha256=\", and compare it to the X-Hub-Signature-256 header using a constant-time comparison."
+      },
+      {
+        "q": "Which hash algorithm should I use with HMAC?",
+        "a": "HMAC-SHA256 is the most common and recommended choice. It offers a good balance of security and performance. HMAC-SHA512 provides a longer MAC but is rarely needed. Avoid HMAC-MD5 and HMAC-SHA1 for new systems."
+      }
+    ]
+  },
+  "bcrypt-generator": {
+    "heading": "Bcrypt",
+    "description": "Bcrypt is a password hashing function designed specifically for storing passwords securely. Unlike general-purpose hash functions (MD5, SHA-256), bcrypt is intentionally slow — it applies a cost factor that makes brute-force attacks computationally expensive. It also automatically handles salting to prevent rainbow table attacks.",
+    "commonUses": [
+      "Hashing user passwords before storing in a database",
+      "Verifying passwords by comparing a plaintext attempt against a stored hash",
+      "Choosing an appropriate cost factor for your server's performance budget"
+    ],
+    "faq": [
+      {
+        "q": "What is the bcrypt cost factor?",
+        "a": "The cost factor (work factor) determines how many iterations bcrypt performs: 2^cost rounds. Cost 10 = 1,024 rounds, cost 12 = 4,096 rounds. A higher cost means slower hashing (harder to brute-force) but also slower login. Cost 10–12 is standard for most applications."
+      },
+      {
+        "q": "Can I reverse a bcrypt hash?",
+        "a": "No. Bcrypt is a one-way function. The only way to \"crack\" a bcrypt hash is by trying candidate passwords one by one — which the cost factor makes intentionally slow (e.g., 100 ms per attempt at cost 10)."
+      },
+      {
+        "q": "Why does bcrypt have a 72-character input limit?",
+        "a": "The original bcrypt algorithm only processes the first 72 bytes of input. Passwords longer than 72 characters are silently truncated. For very long passwords, pre-hash with SHA-256 before bcrypt if needed."
+      }
+    ]
+  },
+  "aes-encryption": {
+    "heading": "AES Encryption",
+    "description": "AES (Advanced Encryption Standard) is the most widely used symmetric encryption algorithm in the world. Standardised by NIST in 2001, it supports 128, 192, and 256-bit keys. AES is used in TLS/HTTPS, file encryption, VPNs, and virtually every modern security system.",
+    "commonUses": [
+      "Encrypting sensitive data before storing in a database",
+      "Encrypting files and text for secure transmission",
+      "Environment variable and secrets encryption in applications",
+      "End-to-end encrypted messaging systems"
+    ],
+    "faq": [
+      {
+        "q": "What is the difference between AES-128, AES-192, and AES-256?",
+        "a": "The numbers refer to the key length in bits. AES-256 uses a longer key and is theoretically more secure, but AES-128 has never been broken in practice and is faster. For most applications, AES-128 or AES-256 are both fine."
+      },
+      {
+        "q": "What is CBC mode vs other AES modes?",
+        "a": "CBC (Cipher Block Chaining) XORs each plaintext block with the previous ciphertext block before encrypting, requiring an IV (Initialisation Vector). GCM mode additionally provides authentication, detecting if ciphertext was tampered with. Prefer AES-GCM for new systems."
+      },
+      {
+        "q": "Is it safe to encrypt data in the browser?",
+        "a": "CipherKit uses the browser's Web Crypto API for AES operations — the same cryptographic library used by HTTPS. The key and plaintext never leave your browser."
+      }
+    ]
+  },
+  "diff-checker": {
+    "heading": "a Text Diff Checker",
+    "description": "A diff checker compares two versions of text and highlights the differences — added lines (green), removed lines (red), and unchanged lines. The underlying algorithm is LCS (Longest Common Subsequence), the same algorithm used by git diff and most code review tools. CipherKit's diff checker adds inline character-level highlighting within changed lines.",
+    "commonUses": [
+      "Comparing two versions of a configuration file or code snippet",
+      "Reviewing changes in documents before accepting them",
+      "Finding differences between API responses across environments",
+      "Comparing original vs modified text to audit changes"
+    ],
+    "faq": [
+      {
+        "q": "What algorithm does this diff checker use?",
+        "a": "CipherKit uses LCS (Longest Common Subsequence), the standard algorithm for diff computation. It finds the longest sequence of lines that appear in both texts in the same order, then marks everything else as added or removed. This is the same approach as git diff."
+      },
+      {
+        "q": "Can I compare code files?",
+        "a": "Yes. Paste any text — code, JSON, YAML, config files, prose — into both panels. For file comparison, use the upload button to load files directly without copy-pasting."
+      },
+      {
+        "q": "What does the gutter bar on the right show?",
+        "a": "The gutter bar is a proportional minimap of the entire diff. Red and green marks show where changes are located relative to the full document length. Click anywhere on the gutter to jump to that position."
+      }
+    ]
+  },
+  "qr-generator": {
+    "heading": "a QR Code",
+    "description": "A QR (Quick Response) code is a two-dimensional barcode that encodes data (URLs, text, contact info) in a matrix of black and white squares. Invented by Denso Wave in 1994, QR codes can store up to 4,296 characters and are readable by any smartphone camera.",
+    "commonUses": [
+      "Encoding URLs for print materials, business cards, and posters",
+      "Sharing Wi-Fi credentials without typing (WIFI:S:networkname;T:WPA;P:password;;)",
+      "Contactless menus, payment links, and event check-ins",
+      "Encoding app download links for mobile marketing campaigns"
+    ],
+    "faq": [
+      {
+        "q": "How much data can a QR code hold?",
+        "a": "A QR code can hold up to 4,296 alphanumeric characters or 7,089 numeric characters. In practice, shorter data (like a URL) produces a less dense QR code that's easier to scan, especially when printed small."
+      },
+      {
+        "q": "What is QR code error correction?",
+        "a": "QR codes have built-in error correction that allows them to be read even if partially damaged or obscured. Level L (7 %), M (15 %), Q (25 %), H (30 %) — higher levels add redundancy at the cost of a denser code."
+      },
+      {
+        "q": "Can I add a logo to the centre of a QR code?",
+        "a": "Yes — QR codes use error correction, so a logo covering up to ~30 % of the code (Level H) can still be scanned. CipherKit generates standard QR codes which you can overlay a logo onto using any image editor."
+      }
+    ]
+  },
+  "csv-json-converter": {
+    "heading": "CSV to JSON Conversion",
+    "description": "CSV (Comma-Separated Values) is a plain text format for tabular data where each row is a record and columns are separated by commas. JSON is a hierarchical key-value format. Converting CSV to JSON maps each row to a JSON object, using the header row as keys — making CSV data ready for use in JavaScript, APIs, and NoSQL databases.",
+    "commonUses": [
+      "Importing spreadsheet data into a JavaScript application or API",
+      "Converting database exports for use in MongoDB or other document databases",
+      "Transforming analytics exports (Google Analytics, Mixpanel) into JSON for processing",
+      "Preparing data for REST API payloads"
+    ],
+    "faq": [
+      {
+        "q": "What happens if my CSV has commas inside a field?",
+        "a": "Fields containing commas should be wrapped in double quotes in valid CSV. The converter handles quoted fields correctly, e.g. \"Smith, John\" remains one field, not split into two."
+      },
+      {
+        "q": "Does the converter handle CSV files with different delimiters (TSV, semicolon)?",
+        "a": "Most CSV converters handle standard comma-delimited files. For TSV (tab-separated) or semicolon-delimited files, check if the tool has a delimiter option or manually replace the delimiter before pasting."
+      },
+      {
+        "q": "Can I convert JSON back to CSV?",
+        "a": "Yes. CipherKit supports bidirectional conversion. Paste JSON (an array of objects with consistent keys) and convert it to CSV format with headers derived from the object keys."
+      }
+    ]
+  },
+  "yaml-json-converter": {
+    "heading": "YAML to JSON Conversion",
+    "description": "YAML (YAML Ain't Markup Language) is a human-friendly data serialisation format widely used in configuration files (Docker Compose, Kubernetes, GitHub Actions, Ansible). JSON is the standard data format for APIs and JavaScript. Converting between them is a common developer task when moving configs between tools.",
+    "commonUses": [
+      "Converting Kubernetes or Docker Compose YAML to JSON for API submissions",
+      "Transforming GitHub Actions workflow files for inspection or processing",
+      "Converting OpenAPI/Swagger YAML specs to JSON format",
+      "Debugging YAML config files by viewing them as JSON"
+    ],
+    "faq": [
+      {
+        "q": "What is the main difference between YAML and JSON?",
+        "a": "YAML is a superset of JSON — all valid JSON is valid YAML. YAML adds human-friendly features: no quotes needed for strings, comments (# syntax), multiline strings, and indentation-based structure instead of braces. JSON is stricter but universally supported by parsers."
+      },
+      {
+        "q": "Why does my YAML fail to convert?",
+        "a": "Common issues: inconsistent indentation (mix of tabs and spaces), missing colons after keys, or special characters in unquoted strings. YAML is whitespace-sensitive — use spaces only, never tabs."
+      },
+      {
+        "q": "Can I convert JSON to YAML?",
+        "a": "Yes. CipherKit supports bidirectional conversion. Paste valid JSON and it will be converted to properly indented YAML with correct formatting."
+      }
+    ]
+  },
+  "unix-timestamp-converter": {
+    "heading": "a Unix Timestamp",
+    "description": "A Unix timestamp (also called POSIX time or Epoch time) is the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC (the Unix Epoch). It is the standard way to represent points in time in programming because it is timezone-independent, a single integer, and trivially comparable and sortable.",
+    "commonUses": [
+      "Converting API response timestamps to readable dates for debugging",
+      "Calculating time differences between two events",
+      "Setting token expiry times (JWT exp claim is a Unix timestamp)",
+      "Working with database timestamp columns in different timezones"
+    ],
+    "faq": [
+      {
+        "q": "What is the difference between Unix timestamp in seconds vs milliseconds?",
+        "a": "Unix timestamps are traditionally in seconds. JavaScript's Date.now() returns milliseconds. A 10-digit number is seconds, a 13-digit number is milliseconds. Divide by 1000 to convert milliseconds to seconds."
+      },
+      {
+        "q": "What happens in 2038?",
+        "a": "The \"Year 2038 problem\" affects 32-bit systems where Unix timestamps are stored as signed 32-bit integers. On January 19, 2038, the value overflows. Modern 64-bit systems are not affected."
+      },
+      {
+        "q": "What timezone does a Unix timestamp use?",
+        "a": "Unix timestamps are always in UTC. They represent an absolute moment in time regardless of timezone. When displaying a timestamp to a user, convert it to their local timezone."
+      }
+    ]
+  },
+  "cron-expression-generator": {
+    "heading": "a Cron Expression",
+    "description": "A cron expression is a string of 5 or 6 fields that defines a schedule for recurring tasks in Unix-like systems. The fields represent: minute, hour, day of month, month, day of week (and optionally seconds). Cron is used in Linux servers, CI/CD pipelines, cloud schedulers (AWS EventBridge, GitHub Actions), and databases.",
+    "commonUses": [
+      "Scheduling daily database backups (0 2 * * *)",
+      "Running hourly data sync jobs (0 * * * *)",
+      "Setting up weekly reports every Monday morning (0 9 * * 1)",
+      "Configuring GitHub Actions scheduled workflows"
+    ],
+    "faq": [
+      {
+        "q": "What does * mean in a cron expression?",
+        "a": "* means \"every\" — every minute, every hour, every day, etc. for that field. So * * * * * runs every minute. 0 * * * * runs at the start of every hour."
+      },
+      {
+        "q": "What is the difference between 5-field and 6-field cron?",
+        "a": "Standard Unix cron uses 5 fields (minute to day-of-week). Some systems (Spring, Quartz, AWS) add a seconds field as the first field. Always check which format your scheduler expects."
+      },
+      {
+        "q": "How do I run a job every 15 minutes?",
+        "a": "Use the */15 syntax: */15 * * * * — the / operator means \"every N\". Similarly */2 * * * * runs every 2 minutes."
+      }
+    ]
+  },
+  "color-converter": {
+    "heading": "a Color Code Converter",
+    "description": "A color code converter translates colours between different notation systems used in web development and design: HEX (#ff5733), RGB (rgb(255,87,51)), HSL (hsl(11,100%,60%)), RGBA, and HSV. Each format represents the same colour differently — HEX and RGB for web/CSS, HSL for human-intuitive adjustments.",
+    "commonUses": [
+      "Converting design tool colours (Figma outputs HSL, CSS uses HEX)",
+      "Adjusting colour lightness/saturation in HSL format",
+      "Converting brand colours between formats for consistency",
+      "Debugging CSS colour values that aren't rendering as expected"
+    ],
+    "faq": [
+      {
+        "q": "What is the difference between RGB and HSL?",
+        "a": "RGB (Red, Green, Blue) defines colour by mixing light primaries. HSL (Hue, Saturation, Lightness) is more intuitive for humans — hue is the colour type (0–360°), saturation is intensity, lightness is brightness. HSL makes it easy to create colour variants (e.g., change only lightness for hover states)."
+      },
+      {
+        "q": "What does the alpha channel mean in RGBA/HSLA?",
+        "a": "Alpha represents opacity from 0 (fully transparent) to 1 (fully opaque). rgba(255,0,0,0.5) is a 50 % transparent red."
+      },
+      {
+        "q": "How do I convert a HEX colour to RGB?",
+        "a": "Split the 6-digit hex into 3 pairs (RR, GG, BB) and convert each from hexadecimal to decimal. For example, #FF5733 → R=255, G=87, B=51 → rgb(255, 87, 51). CipherKit does this conversion instantly."
+      }
+    ]
+  },
+  "markdown-preview": {
+    "heading": "Markdown",
+    "description": "Markdown is a lightweight markup language created by John Gruber in 2004. It uses plain text syntax (# for headings, ** for bold, - for lists) that converts to HTML. Markdown is the default format for GitHub READMEs, documentation sites, dev.to, Stack Overflow posts, and most modern CMSes.",
+    "commonUses": [
+      "Previewing README.md files before committing to GitHub",
+      "Writing and previewing documentation for Docusaurus, MkDocs, or GitBook",
+      "Drafting blog posts for platforms that accept Markdown (dev.to, Hashnode)",
+      "Rendering technical documentation with code blocks and tables"
+    ],
+    "faq": [
+      {
+        "q": "What is the difference between standard Markdown and GitHub Flavored Markdown (GFM)?",
+        "a": "GFM extends standard Markdown with tables, task lists (- [ ]), fenced code blocks with syntax highlighting, strikethrough (~~text~~), and autolinked URLs. CipherKit's previewer supports GFM."
+      },
+      {
+        "q": "How do I add a code block in Markdown?",
+        "a": "Wrap code in triple backticks (```). Add a language identifier for syntax highlighting: ```javascript on the opening line. Inline code uses single backticks: `variable`."
+      },
+      {
+        "q": "Can I export the rendered Markdown as HTML?",
+        "a": "CipherKit renders Markdown to HTML in real time. You can copy the rendered output or use the Markdown to PDF tool for a printable version."
+      }
+    ]
+  },
+  "image-converter": {
+    "heading": "Image Format Conversion",
+    "description": "Image format conversion changes the file type of an image between formats like PNG, JPEG, and WebP while resampling or adjusting quality settings. Different formats serve different purposes: PNG for lossless images with transparency, JPEG for photographs with small file sizes, WebP for modern web delivery with better compression than both.",
+    "commonUses": [
+      "Converting PNG screenshots to JPEG to reduce file size for web upload",
+      "Converting images to WebP for better Core Web Vitals and page speed scores",
+      "Removing PNG transparency by converting to JPEG for email or PDF use",
+      "Batch converting design assets between formats for different platforms"
+    ],
+    "faq": [
+      {
+        "q": "Should I use PNG or JPEG for web images?",
+        "a": "Use JPEG for photographs (smaller file, acceptable quality loss). Use PNG for graphics, logos, screenshots, or any image that needs transparency or pixel-perfect edges. Use WebP for both — it beats both formats in compression with similar quality."
+      },
+      {
+        "q": "Does converting from JPEG to PNG improve quality?",
+        "a": "No. JPEG compression is lossy — quality lost during JPEG encoding cannot be recovered by converting to PNG. Converting JPEG to PNG just produces a larger lossless file of already-compressed image data."
+      },
+      {
+        "q": "What is WebP and why should I use it?",
+        "a": "WebP is a modern image format developed by Google that provides 25–35 % smaller file sizes than JPEG at equivalent quality. All modern browsers support it. Serving WebP improves page load times and Core Web Vitals scores."
+      }
+    ]
+  }
+}

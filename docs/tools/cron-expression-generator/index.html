@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Cron Expression Generator free?",
+      "name": "What does * mean in a cron expression?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "* means \"every\" — every minute, every hour, every day, etc. for that field. So * * * * * runs every minute. 0 * * * * runs at the start of every hour."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What is the difference between 5-field and 6-field cron?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Standard Unix cron uses 5 fields (minute to day-of-week). Some systems (Spring, Quartz, AWS) add a seconds field as the first field. Always check which format your scheduler expects."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Cron Expression Generator do?",
+      "name": "How do I run a job every 15 minutes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online cron expression generator. Build cron job schedules visually with a simple UI. Supports standard and non-standard cron syntax."
+        "text": "Use the */15 syntax: */15 * * * * — the / operator means \"every N\". Similarly */2 * * * * runs every 2 minutes."
       }
     }
   ]
@@ -217,6 +217,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Edit each <strong>field</strong> (minute, hour, day, month, weekday) or use a <strong>preset</strong>.</li><li>The cron expression and plain-English explanation update in real time.</li></ol><p>Standard 5-field cron syntax. Use <code>*</code> for any, <code>*/N</code> for intervals, <code>1,3,5</code> for lists, <code>1-5</code> for ranges.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is a Cron Expression?</h2>
+      <p>A cron expression is a string of 5 or 6 fields that defines a schedule for recurring tasks in Unix-like systems. The fields represent: minute, hour, day of month, month, day of week (and optionally seconds). Cron is used in Linux servers, CI/CD pipelines, cloud schedulers (AWS EventBridge, GitHub Actions), and databases.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Scheduling daily database backups (0 2 * * *)</li>
+      <li>Running hourly data sync jobs (0 * * * *)</li>
+      <li>Setting up weekly reports every Monday morning (0 9 * * 1)</li>
+      <li>Configuring GitHub Actions scheduled workflows</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What does * mean in a cron expression?</h3>
+    <p>* means "every" — every minute, every hour, every day, etc. for that field. So * * * * * runs every minute. 0 * * * * runs at the start of every hour.</p>
+
+    <h3>What is the difference between 5-field and 6-field cron?</h3>
+    <p>Standard Unix cron uses 5 fields (minute to day-of-week). Some systems (Spring, Quartz, AWS) add a seconds field as the first field. Always check which format your scheduler expects.</p>
+
+    <h3>How do I run a job every 15 minutes?</h3>
+    <p>Use the */15 syntax: */15 * * * * — the / operator means "every N". Similarly */2 * * * * runs every 2 minutes.</p>
     </section>
   </div>
 

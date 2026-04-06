@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Markdown Previewer free?",
+      "name": "What is the difference between standard Markdown and GitHub Flavored Markdown (GFM)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "GFM extends standard Markdown with tables, task lists (- [ ]), fenced code blocks with syntax highlighting, strikethrough (~~text~~), and autolinked URLs. CipherKit's previewer supports GFM."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "How do I add a code block in Markdown?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Wrap code in triple backticks (```). Add a language identifier for syntax highlighting: ```javascript on the opening line. Inline code uses single backticks: `variable`."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Markdown Previewer do?",
+      "name": "Can I export the rendered Markdown as HTML?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online markdown previewer. Write markdown and see the rendered HTML preview in real-time. Supports GitHub-flavored Markdown (GFM)."
+        "text": "CipherKit renders Markdown to HTML in real time. You can copy the rendered output or use the Markdown to PDF tool for a printable version."
       }
     }
   ]
@@ -221,6 +221,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Type or paste <strong>Markdown</strong> in the editor.</li><li>The preview updates in <strong>real time</strong>.</li><li>Click <strong>Copy HTML</strong> to copy the rendered HTML.</li></ol><p>Supports headings, bold, italic, strikethrough, code blocks, links, images, lists, blockquotes, and horizontal rules.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is Markdown?</h2>
+      <p>Markdown is a lightweight markup language created by John Gruber in 2004. It uses plain text syntax (# for headings, ** for bold, - for lists) that converts to HTML. Markdown is the default format for GitHub READMEs, documentation sites, dev.to, Stack Overflow posts, and most modern CMSes.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Previewing README.md files before committing to GitHub</li>
+      <li>Writing and previewing documentation for Docusaurus, MkDocs, or GitBook</li>
+      <li>Drafting blog posts for platforms that accept Markdown (dev.to, Hashnode)</li>
+      <li>Rendering technical documentation with code blocks and tables</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is the difference between standard Markdown and GitHub Flavored Markdown (GFM)?</h3>
+    <p>GFM extends standard Markdown with tables, task lists (- [ ]), fenced code blocks with syntax highlighting, strikethrough (~~text~~), and autolinked URLs. CipherKit's previewer supports GFM.</p>
+
+    <h3>How do I add a code block in Markdown?</h3>
+    <p>Wrap code in triple backticks (```). Add a language identifier for syntax highlighting: ```javascript on the opening line. Inline code uses single backticks: `variable`.</p>
+
+    <h3>Can I export the rendered Markdown as HTML?</h3>
+    <p>CipherKit renders Markdown to HTML in real time. You can copy the rendered output or use the Markdown to PDF tool for a printable version.</p>
     </section>
   </div>
 

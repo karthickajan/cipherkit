@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the URL Encoder free?",
+      "name": "What is the difference between URL encoding and Base64 encoding?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "URL encoding makes text safe to include in URLs using % notation. Base64 encoding converts binary data to ASCII text. They serve different purposes — URL encoding is for URLs, Base64 is for data transmission."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Why does + sometimes mean a space in URLs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "In the application/x-www-form-urlencoded format (HTML forms), + represents a space. In strict RFC 3986 URL encoding, a space is %20. This is why URL-safe Base64 uses - instead of + — to avoid this ambiguity."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the URL Encoder do?",
+      "name": "Should I encode the entire URL or just the parameters?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online URL encoder. Percent-encode URLs and query string parameters for use in web requests. Encode special characters instantly."
+        "text": "Only encode the parameter values (and keys), not the entire URL. Encoding the full URL would also encode the /, ?, and &amp; characters that give the URL its structure."
       }
     }
   ]
@@ -221,6 +221,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Paste a URL or query string into the input.</li><li>The percent-encoded output appears instantly.</li><li>Use <strong>encodeURIComponent</strong> to encode parameter values, or <strong>encodeURI</strong> to preserve URL structure and only encode unsafe characters.</li></ol><h3>What is URL encoding?</h3><p>URL encoding (percent encoding) replaces unsafe ASCII characters with a % followed by two hexadecimal digits. For example, a space becomes %20, and &amp; becomes %26.</p><h3>Common uses</h3><ul><li><strong>Query parameters</strong> — encode values before appending to URLs</li><li><strong>Form submission</strong> — browsers encode form data before sending</li><li><strong>API requests</strong> — encode special characters in API query strings</li></ul>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is URL Encoding?</h2>
+      <p>URL encoding (also called percent-encoding) converts characters that are not allowed in URLs into a safe format using a % followed by two hex digits. For example, a space becomes %20, &amp; becomes %26. This is required by RFC 3986 for any character outside the unreserved set (A–Z, a–z, 0–9, -, _, ., ~).</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Encoding query string parameters before appending to URLs</li>
+      <li>Safely passing special characters like &amp;, =, +, #, ? in URL parameters</li>
+      <li>Encoding form data submitted via GET requests</li>
+      <li>Building API request URLs programmatically</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is the difference between URL encoding and Base64 encoding?</h3>
+    <p>URL encoding makes text safe to include in URLs using % notation. Base64 encoding converts binary data to ASCII text. They serve different purposes — URL encoding is for URLs, Base64 is for data transmission.</p>
+
+    <h3>Why does + sometimes mean a space in URLs?</h3>
+    <p>In the application/x-www-form-urlencoded format (HTML forms), + represents a space. In strict RFC 3986 URL encoding, a space is %20. This is why URL-safe Base64 uses - instead of + — to avoid this ambiguity.</p>
+
+    <h3>Should I encode the entire URL or just the parameters?</h3>
+    <p>Only encode the parameter values (and keys), not the entire URL. Encoding the full URL would also encode the /, ?, and &amp; characters that give the URL its structure.</p>
     </section>
   </div>
 

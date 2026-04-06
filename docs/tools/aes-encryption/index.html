@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the AES Encryption Tool free?",
+      "name": "What is the difference between AES-128, AES-192, and AES-256?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "The numbers refer to the key length in bits. AES-256 uses a longer key and is theoretically more secure, but AES-128 has never been broken in practice and is faster. For most applications, AES-128 or AES-256 are both fine."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What is CBC mode vs other AES modes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "CBC (Cipher Block Chaining) XORs each plaintext block with the previous ciphertext block before encrypting, requiring an IV (Initialisation Vector). GCM mode additionally provides authentication, detecting if ciphertext was tampered with. Prefer AES-GCM for new systems."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the AES Encryption Tool do?",
+      "name": "Is it safe to encrypt data in the browser?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online AES encryption tool. Encrypt text using AES-128, AES-192, or AES-256 with CBC, ECB, CTR, OFB, and CFB modes directly in your browser. No data leaves your device."
+        "text": "CipherKit uses the browser's Web Crypto API for AES operations — the same cryptographic library used by HTTPS. The key and plaintext never leave your browser."
       }
     }
   ]
@@ -225,6 +225,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Enter the text you want to encrypt.</li><li>Enter a secret key (password). Use a strong, unique key.</li><li>Choose key size: 128, 192, or 256-bit (256 recommended).</li><li>Click <strong>Encrypt</strong>. Copy the output ciphertext.</li><li>To decrypt, use the AES Decryption tool with the same key.</li></ol><h3>What is AES?</h3><p>AES (Advanced Encryption Standard) is a symmetric block cipher — the same key encrypts and decrypts. It is the most widely used encryption algorithm, adopted by the US government and used in TLS, WPA2, and most secure applications.</p><p><strong>Security note:</strong> This tool uses AES-GCM mode with a random IV for each encryption. Never reuse the same key for highly sensitive data in production — use a proper key management system.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is AES Encryption?</h2>
+      <p>AES (Advanced Encryption Standard) is the most widely used symmetric encryption algorithm in the world. Standardised by NIST in 2001, it supports 128, 192, and 256-bit keys. AES is used in TLS/HTTPS, file encryption, VPNs, and virtually every modern security system.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Encrypting sensitive data before storing in a database</li>
+      <li>Encrypting files and text for secure transmission</li>
+      <li>Environment variable and secrets encryption in applications</li>
+      <li>End-to-end encrypted messaging systems</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is the difference between AES-128, AES-192, and AES-256?</h3>
+    <p>The numbers refer to the key length in bits. AES-256 uses a longer key and is theoretically more secure, but AES-128 has never been broken in practice and is faster. For most applications, AES-128 or AES-256 are both fine.</p>
+
+    <h3>What is CBC mode vs other AES modes?</h3>
+    <p>CBC (Cipher Block Chaining) XORs each plaintext block with the previous ciphertext block before encrypting, requiring an IV (Initialisation Vector). GCM mode additionally provides authentication, detecting if ciphertext was tampered with. Prefer AES-GCM for new systems.</p>
+
+    <h3>Is it safe to encrypt data in the browser?</h3>
+    <p>CipherKit uses the browser's Web Crypto API for AES operations — the same cryptographic library used by HTTPS. The key and plaintext never leave your browser.</p>
     </section>
   </div>
 

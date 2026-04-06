@@ -36,6 +36,17 @@ const TOOLS_JSON  = path.join(__dirname, 'tools.json');
 const data       = JSON.parse(fs.readFileSync(TOOLS_JSON, 'utf8'));
 const { site, categories, tools } = data;
 
+// ── LOAD SEO CONTENT ────────────────────────────────────────────────────────
+const SEO_JSON = path.join(__dirname, 'seo-content.json');
+if (fs.existsSync(SEO_JSON)) {
+  const seoData = JSON.parse(fs.readFileSync(SEO_JSON, 'utf8'));
+  for (const tool of tools) {
+    if (seoData[tool.slug]) {
+      tool.seoContent = seoData[tool.slug];
+    }
+  }
+}
+
 // ── UTILS ───────────────────────────────────────────────────────────────────
 function mkdirp(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -292,38 +303,64 @@ function buildSchema(tool) {
     "provider": { "@type": "Organization", "name": "CipherKit", "url": DOMAIN }
   };
 
+  // Use tool-specific FAQs if available, otherwise fall back to generic ones
+  const seo = tool.seoContent;
+  const faqEntries = (seo && seo.faq && seo.faq.length)
+    ? seo.faq.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    : [
+        {
+          "@type": "Question",
+          "name": `Is the ${tool.title} free?`,
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free. No signup required." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data sent to a server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device." }
+        },
+        {
+          "@type": "Question",
+          "name": `What does the ${tool.title} do?`,
+          "acceptedAnswer": { "@type": "Answer", "text": tool.metaDescription }
+        }
+      ];
+
   const faq = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": `Is the ${tool.title} free?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, completely free. No signup required."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my data sent to a server?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": `What does the ${tool.title} do?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": tool.metaDescription
-        }
-      }
-    ]
+    "mainEntity": faqEntries
   };
 
   return JSON.stringify(webApp, null, 2) + '\n</script>\n<script type="application/ld+json">\n' + JSON.stringify(faq, null, 2);
+}
+
+// ── SEO CONTENT SECTION ──────────────────────────────────────────────────────
+function buildSeoSection(tool) {
+  const seo = tool.seoContent;
+  if (!seo) return '';
+
+  const usesHtml = (seo.commonUses || []).map(u => `      <li>${u}</li>`).join('\n');
+  const faqHtml  = (seo.faq || []).map(f =>
+    `    <h3>${f.q}</h3>\n    <p>${f.a}</p>`
+  ).join('\n\n');
+
+  return `
+    <section class="seo-content">
+      <h2>What is ${seo.heading || tool.title}?</h2>
+      <p>${seo.description}</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+${usesHtml}
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+${faqHtml}
+    </section>`;
 }
 
 // ── RELATED TOOLS SECTION ────────────────────────────────────────────────────
@@ -363,6 +400,7 @@ function buildToolPage(tool) {
   const navbar     = buildNavbar(tool.headerBadge, tool.category);
   const footer     = buildFooter();
   const related    = buildRelatedTools(tool);
+  const seoSection = buildSeoSection(tool);
 
   // Extract usage HTML from tool JS (the argument passed to CK.setUsageContent())
   let usageHtml = '';
@@ -449,6 +487,7 @@ ${navbar}
         ${usageHtml || ''}
       </div>
     </section>
+${seoSection}
   </div>
 
 </main>

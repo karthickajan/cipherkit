@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the MD5 Hash Generator free?",
+      "name": "Is MD5 safe for passwords?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "No. Never use MD5 for password storage. It is fast (meaning brute-force is easy), has known collision attacks, and rainbow tables exist for common passwords. Use bcrypt, scrypt, or Argon2 for passwords."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What is the difference between MD5 and SHA-256?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "MD5 produces a 32-character hash and is broken for security purposes. SHA-256 produces a 64-character hash and remains cryptographically secure. Use SHA-256 for any security-sensitive hashing."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the MD5 Hash Generator do?",
+      "name": "Can MD5 be reversed?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online MD5 hash generator. Generate MD5 checksums from any text or string instantly in your browser. Widely used for file integrity checks."
+        "text": "MD5 is a one-way function and cannot be mathematically reversed. However, precomputed rainbow tables exist for common strings, so simple inputs like passwords can be \"cracked\" by lookup. For arbitrary data this is not feasible."
       }
     }
   ]
@@ -225,6 +225,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li><strong>Enter or paste text</strong> into the input field.</li><li>Select <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate Hash</strong> to compute the MD5 digest.</li></ol><p>MD5 produces a 128-bit (16-byte) hash. <strong>Warning:</strong> MD5 is considered broken for security use due to known collision attacks. Use it only for legacy compatibility or non-security checksums.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is MD5?</h2>
+      <p>MD5 (Message Digest Algorithm 5) is a widely used cryptographic hash function that produces a 128-bit (32 hex character) hash value. Created in 1991 by Ronald Rivest, MD5 is fast and universally supported, though it is no longer considered cryptographically secure due to known collision vulnerabilities.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>File integrity verification — compare MD5 checksums before and after download</li>
+      <li>Checksums in software distribution (not for security, just for corruption detection)</li>
+      <li>Database deduplication — hash content to find duplicate records</li>
+      <li>Legacy system compatibility where MD5 is still required</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>Is MD5 safe for passwords?</h3>
+    <p>No. Never use MD5 for password storage. It is fast (meaning brute-force is easy), has known collision attacks, and rainbow tables exist for common passwords. Use bcrypt, scrypt, or Argon2 for passwords.</p>
+
+    <h3>What is the difference between MD5 and SHA-256?</h3>
+    <p>MD5 produces a 32-character hash and is broken for security purposes. SHA-256 produces a 64-character hash and remains cryptographically secure. Use SHA-256 for any security-sensitive hashing.</p>
+
+    <h3>Can MD5 be reversed?</h3>
+    <p>MD5 is a one-way function and cannot be mathematically reversed. However, precomputed rainbow tables exist for common strings, so simple inputs like passwords can be "cracked" by lookup. For arbitrary data this is not feasible.</p>
     </section>
   </div>
 

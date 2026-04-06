@@ -55,26 +55,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the CSV to JSON Converter free?",
+      "name": "What happens if my CSV has commas inside a field?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Fields containing commas should be wrapped in double quotes in valid CSV. The converter handles quoted fields correctly, e.g. \"Smith, John\" remains one field, not split into two."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Does the converter handle CSV files with different delimiters (TSV, semicolon)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Most CSV converters handle standard comma-delimited files. For TSV (tab-separated) or semicolon-delimited files, check if the tool has a delimiter option or manually replace the delimiter before pasting."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the CSV to JSON Converter do?",
+      "name": "Can I convert JSON back to CSV?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online CSV to JSON converter. Convert CSV files or comma-separated data to JSON format instantly in your browser."
+        "text": "Yes. CipherKit supports bidirectional conversion. Paste JSON (an array of objects with consistent keys) and convert it to CSV format with headers derived from the object keys."
       }
     }
   ]
@@ -221,6 +221,29 @@
       <div class="usage-content" id="usage-content">
         <ol><li>Choose <strong>direction</strong> (CSV → JSON or JSON → CSV).</li><li>Select the <strong>delimiter</strong> used in your CSV (comma, semicolon, tab, pipe).</li><li><strong>Paste data</strong> and click <strong>Convert</strong>.</li></ol><p>CSV → JSON uses the first row as headers and produces an array of objects. JSON → CSV requires an array of flat objects. Handles quoted fields with commas and newlines correctly.</p>
       </div>
+    </section>
+
+    <section class="seo-content">
+      <h2>What is CSV to JSON Conversion?</h2>
+      <p>CSV (Comma-Separated Values) is a plain text format for tabular data where each row is a record and columns are separated by commas. JSON is a hierarchical key-value format. Converting CSV to JSON maps each row to a JSON object, using the header row as keys — making CSV data ready for use in JavaScript, APIs, and NoSQL databases.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Importing spreadsheet data into a JavaScript application or API</li>
+      <li>Converting database exports for use in MongoDB or other document databases</li>
+      <li>Transforming analytics exports (Google Analytics, Mixpanel) into JSON for processing</li>
+      <li>Preparing data for REST API payloads</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What happens if my CSV has commas inside a field?</h3>
+    <p>Fields containing commas should be wrapped in double quotes in valid CSV. The converter handles quoted fields correctly, e.g. "Smith, John" remains one field, not split into two.</p>
+
+    <h3>Does the converter handle CSV files with different delimiters (TSV, semicolon)?</h3>
+    <p>Most CSV converters handle standard comma-delimited files. For TSV (tab-separated) or semicolon-delimited files, check if the tool has a delimiter option or manually replace the delimiter before pasting.</p>
+
+    <h3>Can I convert JSON back to CSV?</h3>
+    <p>Yes. CipherKit supports bidirectional conversion. Paste JSON (an array of objects with consistent keys) and convert it to CSV format with headers derived from the object keys.</p>
     </section>
   </div>
 
