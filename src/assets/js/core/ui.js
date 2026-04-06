@@ -211,6 +211,56 @@
     });
   })();
 
+  /* ── STAR PROMPT (GitHub star ask after first copy) ─────────────────── */
+  (function () {
+    var s = document.createElement('style');
+    s.textContent =
+      '.ck-star-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);z-index:9999;background:#111;border:1px solid rgba(0,255,136,.27);border-radius:8px;padding:12px 20px;display:flex;align-items:center;gap:12px;font-size:.875rem;color:#ccc;opacity:0;pointer-events:none;transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s ease;white-space:nowrap;max-width:calc(100vw - 48px)}'
+      + '.ck-star-toast.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}'
+      + '.ck-star-toast.hide{transform:translateX(-50%) translateY(80px);opacity:0;pointer-events:none}'
+      + '.ck-star-toast a{color:#00ff88;font-weight:600;text-decoration:none}'
+      + '.ck-star-toast a:hover{text-decoration:underline}'
+      + '.ck-star-toast button{background:none;border:none;color:#666;font-size:18px;cursor:pointer;padding:0 0 0 4px;line-height:1}'
+      + '.ck-star-toast button:hover{color:#ccc}';
+    document.head.appendChild(s);
+  })();
+
+  function starPrompt(toolSlug) {
+    /* Gate 1: already shown for this tool in this session */
+    var sessionKey = 'ck_asked_star_' + toolSlug;
+    if (sessionStorage.getItem(sessionKey)) return;
+
+    /* Gate 2: already shown for ANY tool today */
+    var dateKey = 'ck_star_asked_date';
+    var today = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem(dateKey) === today) return;
+
+    /* Mark flags immediately so duplicate calls are ignored */
+    sessionStorage.setItem(sessionKey, '1');
+    localStorage.setItem(dateKey, today);
+
+    setTimeout(function () {
+      var el = document.createElement('div');
+      el.className = 'ck-star-toast';
+      el.innerHTML = '\u2728 Glad it helped! &nbsp;<a href="https://github.com/karthickajan/cipherkit" target="_blank" rel="noopener">\u2b50 Star CipherKit on GitHub</a><button type="button" aria-label="Close">\u2715</button>';
+      document.body.appendChild(el);
+
+      /* slide up */
+      requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('show'); }); });
+
+      function dismiss() {
+        el.classList.remove('show');
+        el.classList.add('hide');
+        setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 500);
+      }
+
+      el.querySelector('button').addEventListener('click', dismiss);
+
+      /* auto-dismiss after 8 s */
+      setTimeout(dismiss, 8000);
+    }, 1500);
+  }
+
   /* ── PUBLIC API ───────────────────────────────────────────────────────── */
   window.CK = {
     toast,
@@ -227,6 +277,7 @@
     wireDownload,
     wireCtrlEnter,
     wireCharCounter,
+    starPrompt,
   };
 
 })();

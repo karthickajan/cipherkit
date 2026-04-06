@@ -89,6 +89,7 @@
   CK.wireCopy($('btn-cp-h'), function () { var t = $('t-header').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.wireCopy($('btn-cp-p'), function () { var t = $('t-payload').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.wireCopy($('btn-cp-s'), function () { var t = $('t-sig').textContent; return t.indexOf('appear') === -1 ? t : ''; });
+  ['btn-cp-h','btn-cp-p','btn-cp-s'].forEach(function (id) { $(id).addEventListener('click', function () { CK.starPrompt('jwt-decoder'); }); });
   CK.initAutoGrow($('t-input'));
 
   /* ── Decode ── */

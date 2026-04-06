@@ -39,6 +39,7 @@
     + '</div>';
 
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('Click')===-1?t:''; });
+  $('btn-cp').addEventListener('click', function () { CK.starPrompt('uuid-generator'); });
 
   $('btn-gen').addEventListener('click', function () {
     var count = parseInt($('t-count').value, 10);

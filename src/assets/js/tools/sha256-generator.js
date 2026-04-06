@@ -34,6 +34,7 @@
 
   $('btn-clr').addEventListener('click', function () { $('h-input').value = ''; $('h-result').className = 'out-body mono ph'; $('h-result').textContent = 'Hash will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('h-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
+  $('btn-cp').addEventListener('click', function () { CK.starPrompt('sha256-generator'); });
   CK.initAutoGrow($('h-input'));
 
   $('btn-gen').addEventListener('click', function () {
