@@ -211,7 +211,7 @@ function buildNavbar(headerBadge, activeCategory) {
         <span class="live-dot"${dotStyle} aria-hidden="true"></span>
         ${badge.text}
       </span>
-      <a id="gh-stars" href="https://github.com/karthickajan/cipherkit" target="_blank" rel="noopener" class="gh-stars-badge">⭐ <span id="gh-star-count">Star</span></a>
+      <a id="gh-stars" href="https://github.com/karthickajan/cipherkit" target="_blank" rel="noopener" class="gh-stars-badge" title="If CipherKit helped you, a GitHub star means a lot 🙏">🔖 <span id="gh-star-count">Bookmark this project</span></a>
     </div>
   </div>
 </header>

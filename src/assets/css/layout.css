@@ -505,18 +505,22 @@
 }
 #nav-search {
   width: 100%;
-  background: #111;
-  border: 1px solid #1e1e1e;
+  background: #0d1a12;
+  border: 1px solid #00ff8833;
   border-radius: 6px;
   padding: 5px 12px;
   color: #e0e0e0;
   font-family: var(--mono);
   font-size: 0.85rem;
   outline: none;
-  transition: border-color .2s;
+  transition: border-color .2s, box-shadow .3s, background .2s;
 }
-#nav-search:focus { border-color: var(--green); }
-#nav-search::placeholder { color: var(--muted); }
+#nav-search:focus {
+  border-color: #00ff88;
+  background: #111;
+  box-shadow: 0 0 0 2px #00ff8822, 0 0 12px #00ff8833;
+}
+#nav-search::placeholder { color: #00ff8866; }
 
 .nav-search-dropdown {
   position: absolute;
@@ -548,6 +552,7 @@
 
 /* ── GITHUB STAR BADGE ───────────────────────────────────────────────────── */
 .gh-stars-badge {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -562,6 +567,24 @@
   white-space: nowrap;
 }
 .gh-stars-badge:hover { border-color: var(--green); color: var(--green); opacity: 1; }
+.gh-stars-badge::after {
+  content: 'Like this tool? Star it on GitHub — it helps others find it';
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: #1a1a1a;
+  border: 1px solid #1e1e1e;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  color: #aaa;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+  z-index: 100;
+}
+.gh-stars-badge:hover::after { opacity: 1; }
 
 /* ── HOMEPAGE SEARCH GLOW ────────────────────────────────────────────────── */
 .search-glow-wrapper {
@@ -569,6 +592,7 @@
   border-radius: 10px;
   display: inline-block;
   width: 100%;
+  overflow: hidden;
 }
 
 @property --ck-angle {
@@ -591,12 +615,18 @@
   );
   animation: ck-spin 3s linear infinite;
   z-index: 0;
-  opacity: 0.7;
+  opacity: 0.5;
+  transition: opacity .3s ease;
+}
+
+.search-glow-wrapper:focus-within::before {
+  opacity: 0.85;
 }
 
 .search-glow-wrapper > * {
   position: relative;
   z-index: 1;
+  transition: all .3s ease;
 }
 
 @keyframes ck-spin {

@@ -354,7 +354,7 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data && data.stargazers_count > 0) {
-          el.textContent = data.stargazers_count + ' Stars';
+          el.textContent = 'Bookmark (' + data.stargazers_count + ' ★)';
         }
       })
       .catch(function () {});
