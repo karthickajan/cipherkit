@@ -67,6 +67,17 @@
     .diff-del-inline { background: rgba(255,107,107,0.25); border-radius: 2px; padding: 0 1px; }
     .diff-add-inline { background: rgba(61,214,140,0.25); border-radius: 2px; padding: 0 1px; }
 
+    /* Prev / Next Diff Navigation Bar */
+    .dm-nav-bar { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 16px; background: rgba(0,0,0,0.15); border: 1px solid var(--border); border-top: none; border-bottom: none; font-size: 13px; }
+    .dm-nav-btn { background: #1a1a1a; border: 1px solid #1e1e1e; color: #00ff88; border-radius: 4px; padding: 6px 14px; cursor: pointer; font-size: 12px; font-weight: 600; font-family: inherit; transition: opacity 0.2s; }
+    .dm-nav-btn:hover:not(:disabled) { opacity: 0.85; }
+    .dm-nav-btn:disabled { color: #444; cursor: not-allowed; }
+    .dm-nav-label { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; min-width: 90px; text-align: center; }
+
+    /* VS Code-Style Overview / Minimap Strip */
+    .dm-overview-bar { width: 10px; flex-shrink: 0; background: #0d0d0d; border-left: 1px solid #1e1e1e; position: relative; cursor: pointer; }
+    .dm-overview-tick { position: absolute; left: 0; width: 100%; min-height: 3px; pointer-events: none; }
+
     /* DYNAMIC TOGGLE CLASSES */
     .dm-scroll-pane.wrap-active .dm-line-txt { white-space: pre-wrap; word-break: break-all; }
     .dm-scroll-pane:not(.wrap-active) .dm-line-txt { white-space: pre; }
@@ -84,6 +95,8 @@
   var historyStack = [];
   var historyIndex = -1;
   var settings = { wrap: true, hideUnchanged: false };
+  var diffBlockEls = [];   // DOM elements for each diff block
+  var currentNavIndex = -1; // currently focused diff block index
 
   function saveHistory(leftText, rightText) {
     historyStack = historyStack.slice(0, historyIndex + 1);
@@ -273,6 +286,12 @@
             
             <div class="dm-stats-bar" id="dm-stats-bar"></div>
             
+            <div class="dm-nav-bar" id="dm-nav-bar">
+              <button type="button" class="dm-nav-btn" id="btn-prev-diff" disabled>↑ Prev</button>
+              <span class="dm-nav-label" id="dm-nav-label">No diffs</span>
+              <button type="button" class="dm-nav-btn" id="btn-next-diff" disabled>↓ Next</button>
+            </div>
+            
             <div class="dm-workspace wrap-active" id="dm-workspace">
               <div id="pane-left" class="dm-scroll-pane wrap-active">
                 <div class="dm-content" id="content-left"></div>
@@ -285,6 +304,8 @@
               <div id="pane-right" class="dm-scroll-pane wrap-active">
                 <div class="dm-content" id="content-right"></div>
               </div>
+              
+              <div id="pane-overview" class="dm-overview-bar"></div>
             </div>
           </div>
 
@@ -456,7 +477,110 @@
     $('content-right').innerHTML = rightHTML;
 
     setTimeout(syncRowHeights, 0);
+
+    // ── POST-RENDER: Diff navigation index + overview bar ──
+    setTimeout(function () {
+      diffBlockEls = Array.from(document.querySelectorAll('#content-left .dm-row-diff'));
+      currentNavIndex = -1;
+      updateNavButtons();
+      renderOverviewBar();
+    }, 20);
   }
+
+  /* ── PREV / NEXT DIFF NAVIGATION ──────────────────────────────────────── */
+  function updateNavButtons() {
+    var total = diffBlockEls.length;
+    $('btn-prev-diff').disabled = currentNavIndex <= 0;
+    $('btn-next-diff').disabled = total === 0 || currentNavIndex >= total - 1;
+    if (total === 0) {
+      $('dm-nav-label').textContent = 'No diffs';
+    } else if (currentNavIndex < 0) {
+      $('dm-nav-label').textContent = total + ' diff' + (total > 1 ? 's' : '');
+    } else {
+      $('dm-nav-label').textContent = 'Diff ' + (currentNavIndex + 1) + ' of ' + total;
+    }
+  }
+
+  function scrollToDiffBlock(idx) {
+    if (idx < 0 || idx >= diffBlockEls.length) return;
+    currentNavIndex = idx;
+    updateNavButtons();
+    var el = diffBlockEls[idx];
+    var pane = $('pane-left');
+    var top = el.offsetTop - pane.offsetTop - 40;
+    pane.scrollTop = top;
+    $('pane-right').scrollTop = top;
+    $('pane-gutter').scrollTop = top;
+  }
+
+  $('btn-prev-diff').addEventListener('click', function () {
+    if (currentNavIndex <= 0 && diffBlockEls.length > 0) { scrollToDiffBlock(0); return; }
+    if (currentNavIndex > 0) scrollToDiffBlock(currentNavIndex - 1);
+  });
+
+  $('btn-next-diff').addEventListener('click', function () {
+    if (currentNavIndex < 0 && diffBlockEls.length > 0) { scrollToDiffBlock(0); return; }
+    if (currentNavIndex < diffBlockEls.length - 1) scrollToDiffBlock(currentNavIndex + 1);
+  });
+
+  /* ── GUTTER OVERVIEW BAR (MINIMAP STRIP) ────────────────────────────────── */
+  function renderOverviewBar() {
+    var bar = $('pane-overview');
+    bar.innerHTML = '';
+    var contentEl = $('content-left');
+    var totalH = contentEl.scrollHeight || contentEl.offsetHeight;
+    if (totalH === 0) return;
+    var barH = bar.offsetHeight || bar.clientHeight;
+    if (barH === 0) return;
+
+    var allLines = document.querySelectorAll('#content-left .dm-line');
+    for (var i = 0; i < allLines.length; i++) {
+      var line = allLines[i];
+      var isRem = line.classList.contains('dm-rem');
+      var isEmpty = line.classList.contains('dm-empty');
+      if (!isRem && !isEmpty) {
+        // check right pane counterpart for add
+        continue;
+      }
+      if (isEmpty) continue;
+      // removed line
+      var top = (line.offsetTop / totalH) * barH;
+      var tick = document.createElement('div');
+      tick.className = 'dm-overview-tick';
+      tick.style.top = top + 'px';
+      tick.style.background = '#ff444466';
+      bar.appendChild(tick);
+    }
+
+    var rightLines = document.querySelectorAll('#content-right .dm-line');
+    for (var j = 0; j < rightLines.length; j++) {
+      var rline = rightLines[j];
+      if (!rline.classList.contains('dm-add')) continue;
+      // Use corresponding left-side line for position reference
+      var leftLine = allLines[j];
+      if (!leftLine) continue;
+      var rtop = (leftLine.offsetTop / totalH) * barH;
+      var rtick = document.createElement('div');
+      rtick.className = 'dm-overview-tick';
+      rtick.style.top = rtop + 'px';
+      rtick.style.background = '#00ff8866';
+      bar.appendChild(rtick);
+    }
+  }
+
+  $('pane-overview').addEventListener('click', function (e) {
+    var bar = this;
+    var barH = bar.offsetHeight;
+    if (barH === 0) return;
+    var clickY = e.clientY - bar.getBoundingClientRect().top;
+    var ratio = clickY / barH;
+    var contentEl = $('content-left');
+    var totalH = contentEl.scrollHeight || contentEl.offsetHeight;
+    var scrollTo = ratio * totalH;
+    $('pane-left').scrollTop = scrollTo;
+    $('pane-right').scrollTop = scrollTo;
+    $('pane-gutter').scrollTop = scrollTo;
+  });
 
   /* ── INLINE EDITING LOGIC ───────────────────────────────────────────────── */
   window._ckInlineEdit = function(side, idx, el) {
