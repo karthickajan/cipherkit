@@ -91,7 +91,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://api.github.com https://www.google-analytics.com https://www.googletagmanager.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="${pageTitle}">
@@ -201,11 +201,17 @@ function buildNavbar(headerBadge, activeCategory) {
       ${navHtml}
     </nav>
 
+    <div class="nav-search-wrapper">
+      <input type="search" id="nav-search" placeholder="Search 77 tools…" autocomplete="off" aria-label="Search tools">
+      <div id="nav-search-results" class="nav-search-dropdown" hidden></div>
+    </div>
+
     <div class="header-badges" aria-label="Security guarantees">
       <span class="hdr-badge"${badgeStyle}>
         <span class="live-dot"${dotStyle} aria-hidden="true"></span>
         ${badge.text}
       </span>
+      <a id="gh-stars" href="https://github.com/karthickajan/cipherkit" target="_blank" rel="noopener" class="gh-stars-badge">⭐ <span id="gh-star-count">Star</span></a>
     </div>
   </div>
 </header>
@@ -587,6 +593,7 @@ ${buildNavbar()}
 
       <!-- Search -->
       <div class="hero-search" role="search">
+        <div class="search-glow-wrapper">
         <input
           type="search"
           id="tool-search"
@@ -594,6 +601,7 @@ ${buildNavbar()}
           aria-label="Search tools"
           autocomplete="off"
         >
+        </div>
       </div>
 
       <!-- Hub quick-links -->
@@ -1005,6 +1013,10 @@ function build() {
   // 8. GitHub Pages requirements
   writeDist('.nojekyll', ''); // Prevents Jekyll processing
   console.log('  ✓ .nojekyll');
+
+  // 8b. Copy tools.json to docs/ for nav search fetch
+  fs.copyFileSync(TOOLS_JSON, path.join(DIST, 'tools.json'));
+  console.log('  ✓ tools.json (nav search data)');
 
   // 9. 404 page
   const notFoundHead = buildHead({

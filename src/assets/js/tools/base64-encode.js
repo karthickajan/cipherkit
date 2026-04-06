@@ -43,7 +43,7 @@
     +       '<div class="sel-group"><label for="t-mode">Variant</label><select id="t-mode"><option value="std">Standard Base64</option><option value="url">URL-safe Base64</option></select></div>'
     +       '<div class="sel-group"><label for="t-newline">Line endings</label><select id="t-newline"><option value="none">No change</option><option value="lf">Unix LF (\\n)</option><option value="crlf">Windows CRLF (\\r\\n)</option></select></div>'
     +     '</div>'
-    +     '<div class="b64-drop" id="drop-zone">' + IC.upload + ' Drop a file here or <strong>Browse</strong><input type="file" id="file-input"></div>'
+  +     '<div class="b64-drop" id="drop-zone">' + IC.upload + ' Drop a file here or <strong id="browse-btn" style="cursor:pointer;text-decoration:underline">Browse</strong><input type="file" id="file-input"></div>'
     +     '<div class="field"><div class="field-hdr"><label for="t-input">Plain Text</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear input">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Enter text to encode\u2026" rows="5"></textarea><div class="input-meta" id="t-input-meta"></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-green" id="btn-enc" aria-label="Encode to Base64">' + IC.code + ' <span>Encode</span></button>'
     +     '<div class="b64-file-info" id="file-info"></div>'
@@ -95,12 +95,62 @@
     };
     reader.readAsDataURL(file);
   }
-  $('file-input').addEventListener('change', function () { if (this.files[0]) handleFile(this.files[0]); });
+
+  // Remove accept attribute if present (accept all file types)
+  $('file-input').removeAttribute('accept');
+
+  // Browse button triggers file input
+  $('browse-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    $('file-input').click();
+  });
+
+  // File input change
+  $('file-input').addEventListener('change', function (e) {
+    var file = this.files[0];
+    if (file) handleFile(file);
+    this.value = '';
+  });
+
+  // Drop zone click triggers file input
   var dz = $('drop-zone');
-  dz.addEventListener('click', function () { $('file-input').click(); });
+  dz.addEventListener('click', function (e) {
+    if (e.target.id === 'browse-btn') return;
+    $('file-input').click();
+  });
   dz.addEventListener('dragover', function (e) { e.preventDefault(); this.classList.add('drag-over'); });
   dz.addEventListener('dragleave', function () { this.classList.remove('drag-over'); });
   dz.addEventListener('drop', function (e) { e.preventDefault(); this.classList.remove('drag-over'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+
+  // Drag and drop on input textarea
+  var inputEl = $('t-input');
+  inputEl.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    inputEl.style.borderColor = '#00ff88';
+  });
+  inputEl.addEventListener('dragleave', function () {
+    inputEl.style.borderColor = '';
+  });
+  inputEl.addEventListener('drop', function (e) {
+    e.preventDefault();
+    inputEl.style.borderColor = '';
+    var file = e.dataTransfer.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function (evt) {
+      var result = evt.target.result;
+      var base64 = result.split(',')[1];
+      $('t-result').className = 'out-body mono b';
+      $('t-result').textContent = base64;
+      // Show file info
+      var size = file.size < 1024 ? file.size + ' B' : file.size < 1048576 ? (file.size/1024).toFixed(1) + ' KB' : (file.size/1048576).toFixed(1) + ' MB';
+      var info = $('file-info');
+      info.textContent = '\uD83D\uDCC4 ' + file.name + ' (' + size + ')';
+      info.style.display = 'block';
+      CK.toast('File encoded to Base64');
+    };
+    reader.readAsDataURL(file);
+  });
 
   $('btn-send').addEventListener('click', function () {
     var output = isPlaceholder() ? '' : $('t-result').textContent;

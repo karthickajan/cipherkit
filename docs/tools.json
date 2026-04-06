@@ -1,0 +1,2136 @@
+{
+  "site": {
+    "name": "CipherKit",
+    "domain": "https://karthickajan.github.io/cipherkit",
+    "tagline": "Developer Cryptography & Utility Tools",
+    "description": "77 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, format converters, DNS lookup — all client-side, no server.",
+    "github": "https://github.com/karthickajan/cipherkit"
+  },
+  "categories": [
+    {
+      "id": "crypto",
+      "label": "Crypto Hub",
+      "icon": "🔐",
+      "description": "Encryption, decryption, and hashing tools"
+    },
+    {
+      "id": "encoding",
+      "label": "Encoding Hub",
+      "icon": "📦",
+      "description": "Encoding, decoding, and data format tools"
+    },
+    {
+      "id": "dev",
+      "label": "Dev Hub",
+      "icon": "⚙️",
+      "description": "Developer utilities and generators"
+    },
+    {
+      "id": "converter",
+      "label": "Converter Hub",
+      "icon": "🔄",
+      "description": "Data format conversion and file transformation tools"
+    },
+    {
+      "id": "image",
+      "label": "Image Hub",
+      "icon": "🖼️",
+      "description": "Image editing, conversion, and visual tools"
+    }
+  ],
+  "tools": [
+    {
+      "slug": "aes-encryption",
+      "title": "AES Encryption Tool",
+      "pageTitle": "AES Encryption Tool – Encrypt Text Online | CipherKit",
+      "metaDescription": "Free online AES encryption tool. Encrypt text using AES-128, AES-192, or AES-256 with CBC, ECB, CTR, OFB, and CFB modes directly in your browser. No data leaves your device.",
+      "h1": "AES Encryption Tool",
+      "tagline": "Encrypt text with AES-128, 192, or 256-bit keys — 100% client-side",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "aes",
+        "encryption",
+        "cipher",
+        "symmetric",
+        "aes-256",
+        "aes-128"
+      ],
+      "relatedTools": [
+        "aes-decryption",
+        "hmac-generator",
+        "rsa-key-generator",
+        "sha256-generator"
+      ],
+      "jsFile": "aes-encryption.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 1
+    },
+    {
+      "slug": "aes-decryption",
+      "title": "AES Decryption Tool",
+      "pageTitle": "AES Decryption Tool – Decrypt AES Ciphertext Online | CipherKit",
+      "metaDescription": "Free online AES decryption tool. Decrypt AES-128, AES-192, or AES-256 ciphertext with CBC, ECB, CTR, OFB, and CFB modes directly in your browser.",
+      "h1": "AES Decryption Tool",
+      "tagline": "Decrypt AES-encrypted ciphertext — supports Base64 and Hex input",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "aes",
+        "decryption",
+        "cipher",
+        "symmetric",
+        "aes-256",
+        "decrypt"
+      ],
+      "relatedTools": [
+        "aes-encryption",
+        "hmac-generator",
+        "rsa-key-generator"
+      ],
+      "jsFile": "aes-decryption.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 2
+    },
+    {
+      "slug": "sha256-generator",
+      "title": "SHA-256 Hash Generator",
+      "pageTitle": "SHA-256 Hash Generator – Generate SHA256 Online | CipherKit",
+      "metaDescription": "Free online SHA-256 hash generator. Generate SHA-256 hashes from any text or string instantly in your browser. Supports Hex and Base64 output.",
+      "h1": "SHA-256 Hash Generator",
+      "tagline": "Generate SHA-256 cryptographic hashes instantly — Hex or Base64 output",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "sha256",
+        "sha-256",
+        "hash",
+        "checksum",
+        "cryptographic hash"
+      ],
+      "relatedTools": [
+        "sha512-generator",
+        "md5-generator",
+        "hmac-generator",
+        "hash-comparator"
+      ],
+      "jsFile": "sha256-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 3
+    },
+    {
+      "slug": "sha512-generator",
+      "title": "SHA-512 Hash Generator",
+      "pageTitle": "SHA-512 Hash Generator – Generate SHA512 Online | CipherKit",
+      "metaDescription": "Free online SHA-512 hash generator. Generate SHA-512 hashes from any text or string in your browser. No data is sent to any server.",
+      "h1": "SHA-512 Hash Generator",
+      "tagline": "Generate SHA-512 cryptographic hashes — stronger than SHA-256",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "sha512",
+        "sha-512",
+        "hash",
+        "checksum",
+        "cryptographic hash"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "md5-generator",
+        "hmac-generator",
+        "hash-comparator"
+      ],
+      "jsFile": "sha512-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 4
+    },
+    {
+      "slug": "sha1-generator",
+      "title": "SHA-1 Hash Generator",
+      "pageTitle": "SHA-1 Hash Generator – Generate SHA1 Hash Online | CipherKit",
+      "metaDescription": "Free online SHA-1 hash generator. Generate SHA-1 hashes from any text string directly in your browser. Note: SHA-1 is deprecated for security use.",
+      "h1": "SHA-1 Hash Generator",
+      "tagline": "Generate SHA-1 hashes — for legacy compatibility checks",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "sha1",
+        "sha-1",
+        "hash",
+        "checksum"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "md5-generator"
+      ],
+      "jsFile": "sha1-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 5
+    },
+    {
+      "slug": "sha3-generator",
+      "title": "SHA-3 Hash Generator",
+      "pageTitle": "SHA-3 Hash Generator – Generate SHA3 Hash Online | CipherKit",
+      "metaDescription": "Free online SHA-3 (Keccak) hash generator. Generate SHA-3 256-bit or 512-bit hashes from any text directly in your browser.",
+      "h1": "SHA-3 Hash Generator",
+      "tagline": "Generate SHA-3 (Keccak) hashes — the NIST standard successor",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "sha3",
+        "sha-3",
+        "keccak",
+        "hash",
+        "nist"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "md5-generator"
+      ],
+      "jsFile": "sha3-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 6
+    },
+    {
+      "slug": "md5-generator",
+      "title": "MD5 Hash Generator",
+      "pageTitle": "MD5 Hash Generator – Generate MD5 Checksum Online | CipherKit",
+      "metaDescription": "Free online MD5 hash generator. Generate MD5 checksums from any text or string instantly in your browser. Widely used for file integrity checks.",
+      "h1": "MD5 Hash Generator",
+      "tagline": "Generate MD5 checksums — fast, widely supported, not for passwords",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "md5",
+        "hash",
+        "checksum",
+        "md5 generator",
+        "md5 checksum"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "hash-comparator",
+        "checksum-generator"
+      ],
+      "jsFile": "md5-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 7
+    },
+    {
+      "slug": "ripemd160-generator",
+      "title": "RIPEMD-160 Hash Generator",
+      "pageTitle": "RIPEMD-160 Hash Generator – Generate RIPEMD160 Online | CipherKit",
+      "metaDescription": "Free online RIPEMD-160 hash generator. Generate RIPEMD-160 cryptographic hashes in your browser. Commonly used in Bitcoin addresses.",
+      "h1": "RIPEMD-160 Hash Generator",
+      "tagline": "Generate RIPEMD-160 hashes — used in Bitcoin address generation",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "ripemd160",
+        "ripemd-160",
+        "hash",
+        "bitcoin hash"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "md5-generator"
+      ],
+      "jsFile": "ripemd160-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 8
+    },
+    {
+      "slug": "hmac-generator",
+      "title": "HMAC Generator",
+      "pageTitle": "HMAC Generator – Generate HMAC-SHA256, HMAC-SHA512 Online | CipherKit",
+      "metaDescription": "Free online HMAC generator. Generate HMAC-SHA256, HMAC-SHA512, HMAC-SHA1, and HMAC-MD5 message authentication codes directly in your browser.",
+      "h1": "HMAC Generator",
+      "tagline": "Generate HMAC message authentication codes — SHA256, SHA512, SHA1, MD5",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "hmac",
+        "hmac-sha256",
+        "hmac-sha512",
+        "mac",
+        "message authentication"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "sha512-generator",
+        "aes-encryption",
+        "hash-comparator"
+      ],
+      "jsFile": "hmac-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 9
+    },
+    {
+      "slug": "rsa-key-generator",
+      "title": "RSA Key Pair Generator",
+      "pageTitle": "RSA Key Pair Generator – Generate RSA Public & Private Keys Online | CipherKit",
+      "metaDescription": "Free online RSA key pair generator. Generate RSA 2048-bit or 4096-bit public and private key pairs in PKCS#8 format directly in your browser.",
+      "h1": "RSA Key Pair Generator",
+      "tagline": "Generate RSA public & private key pairs — 1024, 2048, or 4096-bit",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "rsa",
+        "rsa key",
+        "public key",
+        "private key",
+        "asymmetric encryption",
+        "pkcs8"
+      ],
+      "relatedTools": [
+        "rsa-encrypt-decrypt",
+        "aes-encryption",
+        "hmac-generator"
+      ],
+      "jsFile": "rsa-key-generator.js",
+      "phase": 2,
+      "status": "ready",
+      "priority": 10
+    },
+    {
+      "slug": "hash-comparator",
+      "title": "Hash Comparator & Verifier",
+      "pageTitle": "Hash Comparator – Verify and Compare Hash Values Online | CipherKit",
+      "metaDescription": "Free online hash comparator. Verify and compare MD5, SHA-256, SHA-512 hash values. Check file integrity or verify password hashes instantly.",
+      "h1": "Hash Comparator & Verifier",
+      "tagline": "Compare and verify hash values — MD5, SHA-256, SHA-512 and more",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "hash comparator",
+        "hash verifier",
+        "compare hash",
+        "verify hash",
+        "checksum verify"
+      ],
+      "relatedTools": [
+        "sha256-generator",
+        "md5-generator",
+        "checksum-generator"
+      ],
+      "jsFile": "hash-comparator.js",
+      "phase": 2,
+      "status": "ready",
+      "priority": 11
+    },
+    {
+      "slug": "checksum-generator",
+      "title": "Checksum Generator",
+      "pageTitle": "Checksum Generator – Generate File Checksums Online | CipherKit",
+      "metaDescription": "Free online checksum generator. Generate MD5, SHA-1, SHA-256, and SHA-512 checksums from text input directly in your browser.",
+      "h1": "Checksum Generator",
+      "tagline": "Generate checksums for data integrity verification",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "checksum",
+        "checksum generator",
+        "file checksum",
+        "data integrity"
+      ],
+      "relatedTools": [
+        "md5-generator",
+        "sha256-generator",
+        "hash-comparator"
+      ],
+      "jsFile": "checksum-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js",
+          "integrity": "sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 2,
+      "status": "ready",
+      "priority": 12
+    },
+    {
+      "slug": "base64-encode",
+      "title": "Base64 Encoder",
+      "pageTitle": "Base64 Encoder – Encode Text to Base64 Online | CipherKit",
+      "metaDescription": "Free online Base64 encoder. Encode any text or string to Base64 format instantly in your browser. Supports standard and URL-safe Base64.",
+      "h1": "Base64 Encoder",
+      "tagline": "Encode text or binary data to Base64 — standard and URL-safe variants",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "base64",
+        "base64 encode",
+        "base64 encoder",
+        "encode base64"
+      ],
+      "relatedTools": [
+        "base64-decode",
+        "url-encode",
+        "hex-encode",
+        "binary-encode"
+      ],
+      "jsFile": "base64-encode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 13
+    },
+    {
+      "slug": "base64-decode",
+      "title": "Base64 Decoder",
+      "pageTitle": "Base64 Decoder – Decode Base64 to Text Online | CipherKit",
+      "metaDescription": "Free online Base64 decoder. Decode Base64 encoded strings back to readable text instantly in your browser. Supports standard and URL-safe Base64.",
+      "h1": "Base64 Decoder",
+      "tagline": "Decode Base64 strings back to plain text or binary data",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "base64",
+        "base64 decode",
+        "base64 decoder",
+        "decode base64"
+      ],
+      "relatedTools": [
+        "base64-encode",
+        "url-decode",
+        "hex-decode",
+        "binary-decode"
+      ],
+      "jsFile": "base64-decode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 14
+    },
+    {
+      "slug": "url-encode",
+      "title": "URL Encoder",
+      "pageTitle": "URL Encoder – Encode URLs and Query Strings Online | CipherKit",
+      "metaDescription": "Free online URL encoder. Percent-encode URLs and query string parameters for use in web requests. Encode special characters instantly.",
+      "h1": "URL Encoder",
+      "tagline": "Percent-encode URLs and query strings for safe transmission",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "url encode",
+        "url encoder",
+        "percent encode",
+        "urlencode",
+        "query string encode"
+      ],
+      "relatedTools": [
+        "url-decode",
+        "base64-encode",
+        "html-encode"
+      ],
+      "jsFile": "url-encode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 15
+    },
+    {
+      "slug": "url-decode",
+      "title": "URL Decoder",
+      "pageTitle": "URL Decoder – Decode Percent-Encoded URLs Online | CipherKit",
+      "metaDescription": "Free online URL decoder. Decode percent-encoded URLs and query strings back to readable text instantly in your browser.",
+      "h1": "URL Decoder",
+      "tagline": "Decode percent-encoded URLs back to readable query strings",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "url decode",
+        "url decoder",
+        "percent decode",
+        "urldecode"
+      ],
+      "relatedTools": [
+        "url-encode",
+        "base64-decode",
+        "html-decode"
+      ],
+      "jsFile": "url-decode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 16
+    },
+    {
+      "slug": "html-encode",
+      "title": "HTML Entity Encoder",
+      "pageTitle": "HTML Entity Encoder – Encode HTML Special Characters Online | CipherKit",
+      "metaDescription": "Free online HTML entity encoder. Convert special characters like <, >, &, and quotes to HTML entities for safe display in web pages.",
+      "h1": "HTML Entity Encoder",
+      "tagline": "Escape HTML special characters to prevent XSS and display issues",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "html encode",
+        "html entities",
+        "html escape",
+        "xss prevention"
+      ],
+      "relatedTools": [
+        "html-decode",
+        "url-encode",
+        "base64-encode"
+      ],
+      "jsFile": "html-encode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 17
+    },
+    {
+      "slug": "html-decode",
+      "title": "HTML Entity Decoder",
+      "pageTitle": "HTML Entity Decoder – Decode HTML Entities Online | CipherKit",
+      "metaDescription": "Free online HTML entity decoder. Convert HTML entities like &amp;, &lt;, &gt; back to their original characters instantly.",
+      "h1": "HTML Entity Decoder",
+      "tagline": "Decode HTML entities back to their original characters",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "html decode",
+        "html entities decode",
+        "html unescape"
+      ],
+      "relatedTools": [
+        "html-encode",
+        "url-decode",
+        "base64-decode"
+      ],
+      "jsFile": "html-decode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 18
+    },
+    {
+      "slug": "hex-encode",
+      "title": "Hex Encoder",
+      "pageTitle": "Hex Encoder – Convert Text to Hexadecimal Online | CipherKit",
+      "metaDescription": "Free online hex encoder. Convert plain text or ASCII strings to hexadecimal representation instantly in your browser.",
+      "h1": "Hex Encoder",
+      "tagline": "Convert text to hexadecimal — useful for debugging and binary inspection",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "hex encode",
+        "text to hex",
+        "hexadecimal encoder",
+        "ascii to hex"
+      ],
+      "relatedTools": [
+        "hex-decode",
+        "base64-encode",
+        "binary-encode"
+      ],
+      "jsFile": "hex-encode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 19
+    },
+    {
+      "slug": "hex-decode",
+      "title": "Hex Decoder",
+      "pageTitle": "Hex Decoder – Convert Hexadecimal to Text Online | CipherKit",
+      "metaDescription": "Free online hex decoder. Convert hexadecimal strings back to plain text or ASCII instantly in your browser.",
+      "h1": "Hex Decoder",
+      "tagline": "Decode hexadecimal strings back to plain text",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "hex decode",
+        "hex to text",
+        "hexadecimal decoder",
+        "hex to ascii"
+      ],
+      "relatedTools": [
+        "hex-encode",
+        "base64-decode",
+        "binary-decode"
+      ],
+      "jsFile": "hex-decode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 20
+    },
+    {
+      "slug": "binary-encode",
+      "title": "Binary Encoder",
+      "pageTitle": "Binary Encoder – Convert Text to Binary Online | CipherKit",
+      "metaDescription": "Free online binary encoder. Convert plain text to binary (0s and 1s) representation instantly in your browser.",
+      "h1": "Binary Encoder",
+      "tagline": "Convert text to binary representation — byte by byte",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "binary encode",
+        "text to binary",
+        "binary converter",
+        "ascii to binary"
+      ],
+      "relatedTools": [
+        "binary-decode",
+        "hex-encode",
+        "base64-encode"
+      ],
+      "jsFile": "binary-encode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 21
+    },
+    {
+      "slug": "binary-decode",
+      "title": "Binary Decoder",
+      "pageTitle": "Binary Decoder – Convert Binary to Text Online | CipherKit",
+      "metaDescription": "Free online binary decoder. Convert binary strings (0s and 1s) back to readable text instantly in your browser.",
+      "h1": "Binary Decoder",
+      "tagline": "Decode binary strings back to readable text",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "binary decode",
+        "binary to text",
+        "binary converter"
+      ],
+      "relatedTools": [
+        "binary-encode",
+        "hex-decode",
+        "base64-decode"
+      ],
+      "jsFile": "binary-decode.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 22
+    },
+    {
+      "slug": "json-formatter",
+      "title": "JSON Formatter & Validator",
+      "pageTitle": "JSON Formatter & Validator – Format and Validate JSON Online | CipherKit",
+      "metaDescription": "Free online JSON formatter and validator. Beautify, format, and validate JSON data instantly. Supports syntax highlighting and error detection.",
+      "h1": "JSON Formatter & Validator",
+      "tagline": "Beautify and validate JSON data — with syntax highlighting and error detection",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "json formatter",
+        "json validator",
+        "json beautifier",
+        "format json",
+        "json pretty print"
+      ],
+      "relatedTools": [
+        "json-minifier",
+        "xml-json-converter",
+        "csv-json-converter",
+        "yaml-json-converter"
+      ],
+      "jsFile": "json-formatter.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 23
+    },
+    {
+      "slug": "json-minifier",
+      "title": "JSON Minifier",
+      "pageTitle": "JSON Minifier – Minify and Compress JSON Online | CipherKit",
+      "metaDescription": "Free online JSON minifier. Compress and minify JSON data by removing whitespace and formatting. Reduce JSON payload size instantly.",
+      "h1": "JSON Minifier",
+      "tagline": "Minify JSON by removing whitespace — reduce payload size",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "json minifier",
+        "json minify",
+        "compress json",
+        "json compressor"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "xml-json-converter"
+      ],
+      "jsFile": "json-minifier.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 24
+    },
+    {
+      "slug": "xml-json-converter",
+      "title": "XML to JSON Converter",
+      "pageTitle": "XML to JSON Converter – Convert XML to JSON Online | CipherKit",
+      "metaDescription": "Free online XML to JSON converter. Convert XML data to JSON format instantly in your browser. No file upload required.",
+      "h1": "XML to JSON Converter",
+      "tagline": "Convert XML data to JSON format — fast, free, client-side",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "xml to json",
+        "xml json converter",
+        "convert xml",
+        "xml parser"
+      ],
+      "relatedTools": [
+        "json-xml-converter",
+        "json-formatter",
+        "csv-json-converter"
+      ],
+      "jsFile": "xml-json-converter.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 25
+    },
+    {
+      "slug": "json-xml-converter",
+      "title": "JSON to XML Converter",
+      "pageTitle": "JSON to XML Converter – Convert JSON to XML Online | CipherKit",
+      "metaDescription": "Free online JSON to XML converter. Convert JSON data to XML format instantly in your browser.",
+      "h1": "JSON to XML Converter",
+      "tagline": "Convert JSON data to XML format — browser-based, no server",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "json to xml",
+        "json xml converter",
+        "convert json to xml"
+      ],
+      "relatedTools": [
+        "xml-json-converter",
+        "json-formatter",
+        "json-minifier"
+      ],
+      "jsFile": "json-xml-converter.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 26
+    },
+    {
+      "slug": "csv-json-converter",
+      "title": "CSV to JSON Converter",
+      "pageTitle": "CSV to JSON Converter – Convert CSV Data to JSON Online | CipherKit",
+      "metaDescription": "Free online CSV to JSON converter. Convert CSV files or comma-separated data to JSON format instantly in your browser.",
+      "h1": "CSV to JSON Converter",
+      "tagline": "Convert CSV data to JSON — paste your CSV, get instant JSON",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "csv to json",
+        "csv json converter",
+        "convert csv",
+        "csv parser"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "xml-json-converter",
+        "yaml-json-converter"
+      ],
+      "jsFile": "csv-json-converter.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 27
+    },
+    {
+      "slug": "yaml-json-converter",
+      "title": "YAML to JSON Converter",
+      "pageTitle": "YAML to JSON Converter – Convert YAML to JSON Online | CipherKit",
+      "metaDescription": "Free online YAML to JSON converter. Convert YAML configuration files or data to JSON format instantly in your browser.",
+      "h1": "YAML to JSON Converter",
+      "tagline": "Convert YAML to JSON — for config files, CI/CD, and API schemas",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "yaml to json",
+        "yaml json",
+        "convert yaml",
+        "yaml parser"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "xml-json-converter",
+        "csv-json-converter"
+      ],
+      "jsFile": "yaml-json-converter.js",
+      "phase": 3,
+      "status": "ready",
+      "priority": 28
+    },
+    {
+      "slug": "jwt-decoder",
+      "title": "JWT Decoder & Inspector",
+      "pageTitle": "JWT Decoder – Decode and Inspect JWT Tokens Online | CipherKit",
+      "metaDescription": "Free online JWT decoder. Decode and inspect JSON Web Tokens (JWT) — view header, payload, and signature claims instantly without a secret key.",
+      "h1": "JWT Decoder & Inspector",
+      "tagline": "Decode and inspect JWT tokens — header, payload, claims at a glance",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "jwt decoder",
+        "jwt",
+        "json web token",
+        "decode jwt",
+        "jwt inspector"
+      ],
+      "relatedTools": [
+        "jwt-encoder",
+        "hmac-generator",
+        "base64-decode"
+      ],
+      "jsFile": "jwt-decoder.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 29
+    },
+    {
+      "slug": "jwt-encoder",
+      "title": "JWT Encoder",
+      "pageTitle": "JWT Encoder – Create and Sign JWT Tokens Online | CipherKit",
+      "metaDescription": "Free online JWT encoder. Create and sign JSON Web Tokens (JWT) with HS256, HS384, or HS512 directly in your browser.",
+      "h1": "JWT Encoder",
+      "tagline": "Create and sign JWT tokens with custom claims and headers",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "jwt encoder",
+        "jwt",
+        "create jwt",
+        "sign jwt",
+        "json web token generator"
+      ],
+      "relatedTools": [
+        "jwt-decoder",
+        "hmac-generator",
+        "base64-encode"
+      ],
+      "jsFile": "jwt-encoder.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 30
+    },
+    {
+      "slug": "uuid-generator",
+      "title": "UUID / GUID Generator",
+      "pageTitle": "UUID Generator – Generate UUID v4, v1, and GUID Online | CipherKit",
+      "metaDescription": "Free online UUID and GUID generator. Generate UUID v1, v4, and bulk UUIDs instantly in your browser. Cryptographically secure random generation.",
+      "h1": "UUID / GUID Generator",
+      "tagline": "Generate UUID v4, v1, and bulk UUIDs — cryptographically secure",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "uuid generator",
+        "guid generator",
+        "uuid v4",
+        "unique id",
+        "uuid online"
+      ],
+      "relatedTools": [
+        "random-string-generator",
+        "random-password-generator"
+      ],
+      "jsFile": "uuid-generator.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 31
+    },
+    {
+      "slug": "random-password-generator",
+      "title": "Random Password Generator",
+      "pageTitle": "Random Password Generator – Generate Strong Passwords Online | CipherKit",
+      "metaDescription": "Free online random password generator. Generate strong, cryptographically secure passwords with custom length, uppercase, lowercase, numbers, and symbols.",
+      "h1": "Random Password Generator",
+      "tagline": "Generate strong, cryptographically secure passwords — customizable length and charset",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "password generator",
+        "random password",
+        "strong password",
+        "secure password generator"
+      ],
+      "relatedTools": [
+        "random-string-generator",
+        "uuid-generator",
+        "hmac-generator"
+      ],
+      "jsFile": "random-password-generator.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 32
+    },
+    {
+      "slug": "random-string-generator",
+      "title": "Random String Generator",
+      "pageTitle": "Random String Generator – Generate Random Strings Online | CipherKit",
+      "metaDescription": "Free online random string generator. Generate random alphanumeric strings, API keys, tokens, and secrets with custom length and character sets.",
+      "h1": "Random String Generator",
+      "tagline": "Generate random strings, API keys, and tokens — custom length and charset",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "random string generator",
+        "random string",
+        "api key generator",
+        "token generator"
+      ],
+      "relatedTools": [
+        "random-password-generator",
+        "uuid-generator"
+      ],
+      "jsFile": "random-string-generator.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 33
+    },
+    {
+      "slug": "unix-timestamp-converter",
+      "title": "Unix Timestamp Converter",
+      "pageTitle": "Unix Timestamp Converter – Convert Unix Time to Date Online | CipherKit",
+      "metaDescription": "Free online Unix timestamp converter. Convert Unix timestamps to human-readable dates and vice versa. Supports UTC and local time zones.",
+      "h1": "Unix Timestamp Converter",
+      "tagline": "Convert Unix timestamps to dates and dates to timestamps — with timezone support",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "unix timestamp",
+        "epoch converter",
+        "timestamp converter",
+        "unix time",
+        "epoch time"
+      ],
+      "relatedTools": [
+        "uuid-generator",
+        "random-string-generator"
+      ],
+      "jsFile": "unix-timestamp-converter.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 34
+    },
+    {
+      "slug": "cron-expression-generator",
+      "title": "Cron Expression Generator",
+      "pageTitle": "Cron Expression Generator – Build Cron Schedules Online | CipherKit",
+      "metaDescription": "Free online cron expression generator. Build cron job schedules visually with a simple UI. Supports standard and non-standard cron syntax.",
+      "h1": "Cron Expression Generator",
+      "tagline": "Build and validate cron expressions visually — no syntax memorization needed",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "cron generator",
+        "cron expression",
+        "cron job",
+        "cron schedule",
+        "crontab generator"
+      ],
+      "relatedTools": [
+        "cron-expression-explainer",
+        "unix-timestamp-converter"
+      ],
+      "jsFile": "cron-expression-generator.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 35
+    },
+    {
+      "slug": "cron-expression-explainer",
+      "title": "Cron Expression Explainer",
+      "pageTitle": "Cron Expression Explainer – Understand Cron Syntax Online | CipherKit",
+      "metaDescription": "Free online cron expression explainer. Paste any cron expression and get a plain English explanation of when it runs. Includes next run times.",
+      "h1": "Cron Expression Explainer",
+      "tagline": "Understand any cron expression in plain English — with next run times",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "cron explainer",
+        "cron expression parser",
+        "cron to english",
+        "understand cron"
+      ],
+      "relatedTools": [
+        "cron-expression-generator",
+        "unix-timestamp-converter"
+      ],
+      "jsFile": "cron-expression-explainer.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 36
+    },
+    {
+      "slug": "http-header-parser",
+      "title": "HTTP Header Parser",
+      "pageTitle": "HTTP Header Parser – Parse and Analyze HTTP Headers Online | CipherKit",
+      "metaDescription": "Free online HTTP header parser. Paste raw HTTP headers and get a structured, readable breakdown of each header field and its value.",
+      "h1": "HTTP Header Parser",
+      "tagline": "Parse and analyze raw HTTP request or response headers",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "http header parser",
+        "http headers",
+        "parse headers",
+        "http request parser"
+      ],
+      "relatedTools": [
+        "jwt-decoder",
+        "url-decode",
+        "json-formatter"
+      ],
+      "jsFile": "http-header-parser.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 37
+    },
+    {
+      "slug": "bcrypt-generator",
+      "title": "Bcrypt Hash Generator",
+      "pageTitle": "Bcrypt Hash Generator – Hash Passwords with Bcrypt Online | CipherKit",
+      "metaDescription": "Free online bcrypt hash generator. Hash passwords using the bcrypt algorithm with configurable cost factor directly in your browser.",
+      "h1": "Bcrypt Hash Generator",
+      "tagline": "Hash passwords with bcrypt — configure cost factor, verify hashes",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "bcrypt",
+        "bcrypt generator",
+        "password hash",
+        "bcrypt hash"
+      ],
+      "relatedTools": [
+        "random-password-generator",
+        "sha256-generator",
+        "hash-comparator"
+      ],
+      "jsFile": "bcrypt-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js",
+          "integrity": "sha512-DNI/FJdkfyeuPUal7lDkRVg0mFY2n4IZJJYqPbQWLL0COxLi6G6nmf5gr1vW1Bd4wYC09hOvZVsSclfXxUTU/w==",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 4,
+      "status": "ready",
+      "priority": 38
+    },
+    {
+      "slug": "regex-tester",
+      "title": "Regex Tester",
+      "pageTitle": "Regex Tester – Test Regular Expressions Online | CipherKit",
+      "metaDescription": "Free online regex tester. Test regular expressions in real-time with match highlighting, group capture, and flag support.",
+      "h1": "Regex Tester",
+      "tagline": "Test and debug regular expressions in real-time — with match highlighting",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "regex tester",
+        "regular expression tester",
+        "regex online",
+        "regex matcher"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "diff-checker"
+      ],
+      "jsFile": "regex-tester.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 39
+    },
+    {
+      "slug": "color-converter",
+      "title": "Color Code Converter",
+      "pageTitle": "Color Code Converter – Convert HEX, RGB, HSL Online | CipherKit",
+      "metaDescription": "Free online color code converter. Convert colors between HEX, RGB, RGBA, HSL, and HSV formats instantly with a visual color picker.",
+      "h1": "Color Code Converter",
+      "tagline": "Convert HEX, RGB, RGBA, HSL, HSV color codes — with visual preview",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "color converter",
+        "hex to rgb",
+        "rgb to hex",
+        "color code converter",
+        "hsl converter"
+      ],
+      "relatedTools": [
+        "number-base-converter"
+      ],
+      "jsFile": "color-converter.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 40
+    },
+    {
+      "slug": "number-base-converter",
+      "title": "Number Base Converter",
+      "pageTitle": "Number Base Converter – Convert Binary, Octal, Decimal, Hex | CipherKit",
+      "metaDescription": "Free online number base converter. Convert numbers between binary, octal, decimal, and hexadecimal bases instantly in your browser.",
+      "h1": "Number Base Converter",
+      "tagline": "Convert numbers between binary, octal, decimal, and hexadecimal",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "number base converter",
+        "binary to decimal",
+        "hex to decimal",
+        "base converter"
+      ],
+      "relatedTools": [
+        "hex-encode",
+        "binary-encode",
+        "color-converter"
+      ],
+      "jsFile": "number-base-converter.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 41
+    },
+    {
+      "slug": "lorem-ipsum-generator",
+      "title": "Lorem Ipsum Generator",
+      "pageTitle": "Lorem Ipsum Generator – Generate Placeholder Text Online | CipherKit",
+      "metaDescription": "Free online lorem ipsum generator. Generate custom amounts of placeholder text by words, sentences, or paragraphs for design and development mockups.",
+      "h1": "Lorem Ipsum Generator",
+      "tagline": "Generate lorem ipsum placeholder text — by word, sentence, or paragraph count",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "lorem ipsum generator",
+        "placeholder text",
+        "dummy text generator",
+        "lorem ipsum"
+      ],
+      "relatedTools": [
+        "word-counter",
+        "random-string-generator"
+      ],
+      "jsFile": "lorem-ipsum-generator.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 42
+    },
+    {
+      "slug": "sql-formatter",
+      "title": "SQL Formatter",
+      "pageTitle": "SQL Formatter – Format and Beautify SQL Queries Online | CipherKit",
+      "metaDescription": "Free online SQL formatter. Beautify and format SQL queries for MySQL, PostgreSQL, SQLite, and SQL Server instantly in your browser.",
+      "h1": "SQL Formatter",
+      "tagline": "Format and beautify SQL queries — supports MySQL, PostgreSQL, SQLite",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "sql formatter",
+        "sql beautifier",
+        "format sql",
+        "sql query formatter"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "diff-checker"
+      ],
+      "jsFile": "sql-formatter.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 43
+    },
+    {
+      "slug": "markdown-preview",
+      "title": "Markdown Previewer",
+      "pageTitle": "Markdown Previewer – Preview Markdown in Real-Time Online | CipherKit",
+      "metaDescription": "Free online markdown previewer. Write markdown and see the rendered HTML preview in real-time. Supports GitHub-flavored Markdown (GFM).",
+      "h1": "Markdown Previewer",
+      "tagline": "Preview markdown in real-time — GitHub-flavored Markdown support",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "markdown preview",
+        "markdown editor",
+        "markdown renderer",
+        "markdown online"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "diff-checker",
+        "word-counter"
+      ],
+      "jsFile": "markdown-preview.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 44
+    },
+    {
+      "slug": "diff-checker",
+      "title": "Text Diff Checker",
+      "pageTitle": "Text Diff Checker – Compare Two Texts Online | CipherKit",
+      "metaDescription": "Free online text diff checker. Compare two blocks of text and highlight the differences line by line. Useful for code reviews and document comparison.",
+      "h1": "Text Diff Checker",
+      "tagline": "Compare two text blocks and highlight differences line by line",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "diff checker",
+        "text diff",
+        "compare text",
+        "text comparison",
+        "diff tool"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "markdown-preview",
+        "word-counter"
+      ],
+      "jsFile": "diff-checker.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 45
+    },
+    {
+      "slug": "word-counter",
+      "title": "Word & Character Counter",
+      "pageTitle": "Word Counter – Count Words, Characters, and Sentences Online | CipherKit",
+      "metaDescription": "Free online word and character counter. Count words, characters, sentences, paragraphs, and reading time instantly.",
+      "h1": "Word & Character Counter",
+      "tagline": "Count words, characters, sentences, and estimate reading time",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "word counter",
+        "character counter",
+        "word count online",
+        "text analyzer"
+      ],
+      "relatedTools": [
+        "lorem-ipsum-generator",
+        "diff-checker",
+        "markdown-preview"
+      ],
+      "jsFile": "word-counter.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 46
+    },
+    {
+      "slug": "ip-address-tools",
+      "title": "IP Address Tools",
+      "pageTitle": "IP Address Tools – Subnet Calculator and IP Info Online | CipherKit",
+      "metaDescription": "Free online IP address tools. Calculate subnets, convert CIDR notation, and analyze IPv4 and IPv6 addresses directly in your browser.",
+      "h1": "IP Address Tools",
+      "tagline": "Subnet calculator, CIDR converter, and IPv4/IPv6 address analysis",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "ip address tools",
+        "subnet calculator",
+        "cidr calculator",
+        "ip calculator"
+      ],
+      "relatedTools": [
+        "http-header-parser",
+        "number-base-converter"
+      ],
+      "jsFile": "ip-address-tools.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 47
+    },
+    {
+      "slug": "rsa-encrypt-decrypt",
+      "title": "RSA Encrypt & Decrypt",
+      "pageTitle": "RSA Encrypt & Decrypt – RSA Encryption Tool Online | CipherKit",
+      "metaDescription": "Free online RSA encryption and decryption tool. Encrypt messages with RSA public keys and decrypt with private keys directly in your browser.",
+      "h1": "RSA Encrypt & Decrypt",
+      "tagline": "Encrypt with RSA public key, decrypt with private key — OAEP padding",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "rsa encrypt",
+        "rsa decrypt",
+        "rsa encryption",
+        "asymmetric encryption",
+        "public key encryption"
+      ],
+      "relatedTools": [
+        "rsa-key-generator",
+        "aes-encryption",
+        "hmac-generator"
+      ],
+      "jsFile": "rsa-encrypt-decrypt.js",
+      "phase": 4,
+      "status": "ready",
+      "priority": 48
+    },
+    {
+      "slug": "password-strength",
+      "title": "Password Strength Checker",
+      "pageTitle": "Password Strength Checker – Analyze Password Security Online | CipherKit",
+      "metaDescription": "Free online password strength checker. Analyze entropy, crack time, and get suggestions to improve your passwords. 100% client-side.",
+      "h1": "Password Strength Checker",
+      "tagline": "Real-time password analysis with entropy, crack time, and improvement tips",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "password strength",
+        "password checker",
+        "password analyzer",
+        "entropy",
+        "password security"
+      ],
+      "relatedTools": [
+        "random-password-generator",
+        "bcrypt-generator",
+        "hmac-generator"
+      ],
+      "jsFile": "password-strength.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 49
+    },
+    {
+      "slug": "totp-generator",
+      "title": "TOTP Generator",
+      "pageTitle": "TOTP Generator – Generate 2FA Codes Online | CipherKit",
+      "metaDescription": "Free online TOTP generator. Generate time-based one-time passwords (2FA codes) from any Base32 secret key directly in your browser.",
+      "h1": "TOTP Generator",
+      "tagline": "Generate time-based one-time passwords for two-factor authentication",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "totp",
+        "2fa",
+        "two-factor",
+        "otp",
+        "authenticator",
+        "time-based otp"
+      ],
+      "relatedTools": [
+        "hmac-generator",
+        "sha1-generator",
+        "password-strength"
+      ],
+      "jsFile": "totp-generator.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 50
+    },
+    {
+      "slug": "ssl-cert-decoder",
+      "title": "SSL Certificate Decoder",
+      "pageTitle": "SSL Certificate Decoder – Decode PEM Certificates Online | CipherKit",
+      "metaDescription": "Free online SSL certificate decoder. Parse and inspect PEM X.509 certificates to view subject, issuer, validity, and serial number.",
+      "h1": "SSL Certificate Decoder",
+      "tagline": "Decode PEM X.509 certificates — view subject, issuer, validity, and serial",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "ssl",
+        "certificate",
+        "pem",
+        "x509",
+        "cert decoder",
+        "tls"
+      ],
+      "relatedTools": [
+        "rsa-key-generator",
+        "rsa-encrypt-decrypt",
+        "sha256-generator"
+      ],
+      "jsFile": "ssl-cert-decoder.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 51
+    },
+    {
+      "slug": "json-schema-validator",
+      "title": "JSON Schema Validator",
+      "pageTitle": "JSON Schema Validator – Validate JSON Against Schema Online | CipherKit",
+      "metaDescription": "Free online JSON Schema validator. Validate JSON data against a JSON Schema with support for types, required fields, patterns, and nested objects.",
+      "h1": "JSON Schema Validator",
+      "tagline": "Validate JSON data against a schema — supports type, required, pattern, and more",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "json schema",
+        "json validator",
+        "schema validation",
+        "json",
+        "data validation"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "json-minifier",
+        "json-xml-converter"
+      ],
+      "jsFile": "json-schema-validator.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 52
+    },
+    {
+      "slug": "json-to-csv",
+      "title": "JSON to CSV Converter",
+      "pageTitle": "JSON to CSV Converter – Convert JSON Arrays to CSV Online | CipherKit",
+      "metaDescription": "Free online JSON to CSV converter. Convert JSON arrays to CSV format with proper escaping. Download as .csv file.",
+      "h1": "JSON to CSV Converter",
+      "tagline": "Convert JSON arrays to CSV with proper escaping — download as .csv",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "json to csv",
+        "json csv",
+        "convert json",
+        "csv export",
+        "data converter"
+      ],
+      "relatedTools": [
+        "csv-json-converter",
+        "json-formatter",
+        "json-minifier"
+      ],
+      "jsFile": "json-to-csv.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 53
+    },
+    {
+      "slug": "qr-generator",
+      "title": "QR Code Generator",
+      "pageTitle": "QR Code Generator – Create QR Codes Online | CipherKit",
+      "metaDescription": "Free online QR code generator. Create QR codes from text, URLs, or data with customizable size, error correction, and colors.",
+      "h1": "QR Code Generator",
+      "tagline": "Generate QR codes from text, URLs, or any data — customize size and colors",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "qr code",
+        "qr generator",
+        "qr code maker",
+        "barcode",
+        "qr"
+      ],
+      "relatedTools": [
+        "uuid-generator",
+        "random-string-generator",
+        "url-encode"
+      ],
+      "jsFile": "qr-generator.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 5,
+      "status": "ready",
+      "priority": 54
+    },
+    {
+      "slug": "svg-to-png",
+      "title": "SVG to PNG Converter",
+      "pageTitle": "SVG to PNG Converter – Convert SVG to PNG Online | CipherKit",
+      "metaDescription": "Free online SVG to PNG converter. Convert SVG markup to PNG images with customizable scale factor. Uses Canvas API — 100% client-side.",
+      "h1": "SVG to PNG Converter",
+      "tagline": "Convert SVG markup to PNG with adjustable scale — 100% client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "svg to png",
+        "svg converter",
+        "image converter",
+        "svg",
+        "png"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "image-resizer",
+        "color-converter"
+      ],
+      "jsFile": "svg-to-png.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 55
+    },
+    {
+      "slug": "image-converter",
+      "title": "Image Format Converter",
+      "pageTitle": "Image Format Converter – Convert Images Between Formats Online | CipherKit",
+      "metaDescription": "Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.",
+      "h1": "Image Format Converter",
+      "tagline": "Convert images between PNG, JPEG, and WebP — adjust quality, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "image converter",
+        "png to jpg",
+        "jpg to png",
+        "webp converter",
+        "format converter"
+      ],
+      "relatedTools": [
+        "svg-to-png",
+        "image-resizer",
+        "image-enhancer"
+      ],
+      "jsFile": "image-converter.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 56
+    },
+    {
+      "slug": "image-resizer",
+      "title": "Image Resizer",
+      "pageTitle": "Image Resizer – Resize Images Online | CipherKit",
+      "metaDescription": "Free online image resizer. Resize images to exact dimensions with aspect ratio lock. Supports PNG, JPEG, and WebP output.",
+      "h1": "Image Resizer",
+      "tagline": "Resize images to exact dimensions — lock aspect ratio, choose output format",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "image resizer",
+        "resize image",
+        "image dimensions",
+        "photo resizer"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "svg-to-png",
+        "image-enhancer"
+      ],
+      "jsFile": "image-resizer.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 57
+    },
+    {
+      "slug": "markdown-to-pdf",
+      "title": "Markdown to PDF",
+      "pageTitle": "Markdown to PDF – Convert Markdown to PDF Online | CipherKit",
+      "metaDescription": "Free online Markdown to PDF converter. Convert Markdown text to PDF with headings, lists, and basic formatting. Powered by jsPDF.",
+      "h1": "Markdown to PDF",
+      "tagline": "Convert Markdown to downloadable PDF — headings, lists, and basic formatting",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "markdown to pdf",
+        "md to pdf",
+        "pdf generator",
+        "markdown converter"
+      ],
+      "relatedTools": [
+        "markdown-preview",
+        "json-formatter",
+        "word-counter"
+      ],
+      "jsFile": "markdown-to-pdf.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        },
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        },
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 5,
+      "status": "ready",
+      "priority": 58
+    },
+    {
+      "slug": "csv-to-excel",
+      "title": "CSV to Excel Converter",
+      "pageTitle": "CSV to Excel Converter – Convert CSV to XLSX Online | CipherKit",
+      "metaDescription": "Free online CSV to Excel converter. Convert CSV data to .xlsx spreadsheet files with live preview. Powered by SheetJS.",
+      "h1": "CSV to Excel Converter",
+      "tagline": "Convert CSV data to downloadable .xlsx files — with live table preview",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "csv to excel",
+        "csv to xlsx",
+        "spreadsheet",
+        "csv converter",
+        "excel"
+      ],
+      "relatedTools": [
+        "csv-json-converter",
+        "json-to-csv",
+        "json-formatter"
+      ],
+      "jsFile": "csv-to-excel.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 5,
+      "status": "ready",
+      "priority": 59
+    },
+    {
+      "slug": "docx-to-html",
+      "title": "DOCX to HTML Converter",
+      "pageTitle": "DOCX to HTML Converter – Convert Word Documents to HTML Online | CipherKit",
+      "metaDescription": "Free online DOCX to HTML converter. Convert Word documents to clean HTML with preview and source view. Powered by Mammoth.js.",
+      "h1": "DOCX to HTML Converter",
+      "tagline": "Convert Word .docx files to clean HTML — preview and source view",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "docx to html",
+        "word to html",
+        "document converter",
+        "docx converter"
+      ],
+      "relatedTools": [
+        "markdown-preview",
+        "markdown-to-pdf",
+        "json-formatter"
+      ],
+      "jsFile": "docx-to-html.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 5,
+      "status": "ready",
+      "priority": 60
+    },
+    {
+      "slug": "gzip-tool",
+      "title": "Gzip Compress / Decompress",
+      "pageTitle": "Gzip Compress & Decompress – Online Gzip Tool | CipherKit",
+      "metaDescription": "Free online Gzip compression and decompression tool. Compress text to gzip or decompress Base64-encoded gzip data. Powered by pako.js.",
+      "h1": "Gzip Compress / Decompress",
+      "tagline": "Compress or decompress text with Gzip — shows compression ratio",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "gzip",
+        "compress",
+        "decompress",
+        "gzip online",
+        "compression tool"
+      ],
+      "relatedTools": [
+        "base64-encode",
+        "base64-decode",
+        "hex-encode"
+      ],
+      "jsFile": "gzip-tool.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js",
+          "integrity": "",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 5,
+      "status": "ready",
+      "priority": 61
+    },
+    {
+      "slug": "ascii-table",
+      "title": "ASCII Table",
+      "pageTitle": "ASCII Table – Complete ASCII Reference Chart Online | CipherKit",
+      "metaDescription": "Free online ASCII table reference. Browse all 128 ASCII characters with decimal, hex, octal, and binary values. Searchable and filterable.",
+      "h1": "ASCII Table",
+      "tagline": "Complete ASCII reference chart — decimal, hex, octal, binary, and descriptions",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "ascii table",
+        "ascii chart",
+        "ascii reference",
+        "character codes",
+        "ascii"
+      ],
+      "relatedTools": [
+        "number-base-converter",
+        "binary-encode",
+        "hex-encode"
+      ],
+      "jsFile": "ascii-table.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 62
+    },
+    {
+      "slug": "bit-calculator",
+      "title": "Bit / Byte Calculator",
+      "pageTitle": "Bit Byte Calculator – Convert Data Sizes Online | CipherKit",
+      "metaDescription": "Free online bit and byte calculator. Convert between bits, bytes, KB, MB, GB, TB, PB and their binary (IEC) equivalents instantly.",
+      "h1": "Bit / Byte Calculator",
+      "tagline": "Convert between bits, bytes, KB, MB, GB, TB — SI and IEC units",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "bit calculator",
+        "byte converter",
+        "data size",
+        "mb to gb",
+        "storage calculator"
+      ],
+      "relatedTools": [
+        "number-base-converter",
+        "ascii-table",
+        "binary-encode"
+      ],
+      "jsFile": "bit-calculator.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 63
+    },
+    {
+      "slug": "dns-lookup",
+      "title": "DNS Lookup",
+      "pageTitle": "DNS Lookup – Query DNS Records Online | CipherKit",
+      "metaDescription": "Free online DNS lookup tool. Query A, AAAA, MX, NS, TXT, SOA, and other DNS records using Google DNS-over-HTTPS.",
+      "h1": "DNS Lookup",
+      "tagline": "Query DNS records (A, AAAA, MX, NS, TXT, SOA) via Google DNS-over-HTTPS",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "dns lookup",
+        "dns query",
+        "dns records",
+        "mx lookup",
+        "ns lookup",
+        "dns tool"
+      ],
+      "relatedTools": [
+        "ip-address-tools",
+        "http-header-parser",
+        "url-encode"
+      ],
+      "jsFile": "dns-lookup.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 64
+    },
+    {
+      "slug": "epoch-converter",
+      "title": "Epoch Converter",
+      "pageTitle": "Epoch Converter – Unix Timestamp Converter Online | CipherKit",
+      "metaDescription": "Free online epoch converter. Convert Unix timestamps to dates and dates to epoch time. Live clock, auto-detects seconds vs milliseconds.",
+      "h1": "Epoch Converter",
+      "tagline": "Convert Unix timestamps to dates and back — live clock, auto-detect s/ms",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "epoch converter",
+        "unix timestamp",
+        "timestamp converter",
+        "epoch time",
+        "date converter"
+      ],
+      "relatedTools": [
+        "unix-timestamp-converter",
+        "cron-expression-explainer",
+        "uuid-generator"
+      ],
+      "jsFile": "epoch-converter.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 65
+    },
+    {
+      "slug": "jwt-builder",
+      "title": "JWT Builder",
+      "pageTitle": "JWT Builder – Create and Sign JWTs Online | CipherKit",
+      "metaDescription": "Free online JWT builder. Create and sign JSON Web Tokens with custom payloads using HS256 via Web Crypto. 100% client-side.",
+      "h1": "JWT Builder",
+      "tagline": "Build and sign JWTs with custom claims — HS256 via Web Crypto API",
+      "category": "crypto",
+      "hub": "Crypto Hub",
+      "tags": [
+        "jwt builder",
+        "jwt creator",
+        "jwt sign",
+        "json web token",
+        "hs256"
+      ],
+      "relatedTools": [
+        "jwt-decoder",
+        "jwt-encoder",
+        "hmac-generator"
+      ],
+      "jsFile": "jwt-builder.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 66
+    },
+    {
+      "slug": "color-palette",
+      "title": "Color Palette Generator",
+      "pageTitle": "Color Palette Generator – Create Color Harmonies Online | CipherKit",
+      "metaDescription": "Free online color palette generator. Create beautiful color palettes with complementary, analogous, triadic, and monochrome harmonies.",
+      "h1": "Color Palette Generator",
+      "tagline": "Generate color palettes with harmonies — complementary, analogous, triadic, monochrome",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "color palette",
+        "color generator",
+        "color harmony",
+        "palette maker",
+        "color scheme"
+      ],
+      "relatedTools": [
+        "color-converter",
+        "svg-to-png",
+        "image-enhancer"
+      ],
+      "jsFile": "color-palette.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 67
+    },
+    {
+      "slug": "image-enhancer",
+      "title": "Image Filters & Effects",
+      "pageTitle": "Image Filters & Effects – Apply Filters Online | CipherKit",
+      "metaDescription": "Free online image filters and effects. Sharpen, brighten, contrast, grayscale, sepia, and invert — all client-side using Canvas API.",
+      "h1": "Image Filters & Effects",
+      "tagline": "Sharpen, brighten, contrast, grayscale, sepia, and invert. Canvas API, instant.",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "image enhancer",
+        "image filter",
+        "photo editor",
+        "sharpen image",
+        "image effects"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "image-resizer",
+        "svg-to-png"
+      ],
+      "jsFile": "image-enhancer.js",
+      "phase": 5,
+      "status": "ready",
+      "priority": 68
+    },
+    {
+      "slug": "png-to-jpg",
+      "title": "PNG to JPG Converter",
+      "pageTitle": "PNG to JPG Converter – Convert PNG to JPEG Online Free | CipherKit",
+      "metaDescription": "Free online PNG to JPG converter. Convert PNG images to JPEG format with adjustable quality. 100% client-side using Canvas API — no uploads.",
+      "h1": "PNG to JPG Converter",
+      "tagline": "Convert PNG images to JPEG format — adjust quality, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "png to jpg",
+        "png to jpeg",
+        "image converter",
+        "png converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "jpg-to-png",
+        "png-to-webp",
+        "svg-to-png"
+      ],
+      "jsFile": "image-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 69
+    },
+    {
+      "slug": "jpg-to-png",
+      "title": "JPG to PNG Converter",
+      "pageTitle": "JPG to PNG Converter – Convert JPEG to PNG Online Free | CipherKit",
+      "metaDescription": "Free online JPG to PNG converter. Convert JPEG images to PNG format with lossless quality. 100% client-side using Canvas API — no uploads.",
+      "h1": "JPG to PNG Converter",
+      "tagline": "Convert JPEG images to PNG format — lossless output, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "jpg to png",
+        "jpeg to png",
+        "image converter",
+        "jpg converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "png-to-jpg",
+        "webp-to-png",
+        "svg-to-png"
+      ],
+      "jsFile": "image-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 70
+    },
+    {
+      "slug": "png-to-webp",
+      "title": "PNG to WebP Converter",
+      "pageTitle": "PNG to WebP Converter – Convert PNG to WebP Online Free | CipherKit",
+      "metaDescription": "Free online PNG to WebP converter. Convert PNG images to WebP format for smaller file sizes. 100% client-side using Canvas API — no uploads.",
+      "h1": "PNG to WebP Converter",
+      "tagline": "Convert PNG images to WebP format — smaller files, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "png to webp",
+        "image converter",
+        "webp converter",
+        "png converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "jpg-to-webp",
+        "webp-to-png",
+        "svg-to-png"
+      ],
+      "jsFile": "image-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 71
+    },
+    {
+      "slug": "jpg-to-webp",
+      "title": "JPG to WebP Converter",
+      "pageTitle": "JPG to WebP Converter – Convert JPEG to WebP Online Free | CipherKit",
+      "metaDescription": "Free online JPG to WebP converter. Convert JPEG images to WebP format for better compression. 100% client-side using Canvas API — no uploads.",
+      "h1": "JPG to WebP Converter",
+      "tagline": "Convert JPEG images to WebP format — better compression, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "jpg to webp",
+        "jpeg to webp",
+        "image converter",
+        "webp converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "png-to-webp",
+        "webp-to-jpg",
+        "svg-to-png"
+      ],
+      "jsFile": "image-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 72
+    },
+    {
+      "slug": "webp-to-png",
+      "title": "WebP to PNG Converter",
+      "pageTitle": "WebP to PNG Converter – Convert WebP to PNG Online Free | CipherKit",
+      "metaDescription": "Free online WebP to PNG converter. Convert WebP images to PNG format for broader compatibility. 100% client-side using Canvas API — no uploads.",
+      "h1": "WebP to PNG Converter",
+      "tagline": "Convert WebP images to PNG format — universal compatibility, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "webp to png",
+        "image converter",
+        "webp converter",
+        "png converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "webp-to-jpg",
+        "png-to-webp",
+        "svg-to-png"
+      ],
+      "jsFile": "image-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 73
+    },
+    {
+      "slug": "webp-to-jpg",
+      "title": "WebP to JPG Converter",
+      "pageTitle": "WebP to JPG Converter – Convert WebP to JPEG Online Free | CipherKit",
+      "metaDescription": "Free online WebP to JPG converter. Convert WebP images to JPEG format for universal compatibility. 100% client-side using Canvas API — no uploads.",
+      "h1": "WebP to JPG Converter",
+      "tagline": "Convert WebP images to JPEG format — universal compatibility, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "webp to jpg",
+        "webp to jpeg",
+        "image converter",
+        "webp converter"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "webp-to-png",
+        "jpg-to-webp",
+        "svg-to-png"
+      ],
+      "jsFile": "image-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 74
+    },
+    {
+      "slug": "json-to-yaml",
+      "title": "JSON to YAML Converter",
+      "pageTitle": "JSON to YAML Converter – Convert JSON to YAML Online Free | CipherKit",
+      "metaDescription": "Free online JSON to YAML converter. Convert JSON data to YAML format instantly in your browser. Supports nested objects, arrays, and all data types.",
+      "h1": "JSON to YAML Converter",
+      "tagline": "Convert JSON data to YAML format — instant, all client-side",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "json to yaml",
+        "yaml converter",
+        "json converter",
+        "data format"
+      ],
+      "relatedTools": [
+        "yaml-json-converter",
+        "json-formatter",
+        "json-minifier",
+        "json-xml-converter"
+      ],
+      "jsFile": "yaml-json-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 75
+    },
+    {
+      "slug": "decimal-to-hex",
+      "title": "Decimal to Hex Converter",
+      "pageTitle": "Decimal to Hex Converter – Convert Decimal to Hexadecimal Online | CipherKit",
+      "metaDescription": "Free online decimal to hexadecimal converter. Convert decimal numbers to hex, binary, and octal instantly. Supports large numbers via BigInt.",
+      "h1": "Decimal to Hex Converter",
+      "tagline": "Convert decimal numbers to hexadecimal — supports large numbers via BigInt",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "decimal to hex",
+        "dec to hex",
+        "number converter",
+        "hex converter",
+        "base converter"
+      ],
+      "relatedTools": [
+        "number-base-converter",
+        "hex-to-decimal",
+        "hex-encode",
+        "binary-encode"
+      ],
+      "jsFile": "number-base-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 76
+    },
+    {
+      "slug": "hex-to-decimal",
+      "title": "Hex to Decimal Converter",
+      "pageTitle": "Hex to Decimal Converter – Convert Hexadecimal to Decimal Online | CipherKit",
+      "metaDescription": "Free online hexadecimal to decimal converter. Convert hex numbers to decimal, binary, and octal instantly. Supports large numbers via BigInt.",
+      "h1": "Hex to Decimal Converter",
+      "tagline": "Convert hexadecimal numbers to decimal — supports large numbers via BigInt",
+      "category": "converter",
+      "hub": "Converter Hub",
+      "tags": [
+        "hex to decimal",
+        "hex to dec",
+        "number converter",
+        "hex converter",
+        "base converter"
+      ],
+      "relatedTools": [
+        "number-base-converter",
+        "decimal-to-hex",
+        "hex-decode",
+        "binary-decode"
+      ],
+      "jsFile": "number-base-converter.js",
+      "phase": 6,
+      "status": "ready",
+      "priority": 77
+    }
+  ]
+}

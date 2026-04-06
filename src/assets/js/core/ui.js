@@ -261,6 +261,105 @@
     }, 1500);
   }
 
+  /* ── NAV SEARCH ────────────────────────────────────────────────────────── */
+  (function initNavSearch() {
+    var searchInput = document.getElementById('nav-search');
+    var dropdown = document.getElementById('nav-search-results');
+    if (!searchInput || !dropdown) return;
+
+    var tools = null;
+
+    /* Lazy-load tools.json on first interaction */
+    searchInput.addEventListener('focus', function () {
+      if (tools) return;
+      fetch('/cipherkit/tools.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) { tools = data.tools || data; })
+        .catch(function () {});
+    });
+
+    searchInput.addEventListener('input', function () {
+      var q = searchInput.value.trim().toLowerCase();
+      if (!q || !tools) { dropdown.hidden = true; return; }
+
+      var results = tools.filter(function (t) {
+        return t.title.toLowerCase().indexOf(q) !== -1
+          || (t.metaDescription || '').toLowerCase().indexOf(q) !== -1
+          || (t.tags || []).some(function (tag) { return tag.toLowerCase().indexOf(q) !== -1; });
+      }).slice(0, 8);
+
+      if (!results.length) {
+        dropdown.innerHTML = '<div style="padding:12px 14px;color:#666;font-size:.85rem">No results found</div>';
+        dropdown.hidden = false;
+        return;
+      }
+
+      var re;
+      try { re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'); } catch (_) { re = null; }
+
+      dropdown.innerHTML = results.map(function (t) {
+        var name = re ? t.title.replace(re, '<mark>$1</mark>') : t.title;
+        return '<a class="nav-search-result" href="/cipherkit/tools/' + t.slug + '/">'
+          + name
+          + '<span style="font-size:.75rem;color:#666;display:block;margin-top:2px">'
+          + (t.tagline || '') + '</span></a>';
+      }).join('');
+      dropdown.hidden = false;
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function (e) {
+      if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.hidden = true;
+      }
+    });
+
+    /* Keyboard navigation */
+    searchInput.addEventListener('keydown', function (e) {
+      var items = dropdown.querySelectorAll('.nav-search-result');
+      var active = dropdown.querySelector('.nav-search-result.active');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        var next = active ? active.nextElementSibling : items[0];
+        if (active) active.classList.remove('active');
+        if (next && next.classList.contains('nav-search-result')) {
+          next.classList.add('active');
+          next.scrollIntoView({ block: 'nearest' });
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (active) {
+          var prev = active.previousElementSibling;
+          active.classList.remove('active');
+          if (prev && prev.classList.contains('nav-search-result')) {
+            prev.classList.add('active');
+            prev.scrollIntoView({ block: 'nearest' });
+          }
+        }
+      } else if (e.key === 'Enter' && active) {
+        e.preventDefault();
+        active.click();
+      } else if (e.key === 'Escape') {
+        dropdown.hidden = true;
+        searchInput.blur();
+      }
+    });
+  })();
+
+  /* ── GITHUB STAR COUNT ────────────────────────────────────────────────── */
+  (function fetchStarCount() {
+    var el = document.getElementById('gh-star-count');
+    if (!el) return;
+    fetch('https://api.github.com/repos/karthickajan/cipherkit')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.stargazers_count > 0) {
+          el.textContent = data.stargazers_count + ' Stars';
+        }
+      })
+      .catch(function () {});
+  })();
+
   /* ── PUBLIC API ───────────────────────────────────────────────────────── */
   window.CK = {
     toast,

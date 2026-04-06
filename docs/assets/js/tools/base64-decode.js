@@ -96,6 +96,7 @@
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { return isPlaceholder() ? '' : $('t-result').textContent; }, 'base64-decode-output.txt');
 
+
   CK.setUsageContent('<ol><li><strong>Paste a Base64 string</strong> into the input field.</li><li>Click <strong>Decode</strong> to convert back to plain text.</li></ol><p>Supports both standard and URL-safe Base64 input. The decoder automatically handles missing padding and URL-safe character substitutions.</p>');
 
   /* sessionStorage transfer from encoder */
