@@ -134,13 +134,15 @@
         $('t-result').textContent = result.value;
         CK.toast('Base64 decoded');
       } else {
-        /* Binary */
+        /* Binary — detect file type for the message */
+        var fileInfo = detectMime(result.raw);
+        var typeName = fileInfo.ext ? fileInfo.ext.slice(1).toUpperCase() + ' file' : 'binary file';
         $('t-result').className = 'out-body mono';
         $('t-result').style.color = '#e8a020';
-        $('t-result').textContent = result.value;
+        $('t-result').textContent = '[Binary data \u2014 detected as ' + typeName + ' (' + fileInfo.mime + ').\nThis cannot be displayed as readable text. Click Download to recover the original file.]';
         $('bin-warn').style.display = 'block';
         $('btn-bin-dl').style.display = 'inline-flex';
-        CK.toast('Binary data detected');
+        CK.toast('Detected ' + typeName);
       }
     } catch (e) {
       $('t-result').className = 'out-body err';
@@ -150,22 +152,62 @@
   }
   $('btn-dec').addEventListener('click', doDecode);
 
-  /* Binary download */
-  $('btn-bin-dl').addEventListener('click', function () {
+  /* ── Detect MIME type from raw binary magic bytes ── */
+  function detectMime(raw) {
+    /* Check first few bytes against known file signatures */
+    var hex = '';
+    for (var i = 0; i < Math.min(raw.length, 16); i++) {
+      hex += ('00' + raw.charCodeAt(i).toString(16)).slice(-2);
+    }
+    hex = hex.toLowerCase();
+
+    if (hex.indexOf('89504e47') === 0) return { mime: 'image/png', ext: '.png' };
+    if (hex.indexOf('ffd8ff') === 0)   return { mime: 'image/jpeg', ext: '.jpg' };
+    if (hex.indexOf('47494638') === 0) return { mime: 'image/gif', ext: '.gif' };
+    if (hex.indexOf('52494646') === 0 && hex.indexOf('57454250') === 16) return { mime: 'image/webp', ext: '.webp' };
+    if (hex.indexOf('25504446') === 0) return { mime: 'application/pdf', ext: '.pdf' };
+    if (hex.indexOf('504b0304') === 0) return { mime: 'application/zip', ext: '.zip' };
+    if (hex.indexOf('504b0506') === 0) return { mime: 'application/zip', ext: '.zip' };
+    if (hex.indexOf('1f8b') === 0)     return { mime: 'application/gzip', ext: '.gz' };
+    if (hex.indexOf('424d') === 0)     return { mime: 'image/bmp', ext: '.bmp' };
+    if (hex.indexOf('49492a00') === 0 || hex.indexOf('4d4d002a') === 0) return { mime: 'image/tiff', ext: '.tiff' };
+    if (hex.indexOf('000001') === 0)   return { mime: 'video/mpeg', ext: '.mpg' };
+    if (hex.indexOf('00000018') === 0 || hex.indexOf('0000001c') === 0 || hex.indexOf('00000020') === 0) return { mime: 'video/mp4', ext: '.mp4' };
+    if (hex.indexOf('494433') === 0 || hex.indexOf('fffb') === 0 || hex.indexOf('fff3') === 0) return { mime: 'audio/mpeg', ext: '.mp3' };
+    if (hex.indexOf('4f676753') === 0) return { mime: 'audio/ogg', ext: '.ogg' };
+    if (hex.indexOf('52494646') === 0 && hex.indexOf('41564920') === 16) return { mime: 'video/avi', ext: '.avi' };
+    if (hex.indexOf('52494646') === 0 && hex.indexOf('57415645') === 16) return { mime: 'audio/wav', ext: '.wav' };
+    if (raw.indexOf('%!PS-Adobe') === 0) return { mime: 'application/postscript', ext: '.eps' };
+
+    /* Also check for SVG (text-based but still an image) */
+    var head = raw.substring(0, 256).toLowerCase();
+    if (head.indexOf('<svg') !== -1) return { mime: 'image/svg+xml', ext: '.svg' };
+
+    return { mime: 'application/octet-stream', ext: '' };
+  }
+
+  /* ── Download binary data as a proper file ── */
+  function downloadBinary() {
     if (!_lastRaw) return;
+    var info = detectMime(_lastRaw);
     var bytes = new Uint8Array(_lastRaw.length);
     for (var i = 0; i < _lastRaw.length; i++) {
       bytes[i] = _lastRaw.charCodeAt(i);
     }
-    var blob = new Blob([bytes]);
+    var blob = new Blob([bytes], { type: info.mime });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'decoded-file';
+    a.download = 'decoded-file' + info.ext;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    CK.toast('File downloaded');
-  });
+    CK.toast('Downloaded as ' + info.mime.split('/')[1].toUpperCase());
+  }
+
+  /* Binary download button */
+  $('btn-bin-dl').addEventListener('click', downloadBinary);
 
   /* File upload (read as text → paste into input) */
   function handleFile(file) {
@@ -196,12 +238,20 @@
 
   CK.wireCtrlEnter('btn-dec');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
-  CK.wireDownload($('btn-dl'), function () {
-    if (isPlaceholder()) return '';
-    /* For text results, return the text; for binary, return empty (user should use binary download button) */
-    var txt = $('t-result').textContent;
-    return (txt.indexOf('Binary data') === 0 || txt.indexOf('[Binary') === 0) ? '' : txt;
-  }, 'base64-decode-output.txt');
+
+  /* Header Download button — works for both text and binary */
+  $('btn-dl').addEventListener('click', function () {
+    if (isPlaceholder()) return;
+    if (_lastRaw && $('btn-bin-dl').style.display !== 'none') {
+      /* Binary result — download as proper file */
+      downloadBinary();
+    } else {
+      /* Text result — download as .txt */
+      var txt = $('t-result').textContent;
+      if (!txt) return;
+      CK.downloadOutput(txt, 'base64-decode-output.txt');
+    }
+  });
 
 
   CK.setUsageContent('<ol><li><strong>Paste a Base64 string</strong> into the input field.</li><li>Click <strong>Decode</strong> to convert back to plain text.</li></ol><p>Supports both standard and URL-safe Base64 input. The decoder automatically handles missing padding and URL-safe character substitutions.</p>');
