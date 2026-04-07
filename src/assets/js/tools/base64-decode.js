@@ -22,7 +22,11 @@
     '.b64-drop{border:2px dashed var(--border);border-radius:8px;padding:16px;text-align:center;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;margin-bottom:12px}'
     + '.b64-drop:hover,.b64-drop.drag-over{border-color:var(--blue);color:var(--blue);background:rgba(88,166,255,.04)}'
     + '.b64-drop input[type=file]{display:none}'
-    + '.b64-drop svg{width:20px;height:20px;vertical-align:middle;margin-right:6px}';
+    + '.b64-drop svg{width:20px;height:20px;vertical-align:middle;margin-right:6px}'
+    + '.b64-bin-warn{background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.25);border-radius:var(--r);padding:10px 14px;margin-top:10px;font-size:12px;color:#e8a020;display:none}'
+    + '.b64-bin-dl{display:none;align-items:center;gap:6px;margin-top:10px;font-size:12px;color:var(--blue);background:transparent;border:1px solid var(--blue);border-radius:6px;padding:6px 14px;cursor:pointer;font-family:var(--mono);transition:all .15s}'
+    + '.b64-bin-dl:hover{background:rgba(88,166,255,.08)}'
+    + '.b64-bin-dl svg{width:14px;height:14px}';
   document.head.appendChild(sty);
 
   root.innerHTML =
@@ -37,33 +41,131 @@
     +     '<div class="field"><div class="field-hdr"><label for="t-input">Base64 Input</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear input">' + IC.trash + ' <span>Clear</span></button></div></div><textarea id="t-input" placeholder="Paste Base64 string to decode\u2026" rows="5" spellcheck="false"></textarea><div class="input-meta" id="t-input-meta"></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-blue" id="btn-dec" aria-label="Decode Base64">' + IC.code + ' <span>Decode</span></button>'
     +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Decoded Output</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy result">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button><button type="button" class="pill-btn" id="btn-swap" aria-label="Use output as input">\u21C4 <span>Use as Input</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Decoded output will appear here\u2026</div></div>'
+    +     '<div class="b64-bin-warn" id="bin-warn">\u26A0\uFE0F This is binary data (image, PDF, etc.) and cannot be displayed as readable text. Use the download button to recover the original file.</div>'
+    +     '<button type="button" class="b64-bin-dl" id="btn-bin-dl">' + IC.dl + ' <span>Download decoded file</span></button>'
     +   '</div>'
     + '</div>'
     + '</div>';
 
   function isPlaceholder() { return $('t-result').textContent.indexOf('appear') !== -1; }
 
-  $('btn-clr').addEventListener('click', function () {
-    $('t-input').value = '';
+  var _lastRaw = null; /* stores raw atob output for binary download */
+
+  function resetOutput() {
     $('t-result').className = 'out-body mono ph';
     $('t-result').textContent = 'Decoded output will appear here\u2026';
+    $('t-result').style.color = '';
+    $('bin-warn').style.display = 'none';
+    $('btn-bin-dl').style.display = 'none';
+    _lastRaw = null;
+  }
+
+  $('btn-clr').addEventListener('click', function () {
+    $('t-input').value = '';
+    resetOutput();
   });
   CK.wireCopy($('btn-cp'), function () { return isPlaceholder() ? '' : $('t-result').textContent; });
   CK.initAutoGrow($('t-input'));
 
+  /* ── Robust decode — handles text AND binary ── */
+  function decodeBase64(input) {
+    var cleaned = input.trim();
+
+    /* Strip data URI prefix if user pasted the full data URL */
+    if (cleaned.indexOf('data:') === 0) {
+      cleaned = cleaned.split(',')[1] || cleaned;
+    }
+
+    /* Remove all whitespace and newlines */
+    cleaned = cleaned.replace(/\s/g, '');
+
+    /* Convert URL-safe Base64 to standard */
+    cleaned = cleaned.replace(/-/g, '+').replace(/_/g, '/');
+
+    /* Add padding if missing */
+    var pad = cleaned.length % 4;
+    if (pad === 2) cleaned += '==';
+    else if (pad === 3) cleaned += '=';
+
+    /* Decode */
+    var raw;
+    try { raw = atob(cleaned); } catch (e) {
+      throw new Error('Invalid Base64 \u2014 could not decode. Check your input.');
+    }
+
+    /* Try UTF-8 text decode first */
+    try {
+      var pct = '';
+      for (var i = 0; i < raw.length; i++) {
+        pct += '%' + ('00' + raw.charCodeAt(i).toString(16)).slice(-2);
+      }
+      var decoded = decodeURIComponent(pct);
+      return { type: 'text', value: decoded, raw: raw };
+    } catch (e) {
+      /* Binary data — cannot display as text */
+      return {
+        type: 'binary',
+        value: '[Binary data \u2014 this appears to be a file (image, PDF, etc.), not text.\nBinary files cannot be displayed as readable text.]',
+        raw: raw
+      };
+    }
+  }
+
   function doDecode() {
     var input = $('t-input').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
-    if (!input) { $('t-err').textContent = 'Please enter Base64 to decode.'; $('t-err').style.display = 'block'; return; }
+    $('bin-warn').style.display = 'none';
+    $('btn-bin-dl').style.display = 'none';
+    _lastRaw = null;
+
+    if (!input) {
+      $('t-err').textContent = 'Please enter Base64 to decode.';
+      $('t-err').style.display = 'block';
+      return;
+    }
+
     try {
-      var safe = input.replace(/-/g, '+').replace(/_/g, '/');
-      while (safe.length % 4) safe += '=';
-      var decoded = decodeURIComponent(escape(atob(safe)));
-      $('t-result').className = 'out-body mono b'; $('t-result').textContent = decoded;
-      CK.toast('Base64 decoded');
-    } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Invalid Base64 input: ' + e.message; }
+      var result = decodeBase64(input);
+      _lastRaw = result.raw;
+
+      if (result.type === 'text') {
+        $('t-result').className = 'out-body mono b';
+        $('t-result').style.color = '';
+        $('t-result').textContent = result.value;
+        CK.toast('Base64 decoded');
+      } else {
+        /* Binary */
+        $('t-result').className = 'out-body mono';
+        $('t-result').style.color = '#e8a020';
+        $('t-result').textContent = result.value;
+        $('bin-warn').style.display = 'block';
+        $('btn-bin-dl').style.display = 'inline-flex';
+        CK.toast('Binary data detected');
+      }
+    } catch (e) {
+      $('t-result').className = 'out-body err';
+      $('t-result').textContent = e.message;
+      $('t-result').style.color = '';
+    }
   }
   $('btn-dec').addEventListener('click', doDecode);
+
+  /* Binary download */
+  $('btn-bin-dl').addEventListener('click', function () {
+    if (!_lastRaw) return;
+    var bytes = new Uint8Array(_lastRaw.length);
+    for (var i = 0; i < _lastRaw.length; i++) {
+      bytes[i] = _lastRaw.charCodeAt(i);
+    }
+    var blob = new Blob([bytes]);
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'decoded-file';
+    a.click();
+    URL.revokeObjectURL(url);
+    CK.toast('File downloaded');
+  });
 
   /* File upload (read as text → paste into input) */
   function handleFile(file) {
@@ -94,7 +196,12 @@
 
   CK.wireCtrlEnter('btn-dec');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
-  CK.wireDownload($('btn-dl'), function () { return isPlaceholder() ? '' : $('t-result').textContent; }, 'base64-decode-output.txt');
+  CK.wireDownload($('btn-dl'), function () {
+    if (isPlaceholder()) return '';
+    /* For text results, return the text; for binary, return empty (user should use binary download button) */
+    var txt = $('t-result').textContent;
+    return (txt.indexOf('Binary data') === 0 || txt.indexOf('[Binary') === 0) ? '' : txt;
+  }, 'base64-decode-output.txt');
 
 
   CK.setUsageContent('<ol><li><strong>Paste a Base64 string</strong> into the input field.</li><li>Click <strong>Decode</strong> to convert back to plain text.</li></ol><p>Supports both standard and URL-safe Base64 input. The decoder automatically handles missing padding and URL-safe character substitutions.</p>');
