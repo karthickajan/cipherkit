@@ -143,6 +143,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css">
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css">
 
   <!-- GA4 anonymous analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL"></script>
@@ -510,6 +511,10 @@ ${footer}
 
 <!-- Core JS -->
 <script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
+
+<!-- Feedback Widget -->
+<script>window.CIPHERKIT_TOOL_NAME = '${tool.title}';</script>
+<script src="${BASE_PATH}/assets/js/feedback.js" defer></script>
 
 <!-- Vendor JS -->
 ${vendorScripts}

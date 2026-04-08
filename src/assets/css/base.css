@@ -155,6 +155,47 @@ pre  { padding: 16px; overflow-x: auto; border: 1px solid var(--border); }
 }
 .toast-icon svg { width: 12px; height: 12px; display: block; }
 
+/* ── FORM INPUTS (Tasks 3 & 4: visibility + mobile zoom prevention) ──────── */
+input,
+select,
+textarea {
+  font-size: max(16px, 1rem); /* Prevents iOS/Android zoom on focus */
+  touch-action: manipulation;  /* Prevents double-tap zoom on mobile */
+}
+
+/* Date/time/select inputs — explicit dark styling for visibility */
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="number"],
+select {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #2a2a2a;
+  border-radius: 7px;
+  padding: 9px 12px;
+  font-size: 16px;
+  color-scheme: dark; /* Browser renders native pickers in dark mode */
+}
+
+select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%239ea7b2" d="M1.41 0L6 4.58 10.59 0 12 1.42l-6 6-6-6z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+input[type="date"]:focus,
+input[type="datetime-local"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--green);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(61,214,140,.12);
+}
+
 /* ── SCROLLBAR ───────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--surface); }
