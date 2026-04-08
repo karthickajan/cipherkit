@@ -327,7 +327,7 @@
   // ══════════════════════════════════════════════════════════════════════════
 
   function sendFeedback(data) {
-    if (FEEDBACK_ENDPOINT === 'https://script.google.com/macros/s/AKfycbyR73H3H_q1i2pr68yZcUszcofd0PwGAkrAC2sXa3iFWiztJw0YmYTq1-VWUrexio6Sqg/exec') {
+    if (!FEEDBACK_ENDPOINT || FEEDBACK_ENDPOINT === 'YOUR_APPS_SCRIPT_URL_HERE') {
       console.warn('[CKFeedback] Apps Script endpoint not configured. See docs/feedback-setup.md');
       return;
     }
