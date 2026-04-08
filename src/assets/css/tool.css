@@ -1077,3 +1077,142 @@ input[type="color"].ck-swatch::-moz-color-swatch { border: none; border-radius: 
   color:         var(--text);
   word-break:    break-all;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ *  Copy-Link Button (next to tool h1)
+ * ═══════════════════════════════════════════════════════════════════════════ */
+.ck-copy-link {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  background:       transparent;
+  border:           1px solid var(--border);
+  border-radius:    6px;
+  color:            var(--muted);
+  cursor:           pointer;
+  padding:          4px;
+  margin-left:      10px;
+  vertical-align:   middle;
+  transition:       all .15s;
+  line-height:      1;
+}
+.ck-copy-link:hover {
+  color:            var(--green);
+  border-color:     var(--gdim);
+  background:       rgba(61,214,140,.06);
+}
+.ck-copy-link.ck-copied {
+  color:            var(--green);
+  border-color:     var(--green);
+  background:       rgba(61,214,140,.1);
+}
+.ck-copy-link svg {
+  width:  16px;
+  height: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ *  Recently Used — homepage row
+ * ═══════════════════════════════════════════════════════════════════════════ */
+.ck-recent-section {
+  max-width:     1280px;
+  margin:        0 auto 32px;
+  padding:       0 24px;
+}
+.ck-recent-section .hub-header h2 {
+  font-size:     1.1rem;
+  color:         var(--text);
+}
+.ck-recent-row {
+  display:        flex;
+  gap:            14px;
+  overflow-x:     auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.ck-recent-row::-webkit-scrollbar { height: 6px; }
+.ck-recent-row::-webkit-scrollbar-track { background: transparent; }
+.ck-recent-row::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.ck-recent-row .tool-card {
+  min-width:  200px;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ *  History Section — per tool page
+ * ═══════════════════════════════════════════════════════════════════════════ */
+.ck-hist-section {
+  max-width:  800px;
+  margin:     16px auto 0;
+  padding:    0 24px;
+}
+.ck-hist-toggle {
+  background:    transparent;
+  border:        none;
+  color:         var(--muted);
+  font-family:   var(--mono);
+  font-size:     12px;
+  cursor:        pointer;
+  padding:       6px 0;
+  transition:    color .15s;
+}
+.ck-hist-toggle:hover { color: var(--text); }
+.ck-hist-list {
+  margin-top: 6px;
+}
+.ck-hist-entry {
+  display:       flex;
+  align-items:   center;
+  gap:           8px;
+  padding:       5px 0;
+  font-size:     12px;
+  cursor:        pointer;
+  transition:    background .1s;
+  border-radius: 4px;
+  padding-left:  6px;
+  padding-right: 6px;
+}
+.ck-hist-entry:hover {
+  background: rgba(255,255,255,.03);
+}
+.ck-hist-in {
+  color:         #888;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  max-width:     180px;
+  font-family:   var(--mono);
+}
+.ck-hist-arrow {
+  color:     #555;
+  flex-shrink: 0;
+  font-size: 10px;
+}
+.ck-hist-out {
+  color:         #888;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  max-width:     180px;
+  font-family:   var(--mono);
+}
+.ck-hist-time {
+  color:       #555;
+  font-size:   11px;
+  margin-left: auto;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.ck-hist-clear {
+  background:  transparent;
+  border:      none;
+  color:       #555;
+  font-size:   11px;
+  font-family: var(--mono);
+  cursor:      pointer;
+  padding:     6px 0;
+  margin-top:  4px;
+  transition:  color .15s;
+}
+.ck-hist-clear:hover { color: var(--red, #ff4444); }

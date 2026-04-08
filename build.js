@@ -522,6 +522,9 @@ ${vendorScripts}
 <!-- Tool-specific JS -->
 <script src="${toolJsSrc}" defer></script>
 
+<!-- State: permalinks, recent tools, history -->
+<script src="${BASE_PATH}/assets/js/core/ck-state.js" defer></script>
+
 </body>
 </html>`;
 }
@@ -700,6 +703,9 @@ searchInput.addEventListener('input', function() {
   hubsWrap.hidden      = true;
 });
 </script>
+
+<!-- State: recent tools on homepage -->
+<script src="${BASE_PATH}/assets/js/core/ck-state.js" defer></script>
 
 </body>
 </html>`;
