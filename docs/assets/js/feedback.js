@@ -17,7 +17,7 @@
   // ══════════════════════════════════════════════════════════════════════════
   
   // TODO: Replace with your deployed Apps Script Web App URL
-  const FEEDBACK_ENDPOINT = 'YOUR_APPS_SCRIPT_URL_HERE';
+  const FEEDBACK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyR73H3H_q1i2pr68yZcUszcofd0PwGAkrAC2sXa3iFWiztJw0YmYTq1-VWUrexio6Sqg/exec';
   
   // SVG icons (inline, no emoji)
   const ICONS = {
@@ -327,7 +327,7 @@
   // ══════════════════════════════════════════════════════════════════════════
 
   function sendFeedback(data) {
-    if (FEEDBACK_ENDPOINT === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    if (FEEDBACK_ENDPOINT === 'https://script.google.com/macros/s/AKfycbyR73H3H_q1i2pr68yZcUszcofd0PwGAkrAC2sXa3iFWiztJw0YmYTq1-VWUrexio6Sqg/exec') {
       console.warn('[CKFeedback] Apps Script endpoint not configured. See docs/feedback-setup.md');
       return;
     }
