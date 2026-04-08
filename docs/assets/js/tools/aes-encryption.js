@@ -407,6 +407,7 @@
       CK.toast('Encrypted successfully');
     } catch (e) {
       setOut('enc-result', 'Encryption failed: ' + e.message, 'err');
+      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Plaintext": ($('enc-plain').value || '').substring(0, 2000), "Mode": $('enc-mode').value, "Key Size": $('enc-keysize').value});
     }
   });
 
@@ -450,6 +451,7 @@
       CK.toast('Decrypted successfully');
     } catch (e) {
       setOut('dec-result', 'Decryption failed: ' + e.message, 'err');
+      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Ciphertext": ($('dec-cipher').value || '').substring(0, 2000), "Mode": $('dec-mode').value, "Key Size": $('dec-keysize').value});
     }
   });
 

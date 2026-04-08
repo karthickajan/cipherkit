@@ -120,14 +120,14 @@
     try {
       header = JSON.parse(b64url(parts[0]));
       $('t-header').className = 'jwt-panel-body'; $('t-header').textContent = JSON.stringify(header, null, 2);
-    } catch (e) { $('t-err').textContent = 'Failed to decode header: ' + e.message; $('t-err').style.display = 'block'; return; }
+    } catch (e) { $('t-err').textContent = 'Failed to decode header: ' + e.message; $('t-err').style.display = 'block'; window.CKFeedback && window.CKFeedback.reportError(e.message, {"JWT": ($('t-input').value || '').substring(0, 2000)}); return; }
 
     /* Payload */
     var payload;
     try {
       payload = JSON.parse(b64url(parts[1]));
       $('t-payload').className = 'jwt-panel-body'; $('t-payload').textContent = JSON.stringify(payload, null, 2);
-    } catch (e) { $('t-err').textContent = 'Failed to decode payload: ' + e.message; $('t-err').style.display = 'block'; return; }
+    } catch (e) { $('t-err').textContent = 'Failed to decode payload: ' + e.message; $('t-err').style.display = 'block'; window.CKFeedback && window.CKFeedback.reportError(e.message, {"JWT": ($('t-input').value || '').substring(0, 2000)}); return; }
 
     /* Timestamp annotations + badges */
     var tsLines = [];

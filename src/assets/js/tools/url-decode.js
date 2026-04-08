@@ -43,7 +43,7 @@
       var out = decodeURIComponent(input);
       $('t-result').className = 'out-body mono b'; $('t-result').textContent = out;
       CK.toast('URL decoded');
-    } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Invalid encoded URL: ' + e.message; }
+    } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Invalid encoded URL: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000)}); }
   });
 
   

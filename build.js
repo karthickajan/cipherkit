@@ -670,6 +670,14 @@ searchInput.addEventListener('input', function() {
     return;
   }
 
+  const hubBadge = {
+    crypto:    { label: 'Crypto',    color: '#00ff88', bg: 'rgba(0,255,136,0.08)' },
+    encoding:  { label: 'Encoding',  color: '#00d4ff', bg: 'rgba(0,212,255,0.08)' },
+    converter: { label: 'Converter', color: '#a78bfa', bg: 'rgba(167,139,250,0.08)' },
+    dev:       { label: 'Dev',       color: '#fb923c', bg: 'rgba(251,146,60,0.08)' },
+    image:     { label: 'Image',     color: '#f472b6', bg: 'rgba(244,114,182,0.08)' }
+  };
+
   const hits = TOOLS.filter(t =>
     t.title.toLowerCase().includes(q) ||
     t.tagline.toLowerCase().includes(q) ||
@@ -677,11 +685,15 @@ searchInput.addEventListener('input', function() {
   );
 
   searchGrid.innerHTML = hits.length
-    ? hits.map(t => \`
+    ? hits.map(t => {
+        const badge = hubBadge[t.category] || { label: t.category, color: '#9ea7b2', bg: 'rgba(158,167,178,0.08)' };
+        return \`
         <a href="${BASE_PATH}/tools/\${t.slug}/" class="tool-card">
           <div class="tool-card-title">\${t.title}</div>
           <div class="tool-card-tag">\${t.tagline}</div>
-        </a>\`).join('')
+          <span class="hub-badge" style="color:\${badge.color};background:\${badge.bg};font-size:10px;padding:2px 8px;border-radius:99px;margin-top:6px;display:inline-block;font-family:var(--sans);font-weight:600">\${badge.label}</span>
+        </a>\`;
+      }).join('')
     : '<p class="no-results">No tools found. <a href="https://github.com/karthickajan/cipherkit/issues" target="_blank">Suggest one ↗</a></p>';
 
   searchSection.hidden = false;

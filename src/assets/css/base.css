@@ -160,6 +160,7 @@ input,
 select,
 textarea {
   font-size: max(16px, 1rem); /* Prevents iOS/Android zoom on focus */
+  color-scheme: dark;          /* Browser renders native widgets in dark mode */
   touch-action: manipulation;  /* Prevents double-tap zoom on mobile */
 }
 
@@ -168,14 +169,36 @@ input[type="date"],
 input[type="datetime-local"],
 input[type="time"],
 input[type="number"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+select,
+textarea {
+  font-size: max(16px, 1rem);
+  color-scheme: dark;
+  touch-action: manipulation;
+}
+
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
 select {
   background: #1a1a1a;
   color: #e0e0e0;
   border: 1px solid #2a2a2a;
   border-radius: 7px;
   padding: 9px 12px;
-  font-size: 16px;
-  color-scheme: dark; /* Browser renders native pickers in dark mode */
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input[type="number"] {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #2a2a2a;
+  border-radius: 7px;
+  padding: 9px 12px;
 }
 
 select {
@@ -191,9 +214,9 @@ input[type="datetime-local"]:focus,
 input[type="time"]:focus,
 input[type="number"]:focus,
 select:focus {
-  border-color: var(--green);
+  border-color: #00ff88;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(61,214,140,.12);
+  box-shadow: 0 0 0 3px rgba(0,255,136,0.1);
 }
 
 /* ── SCROLLBAR ───────────────────────────────────────────────────────────── */

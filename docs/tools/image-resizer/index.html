@@ -116,6 +116,7 @@
   <link rel="stylesheet" href="/cipherkit/assets/css/base.css">
   <link rel="stylesheet" href="/cipherkit/assets/css/layout.css">
   <link rel="stylesheet" href="/cipherkit/assets/css/tool.css">
+  <link rel="stylesheet" href="/cipherkit/assets/css/feedback.css">
 
   <!-- GA4 anonymous analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL"></script>
@@ -225,7 +226,7 @@
     <section class="usage-guide" aria-labelledby="usage-heading">
       <h2 id="usage-heading">How to Use the Image Resizer</h2>
       <div class="usage-content" id="usage-content">
-        <ol><li>Upload an <strong>image file</strong>.</li><li>Enter desired <strong>width/height</strong> in pixels.</li><li>Toggle <strong>Maintain aspect ratio</strong> to lock proportions.</li><li>Click <strong>Resize</strong> and download.</li></ol><p>All processing happens locally using Canvas API.</p>
+        <ol><li>Upload an <strong>image</strong> (drag-drop or click).</li><li>Choose a resize mode: <strong>Exact Size</strong>, <strong>By Percentage</strong>, <strong>Max Dimension</strong>, or <strong>Crop &amp; Zoom</strong>.</li><li>Select output <strong>format</strong> (PNG/JPEG/WebP) and quality.</li><li>Click <strong>Resize</strong> to process.</li><li><strong>Download</strong> the result.</li></ol><p>Multi-step downscaling produces sharp results. All processing runs locally in your browser.</p>
       </div>
     </section>
 
@@ -327,6 +328,10 @@
 
 <!-- Core JS -->
 <script src="/cipherkit/assets/js/core/ui.js" defer></script>
+
+<!-- Feedback Widget -->
+<script>window.CIPHERKIT_TOOL_NAME = 'Image Resizer';</script>
+<script src="/cipherkit/assets/js/feedback.js" defer></script>
 
 <!-- Vendor JS -->
 

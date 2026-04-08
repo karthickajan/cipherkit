@@ -59,9 +59,11 @@
     var input = $('t-input').value;
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
     if (!input) { $('t-err').textContent = 'Please enter text to encode.'; $('t-err').style.display = 'block'; return; }
-    var out = getMode() === 'full' ? encodeURI(input) : encodeURIComponent(input);
-    $('t-result').className = 'out-body mono b'; $('t-result').textContent = out;
-    CK.toast('URL encoded');
+    try {
+      var out = getMode() === 'full' ? encodeURI(input) : encodeURIComponent(input);
+      $('t-result').className = 'out-body mono b'; $('t-result').textContent = out;
+      CK.toast('URL encoded');
+    } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Error: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": (input || '').substring(0, 2000)}); }
   }
   $('btn-enc').addEventListener('click', doEncode);
 

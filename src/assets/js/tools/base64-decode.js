@@ -148,6 +148,7 @@
       $('t-result').className = 'out-body err';
       $('t-result').textContent = e.message;
       $('t-result').style.color = '';
+      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000)});
     }
   }
   $('btn-dec').addEventListener('click', doDecode);
