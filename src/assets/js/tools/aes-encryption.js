@@ -407,7 +407,7 @@
       CK.toast('Encrypted successfully');
     } catch (e) {
       setOut('enc-result', 'Encryption failed: ' + e.message, 'err');
-      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Plaintext": ($('enc-plain').value || '').substring(0, 2000), "Mode": $('enc-mode').value, "Key Size": $('enc-keysize').value});
+      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Plaintext": ($('enc-plain').value || '').substring(0, 2000), "Secret Key": ($('enc-key').value || '').substring(0, 2000), "IV": ($('enc-iv').value || '').substring(0, 2000), "Mode": $('enc-mode').value, "Key Size": $('enc-keysize').value, "Output Format": $('enc-output').value});
     }
   });
 
@@ -451,7 +451,7 @@
       CK.toast('Decrypted successfully');
     } catch (e) {
       setOut('dec-result', 'Decryption failed: ' + e.message, 'err');
-      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Ciphertext": ($('dec-cipher').value || '').substring(0, 2000), "Mode": $('dec-mode').value, "Key Size": $('dec-keysize').value});
+      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Ciphertext": ($('dec-cipher').value || '').substring(0, 2000), "Secret Key": ($('dec-key').value || '').substring(0, 2000), "IV": ($('dec-iv').value || '').substring(0, 2000), "Mode": $('dec-mode').value, "Key Size": $('dec-keysize').value, "Input Format": $('dec-input-fmt').value});
     }
   });
 

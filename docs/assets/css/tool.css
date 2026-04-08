@@ -307,7 +307,7 @@
   flex:    1;
   display: flex;
   flex-direction: column;
-  gap:     13px;
+  gap:     16px;
 }
 
 /* Control row */
@@ -464,31 +464,40 @@ textarea:focus-visible, input:focus-visible {
   transition: width .3s, background .3s;
 }
 
-/* Mode tabs */
+/* Mode tabs — pill toggle style */
 .mode-tabs {
-  display:   flex;
-  gap:       3px;
-  background: var(--bg);
-  border:    1px solid var(--border);
-  border-radius: 6px;
-  padding:   3px;
+  display:       flex;
+  background:    #0d0d0d;
+  border:        1px solid #1e1e1e;
+  border-radius: 10px;
+  padding:       4px;
+  gap:           4px;
+  margin-bottom: 4px;
 }
 .mt {
-  flex:         1;
-  padding:      5px;
-  border:       none;
-  background:   transparent;
-  color:        var(--muted);
-  font-family:  var(--mono);
-  font-size:    12px;
-  cursor:       pointer;
-  border-radius: 4px;
-  transition:   all .15s;
-  text-align:   center;
+  flex:           1;
+  padding:        10px 16px;
+  border-radius:  7px;
+  border:         none;
+  background:     transparent;
+  color:          #555;
+  font-size:      14px;
+  font-family:    inherit;
+  cursor:         pointer;
+  transition:     all .18s ease;
+  text-align:     center;
+  white-space:    nowrap;
 }
+.mt:hover {
+  color:      #aaa;
+  background: #161616;
+}
+.mt.active,
 .mt[aria-pressed="true"] {
-  background: var(--sf2);
-  color:      var(--text);
+  background:  #1a1a1a;
+  color:       #00ff88;
+  border:      1px solid #2a2a2a;
+  box-shadow:  inset 0 1px 0 rgba(255,255,255,0.04);
 }
 .mt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
@@ -876,3 +885,195 @@ input[type="file"]::file-selector-button:hover {
 .out-body.ph  { color: var(--muted); font-style: italic; }
 .out-body.b   { color: var(--text); }
 .out-body.err { color: #ff6b6b; }
+
+/* ── GLOBAL: INPUT → BUTTON SPACING ─────────────────────────────────────── */
+.tc-body > .field + .act-btn,
+.tc-body > .ctrl-row + .act-btn,
+.tc-body > input + .act-btn,
+.tc-body > textarea + .act-btn,
+.tc-body > select + .act-btn {
+  margin-top: 3px;    /* tc-body gap=16px + 3px = ~19px total visual spacing */
+}
+
+/* ── GLOBAL: iOS ZOOM PREVENTION ────────────────────────────────────────── */
+.tc-body input,
+.tc-body select,
+.tc-body textarea {
+  font-size: max(16px, 1rem);
+  touch-action: manipulation;
+}
+
+/* ── DATE / TIME INPUTS ─────────────────────────────────────────────────── */
+input[type="date"],
+input[type="time"] {
+  width:            100%;
+  background:       #1a1a1a;
+  color:            #e0e0e0;
+  border:           1px solid #2a2a2a;
+  border-radius:    7px;
+  padding:          10px 12px;
+  font-size:        16px;
+  font-family:      inherit;
+  color-scheme:     dark;
+  appearance:       none;
+  -webkit-appearance: none;
+  min-height:       44px;
+  touch-action:     manipulation;
+  outline:          none;
+  transition:       border-color .18s;
+}
+input[type="date"]:focus,
+input[type="time"]:focus {
+  border-color: #00ff88;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,255,136,0.1);
+}
+
+/* Date-time split row */
+.dt-split-row {
+  display:  flex;
+  gap:      10px;
+  flex-wrap: wrap;
+}
+.dt-split-row > * { flex: 1; min-width: 120px; }
+
+/* ── UPLOAD ZONE (shared) ───────────────────────────────────────────────── */
+.upload-zone {
+  border:        2px dashed #2a2a2a;
+  border-radius: 12px;
+  padding:       40px 20px;
+  text-align:    center;
+  cursor:        pointer;
+  transition:    all 0.2s ease;
+  background:    #0d0d0d;
+  margin-bottom: 0;
+}
+.upload-zone:hover,
+.upload-zone.drag-over {
+  border-color: #00ff88;
+  background:   rgba(0,255,136,0.03);
+}
+.upload-zone.has-file {
+  border-style: solid;
+  border-color: #2a2a2a;
+  padding:      16px 20px;
+}
+.upload-zone svg {
+  display: block;
+  margin: 0 auto 8px;
+}
+.upload-label {
+  font-size: 15px;
+  color:     #888;
+  margin:    10px 0 4px;
+}
+.upload-sub {
+  font-size: 13px;
+  color:     #444;
+}
+.upload-link {
+  color:                #00ff88;
+  cursor:               pointer;
+  text-decoration:      underline;
+  text-underline-offset: 2px;
+}
+.upload-formats {
+  font-size:  11px;
+  color:      #333;
+  margin-top: 8px;
+}
+
+/* ── COLOR SWATCH INPUT ─────────────────────────────────────────────────── */
+input[type="color"].ck-swatch {
+  width:              64px;
+  height:             64px;
+  border-radius:      10px;
+  border:             2px solid #2a2a2a;
+  padding:            0;
+  cursor:             pointer;
+  background:         none;
+  appearance:         none;
+  -webkit-appearance: none;
+  display:            block;
+  flex-shrink:        0;
+  transition:         border-color .2s;
+}
+input[type="color"].ck-swatch:hover { border-color: #00ff88; }
+input[type="color"].ck-swatch::-webkit-color-swatch-wrapper { padding: 0; border-radius: 8px; }
+input[type="color"].ck-swatch::-webkit-color-swatch { border: none; border-radius: 8px; }
+input[type="color"].ck-swatch::-moz-color-swatch { border: none; border-radius: 8px; }
+
+/* Color input row layout */
+.ck-color-row {
+  display:     flex;
+  gap:         16px;
+  align-items: center;
+}
+.ck-hex-input {
+  flex:         1;
+  font-size:    20px;
+  font-family:  var(--mono);
+  background:   var(--bg);
+  border:       1px solid var(--border);
+  border-radius: var(--r);
+  color:        var(--text);
+  padding:      12px 14px;
+  outline:      none;
+  transition:   border-color .18s;
+}
+.ck-hex-input:focus { border-color: #00ff88; box-shadow: 0 0 0 3px rgba(0,255,136,.08); }
+
+/* Recent color swatches */
+.ck-recent-colors {
+  display:   flex;
+  gap:       6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.ck-recent-swatch {
+  width:         28px;
+  height:        28px;
+  border-radius: 6px;
+  border:        2px solid #2a2a2a;
+  cursor:        pointer;
+  transition:    border-color .15s, transform .15s;
+  padding:       0;
+  background:    none;
+}
+.ck-recent-swatch:hover {
+  border-color: #00ff88;
+  transform:    scale(1.12);
+}
+
+/* Color output grid */
+.ck-color-grid {
+  display:        flex;
+  flex-direction: column;
+  gap:            8px;
+  margin-top:     4px;
+}
+.ck-color-format-row {
+  display:       flex;
+  align-items:   center;
+  gap:           10px;
+  padding:       8px 12px;
+  background:    var(--bg);
+  border:        1px solid var(--border);
+  border-radius: var(--r);
+}
+.ck-color-format-label {
+  font-size:      11px;
+  font-weight:    700;
+  color:          var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  min-width:      42px;
+  flex-shrink:    0;
+}
+.ck-color-format-value {
+  flex:          1;
+  font-family:   var(--mono);
+  font-size:     13px;
+  color:         var(--text);
+  word-break:    break-all;
+}

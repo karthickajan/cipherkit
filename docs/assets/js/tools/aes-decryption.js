@@ -75,7 +75,7 @@
       if (!res) throw new Error('Wrong key, IV, or format.');
       el.className = 'out-body b'; el.textContent = res;
       CK.toast('Decrypted successfully');
-    } catch (e) { el.className = 'out-body err'; el.textContent = 'Decryption failed: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Ciphertext": ($('t-cipher').value || '').substring(0, 2000), "Mode": $('t-mode').value}); }
+    } catch (e) { el.className = 'out-body err'; el.textContent = 'Decryption failed: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Ciphertext": ($('dec-cipher').value || '').substring(0, 2000), "Secret Key": ($('dec-key').value || '').substring(0, 2000), "IV": ($('dec-iv').value || '').substring(0, 2000), "Mode": $('dec-mode').value, "Key Size": $('dec-keysize').value, "Input Format": $('dec-fmt').value}); }
   });
 
   

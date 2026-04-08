@@ -38,14 +38,44 @@
     return {r:Math.round(r*255),g:Math.round(g*255),b:Math.round(b*255)};
   }
 
+  function rgbToHsv(r,g,b){
+    r/=255;g/=255;b/=255;
+    var max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min,h=0,s=max===0?0:d/max,v=max;
+    if(d!==0){switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6;break;}}
+    return {h:Math.round(h*360),s:Math.round(s*100),v:Math.round(v*100)};
+  }
+
+  /* Recent colors (localStorage) */
+  var RECENT_KEY='ck_recent_colors';
+  function getRecent(){try{return JSON.parse(localStorage.getItem(RECENT_KEY))||[];}catch(e){return[];}}
+  function pushRecent(hex){
+    var arr=getRecent().filter(function(c){return c!==hex;});
+    arr.unshift(hex);if(arr.length>8)arr=arr.slice(0,8);
+    localStorage.setItem(RECENT_KEY,JSON.stringify(arr));renderRecent();
+  }
+  function renderRecent(){
+    var el=$('t-recent');if(!el)return;
+    var arr=getRecent();
+    if(!arr.length){el.innerHTML='';return;}
+    el.innerHTML=arr.map(function(c){return '<button class="ck-recent-swatch" data-color="'+c+'" style="background:'+c+'" aria-label="Use '+c+'" title="'+c+'"></button>';}).join('');
+    el.querySelectorAll('.ck-recent-swatch').forEach(function(btn){
+      btn.addEventListener('click',function(){var c=hexToRgb(this.dataset.color);updateAll(c.r,c.g,c.b);pushRecent(this.dataset.color);});
+    });
+  }
+
   function updateAll(r,g,b) {
     var hex = rgbToHex(r,g,b);
     var hsl = rgbToHsl(r,g,b);
-    $('t-hex').value = hex;
-    $('t-rgb').value = 'rgb('+r+', '+g+', '+b+')';
-    $('t-hsl').value = 'hsl('+hsl.h+', '+hsl.s+'%, '+hsl.l+'%)';
-    $('t-preview').style.background = hex;
+    var hsv = rgbToHsv(r,g,b);
     $('t-picker').value = hex;
+    $('t-hex-input').value = hex;
+    $('t-preview').style.background = hex;
+    /* output grid */
+    $('v-hex').textContent = hex;
+    $('v-rgb').textContent = 'rgb('+r+', '+g+', '+b+')';
+    $('v-rgba').textContent = 'rgba('+r+', '+g+', '+b+', 1)';
+    $('v-hsl').textContent = 'hsl('+hsl.h+', '+hsl.s+'%, '+hsl.l+'%)';
+    $('v-hsv').textContent = 'hsv('+hsv.h+', '+hsv.s+'%, '+hsv.v+'%)';
   }
 
   root.innerHTML =
@@ -56,32 +86,39 @@
     +     '<span class="tc-badge tc-badge-amber">Convert</span>'
     +   '</div>'
     +   '<div class="tc-body" role="region" aria-labelledby="t-heading">'
-    +     '<div style="display:flex;gap:12px;align-items:center"><div id="t-preview" style="width:48px;height:48px;border-radius:8px;border:1px solid var(--border);flex-shrink:0;background:#3dd68c"></div><input type="color" id="t-picker" value="#3dd68c" style="width:48px;height:48px;border:none;padding:0;cursor:pointer;background:none;border-radius:8px"></div>'
-    +     '<div class="field"><div class="field-hdr"><label for="t-hex">HEX</label><button type="button" class="copy-btn" id="cp-hex" aria-label="Copy HEX">' + IC.copy + ' <span>Copy</span></button></div><input type="text" id="t-hex" value="#3dd68c" class="mono"></div>'
-    +     '<div class="field"><div class="field-hdr"><label for="t-rgb">RGB</label><button type="button" class="copy-btn" id="cp-rgb" aria-label="Copy RGB">' + IC.copy + ' <span>Copy</span></button></div><input type="text" id="t-rgb" value="rgb(61, 214, 140)" class="mono"></div>'
-    +     '<div class="field"><div class="field-hdr"><label for="t-hsl">HSL</label><button type="button" class="copy-btn" id="cp-hsl" aria-label="Copy HSL">' + IC.copy + ' <span>Copy</span></button></div><input type="text" id="t-hsl" value="hsl(151, 64%, 54%)" class="mono"></div>'
+    +     '<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:-8px">Input</div>'
+    +     '<div class="ck-color-row"><input type="color" id="t-picker" value="#3dd68c" class="ck-swatch"><div style="flex:1"><input type="text" id="t-hex-input" value="#3dd68c" class="ck-hex-input" placeholder="#000000" spellcheck="false"><div id="t-preview" style="height:8px;border-radius:0 0 6px 6px;margin-top:-1px;background:#3dd68c;transition:background .15s"></div></div></div>'
+    +     '<div id="t-recent" class="ck-recent-colors"></div>'
+    +     '<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;border-top:1px solid var(--border);padding-top:12px;margin-bottom:-8px">Output — All Formats</div>'
+    +     '<div class="ck-color-grid">'
+    +       '<div class="ck-color-format-row"><span class="ck-color-format-label">HEX</span><span class="ck-color-format-value" id="v-hex">#3dd68c</span><button type="button" class="copy-btn sm" id="cp-hex" aria-label="Copy HEX">' + IC.copy + '</button></div>'
+    +       '<div class="ck-color-format-row"><span class="ck-color-format-label">RGB</span><span class="ck-color-format-value" id="v-rgb">rgb(61, 214, 140)</span><button type="button" class="copy-btn sm" id="cp-rgb" aria-label="Copy RGB">' + IC.copy + '</button></div>'
+    +       '<div class="ck-color-format-row"><span class="ck-color-format-label">RGBA</span><span class="ck-color-format-value" id="v-rgba">rgba(61, 214, 140, 1)</span><button type="button" class="copy-btn sm" id="cp-rgba" aria-label="Copy RGBA">' + IC.copy + '</button></div>'
+    +       '<div class="ck-color-format-row"><span class="ck-color-format-label">HSL</span><span class="ck-color-format-value" id="v-hsl">hsl(151, 64%, 54%)</span><button type="button" class="copy-btn sm" id="cp-hsl" aria-label="Copy HSL">' + IC.copy + '</button></div>'
+    +       '<div class="ck-color-format-row"><span class="ck-color-format-label">HSV</span><span class="ck-color-format-value" id="v-hsv">hsv(151, 71%, 84%)</span><button type="button" class="copy-btn sm" id="cp-hsv" aria-label="Copy HSV">' + IC.copy + '</button></div>'
+    +     '</div>'
     +   '</div>'
     + '</div>'
     + '</div>';
 
-  CK.wireCopy($('cp-hex'), function(){ return $('t-hex').value; });
-  CK.wireCopy($('cp-rgb'), function(){ return $('t-rgb').value; });
-  CK.wireCopy($('cp-hsl'), function(){ return $('t-hsl').value; });
+  /* Init recent colors */
+  renderRecent();
 
-  $('t-picker').addEventListener('input', function () { var c = hexToRgb(this.value); updateAll(c.r,c.g,c.b); });
+  CK.wireCopy($('cp-hex'), function(){ return $('v-hex').textContent; });
+  CK.wireCopy($('cp-rgb'), function(){ return $('v-rgb').textContent; });
+  CK.wireCopy($('cp-rgba'), function(){ return $('v-rgba').textContent; });
+  CK.wireCopy($('cp-hsl'), function(){ return $('v-hsl').textContent; });
+  CK.wireCopy($('cp-hsv'), function(){ return $('v-hsv').textContent; });
 
-  $('t-hex').addEventListener('change', function () {
+  $('t-picker').addEventListener('input', function () { var c = hexToRgb(this.value); updateAll(c.r,c.g,c.b); pushRecent(this.value); });
+
+  $('t-hex-input').addEventListener('change', function () {
     var v = this.value.trim();
-    if (/^#?[0-9a-fA-F]{3,6}$/.test(v)) { var c=hexToRgb(v); updateAll(c.r,c.g,c.b); }
-  });
-  $('t-rgb').addEventListener('change', function () {
-    var m = this.value.match(/(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})/);
-    if (m) updateAll(parseInt(m[1]),parseInt(m[2]),parseInt(m[3]));
-  });
-  $('t-hsl').addEventListener('change', function () {
-    var m = this.value.match(/(\d{1,3})\s*,\s*(\d{1,3})%?\s*,\s*(\d{1,3})%?/);
-    if (m) { var c=hslToRgb(parseInt(m[1]),parseInt(m[2]),parseInt(m[3])); updateAll(c.r,c.g,c.b); }
+    if (/^#?[0-9a-fA-F]{3,6}$/.test(v)) { if(v[0]!=='#')v='#'+v; var c=hexToRgb(v); updateAll(c.r,c.g,c.b); pushRecent(rgbToHex(c.r,c.g,c.b)); }
   });
 
-  CK.setUsageContent('<ol><li>Use the <strong>color picker</strong> or type a color in any format (HEX, RGB, HSL).</li><li>All formats update automatically.</li></ol><p>Convert between <code>#hex</code>, <code>rgb(r,g,b)</code>, and <code>hsl(h,s%,l%)</code> instantly. Copy any format with one click.</p>');
+  /* Init with default color */
+  var initC=hexToRgb('#3dd68c'); updateAll(initC.r,initC.g,initC.b);
+
+  CK.setUsageContent('<ol><li>Use the <strong>color picker swatch</strong> or type a hex code directly.</li><li>All formats (HEX, RGB, RGBA, HSL, HSV) update <strong>live</strong>.</li><li>Click any <strong>Copy</strong> button to copy a format.</li><li>Your last 8 colors are saved as swatches for quick access.</li></ol>');
 })();

@@ -158,7 +158,7 @@
         $('ir-stats').innerHTML='Original: <b>'+_origW+'\u00d7'+_origH+'</b> \u00b7 '+origKB+' KB \u2192 Output: <b>'+nw+'\u00d7'+nh+'</b> \u00b7 \u2248 '+sizeKB+' KB';
         CK.toast('Resized to '+nw+'\u00d7'+nh);
       },_outFmt,_quality);
-    }catch(err){$('ir-err').textContent='Error: '+err.message;$('ir-err').style.display='block';window.CKFeedback&&window.CKFeedback.reportError(err.message,{"Mode":_mode,"Format":_outFmt});}
+    }catch(err){$('ir-err').textContent='Error: '+err.message;$('ir-err').style.display='block';window.CKFeedback&&window.CKFeedback.reportError(err.message,{"Mode":_mode,"Format":_outFmt,"Quality":_quality,"Original Size":_origW+'\u00d7'+_origH,"File Name":_origName||'','Width':$('ir-w').value||'','Height':$('ir-h').value||'','Percent':$('ir-pct').value||'','Max Dimension':$('ir-maxd').value||''});}
   });
 
   /* ── DOWNLOAD ───────────────────────────────────────────────────── */

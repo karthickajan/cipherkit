@@ -12,7 +12,7 @@
     +'<div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-green">'+IC.image+'</div><h2 id="t-heading">Image Filters & Effects</h2></div><span class="tc-badge tc-badge-green">Filters</span></div>'
     +'<div class="tc-body" role="region" aria-labelledby="t-heading">'
     +'<div class="field"><div class="field-hdr"><label>Upload Image</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">'+IC.trash+' <span>Clear</span></button></div></div>'
-    +'<input type="file" id="t-file" accept="image/*"><div class="inline-error" id="t-err" role="alert"></div></div>'
+    +'<div class="upload-zone" id="ie-drop"><input type="file" id="t-file" accept="image/*" hidden><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p class="upload-label">Drop your image here</p><p class="upload-sub">or <span class="upload-link">browse to upload</span></p><p class="upload-formats">Supports: PNG, JPG, WebP, GIF</p></div><div class="inline-error" id="t-err" role="alert"></div></div>'
     +'<div id="t-limit" style="color:var(--muted);font-size:.85rem;margin-bottom:8px"></div>'
     +'<div class="ctrl-row"><div class="sel-group"><label for="t-mode">Enhancement</label><select id="t-mode"><option value="sharpen">Sharpen</option><option value="brightness">Brighten</option><option value="contrast">High Contrast</option><option value="grayscale">Grayscale</option><option value="sepia">Sepia</option><option value="invert">Invert</option></select></div>'
     +'<div class="sel-group"><label for="t-intensity">Intensity</label><select id="t-intensity"><option value="0.5">Low</option><option value="1" selected>Medium</option><option value="1.5">High</option></select></div></div>'
@@ -25,6 +25,17 @@
     +'<div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div>'
     +'<div class="out-body" id="t-result" role="status" style="text-align:center;min-height:80px;padding:16px"><span style="color:var(--muted);font-style:italic">Enhanced image will appear here\u2026</span></div></div>'
     +'</div></div></div>';
+
+  /* Upload zone wiring */
+  (function(){
+    var zone=$('ie-drop'),fi=$('t-file');
+    zone.addEventListener('click',function(e){if(e.target===fi)return;fi.click();});
+    zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('drag-over');});
+    zone.addEventListener('dragleave',function(){zone.classList.remove('drag-over');});
+    zone.addEventListener('drop',function(e){e.preventDefault();zone.classList.remove('drag-over');if(e.dataTransfer.files[0]){fi.files=e.dataTransfer.files;showFileInfo(fi.files[0]);}});
+    fi.addEventListener('change',function(){if(fi.files[0])showFileInfo(fi.files[0]);});
+    function showFileInfo(f){zone.classList.add('has-file');zone.innerHTML='<p style="color:#e0e0e0;font-size:14px;margin:0">'+f.name+'</p><p style="color:#555;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';}
+  })();
 
   /* localStorage counter (informational only — does NOT block) */
   var RL_KEY='ck_imgenhance_uses';

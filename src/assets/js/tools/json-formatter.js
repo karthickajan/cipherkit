@@ -364,7 +364,7 @@
       r2.className = 'out-body mono err'; r2.style.padding = ''; r2.style.maxHeight = ''; r2.style.resize = '';
       r2.textContent = 'Error: ' + e.message;
       $('jt-tb').style.display = 'none'; _raw = '';
-      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000)});
+      window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000), "Indent": $('t-indent').value});
     }
   });
 

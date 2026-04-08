@@ -29,7 +29,7 @@
     +     '<button type="button" class="act-btn act-amber" id="btn-t2d" aria-label="Convert to date">' + IC.swap + ' <span>Timestamp → Date</span></button>'
     +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Date Result</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp1" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl1" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><pre class="out-body mono ph" id="t-date-result" role="status">Date will appear here\u2026</pre></div>'
     +     '<hr style="border:none;border-top:1px solid var(--border);margin:6px 0">'
-    +     '<div class="field"><div class="field-hdr"><label for="t-date">Date & Time</label></div><input type="datetime-local" id="t-date" class="mono" step="1"><div class="inline-error" id="t-err2" role="alert"></div></div>'
+    +     '<div class="field"><div class="field-hdr"><label>Date &amp; Time</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-use-now">' + IC.clock + ' <span>Now</span></button></div></div><div class="dt-split-row"><input type="date" id="t-dt-date" aria-label="Date"><input type="time" id="t-dt-time" step="1" aria-label="Time"></div><div class="inline-error" id="t-err2" role="alert"></div></div>'
     +     '<button type="button" class="act-btn act-amber" id="btn-d2t" aria-label="Convert to timestamp">' + IC.swap + ' <span>Date → Timestamp</span></button>'
     +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Timestamp Result</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp2" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl2" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="t-ts-result" role="status">Timestamp will appear here\u2026</div></div>'
     +   '</div>'
@@ -60,13 +60,29 @@
   });
 
   $('btn-d2t').addEventListener('click', function () {
-    var val = $('t-date').value;
+    var dp=$('t-dt-date').value,tp=$('t-dt-time').value;
     $('t-err2').textContent=''; $('t-err2').style.display='none';
-    if (!val) { $('t-err2').textContent='Select a date.'; $('t-err2').style.display='block'; return; }
-    var d = new Date(val);
+    if (!dp) { $('t-err2').textContent='Select a date.'; $('t-err2').style.display='block'; return; }
+    var combined=dp+'T'+(tp||'00:00:00');
+    var d = new Date(combined);
     var ts = Math.floor(d.getTime()/1000);
     $('t-ts-result').className='out-body mono b'; $('t-ts-result').textContent = ts + '\n(milliseconds: ' + d.getTime() + ')';
     CK.toast('Converted');
+  });
+
+  /* Auto-convert on date/time change */
+  var _autoT2=null;
+  function autoD2T(){clearTimeout(_autoT2);_autoT2=setTimeout(function(){if($('t-dt-date').value)$('btn-d2t').click();},300);}
+  $('t-dt-date').addEventListener('change',autoD2T);
+  $('t-dt-time').addEventListener('change',autoD2T);
+
+  /* "Now" fills both date and time */
+  $('btn-use-now').addEventListener('click',function(){
+    var n=new Date();
+    function p(v){return v<10?'0'+v:''+v;}
+    $('t-dt-date').value=n.getFullYear()+'-'+p(n.getMonth()+1)+'-'+p(n.getDate());
+    $('t-dt-time').value=p(n.getHours())+':'+p(n.getMinutes())+':'+p(n.getSeconds());
+    $('btn-d2t').click();
   });
 
   CK.setUsageContent('<ol><li>Enter a <strong>Unix timestamp</strong> (seconds or milliseconds) and convert to a readable date.</li><li>Or pick a <strong>date/time</strong> and convert to a Unix timestamp.</li></ol><p>Auto-detects seconds vs milliseconds. Shows UTC, ISO 8601, and local time.</p>');

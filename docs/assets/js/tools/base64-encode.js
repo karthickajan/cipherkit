@@ -78,7 +78,7 @@
       $('t-result').className = 'out-body mono b'; $('t-result').textContent = encoded;
       $('file-info').style.display = 'none';
       CK.toast('Base64 encoded');
-    } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Error: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000)}); }
+    } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Error: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000), "Variant": $('t-mode').value, "Line Endings": $('t-newline').value}); }
   }
   $('btn-enc').addEventListener('click', doEncode);
 

@@ -20,7 +20,7 @@
 
   var fmtOpts='<option value="image/png">PNG</option><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option>';
 
-  root.innerHTML='<div class="tool-single-col"><div class="tool-card-ui"><div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-purple">'+IC.image+'</div><h2 id="t-heading">Image Format Converter</h2></div><span class="tc-badge tc-badge-purple">Convert</span></div><div class="tc-body" role="region" aria-labelledby="t-heading"><div class="field"><div class="field-hdr"><label>Upload Image</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">'+IC.trash+' <span>Clear</span></button></div></div><input type="file" id="t-file" accept="image/*"><div class="inline-error" id="t-err" role="alert"></div></div><div class="ctrl-row"><div class="sel-group"><label for="t-from-fmt">From</label><select id="t-from-fmt">'+fmtOpts+'</select></div><div class="sel-group"><label for="t-fmt">To</label><select id="t-fmt">'+fmtOpts+'</select></div><div class="sel-group"><label for="t-quality">Quality</label><select id="t-quality"><option value="1">100%</option><option value="0.9" selected>90%</option><option value="0.8">80%</option><option value="0.6">60%</option><option value="0.4">40%</option></select></div></div><button type="button" class="act-btn act-purple" id="btn-conv">'+IC.image+' <span>Convert</span></button><div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div><div class="out-body" id="t-result" role="status" style="text-align:center;min-height:80px;padding:16px;max-height:320px;overflow-y:auto;resize:vertical"><span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span></div></div></div></div></div>';
+  root.innerHTML='<div class="tool-single-col"><div class="tool-card-ui"><div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-purple">'+IC.image+'</div><h2 id="t-heading">Image Format Converter</h2></div><span class="tc-badge tc-badge-purple">Convert</span></div><div class="tc-body" role="region" aria-labelledby="t-heading"><div class="field"><div class="field-hdr"><label>Upload Image</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">'+IC.trash+' <span>Clear</span></button></div></div><div class="upload-zone" id="ic-drop"><input type="file" id="t-file" accept="image/*" hidden><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p class="upload-label">Drop your image here</p><p class="upload-sub">or <span class="upload-link">browse to upload</span></p><p class="upload-formats">Supports: PNG, JPG, WebP</p></div><div class="inline-error" id="t-err" role="alert"></div></div><div class="ctrl-row"><div class="sel-group"><label for="t-from-fmt">From</label><select id="t-from-fmt">'+fmtOpts+'</select></div><div class="sel-group"><label for="t-fmt">To</label><select id="t-fmt">'+fmtOpts+'</select></div><div class="sel-group"><label for="t-quality">Quality</label><select id="t-quality"><option value="1">100%</option><option value="0.9" selected>90%</option><option value="0.8">80%</option><option value="0.6">60%</option><option value="0.4">40%</option></select></div></div><button type="button" class="act-btn act-purple" id="btn-conv">'+IC.image+' <span>Convert</span></button><div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div><div class="out-body" id="t-result" role="status" style="text-align:center;min-height:80px;padding:16px;max-height:320px;overflow-y:auto;resize:vertical"><span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span></div></div></div></div></div>';
 
   /* Preset dropdowns from URL slug */
   if(preFrom){$('t-from-fmt').value=fmtMime[preFrom]||'image/png';}
@@ -43,6 +43,18 @@
   $('t-fmt').addEventListener('change',updateURL);
 
   var _dataUrl='',_ext='png';
+
+  /* Upload zone wiring */
+  (function(){
+    var zone=$('ic-drop'),fi=$('t-file');
+    zone.addEventListener('click',function(e){if(e.target===fi)return;fi.click();});
+    zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('drag-over');});
+    zone.addEventListener('dragleave',function(){zone.classList.remove('drag-over');});
+    zone.addEventListener('drop',function(e){e.preventDefault();zone.classList.remove('drag-over');if(e.dataTransfer.files[0]){fi.files=e.dataTransfer.files;showFileInfo(fi.files[0]);}});
+    fi.addEventListener('change',function(){if(fi.files[0])showFileInfo(fi.files[0]);});
+    function showFileInfo(f){zone.classList.add('has-file');zone.innerHTML='<p style="color:#e0e0e0;font-size:14px;margin:0">'+f.name+'</p><p style="color:#555;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';}
+  })();
+
   $('btn-conv').addEventListener('click',function(){
     var file=$('t-file').files[0];$('t-err').textContent='';$('t-err').style.display='none';
     if(!file){$('t-err').textContent='Select an image file.';$('t-err').style.display='block';return;}
@@ -67,7 +79,7 @@
     reader.readAsDataURL(file);
   });
   $('btn-dl').addEventListener('click',function(){if(!_dataUrl){CK.toast('Convert first','err');return;}var a=document.createElement('a');a.download='converted.'+_ext;a.href=_dataUrl;a.click();CK.toast('Downloaded');});
-  $('btn-clr').addEventListener('click',function(){$('t-file').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span>';_dataUrl='';});
+  $('btn-clr').addEventListener('click',function(){$('t-file').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span>';_dataUrl='';var z=$('ic-drop');if(z){z.classList.remove('has-file');z.innerHTML='<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p class="upload-label">Drop your image here</p><p class="upload-sub">or <span class="upload-link">browse to upload</span></p><p class="upload-formats">Supports: PNG, JPG, WebP</p>';}});
   CK.wireCtrlEnter('btn-conv');
   CK.setUsageContent('<ol><li>Upload an <strong>image file</strong> (PNG, JPEG, WebP, GIF, BMP, etc.).</li><li>Select <strong>From</strong> and <strong>To</strong> formats and quality.</li><li>Click <strong>Convert</strong> and download the result.</li></ol><p>Changing the format dropdowns updates the URL for easy sharing. Uses the Canvas API — all processing is local, no uploads.</p>');
 })();
