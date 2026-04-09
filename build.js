@@ -633,6 +633,13 @@ ${buildNavbar()}
 
   <!-- Tool Hubs -->
   <div class="hubs-wrap" id="hubs-wrap">
+
+    <!-- Recently Used (hidden by default, populated by JS) -->
+    <section id="recently-used" style="display:none; margin-bottom: 2rem;">
+      <h2 style="font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:#444; margin-bottom:12px;">Recently used</h2>
+      <div id="recent-tools-row" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+    </section>
+
     ${categorySection('crypto')}
     ${categorySection('encoding')}
     ${categorySection('converter')}
@@ -702,6 +709,41 @@ searchInput.addEventListener('input', function() {
   searchSection.hidden = false;
   hubsWrap.hidden      = true;
 });
+</script>
+
+<!-- Recently Used (inline, runs before ck-state.js) -->
+<script defer>
+(function() {
+  function lsGet(k) { try { return localStorage.getItem(k); } catch(e) { return null; } }
+  var raw = lsGet('ck_recent');
+  if (!raw) return;
+  var recent;
+  try { recent = JSON.parse(raw); } catch(e) { return; }
+  if (!Array.isArray(recent) || recent.length === 0) return;
+
+  var hubColors = {
+    'Crypto Hub': '#00ff88', 'Encoding Hub': '#00d4ff',
+    'Converter Hub': '#a78bfa', 'Dev Hub': '#fb923c', 'Image Hub': '#f472b6'
+  };
+
+  var row = document.getElementById('recent-tools-row');
+  var section = document.getElementById('recently-used');
+  if (!row || !section) return;
+
+  recent.slice(0, 5).forEach(function(item) {
+    var color = hubColors[item.hub] || '#00ff88';
+    var card = document.createElement('a');
+    card.href = '/cipherkit/tools/' + item.slug + '/';
+    card.style.cssText = 'display:inline-flex;flex-direction:column;gap:4px;padding:10px 14px;background:#111;border:1px solid #1e1e1e;border-radius:9px;text-decoration:none;transition:border-color 0.15s;min-width:120px;';
+    card.onmouseenter = function() { card.style.borderColor = '#2a2a2a'; };
+    card.onmouseleave = function() { card.style.borderColor = '#1e1e1e'; };
+    card.innerHTML = '<span style="font-size:13px;color:#e0e0e0;white-space:nowrap;">' + item.name + '</span>'
+      + '<span style="font-size:11px;color:' + color + ';opacity:0.8;">' + item.hub + '</span>';
+    row.appendChild(card);
+  });
+
+  section.style.display = 'block';
+})();
 </script>
 
 <!-- State: recent tools on homepage -->

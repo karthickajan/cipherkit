@@ -46,24 +46,24 @@
    * ════════════════════════════════════════════════════════════════════════ */
   var TOOL_CFG = {
     /* ── Crypto ── */
-    'aes-encryption':      { inputs: [{id:'enc-plain',param:'i'},{id:'enc-key',param:'k'}], selects: [{id:'enc-keysize',param:'s'},{id:'enc-mode',param:'m'},{id:'enc-output',param:'f'}], runBtn:'btn-enc', outputEl:'enc-result' },
-    'aes-decryption':      { inputs: [{id:'dec-cipher',param:'i'},{id:'dec-key',param:'k'},{id:'dec-iv',param:'v'}], selects: [{id:'dec-keysize',param:'s'},{id:'dec-mode',param:'m'},{id:'dec-fmt',param:'f'}], runBtn:'btn-dec', outputEl:'dec-result' },
+    'aes-encryption':      { inputs: [{id:'enc-plain',param:'i'},{id:'enc-key',param:'k'}], selects: [{id:'enc-keysize',param:'s'},{id:'enc-mode',param:'m'},{id:'enc-output',param:'f'}], runBtn:'btn-enc', outputEl:'enc-result', sensitive:['k'] },
+    'aes-decryption':      { inputs: [{id:'dec-cipher',param:'i'},{id:'dec-key',param:'k'},{id:'dec-iv',param:'v'}], selects: [{id:'dec-keysize',param:'s'},{id:'dec-mode',param:'m'},{id:'dec-fmt',param:'f'}], runBtn:'btn-dec', outputEl:'dec-result', sensitive:['k','v'] },
     'sha256-generator':    { inputs: [{id:'h-input',param:'i'}], selects: [{id:'h-fmt',param:'f'}], runBtn:'btn-gen', outputEl:'h-result' },
     'sha512-generator':    { inputs: [{id:'h-input',param:'i'}], selects: [{id:'h-fmt',param:'f'}], runBtn:'btn-gen', outputEl:'h-result' },
     'sha1-generator':      { inputs: [{id:'h-input',param:'i'}], selects: [{id:'h-fmt',param:'f'}], runBtn:'btn-gen', outputEl:'h-result' },
     'sha3-generator':      { inputs: [{id:'h-input',param:'i'}], selects: [{id:'h-bits',param:'b'},{id:'h-fmt',param:'f'}], runBtn:'btn-gen', outputEl:'h-result' },
     'md5-generator':       { inputs: [{id:'h-input',param:'i'}], selects: [{id:'h-fmt',param:'f'}], runBtn:'btn-gen', outputEl:'h-result' },
     'ripemd160-generator': { inputs: [{id:'h-input',param:'i'}], selects: [{id:'h-fmt',param:'f'}], runBtn:'btn-gen', outputEl:'h-result' },
-    'hmac-generator':      { inputs: [{id:'hm-msg',param:'i'},{id:'hm-key',param:'k'}], selects: [{id:'hm-algo',param:'a'},{id:'hm-fmt',param:'f'}], runBtn:'btn-gen', outputEl:'hm-result' },
+    'hmac-generator':      { inputs: [{id:'hm-msg',param:'i'},{id:'hm-key',param:'k'}], selects: [{id:'hm-algo',param:'a'},{id:'hm-fmt',param:'f'}], runBtn:'btn-gen', outputEl:'hm-result', sensitive:['k'] },
     'rsa-key-generator':   { inputs: [], selects: [{id:'r-bits',param:'b'},{id:'r-hash',param:'h'}], runBtn:'btn-gen', outputEl:'r-pub' },
     'hash-comparator':     { inputs: [{id:'hc-a',param:'i'},{id:'hc-b',param:'i2'}], selects: [{id:'hc-case',param:'c'}], runBtn:'btn-cmp', outputEl:'hc-result' },
     'checksum-generator':  { inputs: [{id:'cs-input',param:'i'}], selects: [], runBtn:'btn-gen', outputEl:'cs-results' },
-    'bcrypt-generator':    { inputs: [{id:'b-pass',param:'i'}], selects: [{id:'b-rounds',param:'r'}], runBtn:'btn-hash', outputEl:'b-result' },
-    'rsa-encrypt-decrypt': { inputs: [{id:'enc-key',param:'k'},{id:'enc-input',param:'i'}], selects: [], runBtn:'btn-enc', outputEl:'enc-result' },
-    'password-strength':   { inputs: [{id:'t-input',param:'i'}], selects: [], runBtn:null, outputEl:'t-result' },
-    'totp-generator':      { inputs: [{id:'t-secret',param:'i'}], selects: [{id:'t-digits',param:'d'},{id:'t-period',param:'p'}], runBtn:'btn-gen', outputEl:'t-result' },
+    'bcrypt-generator':    { inputs: [{id:'b-pass',param:'i'}], selects: [{id:'b-rounds',param:'r'}], runBtn:'btn-hash', outputEl:'b-result', sensitive:['i'] },
+    'rsa-encrypt-decrypt': { inputs: [{id:'enc-key',param:'k'},{id:'enc-input',param:'i'}], selects: [], runBtn:'btn-enc', outputEl:'enc-result', sensitive:['k'] },
+    'password-strength':   { inputs: [{id:'t-input',param:'i'}], selects: [], runBtn:null, outputEl:'t-result', pwWarn:true },
+    'totp-generator':      { inputs: [{id:'t-secret',param:'i'}], selects: [{id:'t-digits',param:'d'},{id:'t-period',param:'p'}], runBtn:'btn-gen', outputEl:'t-result', sensitive:['i'] },
     'ssl-cert-decoder':    { inputs: [{id:'t-input',param:'i'}], selects: [], runBtn:'btn-dec', outputEl:'t-result' },
-    'jwt-builder':         { inputs: [{id:'t-payload',param:'i'},{id:'t-secret',param:'k'}], selects: [{id:'t-alg',param:'a'}], runBtn:'btn-sign', outputEl:'t-output' },
+    'jwt-builder':         { inputs: [{id:'t-payload',param:'i'},{id:'t-secret',param:'k'}], selects: [{id:'t-alg',param:'a'}], runBtn:'btn-sign', outputEl:'t-output', sensitive:['k'] },
 
     /* ── Encoding ── */
     'base64-encode':       { inputs: [{id:'t-input',param:'i'}], selects: [{id:'t-mode',param:'m'},{id:'t-newline',param:'n'}], runBtn:'btn-enc', outputEl:'t-result' },
@@ -93,7 +93,7 @@
 
     /* ── Dev ── */
     'jwt-decoder':         { inputs: [{id:'t-input',param:'i'}], selects: [], runBtn:'btn-dec', outputEl:'t-payload' },
-    'jwt-encoder':         { inputs: [{id:'t-payload',param:'i'},{id:'t-secret',param:'k'}], selects: [{id:'t-algo',param:'a'}], runBtn:'btn-enc', outputEl:'t-result' },
+    'jwt-encoder':         { inputs: [{id:'t-payload',param:'i'},{id:'t-secret',param:'k'}], selects: [{id:'t-algo',param:'a'}], runBtn:'btn-enc', outputEl:'t-result', sensitive:['k'] },
     'uuid-generator':      { inputs: [], selects: [{id:'t-count',param:'n'},{id:'t-case',param:'c'},{id:'t-braces',param:'b'}], runBtn:'btn-gen', outputEl:'t-result' },
     'random-password-generator': { inputs: [{id:'t-len',param:'l'}], selects: [], runBtn:'btn-gen', outputEl:'t-result' },
     'random-string-generator':   { inputs: [{id:'t-len',param:'l'},{id:'t-count',param:'n'}], selects: [{id:'t-preset',param:'p'}], runBtn:'btn-gen', outputEl:'t-result' },
@@ -155,35 +155,8 @@
   }
 
   function renderRecentOnHomepage() {
-    if (!IS_HOMEPAGE) return;
-    var list = lsGetJSON('ck_recent');
-    if (!list || !list.length) return;
-
-    var hubColors = {
-      'Crypto Hub':    { color: '#00ff88', bg: 'rgba(0,255,136,0.08)' },
-      'Encoding Hub':  { color: '#00d4ff', bg: 'rgba(0,212,255,0.08)' },
-      'Converter Hub': { color: '#a78bfa', bg: 'rgba(167,139,250,0.08)' },
-      'Dev Hub':       { color: '#fb923c', bg: 'rgba(251,146,60,0.08)' },
-      'Image Hub':     { color: '#f472b6', bg: 'rgba(244,114,182,0.08)' },
-    };
-
-    var cards = list.map(function (e) {
-      var hc = hubColors[e.hub] || { color: '#9ea7b2', bg: 'rgba(158,167,178,0.08)' };
-      return '<a href="/cipherkit/tools/' + e.slug + '/" class="tool-card">'
-        + '<div class="tool-card-title">' + e.name + '</div>'
-        + '<span class="hub-badge" style="color:' + hc.color + ';background:' + hc.bg + ';font-size:10px;padding:2px 8px;border-radius:99px;margin-top:6px;display:inline-block;font-family:var(--sans);font-weight:600">' + e.hub + '</span>'
-        + '</a>';
-    }).join('');
-
-    var section = document.createElement('section');
-    section.className = 'ck-recent-section';
-    section.setAttribute('aria-labelledby', 'recent-heading');
-    section.innerHTML =
-      '<div class="hub-header"><h2 id="recent-heading">Recently Used</h2></div>'
-      + '<div class="ck-recent-row">' + cards + '</div>';
-
-    var hubsWrap = document.getElementById('hubs-wrap');
-    if (hubsWrap) hubsWrap.parentNode.insertBefore(section, hubsWrap);
+    /* Homepage now renders recent tools via its own inline script.
+       This function is kept as a no-op for compatibility. */
   }
 
 
@@ -303,8 +276,10 @@
     if (!cfg || cfg.skip) return;
     var params = new URLSearchParams();
     var hasVal = false;
+    var blocked = cfg.sensitive || [];
 
     (cfg.inputs || []).forEach(function (inp) {
+      if (blocked.indexOf(inp.param) !== -1) return; /* skip sensitive */
       var el = document.getElementById(inp.id);
       if (!el) return;
       var v = (el.value || '').substring(0, MAX_PARAM);
@@ -312,6 +287,7 @@
     });
 
     (cfg.selects || []).forEach(function (sel) {
+      if (blocked.indexOf(sel.param) !== -1) return; /* skip sensitive */
       var el = document.getElementById(sel.id);
       if (!el) return;
       var v = el.value;
@@ -333,8 +309,15 @@
     var params = new URLSearchParams(location.search);
     if (!params.toString()) return false;
     var restored = false;
+    var blocked = cfg.sensitive || [];
+    var hadSensitive = false;
 
     (cfg.inputs || []).forEach(function (inp) {
+      if (blocked.indexOf(inp.param) !== -1) {
+        /* Silently ignore sensitive params from URL */
+        if (params.has(inp.param)) hadSensitive = true;
+        return;
+      }
       var v = params.get(inp.param);
       if (v) {
         var el = document.getElementById(inp.id);
@@ -343,6 +326,10 @@
     });
 
     (cfg.selects || []).forEach(function (sel) {
+      if (blocked.indexOf(sel.param) !== -1) {
+        if (params.has(sel.param)) hadSensitive = true;
+        return;
+      }
       var v = params.get(sel.param);
       if (v) {
         var el = document.getElementById(sel.id);
@@ -359,6 +346,13 @@
         }
       }
     });
+
+    /* Clean sensitive params from URL */
+    if (hadSensitive) {
+      blocked.forEach(function (p) { params.delete(p); });
+      var clean = params.toString();
+      try { history.replaceState(null, '', clean ? '?' + clean : location.pathname); } catch (e) {}
+    }
 
     return restored;
   }
@@ -383,11 +377,16 @@
     var h1 = document.querySelector('.tool-header h1');
     if (!h1) return;
 
+    var cfg = TOOL_CFG[SLUG] || {};
+    var hasSensitive = cfg.sensitive && cfg.sensitive.length > 0;
+
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'ck-copy-link';
     btn.setAttribute('aria-label', 'Copy link to this tool');
-    btn.title = 'Copy permalink';
+    btn.title = hasSensitive
+      ? 'Key and IV are not included in the shared link for security.'
+      : 'Copy permalink';
     btn.innerHTML = IC_LINK;
 
     btn.addEventListener('click', function () {
@@ -403,6 +402,39 @@
 
     h1.appendChild(btn);
   }
+
+  /* ── Password-strength URL warning ──────────────────────────────────── */
+  function addPwWarn() {
+    if (!IS_TOOL_PAGE || !SLUG) return;
+    var cfg = TOOL_CFG[SLUG];
+    if (!cfg || !cfg.pwWarn) return;
+    var params = new URLSearchParams(location.search);
+    if (!params.get('i')) return;
+    /* Console warning */
+    console.warn('[CipherKit] Password shared via URL - this may appear in browser history');
+    /* Amber notice under input */
+    var inp = document.getElementById('t-input');
+    if (!inp) return;
+    var notice = document.createElement('div');
+    notice.style.cssText = 'font-size:12px;color:#fb923c;margin-top:4px;display:flex;align-items:center;gap:4px;';
+    notice.innerHTML = '\u26A0 Sharing this link includes your input \u2014 avoid for real passwords.';
+    inp.parentNode.insertBefore(notice, inp.nextSibling);
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════════════
+   *  HISTORY REDACTION — sensitive tools get redacted previews
+   * ════════════════════════════════════════════════════════════════════════ */
+  var HIST_REDACT = {
+    'aes-encryption':      { i: function(v){ return '[plaintext \xB7 ' + v.length + ' chars]'; }, o: null },
+    'aes-decryption':      { i: function(v){ return '[ciphertext \xB7 ' + v.length + ' chars]'; }, o: function(){ return '[decrypted]'; } },
+    'bcrypt-generator':    { i: function(){ return '[password]'; }, o: null },
+    'jwt-encoder':         { i: function(){ return '[payload]'; }, o: null },
+    'jwt-builder':         { i: function(){ return '[payload]'; }, o: null },
+    'hmac-generator':      { i: function(){ return '[message]'; }, o: null },
+    'totp-generator':      { i: function(){ return '[secret]'; }, o: null },
+    'rsa-encrypt-decrypt': { i: function(){ return '[input]'; }, o: function(){ return '[output]'; } },
+  };
 
 
   /* ════════════════════════════════════════════════════════════════════════
@@ -439,6 +471,13 @@
         }
       }
 
+      /* Apply redaction for sensitive tools */
+      var redact = HIST_REDACT[SLUG];
+      if (redact) {
+        if (redact.i) inpPreview = redact.i(inpPreview);
+        if (redact.o) outPreview = redact.o(outPreview);
+      }
+
       /* Only save if we have input or output */
       if (inpPreview || outPreview) {
         saveHistory(inpPreview, outPreview);
@@ -470,6 +509,9 @@
 
     /* Add copy link button */
     addCopyLinkBtn();
+
+    /* Password-strength URL warning */
+    addPwWarn();
 
     /* Restore URL params and auto-run */
     var restored = restoreFromURL(cfg);
