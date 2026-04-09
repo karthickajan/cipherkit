@@ -235,9 +235,14 @@
       this.textContent = (open ? '\u25B8' : '\u25BE') + ' History (' + entries.length + ')';
     });
 
-    /* Click entry → fill input + rerun */
+    /* Click entry → fill input + rerun (skip for redacted/sensitive tools) */
     var cfg = TOOL_CFG[SLUG];
+    var isRedacted = !!HIST_REDACT[SLUG];
     section.querySelectorAll('.ck-hist-entry').forEach(function (el) {
+      if (isRedacted) {
+        el.style.cursor = 'default';
+        return; /* no click handler for sensitive tools */
+      }
       el.addEventListener('click', function () {
         var idx = parseInt(el.dataset.idx, 10);
         var entry = entries[idx];
