@@ -75,8 +75,9 @@ function copySrc(srcRel, distRel) {
 }
 
 // ── SHARED HEAD HTML ────────────────────────────────────────────────────────
-function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }) {
+function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', extraImgSrc = '' }) {
   const canonical = `${DOMAIN}${canonicalPath}`;
+  const imgSrc = `'self' data: blob: https://www.google-analytics.com${extraImgSrc ? ' ' + extraImgSrc : ''}`;
   return `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,7 +92,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '' }
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://api.github.com https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://api.github.com https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src ${imgSrc}; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="${pageTitle}">
@@ -535,6 +536,7 @@ function buildHomepage() {
     pageTitle:       `${site.name} — ${site.tagline}`,
     metaDescription: site.description,
     canonicalPath:   '/',
+    extraImgSrc:     'https://fazier.com',
     extraMeta: `
 <script type="application/ld+json">
 ${JSON.stringify({
@@ -650,6 +652,21 @@ ${buildNavbar()}
 </main>
 
 ${buildFooter()}
+
+<!-- Fazier badge (homepage only) -->
+<script defer>
+(function(){
+  var p = document.querySelector('.footer-bottom p');
+  if (!p) return;
+  var a = document.createElement('a');
+  a.href = 'https://fazier.com';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:10px;';
+  a.innerHTML = '<img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark" width="120" alt="Fazier badge" style="vertical-align:middle;" />';
+  p.appendChild(a);
+})();
+</script>
 
 <!-- Toast -->
 <div class="toast" id="toast" role="alert" aria-live="assertive">
