@@ -100,11 +100,15 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <meta property="og:type" content="website">
   <meta property="og:url" content="${canonical}">
   <meta property="og:site_name" content="${site.name}">
+  <meta property="og:image" content="${DOMAIN}/android-chrome-512x512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${pageTitle}">
   <meta name="twitter:description" content="${metaDescription}">
+  <meta name="twitter:image" content="${DOMAIN}/android-chrome-512x512.png">
 
   ${extraMeta}
 
