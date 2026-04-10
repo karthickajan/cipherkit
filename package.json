@@ -7,10 +7,20 @@
     "dev": "node build.js && npx serve dist -p 3000",
     "watch": "node -e \"require('fs').watch('src', {recursive:true}, () => require('child_process').exec('node build.js', (e,o,err) => { console.log(o); if(err) console.error(err); })); console.log('Watching src/ ...');\""
   },
-  "keywords": ["crypto", "developer-tools", "aes", "sha256", "base64", "jwt"],
+  "keywords": [
+    "crypto",
+    "developer-tools",
+    "aes",
+    "sha256",
+    "base64",
+    "jwt"
+  ],
   "author": "karthickajan",
   "license": "MIT",
   "engines": {
     "node": ">=16"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

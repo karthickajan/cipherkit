@@ -112,6 +112,10 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="${BASE_PATH}/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="${BASE_PATH}/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="${BASE_PATH}/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="${BASE_PATH}/apple-touch-icon.png">
+  <link rel="manifest" href="${BASE_PATH}/site.webmanifest">
 
   <!-- Fonts — non-blocking, font-display:swap prevents layout shift -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -1119,6 +1123,16 @@ ${buildNavbar()}
 ${buildFooter()}
 </body>
 </html>`);
+
+  // ── COPY STATIC ROOT FILES (favicons, manifest) ────────────────────────
+  const staticRoot = path.join(__dirname, 'static');
+  if (fs.existsSync(staticRoot)) {
+    console.log('\n📌 Copying static root files...');
+    for (const f of fs.readdirSync(staticRoot)) {
+      fs.copyFileSync(path.join(staticRoot, f), path.join(DIST, f));
+      console.log(`  ✓ ${f}`);
+    }
+  }
 
   // ── SUMMARY ───────────────────────────────────────────────────────────────
   const totalPages = 1 + categories.length + tools.length + 3; // home + cats + tools + seo + 404

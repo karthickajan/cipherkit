@@ -49,7 +49,13 @@
     + '.jt-si:focus{border-color:rgba(61,214,140,.3)}'
     + '.jt-tb-btn{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);background:none;border:1px solid var(--border);border-radius:4px;padding:3px 8px;cursor:pointer;font-family:var(--mono);transition:all .15s}'
     + '.jt-tb-btn:hover{color:var(--green);border-color:var(--gdim)}'
-    + '.jt-tb-btn svg{width:10px;height:10px}';
+    + '.jt-tb-btn svg{width:10px;height:10px}'
+    + '.jt-cs-btn{font-size:12px;font-weight:700;min-width:28px;text-align:center;padding:3px 5px}'
+    + '.jt-cs-btn.active{color:var(--green);border-color:var(--green)}'
+    + '.jt-match-info{font-size:11px;color:var(--muted);white-space:nowrap;font-family:var(--mono);min-width:50px;text-align:center}'
+    + '.jt-match-info.no-match{color:#555}'
+    + '.sh-mark{background:rgba(0,255,136,0.2);color:inherit;border-radius:2px}'
+    + '.sh-mark-active{background:rgba(0,255,136,0.5);color:#0a0a0a}';
   document.head.appendChild(sty);
 
   /* ── UI ──────────────────────────────────────────────────────────────── */
@@ -67,7 +73,11 @@
     +     '<div class="out-box" id="out-wrap">'
     +       '<div class="out-head"><div class="out-label">' + IC.play + ' <span>Formatted JSON</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div>'
     +       '<div id="jt-tb" class="jt-tb" style="display:none">'
-    +         '<input type="text" class="jt-si" id="jt-si" placeholder="Search keys\u2026" aria-label="Search keys">'
+    +         '<input type="text" class="jt-si" id="jt-si" placeholder="Search\u2026" aria-label="Search keys">'
+    +         '<button type="button" class="jt-tb-btn jt-cs-btn" id="btn-cs" title="Case Sensitive">Aa</button>'
+    +         '<span class="jt-match-info" id="jt-match-count"></span>'
+    +         '<button type="button" class="jt-tb-btn" id="btn-prev" title="Previous match (Shift+Enter)">\u25B2</button>'
+    +         '<button type="button" class="jt-tb-btn" id="btn-next" title="Next match (Enter)">\u25BC</button>'
     +         '<button type="button" class="jt-tb-btn" id="btn-exp">' + IC.plus + ' Expand</button>'
     +         '<button type="button" class="jt-tb-btn" id="btn-col">' + IC.minus + ' Collapse</button>'
     +       '</div>'
@@ -233,39 +243,49 @@
     });
   });
 
-  /* ── SEARCH (TreeWalker + <mark> highlighting) ───────────────────────── */
+  /* ── SEARCH (TreeWalker + <mark> highlighting + prev/next + case toggle) ── */
   var _searchMarks = [];
-  $('jt-si').addEventListener('input', function () {
-    var q = this.value, w = $('t-result');
+  var _curMatch = -1;
+  var _caseSensitive = false;
 
-    /* Remove previous marks */
+  function clearSearch() {
+    var w = $('t-result');
     for (var mi = 0; mi < _searchMarks.length; mi++) {
       var mk = _searchMarks[mi];
-      if (mk.parentNode) {
-        mk.parentNode.replaceChild(document.createTextNode(mk.textContent), mk);
-      }
+      if (mk.parentNode) mk.parentNode.replaceChild(document.createTextNode(mk.textContent), mk);
     }
     _searchMarks = [];
-    w.normalize(); /* merge adjacent text nodes */
-
-    /* Remove old highlight classes */
+    _curMatch = -1;
+    w.normalize();
     w.querySelectorAll('.jt-hl').forEach(function (el) { el.classList.remove('jt-hl'); });
-
-    /* Clear match count */
     var badge = $('jt-match-count');
-    if (!badge) {
-      badge = document.createElement('span');
-      badge.id = 'jt-match-count';
-      badge.style.cssText = 'font-size:11px;color:var(--muted);white-space:nowrap;font-family:var(--mono)';
-      $('jt-si').parentNode.insertBefore(badge, $('jt-si').nextSibling);
+    if (badge) { badge.textContent = ''; badge.className = 'jt-match-info'; }
+  }
+
+  function setActiveMatch(idx) {
+    if (!_searchMarks.length) return;
+    /* Remove active class from previous */
+    for (var i = 0; i < _searchMarks.length; i++) {
+      _searchMarks[i].className = 'sh-mark';
     }
+    if (idx < 0) idx = _searchMarks.length - 1;
+    if (idx >= _searchMarks.length) idx = 0;
+    _curMatch = idx;
+    _searchMarks[_curMatch].className = 'sh-mark sh-mark-active';
+    _searchMarks[_curMatch].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var badge = $('jt-match-count');
+    if (badge) { badge.textContent = (_curMatch + 1) + ' / ' + _searchMarks.length; badge.className = 'jt-match-info'; }
+  }
 
-    if (!q) { badge.textContent = ''; return; }
+  function runSearch() {
+    var q = $('jt-si').value, w = $('t-result');
+    clearSearch();
+    if (!q) return;
 
-    var qLower = q.toLowerCase();
-    var count = 0;
     var jtWrap = w.querySelector('.jt-wrap');
-    if (!jtWrap) { badge.textContent = ''; return; }
+    if (!jtWrap) return;
+
+    var qSearch = _caseSensitive ? q : q.toLowerCase();
 
     /* Walk all text nodes */
     var walker = document.createTreeWalker(jtWrap, NodeFilter.SHOW_TEXT, null, false);
@@ -276,29 +296,27 @@
     for (var ti = 0; ti < textNodes.length; ti++) {
       var tn = textNodes[ti];
       var text = tn.textContent;
-      var textLower = text.toLowerCase();
-      var idx = textLower.indexOf(qLower);
+      var textCmp = _caseSensitive ? text : text.toLowerCase();
+      var idx = textCmp.indexOf(qSearch);
       if (idx === -1) continue;
 
-      /* Split the text node and wrap matches */
       var parent = tn.parentNode;
       var frag = document.createDocumentFragment();
       var lastIdx = 0;
       while (idx !== -1) {
         if (idx > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, idx)));
         var mark = document.createElement('mark');
-        mark.style.cssText = 'background:#00ff8844;color:inherit;border-radius:2px';
+        mark.className = 'sh-mark';
         mark.textContent = text.slice(idx, idx + q.length);
         frag.appendChild(mark);
         _searchMarks.push(mark);
-        count++;
         lastIdx = idx + q.length;
-        idx = textLower.indexOf(qLower, lastIdx);
+        idx = textCmp.indexOf(qSearch, lastIdx);
       }
       if (lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
       parent.replaceChild(frag, tn);
 
-      /* Expand ancestor groups */
+      /* Expand ancestor groups so match is visible */
       var line = parent.closest('.jt-line');
       if (line) {
         line.classList.remove('jt-hid');
@@ -316,7 +334,38 @@
       }
     }
 
-    badge.textContent = count + ' match' + (count !== 1 ? 'es' : '');
+    var badge = $('jt-match-count');
+    if (_searchMarks.length) {
+      setActiveMatch(0);
+    } else {
+      if (badge) { badge.textContent = 'No matches'; badge.className = 'jt-match-info no-match'; }
+    }
+  }
+
+  $('jt-si').addEventListener('input', runSearch);
+
+  /* Case-sensitive toggle */
+  $('btn-cs').addEventListener('click', function () {
+    _caseSensitive = !_caseSensitive;
+    this.classList.toggle('active', _caseSensitive);
+    runSearch();
+  });
+
+  /* Prev / Next buttons */
+  $('btn-next').addEventListener('click', function () { if (_searchMarks.length) setActiveMatch(_curMatch + 1); });
+  $('btn-prev').addEventListener('click', function () { if (_searchMarks.length) setActiveMatch(_curMatch - 1); });
+
+  /* Keyboard: Enter=next, Shift+Enter=prev, Escape=clear */
+  $('jt-si').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (e.shiftKey) { if (_searchMarks.length) setActiveMatch(_curMatch - 1); }
+      else { if (_searchMarks.length) setActiveMatch(_curMatch + 1); }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      this.value = '';
+      clearSearch();
+    }
   });
 
   /* ── COPY PATH ON HOVER ────────────────────────────────────────────── */

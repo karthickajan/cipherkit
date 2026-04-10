@@ -937,6 +937,71 @@ input[type="time"]:focus {
 }
 .dt-split-row > * { flex: 1; min-width: 120px; }
 
+/* ── DATETIME EDITOR (epoch-converter) ──────────────────────────────────── */
+.datetime-editor {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.dte-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.dte-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dte-label {
+  font-size: 10px;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.dte-field {
+  width: 52px;
+  background: #0d0d0d;
+  border: 1px solid #1e1e1e;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 16px;
+  padding: 8px 6px;
+  text-align: center;
+  font-family: inherit;
+  -moz-appearance: textfield;
+}
+.dte-field::-webkit-outer-spin-button,
+.dte-field::-webkit-inner-spin-button { -webkit-appearance: none; }
+.dte-year { width: 72px; }
+.dte-field:focus {
+  border-color: #00ff88;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,255,136,0.1);
+}
+.dte-sep {
+  color: #333;
+  font-size: 18px;
+  padding-bottom: 8px;
+  user-select: none;
+}
+.dte-now-btn {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  color: #555;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.dte-now-btn:hover { color: #00ff88; border-color: #00ff88; }
+
 /* ── UPLOAD ZONE (shared) ───────────────────────────────────────────────── */
 .upload-zone {
   border:        2px dashed #2a2a2a;
