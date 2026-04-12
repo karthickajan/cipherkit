@@ -10,7 +10,7 @@
   function $(id){return document.getElementById(id);}
 
   /* ── Auto-detect from/to from URL slug ── */
-  var BASE='/cipherkit';
+  var BASE='';
   var fmtMime={png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp'};
   var fmtLabel={png:'PNG',jpg:'JPEG',jpeg:'JPEG',webp:'WebP'};
   var slugRoutes={'png-to-jpg':['png','jpg'],'jpg-to-png':['jpg','png'],'png-to-webp':['png','webp'],'jpg-to-webp':['jpg','webp'],'webp-to-png':['webp','png'],'webp-to-jpg':['webp','jpg']};

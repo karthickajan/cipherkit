@@ -32,13 +32,13 @@ async function generate() {
     name: 'CipherKit',
     short_name: 'CipherKit',
     icons: [
-      { src: '/cipherkit/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-      { src: '/cipherkit/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' }
+      { src: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { src: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' }
     ],
     theme_color: '#0a0a0a',
     background_color: '#0a0a0a',
     display: 'standalone',
-    start_url: '/cipherkit/'
+    start_url: '/'
   };
   fs.writeFileSync(path.join(outDir, 'site.webmanifest'), JSON.stringify(manifest, null, 2));
   console.log('Generated site.webmanifest');

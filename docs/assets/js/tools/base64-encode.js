@@ -156,7 +156,7 @@
     var output = isPlaceholder() ? '' : $('t-result').textContent;
     if (!output) { CK.toast('Nothing to send'); return; }
     try { sessionStorage.setItem('ck_b64_transfer', output); } catch (_) {}
-    window.location.href = '/cipherkit/tools/base64-decode/';
+    window.location.href = '/tools/base64-decode/';
   });
 
   $('btn-swap').addEventListener('click', function () {

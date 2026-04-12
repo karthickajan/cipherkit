@@ -208,7 +208,7 @@
     $('t-input').placeholder = 'Paste JSON here\u2026';
   }
 
-  var BASE = '/cipherkit';
+  var BASE = '';
   $('t-mode').addEventListener('change', function () {
     var y2j = this.value === 'yaml2json';
     $('lbl-input').textContent = y2j ? 'YAML Input' : 'JSON Input';

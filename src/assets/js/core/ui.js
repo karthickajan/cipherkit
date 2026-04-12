@@ -272,7 +272,7 @@
     /* Lazy-load tools.json on first interaction */
     searchInput.addEventListener('focus', function () {
       if (tools) return;
-      fetch('/cipherkit/tools.json')
+      fetch('/tools.json')
         .then(function (r) { return r.json(); })
         .then(function (data) { tools = data.tools || data; })
         .catch(function () {});
@@ -299,7 +299,7 @@
 
       dropdown.innerHTML = results.map(function (t) {
         var name = re ? t.title.replace(re, '<mark>$1</mark>') : t.title;
-        return '<a class="nav-search-result" href="/cipherkit/tools/' + t.slug + '/">'
+        return '<a class="nav-search-result" href="/tools/' + t.slug + '/">'
           + name
           + '<span style="font-size:.75rem;color:#666;display:block;margin-top:2px">'
           + (t.tagline || '') + '</span></a>';

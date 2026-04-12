@@ -36,7 +36,7 @@
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('appear')===-1?t:''; });
 
   /* Auto-detect direction from URL slug */
-  var BASE='/cipherkit';
+  var BASE='';
   var _pathSlug=(window.location.pathname.match(/\/tools\/([^/]+)/)||[])[1]||'';
   if(_pathSlug==='decimal-to-hex'){$('t-from').value='10';}
   else if(_pathSlug==='hex-to-decimal'){$('t-from').value='16';}

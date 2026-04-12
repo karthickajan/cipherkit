@@ -7,7 +7,7 @@
 ![Client Side](https://img.shields.io/badge/client--side-100%25-00d4ff?style=flat-square)
 ![No Login](https://img.shields.io/badge/login-none-green?style=flat-square)
 
-🔗 **[karthickajan.github.io/cipherkit](https://karthickajan.github.io/cipherkit)**
+🔗 **[cipherkit.app](https://cipherkit.app)**
 
 ---
 

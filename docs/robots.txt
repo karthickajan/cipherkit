@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://karthickajan.github.io/cipherkit/sitemap.xml
+Sitemap: https://cipherkit.app/sitemap.xml
