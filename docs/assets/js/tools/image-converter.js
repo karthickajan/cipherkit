@@ -42,7 +42,7 @@
   $('t-from-fmt').addEventListener('change',updateURL);
   $('t-fmt').addEventListener('change',updateURL);
 
-  var _dataUrl='',_ext='png';
+  var _blob=null,_blobUrl='',_ext='png',_origName='image';
 
   /* Upload zone wiring */
   (function(){
@@ -52,7 +52,7 @@
     zone.addEventListener('dragleave',function(){zone.classList.remove('drag-over');});
     zone.addEventListener('drop',function(e){e.preventDefault();zone.classList.remove('drag-over');if(e.dataTransfer.files[0]){fi.files=e.dataTransfer.files;showFileInfo(fi.files[0]);}});
     fi.addEventListener('change',function(){if(fi.files[0])showFileInfo(fi.files[0]);});
-    function showFileInfo(f){zone.classList.add('has-file');zone.innerHTML='<p style="color:#e0e0e0;font-size:14px;margin:0">'+f.name+'</p><p style="color:#555;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';}
+    function showFileInfo(f){_origName=f.name.replace(/\.[^.]+$/,'');zone.classList.add('has-file');zone.innerHTML='<p style="color:#e0e0e0;font-size:14px;margin:0">'+f.name+'</p><p style="color:#555;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';}
   })();
 
   $('btn-conv').addEventListener('click',function(){
@@ -68,18 +68,22 @@
         var ctx=c.getContext('2d');
         if(fmt==='image/jpeg'){ctx.fillStyle='#ffffff';ctx.fillRect(0,0,c.width,c.height);}
         ctx.drawImage(img,0,0);
-        _dataUrl=c.toDataURL(fmt,q);
-        var sizeKB=(Math.round(_dataUrl.length*3/4/1024));
-        $('t-result').innerHTML='<img src="'+_dataUrl+'" style="max-width:100%;border-radius:4px" alt="Converted image"><p style="margin-top:8px;color:var(--muted);font-size:.85rem">'+img.naturalWidth+' \u00d7 '+img.naturalHeight+' \u2022 ~'+sizeKB+' KB</p>';
-        CK.toast('Converted to '+_ext.toUpperCase());
+        c.toBlob(function(blob){
+          if(!blob){$('t-err').textContent='Conversion failed.';$('t-err').style.display='block';return;}
+          if(_blobUrl)URL.revokeObjectURL(_blobUrl);
+          _blob=blob;_blobUrl=URL.createObjectURL(blob);
+          var sizeKB=(blob.size/1024).toFixed(1);
+          $('t-result').innerHTML='<img src="'+_blobUrl+'" style="max-width:100%;border-radius:4px" alt="Converted image"><p style="margin-top:8px;color:var(--muted);font-size:.85rem">'+img.naturalWidth+' \u00d7 '+img.naturalHeight+' \u2022 '+sizeKB+' KB</p>';
+          CK.toast('Converted to '+_ext.toUpperCase());
+        },fmt,q);
       };
       img.onerror=function(){$('t-err').textContent='Cannot load image.';$('t-err').style.display='block';};
       img.src=e.target.result;
     };
     reader.readAsDataURL(file);
   });
-  $('btn-dl').addEventListener('click',function(){if(!_dataUrl){CK.toast('Convert first','err');return;}var a=document.createElement('a');a.download='converted.'+_ext;a.href=_dataUrl;a.click();CK.toast('Downloaded');});
-  $('btn-clr').addEventListener('click',function(){$('t-file').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span>';_dataUrl='';var z=$('ic-drop');if(z){z.classList.remove('has-file');z.innerHTML='<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p class="upload-label">Drop your image here</p><p class="upload-sub">or <span class="upload-link">browse to upload</span></p><p class="upload-formats">Supports: PNG, JPG, WebP</p>';}});
+  $('btn-dl').addEventListener('click',function(){if(!_blob){CK.toast('Convert first','err');return;}var a=document.createElement('a');a.download=_origName+'.'+_ext;a.href=_blobUrl;a.click();CK.toast('Downloaded');});
+  $('btn-clr').addEventListener('click',function(){$('t-file').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span>';if(_blobUrl)URL.revokeObjectURL(_blobUrl);_blob=null;_blobUrl='';var z=$('ic-drop');if(z){z.classList.remove('has-file');z.innerHTML='<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p class="upload-label">Drop your image here</p><p class="upload-sub">or <span class="upload-link">browse to upload</span></p><p class="upload-formats">Supports: PNG, JPG, WebP</p>';}});
   CK.wireCtrlEnter('btn-conv');
   CK.setUsageContent('<ol><li>Upload an <strong>image file</strong> (PNG, JPEG, WebP, GIF, BMP, etc.).</li><li>Select <strong>From</strong> and <strong>To</strong> formats and quality.</li><li>Click <strong>Convert</strong> and download the result.</li></ol><p>Changing the format dropdowns updates the URL for easy sharing. Uses the Canvas API — all processing is local, no uploads.</p>');
 })();

@@ -165,14 +165,21 @@
    * ════════════════════════════════════════════════════════════════════════ */
   function getHistory() { return lsGetJSON('ck_hist') || []; }
 
-  function saveHistory(inputPreview, outputPreview) {
+  function saveHistory(inputsArr, outputPreview) {
     if (!SLUG) return;
     var list = getHistory();
     /* FIFO: keep last 19, then push */
     if (list.length >= 20) list = list.slice(list.length - 19);
+    /* inputsArr: [{id, label, value}] — store trimmed */
+    var storedInputs = (inputsArr || []).map(function (x) {
+      return { id: x.id, l: x.label, v: (x.value || '').substring(0, 120) };
+    }).filter(function (x) { return x.v; });
+    /* Backwards-compat: keep .i for single-input tools */
+    var firstVal = storedInputs.length ? storedInputs[0].v : '';
     list.push({
       t: SLUG,
-      i: (inputPreview || '').substring(0, 80),
+      i: firstVal.substring(0, 80),
+      inputs: storedInputs,
       o: (outputPreview || '').substring(0, 80),
       ts: Date.now()
     });
@@ -212,15 +219,32 @@
       else return;
     }
 
+    function esc(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+
     section.style.display = '';
     section.innerHTML =
       '<button type="button" class="ck-hist-toggle" id="ck-hist-toggle">\u25B8 History (' + entries.length + ')</button>'
       + '<div class="ck-hist-list" id="ck-hist-list" style="display:none">'
       + entries.map(function (e, idx) {
+          /* Build input display — use .inputs array if available, fall back to .i */
+          var inpHtml = '';
+          if (e.inputs && e.inputs.length) {
+            if (e.inputs.length === 1) {
+              inpHtml = '<span class="ck-hist-in" title="' + esc(e.inputs[0].v) + '">' + esc(e.inputs[0].v) + '</span>';
+            } else {
+              inpHtml = '<span class="ck-hist-in ck-hist-multi">'
+                + e.inputs.map(function (x) {
+                    return '<span class="ck-hist-kv" title="' + esc(x.v) + '"><span class="ck-hist-lbl">' + esc(x.l) + ':</span> ' + esc(x.v) + '</span>';
+                  }).join('')
+                + '</span>';
+            }
+          } else {
+            inpHtml = '<span class="ck-hist-in" title="' + esc(e.i) + '">' + (esc(e.i) || '\u2014') + '</span>';
+          }
           return '<div class="ck-hist-entry" data-idx="' + idx + '">'
-            + '<span class="ck-hist-in" title="' + e.i.replace(/"/g, '&quot;') + '">' + (e.i || '\u2014') + '</span>'
+            + inpHtml
             + '<span class="ck-hist-arrow">\u2192</span>'
-            + '<span class="ck-hist-out" title="' + e.o.replace(/"/g, '&quot;') + '">' + (e.o || '\u2014') + '</span>'
+            + '<span class="ck-hist-out" title="' + esc(e.o) + '">' + (esc(e.o) || '\u2014') + '</span>'
             + '<span class="ck-hist-time">' + timeAgo(e.ts) + '</span>'
             + '</div>';
         }).join('')
@@ -235,7 +259,7 @@
       this.textContent = (open ? '\u25B8' : '\u25BE') + ' History (' + entries.length + ')';
     });
 
-    /* Click entry → fill input + rerun (skip for redacted/sensitive tools) */
+    /* Click entry → fill ALL inputs + selects + rerun */
     var cfg = TOOL_CFG[SLUG];
     var isRedacted = !!HIST_REDACT[SLUG];
     section.querySelectorAll('.ck-hist-entry').forEach(function (el) {
@@ -247,11 +271,33 @@
         var idx = parseInt(el.dataset.idx, 10);
         var entry = entries[idx];
         if (!entry || !cfg || cfg.skip) return;
-        /* Fill first input */
-        if (cfg.inputs && cfg.inputs.length) {
+
+        /* Fill all inputs from stored entry.inputs */
+        if (entry.inputs && entry.inputs.length && cfg.inputs) {
+          entry.inputs.forEach(function (stored) {
+            var domEl = document.getElementById(stored.id);
+            if (domEl) {
+              /* Check if it's a select vs input */
+              if (domEl.tagName === 'SELECT') {
+                for (var j = 0; j < domEl.options.length; j++) {
+                  if (domEl.options[j].text === stored.v || domEl.options[j].value === stored.v) {
+                    domEl.selectedIndex = j;
+                    domEl.dispatchEvent(new Event('change'));
+                    break;
+                  }
+                }
+              } else {
+                domEl.value = stored.v;
+                domEl.dispatchEvent(new Event('input'));
+              }
+            }
+          });
+        } else if (entry.i && cfg.inputs && cfg.inputs.length) {
+          /* Legacy fallback: fill first input */
           var inp = document.getElementById(cfg.inputs[0].id);
           if (inp) { inp.value = entry.i; inp.dispatchEvent(new Event('input')); }
         }
+
         /* Click run button */
         if (cfg.runBtn) {
           var btn = document.getElementById(cfg.runBtn);
@@ -443,6 +489,28 @@
 
 
   /* ════════════════════════════════════════════════════════════════════════
+   *  AUTO-SCROLL ONLY — for skipped tools (image/file/color)
+   * ════════════════════════════════════════════════════════════════════════ */
+  function hookAutoScrollOnly() {
+    var origToast = window.CK && window.CK.toast;
+    if (!origToast) return;
+    window.CK.toast = function (msg, type) {
+      origToast.call(window.CK, msg, type);
+      if (type === 'err') return;
+      /* Try common output IDs for skipped tools */
+      var outEl = document.getElementById('t-result')
+        || document.getElementById('ir-result')
+        || document.querySelector('.out-body');
+      if (outEl) {
+        setTimeout(function () {
+          outEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 80);
+      }
+    };
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════════════
    *  HISTORY HOOK — intercept CK.toast to detect successful runs
    * ════════════════════════════════════════════════════════════════════════ */
   function hookToastForHistory(cfg) {
@@ -458,12 +526,48 @@
       /* Only record on success (not error) */
       if (type === 'err') return;
 
-      /* Get input preview from first input */
-      var inpPreview = '';
-      if (cfg.inputs && cfg.inputs.length) {
-        var inpEl = document.getElementById(cfg.inputs[0].id);
-        if (inpEl) inpPreview = inpEl.value || '';
+      /* ── Auto-scroll to output ──────────────────────────────────── */
+      if (cfg.outputEl) {
+        var scrollTarget = document.getElementById(cfg.outputEl);
+        if (scrollTarget) {
+          setTimeout(function () {
+            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 80);
+        }
       }
+
+      /* ── Collect ALL inputs with labels ─────────────────────────── */
+      var blocked = cfg.sensitive || [];
+      var allInputs = [];
+
+      (cfg.inputs || []).forEach(function (inp) {
+        var el = document.getElementById(inp.id);
+        if (!el) return;
+        var val = el.value || '';
+        if (!val) return;
+        /* Derive label from nearest <label> or placeholder */
+        var label = '';
+        var labelEl = document.querySelector('label[for="' + inp.id + '"]');
+        if (labelEl) label = labelEl.textContent.trim();
+        if (!label && el.placeholder) label = el.placeholder;
+        if (!label) label = inp.id;
+        /* Redact sensitive */
+        if (blocked.indexOf(inp.param) !== -1) val = '\u2022\u2022\u2022\u2022';
+        allInputs.push({ id: inp.id, label: label, value: val });
+      });
+
+      (cfg.selects || []).forEach(function (sel) {
+        var el = document.getElementById(sel.id);
+        if (!el) return;
+        /* Only record non-default selections */
+        if (el.selectedIndex <= 0) return;
+        var label = '';
+        var labelEl = document.querySelector('label[for="' + sel.id + '"]');
+        if (labelEl) label = labelEl.textContent.trim();
+        if (!label) label = sel.id;
+        var displayVal = el.options[el.selectedIndex].text || el.value;
+        allInputs.push({ id: sel.id, label: label, value: displayVal });
+      });
 
       /* Get output preview */
       var outPreview = '';
@@ -479,13 +583,13 @@
       /* Apply redaction for sensitive tools */
       var redact = HIST_REDACT[SLUG];
       if (redact) {
-        if (redact.i) inpPreview = redact.i(inpPreview);
+        if (redact.i && allInputs.length) allInputs[0].value = redact.i(allInputs[0].value);
         if (redact.o) outPreview = redact.o(outPreview);
       }
 
       /* Only save if we have input or output */
-      if (inpPreview || outPreview) {
-        saveHistory(inpPreview, outPreview);
+      if (allInputs.length || outPreview) {
+        saveHistory(allInputs, outPreview);
       }
     };
   }
@@ -506,8 +610,9 @@
 
     var cfg = TOOL_CFG[SLUG];
     if (!cfg || cfg.skip) {
-      /* Even for skipped tools, add copy link button */
+      /* Even for skipped tools, add copy link button and auto-scroll */
       addCopyLinkBtn();
+      hookAutoScrollOnly();
       renderHistory();
       return;
     }

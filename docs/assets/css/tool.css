@@ -1281,3 +1281,27 @@ input[type="color"].ck-swatch::-moz-color-swatch { border: none; border-radius: 
   transition:  color .15s;
 }
 .ck-hist-clear:hover { color: var(--red, #ff4444); }
+
+/* Multi-input history rows */
+.ck-hist-multi {
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+  white-space:    normal;
+  max-width:      220px;
+}
+.ck-hist-kv {
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  font-family:   var(--mono);
+  font-size:     11px;
+  color:         #888;
+}
+.ck-hist-lbl {
+  color:       #666;
+  font-weight: 500;
+  font-size:   10px;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}

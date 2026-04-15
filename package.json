@@ -4,8 +4,8 @@
   "description": "48 free developer cryptography and utility tools — static site, GitHub Pages",
   "scripts": {
     "build": "node build.js",
-    "dev": "node build.js && npx serve dist -p 3000",
-    "watch": "node -e \"require('fs').watch('src', {recursive:true}, () => require('child_process').exec('node build.js', (e,o,err) => { console.log(o); if(err) console.error(err); })); console.log('Watching src/ ...');\""
+    "dev": "node build.js && npx serve docs -p 3000",
+    "watch": "node build.js && node -e \"const{exec}=require('child_process');const http=require('http');const fs=require('fs');const path=require('path');const DOCS=path.join(__dirname,'docs');const MIME={'html':'text/html','css':'text/css','js':'application/javascript','json':'application/json','png':'image/png','jpg':'image/jpeg','webp':'image/webp','svg':'image/svg+xml','ico':'image/x-icon','xml':'text/xml','txt':'text/plain','webmanifest':'application/manifest+json'};http.createServer((req,res)=>{let p=decodeURIComponent(req.url.split('?')[0]);if(p.endsWith('/'))p+='index.html';let fp=path.join(DOCS,p);if(!fs.existsSync(fp)&&!path.extname(fp)){fp=path.join(fp,'index.html');}if(!fs.existsSync(fp)){fp=path.join(DOCS,'404.html');}const ext=path.extname(fp).slice(1);res.setHeader('Content-Type',MIME[ext]||'application/octet-stream');fs.createReadStream(fp).pipe(res);}).listen(3000,()=>console.log('\\x1b[32m✓ Dev server → http://localhost:3000\\x1b[0m'));let building=false;fs.watch('src',{recursive:true},()=>{if(building)return;building=true;exec('node build.js',(e,o,err)=>{building=false;if(o)process.stdout.write(o);if(err)process.stderr.write(err);console.log('\\x1b[36m↻ Rebuilt\\x1b[0m');});});\""
   },
   "keywords": [
     "crypto",
