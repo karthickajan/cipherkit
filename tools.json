@@ -3,7 +3,7 @@
     "name": "CipherKit",
     "domain": "https://cipherkit.app",
     "tagline": "Developer Cryptography & Utility Tools",
-    "description": "77 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, format converters, DNS lookup — all client-side, no server.",
+    "description": "80 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, HEIC converter, format converters, DNS lookup — all client-side, no server.",
     "github": "https://github.com/karthickajan/cipherkit"
   },
   "categories": [
@@ -1526,9 +1526,9 @@
       "slug": "image-converter",
       "title": "Image Format Converter",
       "pageTitle": "Image Format Converter – Convert Images Between Formats Online | CipherKit",
-      "metaDescription": "Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.",
+      "metaDescription": "Free online image format converter. Convert images between PNG, JPEG, WebP, and HEIC formats with quality control. All processing is local.",
       "h1": "Image Format Converter",
-      "tagline": "Convert images between PNG, JPEG, and WebP — adjust quality, all client-side",
+      "tagline": "Convert images between PNG, JPEG, WebP, and HEIC — adjust quality, all client-side",
       "category": "image",
       "hub": "Image Hub",
       "tags": [
@@ -1536,14 +1536,22 @@
         "png to jpg",
         "jpg to png",
         "webp converter",
+        "heic converter",
         "format converter"
       ],
       "relatedTools": [
         "svg-to-png",
         "image-resizer",
-        "image-enhancer"
+        "image-enhancer",
+        "heic-to-jpg"
       ],
       "jsFile": "image-converter.js",
+      "vendorJs": [
+        {
+          "src": "https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js",
+          "crossorigin": "anonymous"
+        }
+      ],
       "phase": 5,
       "status": "ready",
       "priority": 56
@@ -2131,6 +2139,103 @@
       "phase": 6,
       "status": "ready",
       "priority": 77
+    },
+    {
+      "slug": "heic-to-jpg",
+      "title": "HEIC to JPG Converter",
+      "pageTitle": "HEIC to JPG Converter – Convert HEIC to JPEG Online Free | CipherKit",
+      "metaDescription": "Free online HEIC to JPG converter. Convert iPhone HEIC photos to JPEG format instantly in your browser. 100% client-side — no uploads, no server processing.",
+      "h1": "HEIC to JPG Converter",
+      "tagline": "Convert iPhone HEIC photos to JPEG — instant, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "heic to jpg",
+        "heic to jpeg",
+        "heic converter",
+        "iphone photo converter",
+        "heif to jpeg"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "heic-to-png",
+        "heic-to-webp",
+        "jpg-to-png"
+      ],
+      "jsFile": "image-converter.js",
+      "vendorJs": [
+        {
+          "src": "https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 7,
+      "status": "ready",
+      "priority": 78
+    },
+    {
+      "slug": "heic-to-png",
+      "title": "HEIC to PNG Converter",
+      "pageTitle": "HEIC to PNG Converter – Convert HEIC to PNG Online Free | CipherKit",
+      "metaDescription": "Free online HEIC to PNG converter. Convert iPhone HEIC photos to lossless PNG format instantly in your browser. 100% client-side — no uploads.",
+      "h1": "HEIC to PNG Converter",
+      "tagline": "Convert iPhone HEIC photos to PNG — lossless output, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "heic to png",
+        "heic converter",
+        "iphone photo converter",
+        "heif to png"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "heic-to-jpg",
+        "heic-to-webp",
+        "png-to-jpg"
+      ],
+      "jsFile": "image-converter.js",
+      "vendorJs": [
+        {
+          "src": "https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 7,
+      "status": "ready",
+      "priority": 79
+    },
+    {
+      "slug": "heic-to-webp",
+      "title": "HEIC to WebP Converter",
+      "pageTitle": "HEIC to WebP Converter – Convert HEIC to WebP Online Free | CipherKit",
+      "metaDescription": "Free online HEIC to WebP converter. Convert iPhone HEIC photos to WebP format for smaller sizes. 100% client-side — no uploads, no server processing.",
+      "h1": "HEIC to WebP Converter",
+      "tagline": "Convert iPhone HEIC photos to WebP — smaller files, all client-side",
+      "category": "image",
+      "hub": "Image Hub",
+      "tags": [
+        "heic to webp",
+        "heic converter",
+        "iphone photo converter",
+        "heif to webp"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "heic-to-jpg",
+        "heic-to-png",
+        "webp-to-jpg"
+      ],
+      "jsFile": "image-converter.js",
+      "vendorJs": [
+        {
+          "src": "https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 7,
+      "status": "ready",
+      "priority": 80
     }
   ]
 }

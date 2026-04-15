@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.">
+  <meta name="description" content="Free online image format converter. Convert images between PNG, JPEG, WebP, and HEIC formats with quality control. All processing is local.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#07090d">
   <meta name="google-site-verification" content="UC-6PSV0VLbnfHxe9FoC2l7MWoX1Qi1CY1-_bV7lxQw" />
@@ -14,11 +14,11 @@
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://api.github.com https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://api.github.com https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Image Format Converter – Convert Images Between Formats Online | CipherKit">
-  <meta property="og:description" content="Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.">
+  <meta property="og:description" content="Free online image format converter. Convert images between PNG, JPEG, WebP, and HEIC formats with quality control. All processing is local.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cipherkit.app/tools/image-converter/">
   <meta property="og:site_name" content="CipherKit">
@@ -29,7 +29,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Image Format Converter – Convert Images Between Formats Online | CipherKit">
-  <meta name="twitter:description" content="Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.">
+  <meta name="twitter:description" content="Free online image format converter. Convert images between PNG, JPEG, WebP, and HEIC formats with quality control. All processing is local.">
   <meta name="twitter:image" content="https://cipherkit.app/android-chrome-512x512.png">
 
   <script type="application/ld+json">{
@@ -37,7 +37,7 @@
   "@type": "WebApplication",
   "name": "Image Format Converter",
   "url": "https://cipherkit.app/tools/image-converter/",
-  "description": "Free online image format converter. Convert images between PNG, JPEG, and WebP formats with quality control. All processing is local.",
+  "description": "Free online image format converter. Convert images between PNG, JPEG, WebP, and HEIC formats with quality control. All processing is local.",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "All",
   "offers": {
@@ -164,7 +164,7 @@
     </nav>
 
     <div class="nav-search-wrapper">
-      <input type="search" id="nav-search" placeholder="Search 77 tools…" autocomplete="off" aria-label="Search tools">
+      <input type="search" id="nav-search" placeholder="Search 80 tools…" autocomplete="off" aria-label="Search tools">
       <div id="nav-search-results" class="nav-search-dropdown" hidden></div>
     </div>
 
@@ -191,7 +191,7 @@
         <span aria-current="page">Image Format Converter</span>
       </nav>
       <h1>Image Format Converter</h1>
-      <p class="tool-tagline">Convert images between PNG, JPEG, and WebP — adjust quality, all client-side</p>
+      <p class="tool-tagline">Convert images between PNG, JPEG, WebP, and HEIC — adjust quality, all client-side</p>
       <div class="tool-badges">
         <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Free</span>
         <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Client-Side</span>
@@ -227,6 +227,10 @@
         <span class="related-title">Image Filters & Effects</span>
         <span class="related-tag">Sharpen, brighten, contrast, grayscale, sepia, and invert. Canvas API, instant.</span>
       </a>
+      <a href="/tools/heic-to-jpg/" class="related-card">
+        <span class="related-title">HEIC to JPG Converter</span>
+        <span class="related-tag">Convert iPhone HEIC photos to JPEG — instant, all client-side</span>
+      </a>
     </div>
   </section>
 
@@ -234,7 +238,7 @@
     <section class="usage-guide" aria-labelledby="usage-heading">
       <h2 id="usage-heading">How to Use the Image Format Converter</h2>
       <div class="usage-content" id="usage-content">
-        <ol><li>Upload an <strong>image file</strong> (PNG, JPEG, WebP, GIF, BMP, etc.).</li><li>Select <strong>From</strong> and <strong>To</strong> formats and quality.</li><li>Click <strong>Convert</strong> and download the result.</li></ol><p>Changing the format dropdowns updates the URL for easy sharing. Uses the Canvas API — all processing is local, no uploads.</p>
+        <ol><li>Upload an <strong>image file</strong> (PNG, JPEG, WebP, HEIC, GIF, BMP, etc.).</li><li>The <strong>From</strong> format is auto-detected. Select <strong>To</strong> format and quality.</li><li>Click <strong>Convert</strong> and download the result.</li></ol><p>HEIC files (from iPhones) are decoded via heic2any, then converted locally. All processing is client-side — no uploads.</p>
       </div>
     </section>
 
@@ -364,7 +368,7 @@
 <script src="/assets/js/feedback.js" defer></script>
 
 <!-- Vendor JS -->
-
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" crossorigin="anonymous" defer></script>
 
 <!-- Tool-specific JS -->
 <script src="/assets/js/tools/image-converter.js" defer></script>

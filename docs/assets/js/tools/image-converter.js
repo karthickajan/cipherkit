@@ -11,16 +11,17 @@
 
   /* ── Auto-detect from/to from URL slug ── */
   var BASE='';
-  var fmtMime={png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp'};
-  var fmtLabel={png:'PNG',jpg:'JPEG',jpeg:'JPEG',webp:'WebP'};
-  var slugRoutes={'png-to-jpg':['png','jpg'],'jpg-to-png':['jpg','png'],'png-to-webp':['png','webp'],'jpg-to-webp':['jpg','webp'],'webp-to-png':['webp','png'],'webp-to-jpg':['webp','jpg']};
+  var fmtMime={png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',heic:'image/heic',heif:'image/heif'};
+  var fmtLabel={png:'PNG',jpg:'JPEG',jpeg:'JPEG',webp:'WebP',heic:'HEIC',heif:'HEIC'};
+  var slugRoutes={'png-to-jpg':['png','jpg'],'jpg-to-png':['jpg','png'],'png-to-webp':['png','webp'],'jpg-to-webp':['jpg','webp'],'webp-to-png':['webp','png'],'webp-to-jpg':['webp','jpg'],'heic-to-jpg':['heic','jpg'],'heic-to-png':['heic','png'],'heic-to-webp':['heic','webp']};
   var pathSlug=(window.location.pathname.match(/\/tools\/([^/]+)/)||[])[1]||'';
   var preFrom='',preTo='';
   if(slugRoutes[pathSlug]){preFrom=slugRoutes[pathSlug][0];preTo=slugRoutes[pathSlug][1];}
 
-  var fmtOpts='<option value="image/png">PNG</option><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option>';
+  var fmtOptsFrom='<option value="image/png">PNG</option><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option><option value="image/heic">HEIC</option>';
+  var fmtOptsTo='<option value="image/png">PNG</option><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option>';
 
-  root.innerHTML='<div class="tool-single-col"><div class="tool-card-ui"><div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-purple">'+IC.image+'</div><h2 id="t-heading">Image Format Converter</h2></div><span class="tc-badge tc-badge-purple">Convert</span></div><div class="tc-body" role="region" aria-labelledby="t-heading"><div class="field"><div class="field-hdr"><label>Upload Image</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">'+IC.trash+' <span>Clear</span></button></div></div><div class="upload-zone" id="ic-drop"><input type="file" id="t-file" accept="image/*" hidden><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p class="upload-label">Drop your image here</p><p class="upload-sub">or <span class="upload-link">browse to upload</span></p><p class="upload-formats">Supports: PNG, JPG, WebP</p></div><div class="inline-error" id="t-err" role="alert"></div></div><div class="ctrl-row"><div class="sel-group"><label for="t-from-fmt">From</label><select id="t-from-fmt">'+fmtOpts+'</select></div><div class="sel-group"><label for="t-fmt">To</label><select id="t-fmt">'+fmtOpts+'</select></div><div class="sel-group"><label for="t-quality">Quality</label><select id="t-quality"><option value="1">100%</option><option value="0.9" selected>90%</option><option value="0.8">80%</option><option value="0.6">60%</option><option value="0.4">40%</option></select></div></div><button type="button" class="act-btn act-purple" id="btn-conv">'+IC.image+' <span>Convert</span></button><div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div><div class="out-body" id="t-result" role="status" style="text-align:center;min-height:80px;padding:16px;max-height:320px;overflow-y:auto;resize:vertical"><span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span></div></div></div></div></div>';
+  root.innerHTML='<div class="tool-single-col"><div class="tool-card-ui"><div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-purple">'+IC.image+'</div><h2 id="t-heading">Image Format Converter</h2></div><span class="tc-badge tc-badge-purple">Convert</span></div><div class="tc-body" role="region" aria-labelledby="t-heading"><div class="field"><div class="field-hdr"><label>Upload Image</label><div class="field-btns"><button type="button" class="pill-btn" id="btn-clr" aria-label="Clear">'+IC.trash+' <span>Clear</span></button></div></div><div class="upload-zone" id="ic-drop"><input type="file" id="t-file" accept="image/*,.heic,.heif" hidden><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p class="upload-label">Drop your image here</p><p class="upload-sub">or <span class="upload-link">browse to upload</span></p><p class="upload-formats">Supports: PNG, JPG, WebP, HEIC</p></div><div class="inline-error" id="t-err" role="alert"></div></div><div class="ctrl-row"><div class="sel-group"><label for="t-from-fmt">From</label><select id="t-from-fmt">'+fmtOptsFrom+'</select></div><div class="sel-group"><label for="t-fmt">To</label><select id="t-fmt">'+fmtOptsTo+'</select></div><div class="sel-group"><label for="t-quality">Quality</label><select id="t-quality"><option value="1">100%</option><option value="0.9" selected>90%</option><option value="0.8">80%</option><option value="0.6">60%</option><option value="0.4">40%</option></select></div></div><button type="button" class="act-btn act-purple" id="btn-conv">'+IC.image+' <span>Convert</span></button><div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div><div class="out-body" id="t-result" role="status" style="text-align:center;min-height:80px;padding:16px;max-height:320px;overflow-y:auto;resize:vertical"><span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span></div></div></div></div></div>';
 
   /* Preset dropdowns from URL slug */
   if(preFrom){$('t-from-fmt').value=fmtMime[preFrom]||'image/png';}
@@ -28,8 +29,8 @@
 
   /* Update URL when dropdowns change (pushState) */
   function updateURL(){
-    var fromKey=Object.keys(fmtMime).find(function(k){return fmtMime[k]===$('t-from-fmt').value&&k!=='jpeg';})||'png';
-    var toKey=Object.keys(fmtMime).find(function(k){return fmtMime[k]===$('t-fmt').value&&k!=='jpeg';})||'jpg';
+    var fromKey=Object.keys(fmtMime).find(function(k){return fmtMime[k]===$('t-from-fmt').value&&k!=='jpeg'&&k!=='heif';})||'png';
+    var toKey=Object.keys(fmtMime).find(function(k){return fmtMime[k]===$('t-fmt').value&&k!=='jpeg'&&k!=='heif';})||'jpg';
     var routeKey=fromKey+'-to-'+toKey;
     if(slugRoutes[routeKey]){
       var newPath=BASE+'/tools/'+routeKey+'/';
@@ -42,7 +43,17 @@
   $('t-from-fmt').addEventListener('change',updateURL);
   $('t-fmt').addEventListener('change',updateURL);
 
-  var _blob=null,_blobUrl='',_ext='png',_origName='image';
+  var _blob=null,_blobUrl='',_ext='png',_origName='image',_selectedFile=null;
+
+  /* ── Detect From format from file type ── */
+  function detectFromMime(file){
+    var t=file.type||'';var n=(file.name||'').toLowerCase();
+    if(t==='image/png'||n.endsWith('.png'))return 'image/png';
+    if(t==='image/jpeg'||n.endsWith('.jpg')||n.endsWith('.jpeg'))return 'image/jpeg';
+    if(t==='image/webp'||n.endsWith('.webp'))return 'image/webp';
+    if(t==='image/heic'||t==='image/heif'||n.endsWith('.heic')||n.endsWith('.heif'))return 'image/heic';
+    return '';
+  }
 
   /* Upload zone wiring */
   (function(){
@@ -50,16 +61,46 @@
     zone.addEventListener('click',function(e){if(e.target===fi)return;fi.click();});
     zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('drag-over');});
     zone.addEventListener('dragleave',function(){zone.classList.remove('drag-over');});
-    zone.addEventListener('drop',function(e){e.preventDefault();zone.classList.remove('drag-over');if(e.dataTransfer.files[0]){fi.files=e.dataTransfer.files;showFileInfo(fi.files[0]);}});
-    fi.addEventListener('change',function(){if(fi.files[0])showFileInfo(fi.files[0]);});
-    function showFileInfo(f){_origName=f.name.replace(/\.[^.]+$/,'');zone.classList.add('has-file');zone.innerHTML='<p style="color:#e0e0e0;font-size:14px;margin:0">'+f.name+'</p><p style="color:#555;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';}
+    zone.addEventListener('drop',function(e){e.preventDefault();zone.classList.remove('drag-over');if(e.dataTransfer.files[0]){fi.files=e.dataTransfer.files;handleFile(fi.files[0]);}});
+    fi.addEventListener('change',function(){if(fi.files[0])handleFile(fi.files[0]);});
+    function handleFile(f){
+      _selectedFile=f;_origName=f.name.replace(/\.[^.]+$/,'');
+      /* Auto-set From dropdown */
+      var detected=detectFromMime(f);
+      if(detected){$('t-from-fmt').value=detected;updateURL();}
+      /* Show info without destroying the file input */
+      var info=zone.querySelector('.ic-file-info');
+      if(!info){zone.classList.add('has-file');var children=zone.querySelectorAll(':not(input)');children.forEach(function(c){c.style.display='none';});info=document.createElement('div');info.className='ic-file-info';zone.appendChild(info);}
+      info.innerHTML='<p style="color:#e0e0e0;font-size:14px;margin:0">'+f.name+'</p><p style="color:#555;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';
+    }
   })();
 
   $('btn-conv').addEventListener('click',function(){
-    var file=$('t-file').files[0];$('t-err').textContent='';$('t-err').style.display='none';
-    if(!file){$('t-err').textContent='Select an image file.';$('t-err').style.display='block';return;}
+    $('t-err').textContent='';$('t-err').style.display='none';
+    if(!_selectedFile){$('t-err').textContent='Select an image file.';$('t-err').style.display='block';return;}
+    var fromFmt=$('t-from-fmt').value;
     var fmt=$('t-fmt').value;var q=parseFloat($('t-quality').value);
     _ext=fmt==='image/jpeg'?'jpg':fmt==='image/webp'?'webp':'png';
+
+    /* Block HEIC as output — browsers can't encode HEIC */
+    if(fmt==='image/heic'){$('t-err').textContent='Browser cannot encode HEIC. Choose PNG, JPEG, or WebP as output.';$('t-err').style.display='block';return;}
+
+    /* HEIC input — needs heic2any conversion first */
+    if(fromFmt==='image/heic'){
+      if(typeof heic2any==='undefined'){$('t-err').textContent='HEIC library still loading, try again in a moment.';$('t-err').style.display='block';return;}
+      heic2any({blob:_selectedFile,toType:'image/png',quality:1}).then(function(convBlob){
+        /* heic2any may return array for multi-image HEIC */
+        var b=Array.isArray(convBlob)?convBlob[0]:convBlob;
+        loadAndConvert(b,fmt,q);
+      }).catch(function(err){$('t-err').textContent='HEIC decode failed: '+(err.message||err);$('t-err').style.display='block';});
+      return;
+    }
+
+    /* Normal image — read and convert */
+    loadAndConvert(_selectedFile,fmt,q);
+  });
+
+  function loadAndConvert(fileOrBlob,fmt,q){
     var reader=new FileReader();
     reader.onload=function(e){
       var img=new Image();
@@ -80,10 +121,10 @@
       img.onerror=function(){$('t-err').textContent='Cannot load image.';$('t-err').style.display='block';};
       img.src=e.target.result;
     };
-    reader.readAsDataURL(file);
-  });
+    reader.readAsDataURL(fileOrBlob);
+  }
   $('btn-dl').addEventListener('click',function(){if(!_blob){CK.toast('Convert first','err');return;}var a=document.createElement('a');a.download=_origName+'.'+_ext;a.href=_blobUrl;a.click();CK.toast('Downloaded');});
-  $('btn-clr').addEventListener('click',function(){$('t-file').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span>';if(_blobUrl)URL.revokeObjectURL(_blobUrl);_blob=null;_blobUrl='';var z=$('ic-drop');if(z){z.classList.remove('has-file');z.innerHTML='<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p class="upload-label">Drop your image here</p><p class="upload-sub">or <span class="upload-link">browse to upload</span></p><p class="upload-formats">Supports: PNG, JPG, WebP</p>';}});
+  $('btn-clr').addEventListener('click',function(){_selectedFile=null;_blob=null;if(_blobUrl)URL.revokeObjectURL(_blobUrl);_blobUrl='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span>';var z=$('ic-drop');if(z){z.classList.remove('has-file');var info=z.querySelector('.ic-file-info');if(info)info.remove();var children=z.querySelectorAll(':not(input)');children.forEach(function(c){c.style.display='';});$('t-file').value='';}});
   CK.wireCtrlEnter('btn-conv');
-  CK.setUsageContent('<ol><li>Upload an <strong>image file</strong> (PNG, JPEG, WebP, GIF, BMP, etc.).</li><li>Select <strong>From</strong> and <strong>To</strong> formats and quality.</li><li>Click <strong>Convert</strong> and download the result.</li></ol><p>Changing the format dropdowns updates the URL for easy sharing. Uses the Canvas API — all processing is local, no uploads.</p>');
+  CK.setUsageContent('<ol><li>Upload an <strong>image file</strong> (PNG, JPEG, WebP, HEIC, GIF, BMP, etc.).</li><li>The <strong>From</strong> format is auto-detected. Select <strong>To</strong> format and quality.</li><li>Click <strong>Convert</strong> and download the result.</li></ol><p>HEIC files (from iPhones) are decoded via heic2any, then converted locally. All processing is client-side — no uploads.</p>');
 })();
