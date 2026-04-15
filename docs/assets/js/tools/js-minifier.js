@@ -151,7 +151,9 @@
     + '</div>'
     + '</div>';
 
-  CK.initTabs($('mode-tabs'), function (v) { mode = v; });
+  CK.initTabs($('mode-tabs'), function (v) { mode = v; $('t-indent').disabled = (v === 'minify'); $('t-indent').closest('.sel-group').style.opacity = v === 'minify' ? '.35' : '1'; });
+  /* Default is minify — disable indent initially */
+  $('t-indent').disabled = true; $('t-indent').closest('.sel-group').style.opacity = '.35';
   $('btn-clr').addEventListener('click', function () {
     $('t-input').value = '';
     $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Minified JavaScript will appear here\u2026';

@@ -312,9 +312,10 @@
 
 /* Control row */
 .ctrl-row {
-  display:  flex;
-  gap:      10px;
-  flex-wrap: wrap;
+  display:     flex;
+  gap:         10px;
+  flex-wrap:   wrap;
+  align-items: flex-end;
 }
 .sel-group { flex: 1; min-width: 100px; }
 .sel-group label {
@@ -468,14 +469,17 @@ textarea:focus-visible, input:focus-visible {
 .mode-tabs {
   display:       flex;
   background:    #0d0d0d;
-  border:        1px solid #1e1e1e;
+  border:        1px solid rgba(61,214,140,.25);
   border-radius: 10px;
   padding:       4px;
   gap:           4px;
-  margin-bottom: 4px;
 }
 .mt {
   flex:           1;
+  display:        inline-flex;
+  align-items:    center;
+  justify-content:center;
+  gap:            8px;
   padding:        10px 16px;
   border-radius:  7px;
   border:         none;
@@ -487,6 +491,11 @@ textarea:focus-visible, input:focus-visible {
   transition:     all .18s ease;
   text-align:     center;
   white-space:    nowrap;
+}
+.mt svg {
+  width:       16px;
+  height:      16px;
+  flex-shrink: 0;
 }
 .mt:hover {
   color:      #aaa;
