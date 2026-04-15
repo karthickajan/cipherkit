@@ -3,7 +3,7 @@
     "name": "CipherKit",
     "domain": "https://cipherkit.app",
     "tagline": "Developer Cryptography & Utility Tools",
-    "description": "80 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, HEIC converter, format converters, DNS lookup — all client-side, no server.",
+    "description": "85 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, HEIC converter, format converters, DNS lookup — all client-side, no server.",
     "github": "https://github.com/karthickajan/cipherkit"
   },
   "categories": [
@@ -2236,6 +2236,142 @@
       "phase": 7,
       "status": "ready",
       "priority": 80
+    },
+    {
+      "slug": "xml-formatter",
+      "title": "XML Formatter",
+      "pageTitle": "XML Formatter – Format and Minify XML Online | CipherKit",
+      "metaDescription": "Free online XML formatter and minifier. Beautify or compress XML with proper indentation and validation. 100% client-side — no data leaves your browser.",
+      "h1": "XML Formatter",
+      "tagline": "Format and minify XML — with validation and proper indentation",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "xml formatter",
+        "xml beautifier",
+        "xml minifier",
+        "format xml",
+        "xml pretty print"
+      ],
+      "relatedTools": [
+        "xml-json-converter",
+        "json-formatter",
+        "html-formatter"
+      ],
+      "jsFile": "xml-formatter.js",
+      "phase": 8,
+      "status": "ready",
+      "priority": 81
+    },
+    {
+      "slug": "yaml-formatter",
+      "title": "YAML Formatter",
+      "pageTitle": "YAML Formatter – Format and Validate YAML Online | CipherKit",
+      "metaDescription": "Free online YAML formatter and validator. Beautify, format, and validate YAML data with proper indentation. Supports flow-style minification.",
+      "h1": "YAML Formatter",
+      "tagline": "Format, validate, and minify YAML — with syntax error detection",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "yaml formatter",
+        "yaml beautifier",
+        "yaml validator",
+        "format yaml",
+        "yaml pretty print"
+      ],
+      "relatedTools": [
+        "yaml-json-converter",
+        "json-formatter",
+        "json-to-yaml"
+      ],
+      "jsFile": "yaml-formatter.js",
+      "vendorJs": [
+        {
+          "src": "https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js",
+          "crossorigin": "anonymous"
+        }
+      ],
+      "phase": 8,
+      "status": "ready",
+      "priority": 82
+    },
+    {
+      "slug": "html-formatter",
+      "title": "HTML Formatter",
+      "pageTitle": "HTML Formatter – Format and Minify HTML Online | CipherKit",
+      "metaDescription": "Free online HTML formatter and minifier. Beautify or compress HTML with proper tag indentation. Handles void elements and comments.",
+      "h1": "HTML Formatter",
+      "tagline": "Format and minify HTML — with proper tag indentation",
+      "category": "encoding",
+      "hub": "Encoding Hub",
+      "tags": [
+        "html formatter",
+        "html beautifier",
+        "html minifier",
+        "format html",
+        "html pretty print"
+      ],
+      "relatedTools": [
+        "html-encode",
+        "html-decode",
+        "xml-formatter"
+      ],
+      "jsFile": "html-formatter.js",
+      "phase": 8,
+      "status": "ready",
+      "priority": 83
+    },
+    {
+      "slug": "css-formatter",
+      "title": "CSS Formatter",
+      "pageTitle": "CSS Formatter – Format and Minify CSS Online | CipherKit",
+      "metaDescription": "Free online CSS formatter and minifier. Beautify CSS with proper indentation or minify by stripping comments and whitespace. Supports @media and nested rules.",
+      "h1": "CSS Formatter",
+      "tagline": "Format and minify CSS — with @media and nested rule support",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "css formatter",
+        "css beautifier",
+        "css minifier",
+        "format css",
+        "css pretty print"
+      ],
+      "relatedTools": [
+        "html-formatter",
+        "js-minifier",
+        "sql-formatter"
+      ],
+      "jsFile": "css-formatter.js",
+      "phase": 8,
+      "status": "ready",
+      "priority": 84
+    },
+    {
+      "slug": "js-minifier",
+      "title": "JavaScript Minifier",
+      "pageTitle": "JavaScript Minifier – Minify and Format JS Online | CipherKit",
+      "metaDescription": "Free online JavaScript minifier and formatter. Minify JS by stripping comments and whitespace, or re-format with proper indentation. Shows size reduction stats.",
+      "h1": "JavaScript Minifier",
+      "tagline": "Minify and format JavaScript — with size reduction stats",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "js minifier",
+        "javascript minifier",
+        "minify javascript",
+        "js compressor",
+        "javascript formatter"
+      ],
+      "relatedTools": [
+        "css-formatter",
+        "json-minifier",
+        "sql-formatter"
+      ],
+      "jsFile": "js-minifier.js",
+      "phase": 8,
+      "status": "ready",
+      "priority": 85
     }
   ]
 }

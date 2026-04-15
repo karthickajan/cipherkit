@@ -683,8 +683,6 @@
   /* ── EXPORT ACTIONS ─────────────────────────────────────────────────────── */
   CK.wireCopy($('btn-cp-left'), function () { return $('t-left').value; });
   CK.wireCopy($('btn-cp-right'), function () { return $('t-right').value; });
-  $('btn-cp-left').addEventListener('click', function () { CK.starPrompt('diff-checker'); });
-  $('btn-cp-right').addEventListener('click', function () { CK.starPrompt('diff-checker'); });
 
   /* ── USAGE GUIDE CONTENT ────────────────────────────────────────────────── */
   if (typeof CK !== 'undefined' && CK.setUsageContent) {

@@ -79,6 +79,9 @@
     'json-formatter':      { inputs: [{id:'t-input',param:'i'}], selects: [{id:'t-indent',param:'n'}], runBtn:'btn-fmt', outputEl:'t-result' },
     'json-minifier':       { inputs: [{id:'t-input',param:'i'}], selects: [], runBtn:'btn-min', outputEl:'t-result' },
     'json-schema-validator':{ inputs: [{id:'t-schema',param:'i'},{id:'t-data',param:'i2'}], selects: [], runBtn:'btn-val', outputEl:'t-result' },
+    'xml-formatter':       { inputs: [{id:'t-input',param:'i'}], selects: [{id:'t-indent',param:'n'}], runBtn:'btn-fmt', outputEl:'t-result' },
+    'yaml-formatter':      { inputs: [{id:'t-input',param:'i'}], selects: [{id:'t-indent',param:'n'}], runBtn:'btn-fmt', outputEl:'t-result' },
+    'html-formatter':      { inputs: [{id:'t-input',param:'i'}], selects: [{id:'t-indent',param:'n'}], runBtn:'btn-fmt', outputEl:'t-result' },
 
     /* ── Converter ── */
     'xml-json-converter':  { inputs: [{id:'t-input',param:'i'}], selects: [], runBtn:'btn-conv', outputEl:'t-result' },
@@ -105,6 +108,8 @@
     'regex-tester':        { inputs: [{id:'t-regex',param:'r'},{id:'regex-test-input',param:'i'}], selects: [], runBtn:null, outputEl:'t-result' },
     'lorem-ipsum-generator':{ inputs: [], selects: [{id:'t-type',param:'t'},{id:'t-count',param:'n'}], runBtn:'btn-gen', outputEl:'t-result' },
     'sql-formatter':       { inputs: [{id:'t-input',param:'i'}], selects: [{id:'t-indent',param:'n'}], runBtn:'btn-fmt', outputEl:'t-result' },
+    'css-formatter':       { inputs: [{id:'t-input',param:'i'}], selects: [{id:'t-indent',param:'n'}], runBtn:'btn-fmt', outputEl:'t-result' },
+    'js-minifier':         { inputs: [{id:'t-input',param:'i'}], selects: [{id:'t-indent',param:'n'}], runBtn:'btn-fmt', outputEl:'t-result' },
     'markdown-preview':    { inputs: [{id:'t-input',param:'i'}], selects: [], runBtn:null, outputEl:'t-result' },
     'diff-checker':        { inputs: [{id:'t-left',param:'i'},{id:'t-right',param:'i2'}], selects: [], runBtn:'btn-compare', outputEl:null },
     'word-counter':        { inputs: [{id:'t-input',param:'i'}], selects: [], runBtn:null, outputEl:'t-result' },

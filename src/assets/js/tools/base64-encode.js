@@ -62,7 +62,6 @@
     $('file-info').style.display = 'none';
   });
   CK.wireCopy($('btn-cp'), function () { return isPlaceholder() ? '' : $('t-result').textContent; });
-  $('btn-cp').addEventListener('click', function () { CK.starPrompt('base64-encode'); });
   CK.initAutoGrow($('t-input'));
 
   function doEncode() {

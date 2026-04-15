@@ -211,54 +211,49 @@
     });
   })();
 
-  /* ── STAR PROMPT (GitHub star ask after first copy) ─────────────────── */
+  /* ── BOOKMARK SITE ──────────────────────────────────────────────────── */
   (function () {
     var s = document.createElement('style');
     s.textContent =
-      '.ck-star-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);z-index:9999;background:#111;border:1px solid rgba(0,255,136,.27);border-radius:8px;padding:12px 20px;display:flex;align-items:center;gap:12px;font-size:.875rem;color:#ccc;opacity:0;pointer-events:none;transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s ease;white-space:nowrap;max-width:calc(100vw - 48px)}'
-      + '.ck-star-toast.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}'
-      + '.ck-star-toast.hide{transform:translateX(-50%) translateY(80px);opacity:0;pointer-events:none}'
-      + '.ck-star-toast a{color:#00ff88;font-weight:600;text-decoration:none}'
-      + '.ck-star-toast a:hover{text-decoration:underline}'
-      + '.ck-star-toast button{background:none;border:none;color:#666;font-size:18px;cursor:pointer;padding:0 0 0 4px;line-height:1}'
-      + '.ck-star-toast button:hover{color:#ccc}';
+      '.ck-bm-tip{position:absolute;top:calc(100% + 10px);right:0;z-index:300;background:#1a1a1a;border:1px solid rgba(0,255,136,.25);border-radius:8px;padding:10px 14px;font-size:.8rem;color:#ccc;white-space:nowrap;pointer-events:none;opacity:0;transform:translateY(-6px);animation:ckBmIn .25s ease forwards}'
+      + '@keyframes ckBmIn{to{opacity:1;transform:translateY(0)}}'
+      + '.ck-bm-tip kbd{display:inline-block;background:#222;border:1px solid #333;border-radius:3px;padding:1px 5px;font-family:var(--mono);font-size:.75rem;color:#ddd;margin:0 1px}';
     document.head.appendChild(s);
   })();
 
-  function starPrompt(toolSlug) {
-    /* Gate 1: already shown for this tool in this session */
-    var sessionKey = 'ck_asked_star_' + toolSlug;
-    if (sessionStorage.getItem(sessionKey)) return;
+  function bookmarkSite(e) {
+    if (e) e.preventDefault();
+    var badge = document.getElementById('gh-stars');
+    if (!badge) return;
 
-    /* Gate 2: already shown for ANY tool today */
-    var dateKey = 'ck_star_asked_date';
-    var today = new Date().toISOString().slice(0, 10);
-    if (localStorage.getItem(dateKey) === today) return;
+    /* Remove existing tooltip if any */
+    var old = badge.querySelector('.ck-bm-tip');
+    if (old) { old.remove(); return; }
 
-    /* Mark flags immediately so duplicate calls are ignored */
-    sessionStorage.setItem(sessionKey, '1');
-    localStorage.setItem(dateKey, today);
+    var isMac = /Mac|iPhone|iPad/.test(navigator.userAgent);
+    var shortcut = isMac
+      ? '<kbd>⌘</kbd> + <kbd>D</kbd>'
+      : '<kbd>Ctrl</kbd> + <kbd>D</kbd>';
 
-    setTimeout(function () {
-      var el = document.createElement('div');
-      el.className = 'ck-star-toast';
-      el.innerHTML = '\u2728 Glad it helped! &nbsp;<a href="https://github.com/karthickajan/cipherkit" target="_blank" rel="noopener">\u2b50 Star CipherKit on GitHub</a><button type="button" aria-label="Close">\u2715</button>';
-      document.body.appendChild(el);
+    var tip = document.createElement('span');
+    tip.className = 'ck-bm-tip';
+    tip.innerHTML = 'Press ' + shortcut + ' to bookmark this page';
+    badge.style.position = 'relative';
+    badge.appendChild(tip);
 
-      /* slide up */
-      requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('show'); }); });
+    /* Auto-dismiss after 4s */
+    setTimeout(function () { if (tip.parentNode) tip.remove(); }, 4000);
 
-      function dismiss() {
-        el.classList.remove('show');
-        el.classList.add('hide');
-        setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 500);
+    /* Dismiss on outside click */
+    function dismiss(ev) {
+      if (!badge.contains(ev.target)) {
+        if (tip.parentNode) tip.remove();
+        document.removeEventListener('click', dismiss, true);
       }
-
-      el.querySelector('button').addEventListener('click', dismiss);
-
-      /* auto-dismiss after 8 s */
-      setTimeout(dismiss, 8000);
-    }, 1500);
+    }
+    setTimeout(function () {
+      document.addEventListener('click', dismiss, true);
+    }, 50);
   }
 
   /* ── NAV SEARCH ────────────────────────────────────────────────────────── */
@@ -346,20 +341,6 @@
     });
   })();
 
-  /* ── GITHUB STAR COUNT ────────────────────────────────────────────────── */
-  (function fetchStarCount() {
-    var el = document.getElementById('gh-star-count');
-    if (!el) return;
-    fetch('https://api.github.com/repos/karthickajan/cipherkit')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data && data.stargazers_count > 0) {
-          el.textContent = 'Bookmark (' + data.stargazers_count + ' ★)';
-        }
-      })
-      .catch(function () {});
-  })();
-
   /* ── PUBLIC API ───────────────────────────────────────────────────────── */
   window.CK = {
     toast,
@@ -376,7 +357,7 @@
     wireDownload,
     wireCtrlEnter,
     wireCharCounter,
-    starPrompt,
+    bookmarkSite,
   };
 
 })();
