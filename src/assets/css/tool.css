@@ -106,9 +106,6 @@
   max-width: var(--max-w);
   margin:    0 auto;
   padding:   0 24px 80px;
-  min-height: 280px;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 280px;
 }
 
 /* ── RELATED TOOLS ───────────────────────────────────────────────────────── */
