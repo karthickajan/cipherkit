@@ -545,7 +545,6 @@ function buildHomepage() {
     pageTitle:       `${site.name} — Free Online Developer Utility Tools`,
     metaDescription: 'CipherKit offers free online utility tools for developers and IT professionals — text encoding, format conversion, data transformation, and productivity tools. No install required, 100% browser-based.',
     canonicalPath:   '/',
-    extraImgSrc:     'https://fazier.com',
     extraMeta: `
 <script type="application/ld+json">
 ${JSON.stringify({
@@ -664,21 +663,6 @@ ${buildNavbar()}
 </main>
 
 ${buildFooter()}
-
-<!-- Fazier badge (homepage only) -->
-<script defer>
-(function(){
-  var p = document.querySelector('.footer-bottom p');
-  if (!p) return;
-  var a = document.createElement('a');
-  a.href = 'https://fazier.com';
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  a.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:10px;';
-  a.innerHTML = '<img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark" width="120" alt="Fazier badge" style="vertical-align:middle;" />';
-  p.appendChild(a);
-})();
-</script>
 
 <!-- Toast -->
 <div class="toast" id="toast" role="alert" aria-live="assertive">

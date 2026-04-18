@@ -14,7 +14,7 @@
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com https://fazier.com; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="CipherKit — Free Online Developer Utility Tools">
@@ -673,21 +673,6 @@
     <p>© 2026 CipherKit. Open source. <a href="https://github.com/karthickajan/cipherkit">GitHub</a>. <a href="/tools/privacy-policy/">Privacy Policy</a>.</p>
   </div>
 </footer>
-
-<!-- Fazier badge (homepage only) -->
-<script defer>
-(function(){
-  var p = document.querySelector('.footer-bottom p');
-  if (!p) return;
-  var a = document.createElement('a');
-  a.href = 'https://fazier.com';
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  a.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:10px;';
-  a.innerHTML = '<img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark" width="120" alt="Fazier badge" style="vertical-align:middle;" />';
-  p.appendChild(a);
-})();
-</script>
 
 <!-- Toast -->
 <div class="toast" id="toast" role="alert" aria-live="assertive">
