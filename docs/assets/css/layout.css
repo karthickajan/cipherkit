@@ -563,6 +563,7 @@
   align-items: center;
   gap: 4px;
   color: #aaa;
+  font: inherit;
   font-size: 0.8rem;
   border: 1px solid #1e1e1e;
   border-radius: 4px;

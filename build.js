@@ -152,7 +152,8 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css">
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css">
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css"></noscript>
 
   <!-- GA4 anonymous analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL"></script>
@@ -221,7 +222,7 @@ function buildNavbar(headerBadge, activeCategory) {
         <span class="live-dot"${dotStyle} aria-hidden="true"></span>
         ${badge.text}
       </span>
-      <a id="gh-stars" href="javascript:void(0)" class="gh-stars-badge" title="Bookmark CipherKit" onclick="CK.bookmarkSite(event)">🔖 <span id="gh-star-count">Bookmark</span></a>
+      <button id="gh-stars" class="gh-stars-badge" onclick="CK.bookmarkSite(event)" aria-label="Bookmark this site">🔖 Bookmark</button>
     </div>
   </div>
 </header>
