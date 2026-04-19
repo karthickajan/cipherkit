@@ -259,9 +259,10 @@ function buildFooter() {
         <span class="logo-name">Cipher<em>Kit</em></span>
       </a>
       <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
-      <a href="${site.github}" class="footer-github" target="_blank" rel="noopener">
-        View on GitHub ↗
-      </a>
+      <a href="${site.github}" class="footer-github" target="_blank" rel="noopener">View on GitHub ↗</a>
+      <div style="font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 4px;">
+        Crafted by <a href="https://karthickajan.github.io/Ajan/" target="_blank" rel="noopener noreferrer">Ajan</a>
+      </div>
     </div>
 
     <div class="footer-links">
@@ -299,7 +300,7 @@ function buildFooter() {
   </div>
 
   <div class="footer-bottom">
-    <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>.</p>
+  <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="mailto:karthickajangs@gmail.com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a></p>
   </div>
 </footer>
 `.trim();
