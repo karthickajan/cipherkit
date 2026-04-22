@@ -541,10 +541,9 @@ ${vendorScripts}
 
 // ── HOMEPAGE ─────────────────────────────────────────────────────────────────
 function buildHomepage() {
-  /* TEMP: Zscaler review — override title & description for recategorization */
   const head = buildHead({
-    pageTitle:       `${site.name} — Free Online Developer Utility Tools`,
-    metaDescription: 'CipherKit offers free online utility tools for developers and IT professionals — text encoding, format conversion, data transformation, and productivity tools. No install required, 100% browser-based.',
+    pageTitle:       `${site.name} — ${site.tagline}`,
+    metaDescription: site.description,
     canonicalPath:   '/',
     extraMeta: `
 <script type="application/ld+json">
@@ -569,8 +568,6 @@ ${JSON.stringify({
   function categorySection(catId) {
     const cat       = categories.find(c => c.id === catId);
     const catTools  = tools.filter(t => t.category === catId);
-    /* TEMP: Zscaler review — rename Crypto hub on homepage */
-    const displayLabel = catId === 'crypto' ? 'Encoding & Security Utilities' : cat.label;
     const cards     = catTools.map(t => `
         <a href="${BASE_PATH}/tools/${t.slug}/" class="tool-card">
           <div class="tool-card-title">${t.title}</div>
@@ -580,7 +577,7 @@ ${JSON.stringify({
     return `
     <section class="hub-section" id="${catId}" aria-labelledby="${catId}-heading">
       <div class="hub-header">
-        <h2 id="${catId}-heading"><span class="hub-icon">${catIcons[catId]}</span> ${displayLabel}</h2>
+        <h2 id="${catId}-heading"><span class="hub-icon">${catIcons[catId]}</span> ${cat.label}</h2>
         <p>${cat.description}</p>
       </div>
       <div class="tools-grid">
@@ -609,9 +606,8 @@ ${buildNavbar()}
         <span class="hero-pill-icon">${SVG.shield}</span>
         Free. Client-side. No tracking.
       </div>
-      <!-- TEMP: Zscaler review — de-emphasize cryptography -->
-      <h1>Free Developer Utility Tools — Encoding, Conversion, Formatting &amp; More</h1>
-      <p class="hero-sub">${tools.length} free browser-based tools for developers. No signup, no install, works instantly.</p>
+      <h1>Developer Crypto & Utility Tools</h1>
+      <p class="hero-sub">${tools.length} free online tools for developers. AES, RSA, SHA, JWT, Base64, JSON — all run in your browser. Your data never leaves your device.</p>
 
       <!-- Search -->
       <div class="hero-search" role="search">
