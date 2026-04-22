@@ -1,0 +1,18 @@
+# CipherKit
+
+> 77 free browser-based developer tools for cryptography, encoding, conversion, and utilities. 100% client-side, zero tracking, perfect Lighthouse score.
+
+Built by Karthick Ajan (karthickajan), Bangalore, India.
+
+## Tools
+
+- Crypto: AES Encryption/Decryption, SHA-256/512/1/3, MD5, HMAC, RSA, Bcrypt, JWT Builder, TOTP, SSL Decoder, Password Strength
+- Encoding: Base64, URL, HTML Entity, Hex, Binary, JSON, XML, YAML, HTML Formatter
+- Converter: XML↔JSON, CSV↔JSON, YAML↔JSON, Markdown→PDF, CSV→Excel, DOCX→HTML, Number Base, Decimal↔Hex
+- Dev: JWT Decoder/Encoder, UUID Generator, Password Generator, Unix Timestamp, Cron Builder, Regex Tester, SQL Formatter, Diff Checker, DNS Lookup, Gzip, IP Tools
+- Image: Color Converter, QR Generator, SVG→PNG, Image Resizer, Format Converter, HEIC→JPG/PNG/WebP, Palette Generator
+
+## Links
+
+- Homepage: https://cipherkit.app
+- GitHub: https://github.com/karthickajan/cipherkit
