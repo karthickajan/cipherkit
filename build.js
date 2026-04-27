@@ -58,6 +58,17 @@ function readSrc(relPath) {
   return fs.readFileSync(full, 'utf8');
 }
 
+/** Simple CSS minifier — removes comments, extra whitespace */
+function minifyCSS(css) {
+  return css
+    .replace(/\/\*[\s\S]*?\*\//g, '')      // remove comments
+    .replace(/\s*([{}:;,>~+])\s*/g, '$1')  // remove space around symbols
+    .replace(/;\}/g, '}')                   // remove last semicolons
+    .replace(/\s{2,}/g, ' ')               // collapse whitespace
+    .replace(/\n/g, '')                     // remove newlines
+    .trim();
+}
+
 function writeDist(relPath, content) {
   const full = path.join(DIST, relPath);
   mkdirp(path.dirname(full));
@@ -134,6 +145,8 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
 
   <!-- Critical styles inline to eliminate render-blocking -->
   <style>
+    @font-face{font-family:'Space Mono';src:local('Courier New');font-display:swap;size-adjust:108%;ascent-override:80%;descent-override:20%;line-gap-override:0%}
+    @font-face{font-family:'Syne';src:local('Arial');font-display:swap;size-adjust:92%;ascent-override:90%;descent-override:22%;line-gap-override:0%}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{font-size:16px;scroll-behavior:smooth}
     body{background:#07090d;color:#dde4ed;font-family:'Space Mono','Courier New',monospace;min-height:100vh;overflow-x:hidden;line-height:1.6}
@@ -147,6 +160,9 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
     .logo-mark svg{width:16px;height:16px}
     .logo-name{font-family:'Syne',Arial,sans-serif;font-weight:800;font-size:17px;color:#dde4ed;letter-spacing:-.4px}
     .logo-name em{color:#3dd68c;font-style:normal}
+    .tool-interface-wrap{max-width:1100px;margin:0 auto;padding:28px 24px;min-height:60vh}
+    .tool-container{min-height:400px}
+    .tool-page-lower{min-height:280px}
   </style>
 
   <!-- Stylesheets -->
@@ -156,13 +172,19 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css"></noscript>
 
-  <!-- GA4 anonymous analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL"></script>
+  <!-- GA4 anonymous analytics — deferred to not block rendering -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-31DPEW6FGL', { anonymize_ip: true });
+    window.addEventListener('load', function() {
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL';
+      s.async = true;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-31DPEW6FGL', { anonymize_ip: true });
+    });
   </script>
 `.trim();
 }
@@ -924,6 +946,11 @@ function copyAssets() {
       const d = path.join(dest, entry.name);
       if (entry.isDirectory()) {
         copyDir(s, d);
+      } else if (entry.name.endsWith('.css')) {
+        // Minify CSS files
+        const raw = fs.readFileSync(s, 'utf8');
+        fs.writeFileSync(d, minifyCSS(raw), 'utf8');
+        console.log(`  ✓ assets/${path.relative(assetDist, d)} (minified)`);
       } else {
         fs.copyFileSync(s, d);
         console.log(`  ✓ assets/${path.relative(assetDist, d)}`);

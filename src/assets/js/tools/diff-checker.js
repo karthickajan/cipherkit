@@ -379,25 +379,34 @@
     let leftBlocks = document.querySelectorAll('#content-left .dm-block-wrap');
     let gutterBlocks = document.querySelectorAll('#content-gutter .dm-gutter-block');
     
-    let heights = new Array(leftLines.length);
+    let len = leftLines.length;
+    let heights = new Array(len);
 
-    for (let i = 0; i < leftLines.length; i++) {
+    // Batch all resets
+    for (let i = 0; i < len; i++) {
       leftLines[i].style.height = 'auto';
       rightLines[i].style.height = 'auto';
     }
     
-    for (let i = 0; i < leftLines.length; i++) {
+    // Single batch read after resets (one reflow)
+    for (let i = 0; i < len; i++) {
       heights[i] = Math.max(leftLines[i].offsetHeight, rightLines[i].offsetHeight);
     }
     
-    for (let i = 0; i < leftLines.length; i++) {
+    // Batch all writes
+    for (let i = 0; i < len; i++) {
       let h = heights[i] + 'px';
       leftLines[i].style.height = h;
       rightLines[i].style.height = h;
     }
 
+    // Read then write for gutter blocks
+    let blockHeights = new Array(leftBlocks.length);
     for (let j = 0; j < leftBlocks.length; j++) {
-      gutterBlocks[j].style.height = leftBlocks[j].offsetHeight + 'px';
+      blockHeights[j] = leftBlocks[j].offsetHeight;
+    }
+    for (let j = 0; j < leftBlocks.length; j++) {
+      gutterBlocks[j].style.height = blockHeights[j] + 'px';
     }
   }
 

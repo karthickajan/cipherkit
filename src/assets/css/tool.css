@@ -88,10 +88,12 @@
   max-width: var(--max-w);
   margin:    0 auto;
   padding:   28px 24px;
+  min-height: 60vh;
 }
 
 .tool-container {
   /* Tool JS renders into this div */
+  min-height: 400px;
 }
 
 .tool-loading {
