@@ -971,6 +971,11 @@ function buildRobots() {
 Allow: /
 
 Sitemap: ${DOMAIN}/sitemap.xml
+
+# AI Discovery
+# See https://llmstxt.org for spec
+Llms-txt: ${DOMAIN}/llms.txt
+Llms-full-txt: ${DOMAIN}/llms-full.txt
 `;
 }
 
@@ -1195,6 +1200,69 @@ ${buildNavbar()}
 ${buildFooter()}
 </body>
 </html>`);
+
+  // 10. llms.txt — AI discovery files
+  console.log('\n🤖 Building AI discovery files...');
+  const llmsTxt = `# CipherKit
+> ${tools.length} free online developer tools — encryption, hashing, encoding, formatting, image conversion. 100% client-side, no server, no tracking. Open source.
+
+## About
+CipherKit is a free, open-source collection of ${tools.length} developer tools that run entirely in the browser. No data is sent to any server. No login required. No cookies (except anonymous Google Analytics). Hosted on GitHub Pages.
+
+- Website: ${DOMAIN}
+- GitHub: ${site.github}
+- License: Open Source
+
+## Categories
+${categories.map(c => `- [${c.label}](${DOMAIN}/tools/${c.id}/): ${c.description}`).join('\n')}
+
+## Tools
+${tools.map(t => `- [${t.title}](${DOMAIN}/tools/${t.slug}/): ${t.tagline}`).join('\n')}
+
+## Key Features
+- 100% client-side: all processing happens in the browser
+- No server-side processing: your data never leaves your device
+- No login or signup required
+- Free forever, no premium tiers
+- Works offline after first load
+- Mobile-friendly responsive design
+- Dark and light mode support
+
+## Common Use Cases
+- Encrypt/decrypt data with AES-256 or RSA
+- Generate SHA-256, SHA-512, MD5, HMAC hashes
+- Encode/decode Base64, URL, HTML entities, Hex, Binary
+- Format JSON, XML, YAML, SQL, CSS, HTML
+- Convert between JSON, CSV, XML, YAML formats
+- Generate and decode JWTs
+- Generate UUIDs, passwords, random strings
+- Convert images (HEIC→JPG, PNG→WebP, SVG→PNG, etc.)
+- Resize and enhance images
+- Generate QR codes
+- Test regex patterns
+- Compare text with diff checker
+- Parse HTTP headers and SSL certificates
+- DNS lookup and IP address tools
+`;
+  writeDist('llms.txt', llmsTxt);
+
+  // llms-full.txt with SEO content included
+  const llmsFullLines = [llmsTxt, '\n## Detailed Tool Descriptions\n'];
+  for (const t of tools) {
+    llmsFullLines.push(`### ${t.title}`);
+    llmsFullLines.push(`URL: ${DOMAIN}/tools/${t.slug}/`);
+    llmsFullLines.push(`Category: ${t.category}`);
+    llmsFullLines.push(`Description: ${t.metaDescription}`);
+    if (t.seoContent) {
+      llmsFullLines.push(t.seoContent.description || '');
+      if (t.seoContent.commonUses) {
+        llmsFullLines.push('Common uses: ' + t.seoContent.commonUses.join(', '));
+      }
+    }
+    llmsFullLines.push('');
+  }
+  writeDist('llms-full.txt', llmsFullLines.join('\n'));
+  console.log('');
 
   // ── COPY STATIC ROOT FILES (favicons, manifest) ────────────────────────
   const staticRoot = path.join(__dirname, 'static');

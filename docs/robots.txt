@@ -2,3 +2,8 @@ User-agent: *
 Allow: /
 
 Sitemap: https://cipherkit.app/sitemap.xml
+
+# AI Discovery
+# See https://llmstxt.org for spec
+Llms-txt: https://cipherkit.app/llms.txt
+Llms-full-txt: https://cipherkit.app/llms-full.txt

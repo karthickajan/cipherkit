@@ -1,0 +1,602 @@
+# CipherKit
+> 85 free online developer tools — encryption, hashing, encoding, formatting, image conversion. 100% client-side, no server, no tracking. Open source.
+
+## About
+CipherKit is a free, open-source collection of 85 developer tools that run entirely in the browser. No data is sent to any server. No login required. No cookies (except anonymous Google Analytics). Hosted on GitHub Pages.
+
+- Website: https://cipherkit.app
+- GitHub: https://github.com/karthickajan/cipherkit
+- License: Open Source
+
+## Categories
+- [Crypto Hub](https://cipherkit.app/tools/crypto/): Encryption, decryption, and hashing tools
+- [Encoding Hub](https://cipherkit.app/tools/encoding/): Encoding, decoding, and data format tools
+- [Dev Hub](https://cipherkit.app/tools/dev/): Developer utilities and generators
+- [Converter Hub](https://cipherkit.app/tools/converter/): Data format conversion and file transformation tools
+- [Image Hub](https://cipherkit.app/tools/image/): Image editing, conversion, and visual tools
+
+## Tools
+- [AES Encryption Tool](https://cipherkit.app/tools/aes-encryption/): Encrypt text with AES-128, 192, or 256-bit keys — 100% client-side
+- [AES Decryption Tool](https://cipherkit.app/tools/aes-decryption/): Decrypt AES-encrypted ciphertext — supports Base64 and Hex input
+- [SHA-256 Hash Generator](https://cipherkit.app/tools/sha256-generator/): Generate SHA-256 cryptographic hashes instantly — Hex or Base64 output
+- [SHA-512 Hash Generator](https://cipherkit.app/tools/sha512-generator/): Generate SHA-512 cryptographic hashes — stronger than SHA-256
+- [SHA-1 Hash Generator](https://cipherkit.app/tools/sha1-generator/): Generate SHA-1 hashes — for legacy compatibility checks
+- [SHA-3 Hash Generator](https://cipherkit.app/tools/sha3-generator/): Generate SHA-3 (Keccak) hashes — the NIST standard successor
+- [MD5 Hash Generator](https://cipherkit.app/tools/md5-generator/): Generate MD5 checksums — fast, widely supported, not for passwords
+- [RIPEMD-160 Hash Generator](https://cipherkit.app/tools/ripemd160-generator/): Generate RIPEMD-160 hashes — used in Bitcoin address generation
+- [HMAC Generator](https://cipherkit.app/tools/hmac-generator/): Generate HMAC message authentication codes — SHA256, SHA512, SHA1, MD5
+- [RSA Key Pair Generator](https://cipherkit.app/tools/rsa-key-generator/): Generate RSA public & private key pairs — 1024, 2048, or 4096-bit
+- [Hash Comparator & Verifier](https://cipherkit.app/tools/hash-comparator/): Compare and verify hash values — MD5, SHA-256, SHA-512 and more
+- [Checksum Generator](https://cipherkit.app/tools/checksum-generator/): Generate checksums for data integrity verification
+- [Base64 Encoder](https://cipherkit.app/tools/base64-encode/): Encode text or binary data to Base64 — standard and URL-safe variants
+- [Base64 Decoder](https://cipherkit.app/tools/base64-decode/): Decode Base64 strings back to plain text or binary data
+- [URL Encoder](https://cipherkit.app/tools/url-encode/): Percent-encode URLs and query strings for safe transmission
+- [URL Decoder](https://cipherkit.app/tools/url-decode/): Decode percent-encoded URLs back to readable query strings
+- [HTML Entity Encoder](https://cipherkit.app/tools/html-encode/): Escape HTML special characters to prevent XSS and display issues
+- [HTML Entity Decoder](https://cipherkit.app/tools/html-decode/): Decode HTML entities back to their original characters
+- [Hex Encoder](https://cipherkit.app/tools/hex-encode/): Convert text to hexadecimal — useful for debugging and binary inspection
+- [Hex Decoder](https://cipherkit.app/tools/hex-decode/): Decode hexadecimal strings back to plain text
+- [Binary Encoder](https://cipherkit.app/tools/binary-encode/): Convert text to binary representation — byte by byte
+- [Binary Decoder](https://cipherkit.app/tools/binary-decode/): Decode binary strings back to readable text
+- [JSON Formatter & Validator](https://cipherkit.app/tools/json-formatter/): Beautify and validate JSON data — with syntax highlighting and error detection
+- [JSON Minifier](https://cipherkit.app/tools/json-minifier/): Minify JSON by removing whitespace — reduce payload size
+- [XML to JSON Converter](https://cipherkit.app/tools/xml-json-converter/): Convert XML data to JSON format — fast, free, client-side
+- [JSON to XML Converter](https://cipherkit.app/tools/json-xml-converter/): Convert JSON data to XML format — browser-based, no server
+- [CSV to JSON Converter](https://cipherkit.app/tools/csv-json-converter/): Convert CSV data to JSON — paste your CSV, get instant JSON
+- [YAML to JSON Converter](https://cipherkit.app/tools/yaml-json-converter/): Convert YAML to JSON — for config files, CI/CD, and API schemas
+- [JWT Decoder & Inspector](https://cipherkit.app/tools/jwt-decoder/): Decode and inspect JWT tokens — header, payload, claims at a glance
+- [JWT Encoder](https://cipherkit.app/tools/jwt-encoder/): Create and sign JWT tokens with custom claims and headers
+- [UUID / GUID Generator](https://cipherkit.app/tools/uuid-generator/): Generate UUID v4, v1, and bulk UUIDs — cryptographically secure
+- [Random Password Generator](https://cipherkit.app/tools/random-password-generator/): Generate strong, cryptographically secure passwords — customizable length and charset
+- [Random String Generator](https://cipherkit.app/tools/random-string-generator/): Generate random strings, API keys, and tokens — custom length and charset
+- [Unix Timestamp Converter](https://cipherkit.app/tools/unix-timestamp-converter/): Convert Unix timestamps to dates and dates to timestamps — with timezone support
+- [Cron Expression Generator](https://cipherkit.app/tools/cron-expression-generator/): Build and validate cron expressions visually — no syntax memorization needed
+- [Cron Expression Explainer](https://cipherkit.app/tools/cron-expression-explainer/): Understand any cron expression in plain English — with next run times
+- [HTTP Header Parser](https://cipherkit.app/tools/http-header-parser/): Parse and analyze raw HTTP request or response headers
+- [Bcrypt Hash Generator](https://cipherkit.app/tools/bcrypt-generator/): Hash passwords with bcrypt — configure cost factor, verify hashes
+- [Regex Tester](https://cipherkit.app/tools/regex-tester/): Test and debug regular expressions in real-time — with match highlighting
+- [Color Code Converter](https://cipherkit.app/tools/color-converter/): Convert HEX, RGB, RGBA, HSL, HSV color codes — with visual preview
+- [Number Base Converter](https://cipherkit.app/tools/number-base-converter/): Convert numbers between binary, octal, decimal, and hexadecimal
+- [Lorem Ipsum Generator](https://cipherkit.app/tools/lorem-ipsum-generator/): Generate lorem ipsum placeholder text — by word, sentence, or paragraph count
+- [SQL Formatter](https://cipherkit.app/tools/sql-formatter/): Format and beautify SQL queries — supports MySQL, PostgreSQL, SQLite
+- [Markdown Previewer](https://cipherkit.app/tools/markdown-preview/): Preview markdown in real-time — GitHub-flavored Markdown support
+- [Text Diff Checker](https://cipherkit.app/tools/diff-checker/): Compare two text blocks and highlight differences line by line
+- [Word & Character Counter](https://cipherkit.app/tools/word-counter/): Count words, characters, sentences, and estimate reading time
+- [IP Address Tools](https://cipherkit.app/tools/ip-address-tools/): Subnet calculator, CIDR converter, and IPv4/IPv6 address analysis
+- [RSA Encrypt & Decrypt](https://cipherkit.app/tools/rsa-encrypt-decrypt/): Encrypt with RSA public key, decrypt with private key — OAEP padding
+- [Password Strength Checker](https://cipherkit.app/tools/password-strength/): Real-time password analysis with entropy, crack time, and improvement tips
+- [TOTP Generator](https://cipherkit.app/tools/totp-generator/): Generate time-based one-time passwords for two-factor authentication
+- [SSL Certificate Decoder](https://cipherkit.app/tools/ssl-cert-decoder/): Decode PEM X.509 certificates — view subject, issuer, validity, and serial
+- [JSON Schema Validator](https://cipherkit.app/tools/json-schema-validator/): Validate JSON data against a schema — supports type, required, pattern, and more
+- [JSON to CSV Converter](https://cipherkit.app/tools/json-to-csv/): Convert JSON arrays to CSV with proper escaping — download as .csv
+- [QR Code Generator](https://cipherkit.app/tools/qr-generator/): Generate QR codes from text, URLs, or any data — customize size and colors
+- [SVG to PNG Converter](https://cipherkit.app/tools/svg-to-png/): Convert SVG markup to PNG with adjustable scale — 100% client-side
+- [Image Format Converter](https://cipherkit.app/tools/image-converter/): Convert images between PNG, JPEG, WebP, and HEIC — adjust quality, all client-side
+- [Image Resizer](https://cipherkit.app/tools/image-resizer/): Resize images to exact dimensions — lock aspect ratio, choose output format
+- [Markdown to PDF](https://cipherkit.app/tools/markdown-to-pdf/): Convert Markdown to downloadable PDF — headings, lists, and basic formatting
+- [CSV to Excel Converter](https://cipherkit.app/tools/csv-to-excel/): Convert CSV data to downloadable .xlsx files — with live table preview
+- [DOCX to HTML Converter](https://cipherkit.app/tools/docx-to-html/): Convert Word .docx files to clean HTML — preview and source view
+- [Gzip Compress / Decompress](https://cipherkit.app/tools/gzip-tool/): Compress or decompress text with Gzip — shows compression ratio
+- [ASCII Table](https://cipherkit.app/tools/ascii-table/): Complete ASCII reference chart — decimal, hex, octal, binary, and descriptions
+- [Bit / Byte Calculator](https://cipherkit.app/tools/bit-calculator/): Convert between bits, bytes, KB, MB, GB, TB — SI and IEC units
+- [DNS Lookup](https://cipherkit.app/tools/dns-lookup/): Query DNS records (A, AAAA, MX, NS, TXT, SOA) via Google DNS-over-HTTPS
+- [Epoch Converter](https://cipherkit.app/tools/epoch-converter/): Convert Unix timestamps to dates and back — live clock, auto-detect s/ms
+- [JWT Builder](https://cipherkit.app/tools/jwt-builder/): Build and sign JWTs with custom claims — HS256 via Web Crypto API
+- [Color Palette Generator](https://cipherkit.app/tools/color-palette/): Generate color palettes with harmonies — complementary, analogous, triadic, monochrome
+- [Image Filters & Effects](https://cipherkit.app/tools/image-enhancer/): Sharpen, brighten, contrast, grayscale, sepia, and invert. Canvas API, instant.
+- [PNG to JPG Converter](https://cipherkit.app/tools/png-to-jpg/): Convert PNG images to JPEG format — adjust quality, all client-side
+- [JPG to PNG Converter](https://cipherkit.app/tools/jpg-to-png/): Convert JPEG images to PNG format — lossless output, all client-side
+- [PNG to WebP Converter](https://cipherkit.app/tools/png-to-webp/): Convert PNG images to WebP format — smaller files, all client-side
+- [JPG to WebP Converter](https://cipherkit.app/tools/jpg-to-webp/): Convert JPEG images to WebP format — better compression, all client-side
+- [WebP to PNG Converter](https://cipherkit.app/tools/webp-to-png/): Convert WebP images to PNG format — universal compatibility, all client-side
+- [WebP to JPG Converter](https://cipherkit.app/tools/webp-to-jpg/): Convert WebP images to JPEG format — universal compatibility, all client-side
+- [JSON to YAML Converter](https://cipherkit.app/tools/json-to-yaml/): Convert JSON data to YAML format — instant, all client-side
+- [Decimal to Hex Converter](https://cipherkit.app/tools/decimal-to-hex/): Convert decimal numbers to hexadecimal — supports large numbers via BigInt
+- [Hex to Decimal Converter](https://cipherkit.app/tools/hex-to-decimal/): Convert hexadecimal numbers to decimal — supports large numbers via BigInt
+- [HEIC to JPG Converter](https://cipherkit.app/tools/heic-to-jpg/): Convert iPhone HEIC photos to JPEG — instant, all client-side
+- [HEIC to PNG Converter](https://cipherkit.app/tools/heic-to-png/): Convert iPhone HEIC photos to PNG — lossless output, all client-side
+- [HEIC to WebP Converter](https://cipherkit.app/tools/heic-to-webp/): Convert iPhone HEIC photos to WebP — smaller files, all client-side
+- [XML Formatter](https://cipherkit.app/tools/xml-formatter/): Format and minify XML — with validation and proper indentation
+- [YAML Formatter](https://cipherkit.app/tools/yaml-formatter/): Format, validate, and minify YAML — with syntax error detection
+- [HTML Formatter](https://cipherkit.app/tools/html-formatter/): Format and minify HTML — with proper tag indentation
+- [CSS Formatter](https://cipherkit.app/tools/css-formatter/): Format and minify CSS — with @media and nested rule support
+- [JavaScript Minifier](https://cipherkit.app/tools/js-minifier/): Minify and format JavaScript — with size reduction stats
+
+## Key Features
+- 100% client-side: all processing happens in the browser
+- No server-side processing: your data never leaves your device
+- No login or signup required
+- Free forever, no premium tiers
+- Works offline after first load
+- Mobile-friendly responsive design
+- Dark and light mode support
+
+## Common Use Cases
+- Encrypt/decrypt data with AES-256 or RSA
+- Generate SHA-256, SHA-512, MD5, HMAC hashes
+- Encode/decode Base64, URL, HTML entities, Hex, Binary
+- Format JSON, XML, YAML, SQL, CSS, HTML
+- Convert between JSON, CSV, XML, YAML formats
+- Generate and decode JWTs
+- Generate UUIDs, passwords, random strings
+- Convert images (HEIC→JPG, PNG→WebP, SVG→PNG, etc.)
+- Resize and enhance images
+- Generate QR codes
+- Test regex patterns
+- Compare text with diff checker
+- Parse HTTP headers and SSL certificates
+- DNS lookup and IP address tools
+
+
+## Detailed Tool Descriptions
+
+### AES Encryption Tool
+URL: https://cipherkit.app/tools/aes-encryption/
+Category: crypto
+Description: Free online AES encryption tool. Encrypt text using AES-128, AES-192, or AES-256 with CBC, ECB, CTR, OFB, and CFB modes directly in your browser. No data leaves your device.
+AES (Advanced Encryption Standard) is the most widely used symmetric encryption algorithm in the world. Standardised by NIST in 2001, it supports 128, 192, and 256-bit keys. AES is used in TLS/HTTPS, file encryption, VPNs, and virtually every modern security system.
+Common uses: Encrypting sensitive data before storing in a database, Encrypting files and text for secure transmission, Environment variable and secrets encryption in applications, End-to-end encrypted messaging systems
+
+### AES Decryption Tool
+URL: https://cipherkit.app/tools/aes-decryption/
+Category: crypto
+Description: Free online AES decryption tool. Decrypt AES-128, AES-192, or AES-256 ciphertext with CBC, ECB, CTR, OFB, and CFB modes directly in your browser.
+
+### SHA-256 Hash Generator
+URL: https://cipherkit.app/tools/sha256-generator/
+Category: crypto
+Description: Free online SHA-256 hash generator. Generate SHA-256 hashes from any text or string instantly in your browser. Supports Hex and Base64 output.
+SHA-256 (Secure Hash Algorithm 256-bit) is a cryptographic hash function that converts any input into a fixed 64-character hexadecimal string. It is part of the SHA-2 family, designed by the NSA and published by NIST in 2001. SHA-256 is used in TLS/SSL certificates, blockchain, digital signatures, and file integrity verification.
+Common uses: File integrity verification — compare hashes before and after download, Digital signatures in SSL/TLS certificates and code signing, Blockchain — Bitcoin uses SHA-256 for block hashing and proof-of-work, Password storage (though bcrypt or Argon2 are preferred for passwords)
+
+### SHA-512 Hash Generator
+URL: https://cipherkit.app/tools/sha512-generator/
+Category: crypto
+Description: Free online SHA-512 hash generator. Generate SHA-512 hashes from any text or string in your browser. No data is sent to any server.
+
+### SHA-1 Hash Generator
+URL: https://cipherkit.app/tools/sha1-generator/
+Category: crypto
+Description: Free online SHA-1 hash generator. Generate SHA-1 hashes from any text string directly in your browser. Note: SHA-1 is deprecated for security use.
+
+### SHA-3 Hash Generator
+URL: https://cipherkit.app/tools/sha3-generator/
+Category: crypto
+Description: Free online SHA-3 (Keccak) hash generator. Generate SHA-3 256-bit or 512-bit hashes from any text directly in your browser.
+
+### MD5 Hash Generator
+URL: https://cipherkit.app/tools/md5-generator/
+Category: crypto
+Description: Free online MD5 hash generator. Generate MD5 checksums from any text or string instantly in your browser. Widely used for file integrity checks.
+MD5 (Message Digest Algorithm 5) is a widely used cryptographic hash function that produces a 128-bit (32 hex character) hash value. Created in 1991 by Ronald Rivest, MD5 is fast and universally supported, though it is no longer considered cryptographically secure due to known collision vulnerabilities.
+Common uses: File integrity verification — compare MD5 checksums before and after download, Checksums in software distribution (not for security, just for corruption detection), Database deduplication — hash content to find duplicate records, Legacy system compatibility where MD5 is still required
+
+### RIPEMD-160 Hash Generator
+URL: https://cipherkit.app/tools/ripemd160-generator/
+Category: crypto
+Description: Free online RIPEMD-160 hash generator. Generate RIPEMD-160 cryptographic hashes in your browser. Commonly used in Bitcoin addresses.
+
+### HMAC Generator
+URL: https://cipherkit.app/tools/hmac-generator/
+Category: crypto
+Description: Free online HMAC generator. Generate HMAC-SHA256, HMAC-SHA512, HMAC-SHA1, and HMAC-MD5 message authentication codes directly in your browser.
+HMAC (Hash-based Message Authentication Code) is a specific construction for creating a message authentication code using a cryptographic hash function (SHA-256, SHA-512, etc.) combined with a secret key. It provides both data integrity (the message wasn't changed) and authenticity (it came from someone who knows the key).
+Common uses: API request signing — verify that requests come from authorised clients, Webhook payload verification (GitHub, Stripe, and others use HMAC-SHA256), JWT signature generation (HS256 = HMAC with SHA-256), Verifying file downloads haven't been tampered with
+
+### RSA Key Pair Generator
+URL: https://cipherkit.app/tools/rsa-key-generator/
+Category: crypto
+Description: Free online RSA key pair generator. Generate RSA 2048-bit or 4096-bit public and private key pairs in PKCS#8 format directly in your browser.
+
+### Hash Comparator & Verifier
+URL: https://cipherkit.app/tools/hash-comparator/
+Category: crypto
+Description: Free online hash comparator. Verify and compare MD5, SHA-256, SHA-512 hash values. Check file integrity or verify password hashes instantly.
+
+### Checksum Generator
+URL: https://cipherkit.app/tools/checksum-generator/
+Category: crypto
+Description: Free online checksum generator. Generate MD5, SHA-1, SHA-256, and SHA-512 checksums from text input directly in your browser.
+
+### Base64 Encoder
+URL: https://cipherkit.app/tools/base64-encode/
+Category: encoding
+Description: Free online Base64 encoder. Encode any text or string to Base64 format instantly in your browser. Supports standard and URL-safe Base64.
+Base64 is an encoding scheme that converts binary data into ASCII text using 64 printable characters (A–Z, a–z, 0–9, +, /). It was designed for safely transmitting binary data over systems built to handle text, like email (MIME) and HTTP headers. Encoding increases data size by roughly 33 % but ensures safe transmission across any text-based channel.
+Common uses: Encoding images or files as data URIs in HTML/CSS (src="data:image/png;base64,…"), Sending binary data in JSON API payloads, HTTP Basic Auth header encoding (username:password → Base64), Storing binary data in environment variables or config files, JWT token payloads are Base64URL-encoded
+
+### Base64 Decoder
+URL: https://cipherkit.app/tools/base64-decode/
+Category: encoding
+Description: Free online Base64 decoder. Decode Base64 encoded strings back to readable text instantly in your browser. Supports standard and URL-safe Base64.
+Base64 decoding reverses the encoding process, converting Base64-encoded ASCII text back to its original binary or text form. The decoder reads groups of 4 Base64 characters and converts them back to 3 bytes of original data.
+Common uses: Inspecting JWT token payloads (header and payload are Base64URL-encoded), Decoding images or files embedded as data URIs, Debugging API responses that contain Base64-encoded fields, Reading Base64-encoded email attachments (MIME format)
+
+### URL Encoder
+URL: https://cipherkit.app/tools/url-encode/
+Category: encoding
+Description: Free online URL encoder. Percent-encode URLs and query string parameters for use in web requests. Encode special characters instantly.
+URL encoding (also called percent-encoding) converts characters that are not allowed in URLs into a safe format using a % followed by two hex digits. For example, a space becomes %20, &amp; becomes %26. This is required by RFC 3986 for any character outside the unreserved set (A–Z, a–z, 0–9, -, _, ., ~).
+Common uses: Encoding query string parameters before appending to URLs, Safely passing special characters like &amp;, =, +, #, ? in URL parameters, Encoding form data submitted via GET requests, Building API request URLs programmatically
+
+### URL Decoder
+URL: https://cipherkit.app/tools/url-decode/
+Category: encoding
+Description: Free online URL decoder. Decode percent-encoded URLs and query strings back to readable text instantly in your browser.
+URL decoding reverses percent-encoding, converting %XX sequences back to their original characters. For example %20 becomes a space, %40 becomes @, %2F becomes /. This is essential when reading URL parameters that were encoded before transmission.
+Common uses: Decoding query parameters from server logs or analytics data, Debugging encoded redirects and OAuth callback URLs, Reading encoded data from browser URL bars, Inspecting encoded API request parameters
+
+### HTML Entity Encoder
+URL: https://cipherkit.app/tools/html-encode/
+Category: encoding
+Description: Free online HTML entity encoder. Convert special characters like <, >, &, and quotes to HTML entities for safe display in web pages.
+
+### HTML Entity Decoder
+URL: https://cipherkit.app/tools/html-decode/
+Category: encoding
+Description: Free online HTML entity decoder. Convert HTML entities like &amp;, &lt;, &gt; back to their original characters instantly.
+
+### Hex Encoder
+URL: https://cipherkit.app/tools/hex-encode/
+Category: encoding
+Description: Free online hex encoder. Convert plain text or ASCII strings to hexadecimal representation instantly in your browser.
+
+### Hex Decoder
+URL: https://cipherkit.app/tools/hex-decode/
+Category: encoding
+Description: Free online hex decoder. Convert hexadecimal strings back to plain text or ASCII instantly in your browser.
+
+### Binary Encoder
+URL: https://cipherkit.app/tools/binary-encode/
+Category: encoding
+Description: Free online binary encoder. Convert plain text to binary (0s and 1s) representation instantly in your browser.
+
+### Binary Decoder
+URL: https://cipherkit.app/tools/binary-decode/
+Category: encoding
+Description: Free online binary decoder. Convert binary strings (0s and 1s) back to readable text instantly in your browser.
+
+### JSON Formatter & Validator
+URL: https://cipherkit.app/tools/json-formatter/
+Category: encoding
+Description: Free online JSON formatter and validator. Beautify, format, and validate JSON data instantly. Supports syntax highlighting and error detection.
+A JSON formatter (also called JSON beautifier or JSON prettifier) takes minified or unformatted JSON and adds proper indentation and line breaks to make it human-readable. JSON (JavaScript Object Notation) is a lightweight data format widely used in APIs, config files, and data storage.
+Common uses: Formatting API responses for debugging and readability, Validating JSON structure before using it in code, Prettifying JSON config files (package.json, tsconfig.json, etc.), Inspecting nested JSON objects and arrays from logs
+
+### JSON Minifier
+URL: https://cipherkit.app/tools/json-minifier/
+Category: encoding
+Description: Free online JSON minifier. Compress and minify JSON data by removing whitespace and formatting. Reduce JSON payload size instantly.
+
+### XML to JSON Converter
+URL: https://cipherkit.app/tools/xml-json-converter/
+Category: converter
+Description: Free online XML to JSON converter. Convert XML data to JSON format instantly in your browser. No file upload required.
+
+### JSON to XML Converter
+URL: https://cipherkit.app/tools/json-xml-converter/
+Category: converter
+Description: Free online JSON to XML converter. Convert JSON data to XML format instantly in your browser.
+
+### CSV to JSON Converter
+URL: https://cipherkit.app/tools/csv-json-converter/
+Category: converter
+Description: Free online CSV to JSON converter. Convert CSV files or comma-separated data to JSON format instantly in your browser.
+CSV (Comma-Separated Values) is a plain text format for tabular data where each row is a record and columns are separated by commas. JSON is a hierarchical key-value format. Converting CSV to JSON maps each row to a JSON object, using the header row as keys — making CSV data ready for use in JavaScript, APIs, and NoSQL databases.
+Common uses: Importing spreadsheet data into a JavaScript application or API, Converting database exports for use in MongoDB or other document databases, Transforming analytics exports (Google Analytics, Mixpanel) into JSON for processing, Preparing data for REST API payloads
+
+### YAML to JSON Converter
+URL: https://cipherkit.app/tools/yaml-json-converter/
+Category: converter
+Description: Free online YAML to JSON converter. Convert YAML configuration files or data to JSON format instantly in your browser.
+YAML (YAML Ain't Markup Language) is a human-friendly data serialisation format widely used in configuration files (Docker Compose, Kubernetes, GitHub Actions, Ansible). JSON is the standard data format for APIs and JavaScript. Converting between them is a common developer task when moving configs between tools.
+Common uses: Converting Kubernetes or Docker Compose YAML to JSON for API submissions, Transforming GitHub Actions workflow files for inspection or processing, Converting OpenAPI/Swagger YAML specs to JSON format, Debugging YAML config files by viewing them as JSON
+
+### JWT Decoder & Inspector
+URL: https://cipherkit.app/tools/jwt-decoder/
+Category: dev
+Description: Free online JWT decoder. Decode and inspect JSON Web Tokens (JWT) — view header, payload, and signature claims instantly without a secret key.
+A JSON Web Token (JWT) is a compact, URL-safe token format used for securely transmitting information between parties as a JSON object. A JWT has three parts separated by dots: Header (algorithm and token type), Payload (claims/data), and Signature (verification). The header and payload are Base64URL-encoded — not encrypted — so anyone can read them.
+Common uses: Debugging authentication issues in APIs and web apps, Inspecting token expiry (exp claim) to diagnose "token expired" errors, Verifying token structure in OAuth 2.0 and OpenID Connect flows, Reading user claims (sub, email, roles) from a token during development
+
+### JWT Encoder
+URL: https://cipherkit.app/tools/jwt-encoder/
+Category: dev
+Description: Free online JWT encoder. Create and sign JSON Web Tokens (JWT) with HS256, HS384, or HS512 directly in your browser.
+
+### UUID / GUID Generator
+URL: https://cipherkit.app/tools/uuid-generator/
+Category: dev
+Description: Free online UUID and GUID generator. Generate UUID v1, v4, and bulk UUIDs instantly in your browser. Cryptographically secure random generation.
+A UUID (Universally Unique Identifier), also called GUID, is a 128-bit identifier formatted as 8-4-4-4-12 hexadecimal characters (e.g., 550e8400-e29b-41d4-a716-446655440000). UUID v4 is randomly generated using a cryptographically secure random number generator, making collisions statistically impossible (1 in 5.3×10³⁶ chance).
+Common uses: Database primary keys — avoids sequential IDs that expose record counts, Distributed systems — generate unique IDs without a central coordinator, File naming — unique filenames for user uploads to avoid collisions, Session tokens and correlation IDs for request tracing
+
+### Random Password Generator
+URL: https://cipherkit.app/tools/random-password-generator/
+Category: dev
+Description: Free online random password generator. Generate strong, cryptographically secure passwords with custom length, uppercase, lowercase, numbers, and symbols.
+A cryptographically secure password generator uses the browser's Web Crypto API (crypto.getRandomValues) to generate truly random passwords. Unlike Math.random() which is pseudorandom and predictable, Web Crypto produces randomness suitable for security-sensitive applications.
+Common uses: Generating strong passwords for new accounts, Creating API keys and service account passwords, Generating temporary passwords for user onboarding, Creating passphrases for encrypted archives or vaults
+
+### Random String Generator
+URL: https://cipherkit.app/tools/random-string-generator/
+Category: dev
+Description: Free online random string generator. Generate random alphanumeric strings, API keys, tokens, and secrets with custom length and character sets.
+
+### Unix Timestamp Converter
+URL: https://cipherkit.app/tools/unix-timestamp-converter/
+Category: dev
+Description: Free online Unix timestamp converter. Convert Unix timestamps to human-readable dates and vice versa. Supports UTC and local time zones.
+A Unix timestamp (also called POSIX time or Epoch time) is the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC (the Unix Epoch). It is the standard way to represent points in time in programming because it is timezone-independent, a single integer, and trivially comparable and sortable.
+Common uses: Converting API response timestamps to readable dates for debugging, Calculating time differences between two events, Setting token expiry times (JWT exp claim is a Unix timestamp), Working with database timestamp columns in different timezones
+
+### Cron Expression Generator
+URL: https://cipherkit.app/tools/cron-expression-generator/
+Category: dev
+Description: Free online cron expression generator. Build cron job schedules visually with a simple UI. Supports standard and non-standard cron syntax.
+A cron expression is a string of 5 or 6 fields that defines a schedule for recurring tasks in Unix-like systems. The fields represent: minute, hour, day of month, month, day of week (and optionally seconds). Cron is used in Linux servers, CI/CD pipelines, cloud schedulers (AWS EventBridge, GitHub Actions), and databases.
+Common uses: Scheduling daily database backups (0 2 * * *), Running hourly data sync jobs (0 * * * *), Setting up weekly reports every Monday morning (0 9 * * 1), Configuring GitHub Actions scheduled workflows
+
+### Cron Expression Explainer
+URL: https://cipherkit.app/tools/cron-expression-explainer/
+Category: dev
+Description: Free online cron expression explainer. Paste any cron expression and get a plain English explanation of when it runs. Includes next run times.
+
+### HTTP Header Parser
+URL: https://cipherkit.app/tools/http-header-parser/
+Category: dev
+Description: Free online HTTP header parser. Paste raw HTTP headers and get a structured, readable breakdown of each header field and its value.
+
+### Bcrypt Hash Generator
+URL: https://cipherkit.app/tools/bcrypt-generator/
+Category: crypto
+Description: Free online bcrypt hash generator. Hash passwords using the bcrypt algorithm with configurable cost factor directly in your browser.
+Bcrypt is a password hashing function designed specifically for storing passwords securely. Unlike general-purpose hash functions (MD5, SHA-256), bcrypt is intentionally slow — it applies a cost factor that makes brute-force attacks computationally expensive. It also automatically handles salting to prevent rainbow table attacks.
+Common uses: Hashing user passwords before storing in a database, Verifying passwords by comparing a plaintext attempt against a stored hash, Choosing an appropriate cost factor for your server's performance budget
+
+### Regex Tester
+URL: https://cipherkit.app/tools/regex-tester/
+Category: dev
+Description: Free online regex tester. Test regular expressions in real-time with match highlighting, group capture, and flag support.
+A regular expression (regex or regexp) is a sequence of characters that defines a search pattern. Regex engines use these patterns to find, match, replace, or split strings. They are supported natively in virtually every programming language and are essential for text processing, validation, and parsing tasks.
+Common uses: Form validation — validate email addresses, phone numbers, postcodes, Log parsing — extract timestamps, error codes, and IP addresses from logs, Find and replace in code editors and terminal (grep, sed, awk), URL routing — matching dynamic path segments in web frameworks
+
+### Color Code Converter
+URL: https://cipherkit.app/tools/color-converter/
+Category: image
+Description: Free online color code converter. Convert colors between HEX, RGB, RGBA, HSL, and HSV formats instantly with a visual color picker.
+A color code converter translates colours between different notation systems used in web development and design: HEX (#ff5733), RGB (rgb(255,87,51)), HSL (hsl(11,100%,60%)), RGBA, and HSV. Each format represents the same colour differently — HEX and RGB for web/CSS, HSL for human-intuitive adjustments.
+Common uses: Converting design tool colours (Figma outputs HSL, CSS uses HEX), Adjusting colour lightness/saturation in HSL format, Converting brand colours between formats for consistency, Debugging CSS colour values that aren't rendering as expected
+
+### Number Base Converter
+URL: https://cipherkit.app/tools/number-base-converter/
+Category: converter
+Description: Free online number base converter. Convert numbers between binary, octal, decimal, and hexadecimal bases instantly in your browser.
+
+### Lorem Ipsum Generator
+URL: https://cipherkit.app/tools/lorem-ipsum-generator/
+Category: dev
+Description: Free online lorem ipsum generator. Generate custom amounts of placeholder text by words, sentences, or paragraphs for design and development mockups.
+
+### SQL Formatter
+URL: https://cipherkit.app/tools/sql-formatter/
+Category: dev
+Description: Free online SQL formatter. Beautify and format SQL queries for MySQL, PostgreSQL, SQLite, and SQL Server instantly in your browser.
+
+### Markdown Previewer
+URL: https://cipherkit.app/tools/markdown-preview/
+Category: dev
+Description: Free online markdown previewer. Write markdown and see the rendered HTML preview in real-time. Supports GitHub-flavored Markdown (GFM).
+Markdown is a lightweight markup language created by John Gruber in 2004. It uses plain text syntax (# for headings, ** for bold, - for lists) that converts to HTML. Markdown is the default format for GitHub READMEs, documentation sites, dev.to, Stack Overflow posts, and most modern CMSes.
+Common uses: Previewing README.md files before committing to GitHub, Writing and previewing documentation for Docusaurus, MkDocs, or GitBook, Drafting blog posts for platforms that accept Markdown (dev.to, Hashnode), Rendering technical documentation with code blocks and tables
+
+### Text Diff Checker
+URL: https://cipherkit.app/tools/diff-checker/
+Category: dev
+Description: Free online text diff checker. Compare two blocks of text and highlight the differences line by line. Useful for code reviews and document comparison.
+A diff checker compares two versions of text and highlights the differences — added lines (green), removed lines (red), and unchanged lines. The underlying algorithm is LCS (Longest Common Subsequence), the same algorithm used by git diff and most code review tools. CipherKit's diff checker adds inline character-level highlighting within changed lines.
+Common uses: Comparing two versions of a configuration file or code snippet, Reviewing changes in documents before accepting them, Finding differences between API responses across environments, Comparing original vs modified text to audit changes
+
+### Word & Character Counter
+URL: https://cipherkit.app/tools/word-counter/
+Category: dev
+Description: Free online word and character counter. Count words, characters, sentences, paragraphs, and reading time instantly.
+
+### IP Address Tools
+URL: https://cipherkit.app/tools/ip-address-tools/
+Category: dev
+Description: Free online IP address tools. Calculate subnets, convert CIDR notation, and analyze IPv4 and IPv6 addresses directly in your browser.
+
+### RSA Encrypt & Decrypt
+URL: https://cipherkit.app/tools/rsa-encrypt-decrypt/
+Category: crypto
+Description: Free online RSA encryption and decryption tool. Encrypt messages with RSA public keys and decrypt with private keys directly in your browser.
+
+### Password Strength Checker
+URL: https://cipherkit.app/tools/password-strength/
+Category: crypto
+Description: Free online password strength checker. Analyze entropy, crack time, and get suggestions to improve your passwords. 100% client-side.
+
+### TOTP Generator
+URL: https://cipherkit.app/tools/totp-generator/
+Category: crypto
+Description: Free online TOTP generator. Generate time-based one-time passwords (2FA codes) from any Base32 secret key directly in your browser.
+
+### SSL Certificate Decoder
+URL: https://cipherkit.app/tools/ssl-cert-decoder/
+Category: crypto
+Description: Free online SSL certificate decoder. Parse and inspect PEM X.509 certificates to view subject, issuer, validity, and serial number.
+
+### JSON Schema Validator
+URL: https://cipherkit.app/tools/json-schema-validator/
+Category: encoding
+Description: Free online JSON Schema validator. Validate JSON data against a JSON Schema with support for types, required fields, patterns, and nested objects.
+
+### JSON to CSV Converter
+URL: https://cipherkit.app/tools/json-to-csv/
+Category: converter
+Description: Free online JSON to CSV converter. Convert JSON arrays to CSV format with proper escaping. Download as .csv file.
+
+### QR Code Generator
+URL: https://cipherkit.app/tools/qr-generator/
+Category: image
+Description: Free online QR code generator. Create QR codes from text, URLs, or data with customizable size, error correction, and colors.
+A QR (Quick Response) code is a two-dimensional barcode that encodes data (URLs, text, contact info) in a matrix of black and white squares. Invented by Denso Wave in 1994, QR codes can store up to 4,296 characters and are readable by any smartphone camera.
+Common uses: Encoding URLs for print materials, business cards, and posters, Sharing Wi-Fi credentials without typing (WIFI:S:networkname;T:WPA;P:password;;), Contactless menus, payment links, and event check-ins, Encoding app download links for mobile marketing campaigns
+
+### SVG to PNG Converter
+URL: https://cipherkit.app/tools/svg-to-png/
+Category: image
+Description: Free online SVG to PNG converter. Convert SVG markup to PNG images with customizable scale factor. Uses Canvas API — 100% client-side.
+
+### Image Format Converter
+URL: https://cipherkit.app/tools/image-converter/
+Category: image
+Description: Free online image format converter. Convert images between PNG, JPEG, WebP, and HEIC formats with quality control. All processing is local.
+Image format conversion changes the file type of an image between formats like PNG, JPEG, and WebP while resampling or adjusting quality settings. Different formats serve different purposes: PNG for lossless images with transparency, JPEG for photographs with small file sizes, WebP for modern web delivery with better compression than both.
+Common uses: Converting PNG screenshots to JPEG to reduce file size for web upload, Converting images to WebP for better Core Web Vitals and page speed scores, Removing PNG transparency by converting to JPEG for email or PDF use, Batch converting design assets between formats for different platforms
+
+### Image Resizer
+URL: https://cipherkit.app/tools/image-resizer/
+Category: image
+Description: Free online image resizer. Resize images to exact dimensions with aspect ratio lock. Supports PNG, JPEG, and WebP output.
+
+### Markdown to PDF
+URL: https://cipherkit.app/tools/markdown-to-pdf/
+Category: converter
+Description: Free online Markdown to PDF converter. Convert Markdown text to PDF with headings, lists, and basic formatting. Powered by jsPDF.
+
+### CSV to Excel Converter
+URL: https://cipherkit.app/tools/csv-to-excel/
+Category: converter
+Description: Free online CSV to Excel converter. Convert CSV data to .xlsx spreadsheet files with live preview. Powered by SheetJS.
+
+### DOCX to HTML Converter
+URL: https://cipherkit.app/tools/docx-to-html/
+Category: converter
+Description: Free online DOCX to HTML converter. Convert Word documents to clean HTML with preview and source view. Powered by Mammoth.js.
+
+### Gzip Compress / Decompress
+URL: https://cipherkit.app/tools/gzip-tool/
+Category: dev
+Description: Free online Gzip compression and decompression tool. Compress text to gzip or decompress Base64-encoded gzip data. Powered by pako.js.
+
+### ASCII Table
+URL: https://cipherkit.app/tools/ascii-table/
+Category: dev
+Description: Free online ASCII table reference. Browse all 128 ASCII characters with decimal, hex, octal, and binary values. Searchable and filterable.
+
+### Bit / Byte Calculator
+URL: https://cipherkit.app/tools/bit-calculator/
+Category: dev
+Description: Free online bit and byte calculator. Convert between bits, bytes, KB, MB, GB, TB, PB and their binary (IEC) equivalents instantly.
+
+### DNS Lookup
+URL: https://cipherkit.app/tools/dns-lookup/
+Category: dev
+Description: Free online DNS lookup tool. Query A, AAAA, MX, NS, TXT, SOA, and other DNS records using Google DNS-over-HTTPS.
+
+### Epoch Converter
+URL: https://cipherkit.app/tools/epoch-converter/
+Category: dev
+Description: Free online epoch converter. Convert Unix timestamps to dates and dates to epoch time. Live clock, auto-detects seconds vs milliseconds.
+
+### JWT Builder
+URL: https://cipherkit.app/tools/jwt-builder/
+Category: crypto
+Description: Free online JWT builder. Create and sign JSON Web Tokens with custom payloads using HS256 via Web Crypto. 100% client-side.
+
+### Color Palette Generator
+URL: https://cipherkit.app/tools/color-palette/
+Category: image
+Description: Free online color palette generator. Create beautiful color palettes with complementary, analogous, triadic, and monochrome harmonies.
+
+### Image Filters & Effects
+URL: https://cipherkit.app/tools/image-enhancer/
+Category: image
+Description: Free online image filters and effects. Sharpen, brighten, contrast, grayscale, sepia, and invert — all client-side using Canvas API.
+
+### PNG to JPG Converter
+URL: https://cipherkit.app/tools/png-to-jpg/
+Category: image
+Description: Free online PNG to JPG converter. Convert PNG images to JPEG format with adjustable quality. 100% client-side using Canvas API — no uploads.
+
+### JPG to PNG Converter
+URL: https://cipherkit.app/tools/jpg-to-png/
+Category: image
+Description: Free online JPG to PNG converter. Convert JPEG images to PNG format with lossless quality. 100% client-side using Canvas API — no uploads.
+
+### PNG to WebP Converter
+URL: https://cipherkit.app/tools/png-to-webp/
+Category: image
+Description: Free online PNG to WebP converter. Convert PNG images to WebP format for smaller file sizes. 100% client-side using Canvas API — no uploads.
+
+### JPG to WebP Converter
+URL: https://cipherkit.app/tools/jpg-to-webp/
+Category: image
+Description: Free online JPG to WebP converter. Convert JPEG images to WebP format for better compression. 100% client-side using Canvas API — no uploads.
+
+### WebP to PNG Converter
+URL: https://cipherkit.app/tools/webp-to-png/
+Category: image
+Description: Free online WebP to PNG converter. Convert WebP images to PNG format for broader compatibility. 100% client-side using Canvas API — no uploads.
+
+### WebP to JPG Converter
+URL: https://cipherkit.app/tools/webp-to-jpg/
+Category: image
+Description: Free online WebP to JPG converter. Convert WebP images to JPEG format for universal compatibility. 100% client-side using Canvas API — no uploads.
+
+### JSON to YAML Converter
+URL: https://cipherkit.app/tools/json-to-yaml/
+Category: converter
+Description: Free online JSON to YAML converter. Convert JSON data to YAML format instantly in your browser. Supports nested objects, arrays, and all data types.
+
+### Decimal to Hex Converter
+URL: https://cipherkit.app/tools/decimal-to-hex/
+Category: converter
+Description: Free online decimal to hexadecimal converter. Convert decimal numbers to hex, binary, and octal instantly. Supports large numbers via BigInt.
+
+### Hex to Decimal Converter
+URL: https://cipherkit.app/tools/hex-to-decimal/
+Category: converter
+Description: Free online hexadecimal to decimal converter. Convert hex numbers to decimal, binary, and octal instantly. Supports large numbers via BigInt.
+
+### HEIC to JPG Converter
+URL: https://cipherkit.app/tools/heic-to-jpg/
+Category: image
+Description: Free online HEIC to JPG converter. Convert iPhone HEIC photos to JPEG format instantly in your browser. 100% client-side — no uploads, no server processing.
+
+### HEIC to PNG Converter
+URL: https://cipherkit.app/tools/heic-to-png/
+Category: image
+Description: Free online HEIC to PNG converter. Convert iPhone HEIC photos to lossless PNG format instantly in your browser. 100% client-side — no uploads.
+
+### HEIC to WebP Converter
+URL: https://cipherkit.app/tools/heic-to-webp/
+Category: image
+Description: Free online HEIC to WebP converter. Convert iPhone HEIC photos to WebP format for smaller sizes. 100% client-side — no uploads, no server processing.
+
+### XML Formatter
+URL: https://cipherkit.app/tools/xml-formatter/
+Category: encoding
+Description: Free online XML formatter and minifier. Beautify or compress XML with proper indentation and validation. 100% client-side — no data leaves your browser.
+
+### YAML Formatter
+URL: https://cipherkit.app/tools/yaml-formatter/
+Category: encoding
+Description: Free online YAML formatter and validator. Beautify, format, and validate YAML data with proper indentation. Supports flow-style minification.
+
+### HTML Formatter
+URL: https://cipherkit.app/tools/html-formatter/
+Category: encoding
+Description: Free online HTML formatter and minifier. Beautify or compress HTML with proper tag indentation. Handles void elements and comments.
+
+### CSS Formatter
+URL: https://cipherkit.app/tools/css-formatter/
+Category: dev
+Description: Free online CSS formatter and minifier. Beautify CSS with proper indentation or minify by stripping comments and whitespace. Supports @media and nested rules.
+
+### JavaScript Minifier
+URL: https://cipherkit.app/tools/js-minifier/
+Category: dev
+Description: Free online JavaScript minifier and formatter. Minify JS by stripping comments and whitespace, or re-format with proper indentation. Shows size reduction stats.
