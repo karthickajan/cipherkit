@@ -1,11 +1,7 @@
-/**
- * CipherKit — CSV ↔ JSON Converter
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     swap:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><line x1="3" y1="5" x2="21" y2="5"/><polyline points="7 23 3 19 7 15"/><line x1="21" y1="19" x2="3" y2="19"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,10 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
-  /* ---- CSV Parser (handles quoted fields) ---- */
   function parseCSV(text, delimiter) {
     var rows = [];
     var row = [];
@@ -40,8 +33,6 @@
     if (field || row.length) { row.push(field); rows.push(row); }
     return rows;
   }
-
-  /* ---- JSON → CSV ---- */
   function jsonToCSV(arr, delimiter) {
     if (!Array.isArray(arr) || !arr.length) throw new Error('JSON must be an array of objects.');
     var keys = Object.keys(arr[0]);
@@ -58,7 +49,6 @@
     }
     return lines.join('\n');
   }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -74,19 +64,15 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
-  /* Direction toggle */
   $('t-mode').addEventListener('change', function () {
     var csv2json = this.value === 'csv2json';
     $('lbl-input').textContent = csv2json ? 'CSV Input' : 'JSON Input';
     $('lbl-out').textContent = csv2json ? 'JSON Output' : 'CSV Output';
     $('t-input').placeholder = csv2json ? 'Paste CSV data here\u2026' : 'Paste JSON array here\u2026';
   });
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Output will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.initAutoGrow($('t-input'));
-
   $('btn-conv').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     var delim = $('t-delim').value;
@@ -94,7 +80,6 @@
     var mode = $('t-mode').value;
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
     if (!input) { $('t-err').textContent = 'Please enter data to convert.'; $('t-err').style.display = 'block'; return; }
-
     try {
       if (mode === 'csv2json') {
         var rows = parseCSV(input, delim);
@@ -119,14 +104,9 @@
       $('t-err').textContent = 'Conversion failed: ' + e.message; $('t-err').style.display = 'block';
     }
   });
-
-  
   CK.wireCtrlEnter('btn-conv');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'csv-json-converter-output.json');
-
   CK.setUsageContent('<ol><li>Choose <strong>direction</strong> (CSV → JSON or JSON → CSV).</li><li>Select the <strong>delimiter</strong> used in your CSV (comma, semicolon, tab, pipe).</li><li><strong>Paste data</strong> and click <strong>Convert</strong>.</li></ol><p>CSV → JSON uses the first row as headers and produces an array of objects. JSON → CSV requires an array of flat objects. Handles quoted fields with commas and newlines correctly.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='name,age,city\nAlice,30,New York\nBob,25,London\nCarol,35,Tokyo';inp.dispatchEvent(new Event('input'));}})();
 })();

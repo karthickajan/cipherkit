@@ -1,11 +1,7 @@
-/**
- * CipherKit — Cron Expression Explainer
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,12 +9,9 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   var MONTHS = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
   var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-
   function explainField(val, unit, names) {
     if (val === '*') return 'every ' + unit;
     if (val.indexOf('*/') === 0) return 'every ' + val.substring(2) + ' ' + unit + 's';
@@ -33,7 +26,6 @@
     });
     return unit + ' ' + parts.join(', ');
   }
-
   function explain(cron) {
     var p = cron.trim().split(/\s+/);
     if (p.length < 5) return 'Invalid: need at least 5 fields (minute hour day month weekday)';
@@ -46,7 +38,6 @@
     desc.push(explainField(p[4], 'weekday', DAYS));
     return desc.join('\n');
   }
-
   function nextRuns(cron, count) {
     var p = cron.trim().split(/\s+/);
     if (p.length < 5) return [];
@@ -68,7 +59,6 @@
     }
     return runs;
   }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -84,10 +74,8 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value=''; $('t-result').className='out-body mono ph'; $('t-result').textContent='Explanation will appear here\u2026'; $('t-runs').className='out-body mono ph'; $('t-runs').textContent='Next runs will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('appear')===-1?t:''; });
-
   $('btn-exp').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     $('t-err').textContent=''; $('t-err').style.display='none';
@@ -97,12 +85,7 @@
     $('t-runs').className='out-body mono b'; $('t-runs').textContent = runs.length ? runs.join('\n') : 'Could not compute next runs';
     CK.toast('Cron explained');
   });
-
-  
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'cron-expression-explainer-output.txt');
-
   CK.setUsageContent('<ol><li><strong>Enter</strong> a cron expression (5 fields: minute hour day month weekday).</li><li>Click <strong>Explain</strong> to see a plain-English breakdown and the next 5 scheduled run times.</li></ol><p>Supports <code>*</code>, <code>*/N</code>, ranges (<code>1-5</code>), and lists (<code>1,3,5</code>).</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='0 9 * * 1-5';inp.dispatchEvent(new Event('input'));}})();
 })();

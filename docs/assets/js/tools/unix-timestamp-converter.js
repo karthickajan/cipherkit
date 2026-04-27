@@ -1,11 +1,7 @@
-/**
- * CipherKit — Unix Timestamp Converter
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     swap:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><line x1="3" y1="5" x2="21" y2="5"/><polyline points="7 23 3 19 7 15"/><line x1="21" y1="19" x2="3" y2="19"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -35,30 +29,23 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
-  /* Live clock */
   function tick() { $('t-now').textContent = Math.floor(Date.now()/1000); }
   tick(); setInterval(tick, 1000);
-
   $('btn-now').addEventListener('click', function () { $('t-ts').value = Math.floor(Date.now()/1000); });
-
   CK.wireCopy($('btn-cp1'), function () { var t=$('t-date-result').textContent; return t.indexOf('appear')===-1?t:''; });
   CK.wireCopy($('btn-cp2'), function () { var t=$('t-ts-result').textContent; return t.indexOf('appear')===-1?t:''; });
-
   $('btn-t2d').addEventListener('click', function () {
     var val = $('t-ts').value.trim();
     $('t-err1').textContent=''; $('t-err1').style.display='none';
     if (!val) { $('t-err1').textContent='Enter a timestamp.'; $('t-err1').style.display='block'; return; }
     var ts = Number(val);
     if (isNaN(ts)) { $('t-err1').textContent='Invalid number.'; $('t-err1').style.display='block'; return; }
-    /* Auto-detect seconds vs milliseconds */
     if (ts > 1e12) ts = ts / 1000;
     var d = new Date(ts * 1000);
     var lines = 'UTC:   ' + d.toUTCString() + '\nISO:   ' + d.toISOString() + '\nLocal: ' + d.toLocaleString();
     $('t-date-result').className='out-body mono b'; $('t-date-result').textContent = lines;
     CK.toast('Converted');
   });
-
   $('btn-d2t').addEventListener('click', function () {
     var dp=$('t-dt-date').value,tp=$('t-dt-time').value;
     $('t-err2').textContent=''; $('t-err2').style.display='none';
@@ -69,13 +56,10 @@
     $('t-ts-result').className='out-body mono b'; $('t-ts-result').textContent = ts + '\n(milliseconds: ' + d.getTime() + ')';
     CK.toast('Converted');
   });
-
-  /* Auto-convert on date/time change */
   var _autoT2=null;
   function autoD2T(){clearTimeout(_autoT2);_autoT2=setTimeout(function(){if($('t-dt-date').value)$('btn-d2t').click();},300);}
   $('t-dt-date').addEventListener('change',autoD2T);
   $('t-dt-time').addEventListener('change',autoD2T);
-
   /* "Now" fills both date and time */
   $('btn-use-now').addEventListener('click',function(){
     var n=new Date();
@@ -84,6 +68,5 @@
     $('t-dt-time').value=p(n.getHours())+':'+p(n.getMinutes())+':'+p(n.getSeconds());
     $('btn-d2t').click();
   });
-
   CK.setUsageContent('<ol><li>Enter a <strong>Unix timestamp</strong> (seconds or milliseconds) and convert to a readable date.</li><li>Or pick a <strong>date/time</strong> and convert to a Unix timestamp.</li></ol><p>Auto-detects seconds vs milliseconds. Shows UTC, ISO 8601, and local time.</p>');
 })();

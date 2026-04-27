@@ -124,6 +124,7 @@
   background:    var(--green);
   flex-shrink:   0;
   animation:     blink 2.4s ease-in-out infinite;
+  will-change:   opacity;
 }
 
 /* ── FOOTER ──────────────────────────────────────────────────────────────── */
@@ -335,6 +336,8 @@
 
 .hub-section {
   margin-bottom: 64px;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
 .hub-header {

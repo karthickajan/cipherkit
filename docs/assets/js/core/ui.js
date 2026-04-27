@@ -1,23 +1,12 @@
-/**
- * CipherKit — ui.js
- * Shared UI utilities loaded on every page.
- * Tools call these via window.CK.*
- */
-
 (function () {
   'use strict';
-
-  /* ── TOAST ────────────────────────────────────────────────────────────── */
   let _toastTimer = null;
-
   function toast(msg, type) {
     const el  = document.getElementById('toast');
     const txt = document.getElementById('toast-msg');
     if (!el || !txt) return;
-
     txt.textContent = msg;
     el.className    = 'toast show';
-
     if (type === 'err') {
       el.style.color       = 'var(--red)';
       el.style.borderColor = 'rgba(229,83,75,.35)';
@@ -25,12 +14,9 @@
       el.style.color       = 'var(--green)';
       el.style.borderColor = 'var(--gdim)';
     }
-
     clearTimeout(_toastTimer);
     _toastTimer = setTimeout(() => { el.className = 'toast'; }, 2200);
   }
-
-  /* ── CLIPBOARD ────────────────────────────────────────────────────────── */
   function copyText(text, btn) {
     if (!text) return;
     navigator.clipboard.writeText(text).then(() => {
@@ -43,8 +29,6 @@
       }
     }).catch(() => toast('Copy failed — try Ctrl+C', 'err'));
   }
-
-  /* ── PASSWORD STRENGTH ────────────────────────────────────────────────── */
   function strength(val) {
     if (!val) return { score: 0, label: '', color: '' };
     let s = 0;
@@ -53,7 +37,6 @@
     if (/[A-Z]/.test(val)) s++;
     if (/[0-9]/.test(val)) s++;
     if (/[^A-Za-z0-9]/.test(val)) s++;
-
     const levels = [
       { label: 'Weak',   color: 'var(--red)',    pct: 20 },
       { label: 'Weak',   color: 'var(--red)',    pct: 30 },
@@ -63,15 +46,12 @@
     ];
     return { score: s, ...levels[Math.min(s, 4)] };
   }
-
   function updateStrengthBar(fillEl, val) {
     const r = strength(val);
     fillEl.style.width      = r.pct + '%';
     fillEl.style.background = r.color;
     return r;
   }
-
-  /* ── MODE TABS ────────────────────────────────────────────────────────── */
   function initTabs(containerEl, onChange) {
     if (!containerEl) return;
     const tabs = containerEl.querySelectorAll('.mt');
@@ -83,26 +63,19 @@
       });
     });
   }
-
-  /* ── COPY BUTTON WIRING ───────────────────────────────────────────────── */
   function wireCopy(btnEl, getTextFn) {
     if (!btnEl) return;
     btnEl.addEventListener('click', () => copyText(getTextFn(), btnEl));
   }
-
-  /* ── TEXTAREA AUTO-GROW ───────────────────────────────────────────────── */
   function autoGrow(ta) {
     if (!ta) return;
     ta.style.height = 'auto';
     ta.style.height = Math.min(ta.scrollHeight, 400) + 'px';
   }
-
   function initAutoGrow(ta) {
     if (!ta) return;
     ta.addEventListener('input', () => autoGrow(ta));
   }
-
-  /* ── PASSWORD TOGGLE ──────────────────────────────────────────────────── */
   function wirePassToggle(inputEl, btnEl) {
     if (!inputEl || !btnEl) return;
     btnEl.addEventListener('click', () => {
@@ -112,14 +85,10 @@
       btnEl.setAttribute('aria-label', show ? 'Hide key' : 'Show key');
     });
   }
-
-  /* ── SET USAGE CONTENT ────────────────────────────────────────────────── */
   function setUsageContent(html) {
     const el = document.getElementById('usage-content');
     if (el) el.innerHTML = html;
   }
-
-  /* ── DOWNLOAD OUTPUT ──────────────────────────────────────────────────── */
   function downloadOutput(content, filename) {
     if (!content) return;
     const blob = new Blob([content], { type: 'text/plain' });
@@ -130,13 +99,10 @@
     URL.revokeObjectURL(a.href);
     toast('Downloaded ' + filename);
   }
-
   function wireDownload(btnEl, getTextFn, filename) {
     if (!btnEl) return;
     btnEl.addEventListener('click', function () { downloadOutput(getTextFn(), filename); });
   }
-
-  /* ── CTRL+ENTER SHORTCUT ──────────────────────────────────────────────── */
   function wireCtrlEnter(btnId) {
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -145,8 +111,6 @@
       }
     });
   }
-
-  /* ── CHAR / BYTE COUNTER ──────────────────────────────────────────────── */
   function wireCharCounter(textareaEl, counterEl) {
     if (!textareaEl || !counterEl) return;
     function update() {
@@ -157,8 +121,6 @@
     textareaEl.addEventListener('input', update);
     update();
   }
-
-  /* ── ACTIVE NAV LINK ──────────────────────────────────────────────────── */
   (function markActiveNav() {
     const path  = window.location.pathname;
     const links = document.querySelectorAll('.nav-link');
@@ -169,19 +131,15 @@
       }
     });
   })();
-
-  /* ── MOBILE HAMBURGER MENU ────────────────────────────────────────────── */
   (function initHamburger() {
     const btn = document.getElementById('nav-hamburger');
     const nav = document.getElementById('header-nav');
     if (!btn || !nav) return;
-
     btn.addEventListener('click', function () {
       const open = nav.classList.toggle('nav-open');
       btn.setAttribute('aria-expanded', open);
       btn.textContent = open ? '\u2715' : '\u2630'; // ✕ or ☰
     });
-
     // close on nav-link click
     nav.addEventListener('click', function (e) {
       if (e.target.closest('.nav-link')) {
@@ -190,7 +148,6 @@
         btn.textContent = '\u2630';
       }
     });
-
     // close on outside click
     document.addEventListener('click', function (e) {
       if (!nav.contains(e.target) && !btn.contains(e.target)) {
@@ -199,7 +156,6 @@
         btn.textContent = '\u2630';
       }
     });
-
     // close on Escape
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && nav.classList.contains('nav-open')) {
@@ -210,8 +166,6 @@
       }
     });
   })();
-
-  /* ── BOOKMARK SITE ──────────────────────────────────────────────────── */
   (function () {
     var s = document.createElement('style');
     s.textContent =
@@ -220,31 +174,22 @@
       + '.ck-bm-tip kbd{display:inline-block;background:#222;border:1px solid #333;border-radius:3px;padding:1px 5px;font-family:var(--mono);font-size:.75rem;color:#ddd;margin:0 1px}';
     document.head.appendChild(s);
   })();
-
   function bookmarkSite(e) {
     if (e) e.preventDefault();
     var badge = document.getElementById('gh-stars');
     if (!badge) return;
-
-    /* Remove existing tooltip if any */
     var old = badge.querySelector('.ck-bm-tip');
     if (old) { old.remove(); return; }
-
     var isMac = /Mac|iPhone|iPad/.test(navigator.userAgent);
     var shortcut = isMac
       ? '<kbd>⌘</kbd> + <kbd>D</kbd>'
       : '<kbd>Ctrl</kbd> + <kbd>D</kbd>';
-
     var tip = document.createElement('span');
     tip.className = 'ck-bm-tip';
     tip.innerHTML = 'Press ' + shortcut + ' to bookmark this page';
     badge.style.position = 'relative';
     badge.appendChild(tip);
-
-    /* Auto-dismiss after 4s */
     setTimeout(function () { if (tip.parentNode) tip.remove(); }, 4000);
-
-    /* Dismiss on outside click */
     function dismiss(ev) {
       if (!badge.contains(ev.target)) {
         if (tip.parentNode) tip.remove();
@@ -255,16 +200,11 @@
       document.addEventListener('click', dismiss, true);
     }, 50);
   }
-
-  /* ── NAV SEARCH ────────────────────────────────────────────────────────── */
   (function initNavSearch() {
     var searchInput = document.getElementById('nav-search');
     var dropdown = document.getElementById('nav-search-results');
     if (!searchInput || !dropdown) return;
-
     var tools = null;
-
-    /* Lazy-load tools.json on first interaction */
     searchInput.addEventListener('focus', function () {
       if (tools) return;
       fetch('/tools.json')
@@ -272,26 +212,21 @@
         .then(function (data) { tools = data.tools || data; })
         .catch(function () {});
     });
-
     searchInput.addEventListener('input', function () {
       var q = searchInput.value.trim().toLowerCase();
       if (!q || !tools) { dropdown.hidden = true; return; }
-
       var results = tools.filter(function (t) {
         return t.title.toLowerCase().indexOf(q) !== -1
           || (t.metaDescription || '').toLowerCase().indexOf(q) !== -1
           || (t.tags || []).some(function (tag) { return tag.toLowerCase().indexOf(q) !== -1; });
       }).slice(0, 8);
-
       if (!results.length) {
         dropdown.innerHTML = '<div style="padding:12px 14px;color:#666;font-size:.85rem">No results found</div>';
         dropdown.hidden = false;
         return;
       }
-
       var re;
       try { re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'); } catch (_) { re = null; }
-
       dropdown.innerHTML = results.map(function (t) {
         var name = re ? t.title.replace(re, '<mark>$1</mark>') : t.title;
         return '<a class="nav-search-result" href="/tools/' + t.slug + '/">'
@@ -301,15 +236,11 @@
       }).join('');
       dropdown.hidden = false;
     });
-
-    /* Close on outside click */
     document.addEventListener('click', function (e) {
       if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.hidden = true;
       }
     });
-
-    /* Keyboard navigation */
     searchInput.addEventListener('keydown', function (e) {
       var items = dropdown.querySelectorAll('.nav-search-result');
       var active = dropdown.querySelector('.nav-search-result.active');
@@ -340,8 +271,6 @@
       }
     });
   })();
-
-  /* ── PUBLIC API ───────────────────────────────────────────────────────── */
   window.CK = {
     toast,
     copyText,
@@ -359,5 +288,4 @@
     wireCharCounter,
     bookmarkSite,
   };
-
 })();

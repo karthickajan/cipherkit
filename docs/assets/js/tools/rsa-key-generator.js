@@ -1,32 +1,24 @@
-/**
- * CipherKit — RSA Key Generator (Web Crypto API — no vendor libs)
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     key:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   function ab2pem(buf, type) {
     var b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(buf)));
     var lines = []; for (var i = 0; i < b64.length; i += 64) lines.push(b64.slice(i, i + 64));
     return '-----BEGIN ' + type + '-----\n' + lines.join('\n') + '\n-----END ' + type + '-----';
   }
-
   function dlFile(text, name) {
     var a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
     a.download = name; a.click(); URL.revokeObjectURL(a.href);
   }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -43,12 +35,10 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   CK.wireCopy($('btn-cp-pub'), function () { var t = $('r-pub').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.wireCopy($('btn-cp-priv'), function () { var t = $('r-priv').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   $('btn-dl-pub').addEventListener('click', function () { var t = $('r-pub').textContent; if (t.indexOf('appear') === -1) dlFile(t, 'rsa_public.pem'); });
   $('btn-dl-priv').addEventListener('click', function () { var t = $('r-priv').textContent; if (t.indexOf('appear') === -1) dlFile(t, 'rsa_private.pem'); });
-
   $('btn-gen').addEventListener('click', function () {
     var bits = parseInt($('r-bits').value, 10);
     var hash = $('r-hash').value;
@@ -75,9 +65,6 @@
       $('btn-gen').disabled = false;
     });
   });
-
-  
   CK.wireCtrlEnter('btn-gen');
-
   CK.setUsageContent('<ol><li>Select the <strong>key size</strong> (2048 or 4096 bits).</li><li>Choose the <strong>hash algorithm</strong> (SHA-256, SHA-384, or SHA-512).</li><li>Click <strong>Generate Key Pair</strong> to create the RSA public and private keys.</li><li>Copy or download the keys as <strong>.pem</strong> files.</li></ol><p>RSA key generation uses the Web Crypto API for secure, browser-native key pair creation. Private keys never leave your browser. Use 4096-bit keys for maximum security.</p>');
 })();

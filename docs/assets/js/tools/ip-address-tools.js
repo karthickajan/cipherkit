@@ -1,11 +1,7 @@
-/**
- * CipherKit — IP Address Tools
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   function ipToLong(ip) {
     var parts = ip.split('.').map(Number);
     return ((parts[0]<<24)|(parts[1]<<16)|(parts[2]<<8)|parts[3])>>>0;
@@ -23,7 +17,6 @@
   function longToIp(n) {
     return [(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255].join('.');
   }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -38,24 +31,19 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value=''; $('t-result').className='out-body mono ph'; $('t-result').textContent='Subnet info will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('appear')===-1?t:''; });
-
   $('btn-calc').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     $('t-err').textContent=''; $('t-err').style.display='none';
     if (!input) { $('t-err').textContent='Enter an IP address.'; $('t-err').style.display='block'; return; }
-
     var parts = input.split('/');
     var ip = parts[0];
     var cidr = parts[1] !== undefined ? parseInt(parts[1],10) : 32;
-
     if (!/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) { $('t-err').textContent='Invalid IPv4 address format.'; $('t-err').style.display='block'; return; }
     var octets = ip.split('.').map(Number);
     for (var i=0;i<4;i++) { if(octets[i]<0||octets[i]>255){ $('t-err').textContent='Octet out of range (0-255).'; $('t-err').style.display='block'; return; } }
     if (cidr<0||cidr>32) { $('t-err').textContent='CIDR must be 0-32.'; $('t-err').style.display='block'; return; }
-
     var ipLong = ipToLong(ip);
     var mask = cidr === 0 ? 0 : (0xFFFFFFFF << (32 - cidr)) >>> 0;
     var network = (ipLong & mask) >>> 0;
@@ -63,13 +51,8 @@
     var firstHost = cidr >= 31 ? network : network + 1;
     var lastHost = cidr >= 31 ? broadcast : broadcast - 1;
     var totalHosts = cidr >= 31 ? Math.pow(2, 32 - cidr) : Math.pow(2, 32 - cidr) - 2;
-
-    /* Class detection */
     var cls = octets[0] < 128 ? 'A' : octets[0] < 192 ? 'B' : octets[0] < 224 ? 'C' : octets[0] < 240 ? 'D' : 'E';
-
-    /* Private range */
     var priv = (octets[0]===10) || (octets[0]===172&&octets[1]>=16&&octets[1]<=31) || (octets[0]===192&&octets[1]===168);
-
     var lines = [
       'IP Address:      ' + ip,
       'CIDR:            /' + cidr,
@@ -86,10 +69,7 @@
     $('t-result').className='out-body mono b'; $('t-result').textContent = lines.join('\n');
     CK.toast('Subnet calculated');
   });
-
-  
   CK.wireCtrlEnter('btn-calc');
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'ip-address-tools-output.txt');
-
   CK.setUsageContent('<ol><li>Enter an <strong>IPv4 address</strong> with optional <strong>CIDR notation</strong> (e.g. <code>192.168.1.0/24</code>).</li><li>Click <strong>Calculate</strong> for full subnet details.</li></ol><p>Shows network/broadcast addresses, host range, total hosts, IP class, private range detection, and binary representation.</p>');
 })();

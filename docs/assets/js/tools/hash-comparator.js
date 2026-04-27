@@ -1,11 +1,7 @@
-/**
- * CipherKit — Hash Comparator
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     compare: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
     check:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
@@ -14,9 +10,7 @@
     play:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -33,10 +27,8 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr-a').addEventListener('click', function () { $('hc-a').value = ''; });
   $('btn-clr-b').addEventListener('click', function () { $('hc-b').value = ''; });
-
   $('btn-cmp').addEventListener('click', function () {
     var a = $('hc-a').value.trim();
     var b = $('hc-b').value.trim();
@@ -57,9 +49,6 @@
       CK.toast('Hashes do not match', 'error');
     }
   });
-
-  
   CK.wireCtrlEnter('btn-cmp');
-
   CK.setUsageContent('<ol><li><strong>Paste the first hash</strong> into Hash A.</li><li><strong>Paste the second hash</strong> into Hash B.</li><li>Choose case sensitivity (case-insensitive is recommended for hex hashes).</li><li>Click <strong>Compare</strong> to check if they match.</li></ol><p>Use this tool to verify file integrity, compare checksums, or validate password hashes. Supports any hash format (MD5, SHA-1, SHA-256, SHA-512, etc.).</p>');
 })();

@@ -1,11 +1,7 @@
-/**
- * CipherKit — Password Strength Meter
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -30,7 +24,6 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   function analyze(pw) {
     if (!pw) { $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Type a password above\u2026'; $('t-fill').style.width = '0%'; return; }
     var len = pw.length, score = 0, notes = [];
@@ -69,15 +62,11 @@
     if (notes.length) out += '\nSuggestions:\n' + notes.map(function (n) { return '  \u2022 ' + n; }).join('\n');
     $('t-result').className = 'out-body mono b'; $('t-result').textContent = out;
   }
-
   $('t-input').addEventListener('input', function () { analyze(this.value); });
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; analyze(''); });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('Type') === -1 ? t : ''; });
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('Type') === -1 ? t : ''; }, 'password-strength-output.txt');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
-
   CK.setUsageContent('<ol><li>Type or paste a password into the field.</li><li>Strength score, entropy (bits), and estimated crack time are shown instantly.</li><li>Follow the suggestions to improve weak passwords.</li></ol><h3>What makes a strong password?</h3><ul><li><strong>Length</strong> — 16+ characters is significantly stronger than 8</li><li><strong>Character variety</strong> — mix uppercase, lowercase, numbers, and symbols</li><li><strong>Unpredictability</strong> — avoid dictionary words, names, or keyboard patterns</li><li><strong>Uniqueness</strong> — never reuse passwords across sites</li></ul><p><strong>Privacy note:</strong> Your password never leaves your browser. All analysis is done client-side with zero network requests.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='P@ssw0rd!2024#Str0ng';inp.dispatchEvent(new Event('input'));}})();
 })();

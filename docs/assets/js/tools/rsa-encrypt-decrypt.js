@@ -1,11 +1,7 @@
-/**
- * CipherKit — RSA Encrypt/Decrypt (Web Crypto API)
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     lock:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
     unlock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
@@ -14,22 +10,17 @@
     play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   function pem2ab(pem) {
     var b64 = pem.replace(/-----[^-]+-----/g, '').replace(/\s/g, '');
     var bin = atob(b64); var buf = new ArrayBuffer(bin.length); var view = new Uint8Array(buf);
     for (var i = 0; i < bin.length; i++) view[i] = bin.charCodeAt(i);
     return buf;
   }
-
   function ab2b64(buf) { return btoa(String.fromCharCode.apply(null, new Uint8Array(buf))); }
   function b642ab(b64) { var bin = atob(b64); var buf = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i); return buf.buffer; }
-
   root.innerHTML =
     '<div class="tool-two-col">'
-    /* --- ENCRYPT --- */
     + '<div class="tool-card-ui">'
     +   '<div class="tc-head">'
     +     '<div class="tc-title"><div class="tc-icon tc-icon-green">' + IC.lock + '</div><h2 id="enc-heading">RSA Encrypt</h2></div>'
@@ -42,7 +33,6 @@
     +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Ciphertext (Base64)</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp-enc" aria-label="Copy ciphertext">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl-enc" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="enc-result" role="status" aria-live="polite">Ciphertext will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
-    /* --- DECRYPT --- */
     + '<div class="tool-card-ui">'
     +   '<div class="tc-head">'
     +     '<div class="tc-title"><div class="tc-icon tc-icon-blue">' + IC.unlock + '</div><h2 id="dec-heading">RSA Decrypt</h2></div>'
@@ -56,15 +46,12 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr-ek').addEventListener('click', function () { $('enc-key').value = ''; });
   $('btn-clr-ei').addEventListener('click', function () { $('enc-input').value = ''; });
   $('btn-clr-dk').addEventListener('click', function () { $('dec-key').value = ''; });
   $('btn-clr-di').addEventListener('click', function () { $('dec-input').value = ''; });
   CK.wireCopy($('btn-cp-enc'), function () { var t = $('enc-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.wireCopy($('btn-cp-dec'), function () { var t = $('dec-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
-
-  /* --- Encrypt --- */
   $('btn-enc').addEventListener('click', function () {
     var pem = $('enc-key').value.trim();
     var msg = $('enc-input').value;
@@ -84,8 +71,6 @@
       $('enc-result').textContent = 'Encryption failed: ' + e.message;
     }).finally(function () { $('btn-enc').disabled = false; });
   });
-
-  /* --- Decrypt --- */
   $('btn-dec').addEventListener('click', function () {
     var pem = $('dec-key').value.trim();
     var ct = $('dec-input').value.trim();
@@ -105,9 +90,6 @@
       $('dec-result').textContent = 'Decryption failed: ' + e.message;
     }).finally(function () { $('btn-dec').disabled = false; });
   });
-
-  
   CK.wireCtrlEnter('btn-enc');
-
   CK.setUsageContent('<ol><li><strong>Encrypt:</strong> Paste an RSA public key (PEM) and plaintext, then click Encrypt.</li><li><strong>Decrypt:</strong> Paste an RSA private key (PEM) and the Base64 ciphertext, then click Decrypt.</li></ol><p>RSA encryption uses the Web Crypto API (RSA-OAEP with SHA-256). Maximum message size depends on key size (e.g., ~190 bytes for 2048-bit keys). Generate key pairs using the RSA Key Generator tool.</p>');
 })();

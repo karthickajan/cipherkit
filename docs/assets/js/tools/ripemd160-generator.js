@@ -1,11 +1,7 @@
-/**
- * CipherKit — RIPEMD-160 Generator
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     hash:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -31,11 +25,9 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('h-input').value = ''; $('h-result').className = 'out-body mono ph'; $('h-result').textContent = 'Hash will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('h-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.initAutoGrow($('h-input'));
-
   $('btn-gen').addEventListener('click', function () {
     var input = $('h-input').value;
     var fmt = $('h-fmt').value;
@@ -46,17 +38,10 @@
     $('h-result').className = 'out-body mono b'; $('h-result').textContent = out;
     CK.toast('RIPEMD-160 hash generated');
   });
-
-  
   CK.wireCtrlEnter('btn-gen');
   CK.wireCharCounter($('h-input'), $('h-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('h-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'ripemd160-generator-output.txt');
-
   CK.setUsageContent('<ol><li><strong>Enter or paste text</strong> into the input field.</li><li>Select <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate Hash</strong> to compute the RIPEMD-160 digest.</li></ol><p>RIPEMD-160 produces a 160-bit (20-byte) hash. It is commonly used in Bitcoin address generation and PGP fingerprints.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('h-input');if(inp&&!inp.value){inp.value='Hello, World!';inp.dispatchEvent(new Event('input'));var b=$('btn-gen');if(b)b.click();}})();
-
-  /* CK-PATCHED — live output */
   (function(){var _dt;var _inp=$('h-input');var _btn=$('btn-gen');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
 })();

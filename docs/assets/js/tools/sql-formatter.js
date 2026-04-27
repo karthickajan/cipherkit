@@ -1,11 +1,7 @@
-/**
- * CipherKit — SQL Formatter
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     code:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,15 +9,10 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
-  /* Keywords that start new lines */
   var TOP = /^(SELECT|FROM|WHERE|AND|OR|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN|INNER\s+JOIN|OUTER\s+JOIN|CROSS\s+JOIN|FULL\s+JOIN|ON|ORDER\s+BY|GROUP\s+BY|HAVING|LIMIT|OFFSET|UNION|UNION\s+ALL|INSERT\s+INTO|VALUES|UPDATE|SET|DELETE\s+FROM|CREATE\s+TABLE|ALTER\s+TABLE|DROP\s+TABLE|INTO|CASE|WHEN|THEN|ELSE|END|WITH|AS)$/i;
-
   function formatSQL(sql, indent) {
     var pad = indent === 'tab' ? '\t' : ' '.repeat(parseInt(indent,10));
-    /* Tokenise: strings, identifiers, words, punctuation */
     var tokens = [];
     var i = 0;
     while (i < sql.length) {
@@ -34,13 +25,11 @@
       else if (/[(),;]/.test(sql[i])) { tokens.push(sql[i++]); }
       else { var w = ''; while (i < sql.length && !/[\s(),;'"]/. test(sql[i])) w += sql[i++]; tokens.push(w); }
     }
-    /* Build formatted output */
     var out = '';
     var depth = 0;
     for (var t = 0; t < tokens.length; t++) {
       var tk = tokens[t];
       var upper = tk.toUpperCase();
-      /* Combine multi-word keywords */
       if (t + 1 < tokens.length) {
         var combo = upper + ' ' + tokens[t+1].toUpperCase();
         if (/^(ORDER BY|GROUP BY|LEFT JOIN|RIGHT JOIN|INNER JOIN|OUTER JOIN|CROSS JOIN|FULL JOIN|INSERT INTO|DELETE FROM|CREATE TABLE|ALTER TABLE|DROP TABLE|UNION ALL)$/.test(combo)) {
@@ -60,7 +49,6 @@
     }
     return out.trim();
   }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -76,11 +64,9 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value=''; $('t-result').className='out-body mono ph'; $('t-result').textContent='Formatted SQL will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('appear')===-1?t:''; });
   CK.initAutoGrow($('t-input'));
-
   $('btn-fmt').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     var indent = $('t-indent').value;
@@ -90,14 +76,9 @@
     $('t-result').className='out-body mono b'; $('t-result').textContent = formatted;
     CK.toast('SQL formatted');
   });
-
-  
   CK.wireCtrlEnter('btn-fmt');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'sql-formatter-output.sql');
-
   CK.setUsageContent('<ol><li><strong>Paste</strong> your SQL query.</li><li>Choose <strong>indent</strong> style.</li><li>Click <strong>Format</strong>.</li></ol><p>Formats SELECT, INSERT, UPDATE, DELETE, CREATE, and JOIN statements. Keywords are uppercased, commas start new lines, and parentheses are indented.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='SELECT u.id,u.name,o.total FROM users u LEFT JOIN orders o ON u.id=o.user_id WHERE u.active=1 ORDER BY o.total DESC';inp.dispatchEvent(new Event('input'));}})();
 })();

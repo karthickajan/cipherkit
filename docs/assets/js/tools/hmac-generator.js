@@ -1,11 +1,7 @@
-/**
- * CipherKit — HMAC Generator
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
     copy:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -14,9 +10,7 @@
     play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -33,14 +27,11 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('hm-msg').value = ''; });
   CK.wirePassToggle($('hm-key'), $('btn-vis'));
   CK.wireCopy($('btn-cp'), function () { var t = $('hm-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.initAutoGrow($('hm-msg'));
-
   var algoMap = { 'SHA-256': CryptoJS.algo.SHA256, 'SHA-512': CryptoJS.algo.SHA512, 'SHA-1': CryptoJS.algo.SHA1, 'SHA-3': CryptoJS.algo.SHA3, 'MD5': CryptoJS.algo.MD5 };
-
   $('btn-gen').addEventListener('click', function () {
     var msg = $('hm-msg').value;
     var key = $('hm-key').value;
@@ -59,12 +50,7 @@
     $('hm-result').className = 'out-body mono b'; $('hm-result').textContent = out;
     CK.toast('HMAC generated');
   });
-
-  
   CK.wireCtrlEnter('btn-gen');
-
   CK.setUsageContent('<ol><li><strong>Enter the message</strong> you want to authenticate.</li><li><strong>Enter a secret key</strong> shared between sender and receiver.</li><li>Select the <strong>hash algorithm</strong> (SHA-256, SHA-512, SHA-1, SHA-3, or MD5).</li><li>Choose <strong>Hex</strong> or <strong>Base64</strong> output format.</li><li>Click <strong>Generate HMAC</strong> to produce the authentication code.</li></ol><p>HMAC (Hash-based Message Authentication Code) provides message integrity and authenticity. It combines a cryptographic hash function with a secret key, making it resistant to length-extension attacks.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('h-input');if(inp&&!inp.value){inp.value='Hello, World!';inp.dispatchEvent(new Event('input'));}})();
 })();

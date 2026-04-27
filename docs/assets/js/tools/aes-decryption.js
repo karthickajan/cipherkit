@@ -1,12 +1,7 @@
-/**
- * CipherKit — AES Decryption Tool
- * Focused decrypt-first layout with optional encrypt panel
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     unlock:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
     copy:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -15,9 +10,7 @@
     play:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -39,7 +32,6 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('dec-mode').addEventListener('change', function () {
     $('dec-iv-wrap').style.display = this.value === 'ECB' ? 'none' : '';
   });
@@ -49,7 +41,6 @@
     var t = $('dec-result').textContent;
     return (t && t.indexOf('appear') === -1) ? t : '';
   });
-
   $('btn-dec').addEventListener('click', function () {
     var cipher = ($('dec-cipher').value || '').trim();
     var key = $('dec-key').value;
@@ -77,9 +68,6 @@
       CK.toast('Decrypted successfully');
     } catch (e) { el.className = 'out-body err'; el.textContent = 'Decryption failed: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Ciphertext": ($('dec-cipher').value || '').substring(0, 2000), "Secret Key": ($('dec-key').value || '').substring(0, 2000), "IV": ($('dec-iv').value || '').substring(0, 2000), "Mode": $('dec-mode').value, "Key Size": $('dec-keysize').value, "Input Format": $('dec-fmt').value}); }
   });
-
-  
   CK.wireCtrlEnter('btn-dec');
-
   CK.setUsageContent('<ol><li><strong>Paste the AES ciphertext</strong> you want to decrypt.</li><li><strong>Select the key size</strong> (128, 192, or 256-bit) used during encryption.</li><li><strong>Choose the mode</strong> (CBC, ECB, CTR, OFB, or CFB) — must match encryption mode.</li><li><strong>Enter the secret key</strong> and <strong>IV</strong> used during encryption.</li><li>Click <strong>Decrypt</strong> to recover the plaintext.</li></ol><p>All decryption runs 100% in your browser using CryptoJS.</p>');
 })();

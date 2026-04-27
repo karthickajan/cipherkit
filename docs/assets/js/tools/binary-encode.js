@@ -1,11 +1,7 @@
-/**
- * CipherKit — Binary Encoder
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     binary: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="8" height="18" rx="2"/><rect x="14" y="3" width="8" height="18" rx="2"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="18" y1="8" x2="18" y2="12"/></svg>',
     copy:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -31,11 +25,9 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Binary output will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.initAutoGrow($('t-input'));
-
   $('btn-enc').addEventListener('click', function () {
     var input = $('t-input').value;
     var bits = parseInt($('t-bits').value, 10);
@@ -51,20 +43,11 @@
     $('t-result').className = 'out-body mono b'; $('t-result').textContent = result;
     CK.toast('Binary encoded');
   });
-
-  
   CK.wireCtrlEnter('btn-enc');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'binary-encode-output.txt');
-
   CK.setUsageContent('<ol><li><strong>Enter text</strong> you want to convert to binary.</li><li>Choose <strong>bit width</strong> (8-bit for ASCII, 16-bit for Unicode) and a <strong>separator</strong>.</li><li>Click <strong>Encode</strong> to get the binary representation.</li></ol><p>Each character is converted to its binary value based on its character code. Useful for learning binary, digital electronics, and low-level programming.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='Hi';inp.dispatchEvent(new Event('input'));var b=$('btn-enc');if(b)b.click();}})();
-
-  /* CK-PATCHED — live output */
   (function(){var _dt;var _inp=$('t-input');var _btn=$('btn-enc');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
-
-  /* CK-PATCHED — swap button */
   (function(){var sb=$('btn-swap');if(sb){sb.addEventListener('click',function(){var oe=$('t-result');var ie=$('t-input');var ov=oe?oe.value||oe.textContent:'';if(!ov||ov.indexOf('appear')!==-1)return;ie.value=ov;ie.dispatchEvent(new Event('input'));ie.scrollIntoView({behavior:'smooth',block:'start'});CK.toast('Output moved to input')})}})();
 })();

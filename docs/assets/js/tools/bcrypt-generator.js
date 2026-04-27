@@ -1,11 +1,7 @@
-/**
- * CipherKit — Bcrypt Generator (uses bcryptjs CDN)
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     lock:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
     check:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
@@ -15,12 +11,9 @@
     play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-two-col">'
-    /* --- HASH --- */
     + '<div class="tool-card-ui">'
     +   '<div class="tc-head">'
     +     '<div class="tc-title"><div class="tc-icon tc-icon-green">' + IC.lock + '</div><h2 id="bh-heading">Bcrypt Hash</h2></div>'
@@ -34,7 +27,6 @@
     +     '<div class="out-box"><div class="out-head"><div class="out-label">' + IC.play + ' <span>Bcrypt Hash</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp-h" aria-label="Copy bcrypt hash">' + IC.copy + ' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl-h" aria-label="Download">' + IC.dl + ' <span>Download</span></button></div></div><div class="out-body mono ph" id="b-result" role="status" aria-live="polite">Hash will appear here\u2026</div></div>'
     +   '</div>'
     + '</div>'
-    /* --- VERIFY --- */
     + '<div class="tool-card-ui">'
     +   '<div class="tc-head">'
     +     '<div class="tc-title"><div class="tc-icon tc-icon-blue">' + IC.check + '</div><h2 id="bv-heading">Bcrypt Verify</h2></div>'
@@ -49,13 +41,10 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   CK.wirePassToggle($('b-pass'), $('btn-vis'));
   CK.wirePassToggle($('bv-pass'), $('btn-vis2'));
   $('btn-clr-vh').addEventListener('click', function () { $('bv-hash').value = ''; });
   CK.wireCopy($('btn-cp-h'), function () { var t = $('b-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
-
-  /* --- Hash --- */
   $('btn-hash').addEventListener('click', function () {
     var pass = $('b-pass').value;
     var rounds = parseInt($('b-rounds').value, 10);
@@ -70,8 +59,6 @@
       CK.toast('Bcrypt hash generated');
     });
   });
-
-  /* --- Verify --- */
   $('btn-verify').addEventListener('click', function () {
     var pass = $('bv-pass').value;
     var hash = $('bv-hash').value.trim();
@@ -95,9 +82,6 @@
       }
     });
   });
-
-  
   CK.wireCtrlEnter('btn-hash');
-
   CK.setUsageContent('<ol><li>Enter the password you want to hash.</li><li>Choose a cost factor (10-12 recommended for production).</li><li>Click <strong>Hash</strong>. Copy the bcrypt hash.</li><li>Use <strong>Verify</strong> to check if a password matches a stored hash.</li></ol><h3>Why bcrypt for passwords?</h3><p>Unlike SHA-256 or MD5, bcrypt is specifically designed for password hashing. It is intentionally slow (configurable via the cost factor) and includes a random salt automatically, making rainbow table attacks and brute-force attacks impractical.</p><p><strong>Cost factor guide:</strong> 10 = ~100ms, 12 = ~400ms, 14 = ~1.5s. Higher is more secure but slower. For most web apps, 10-12 is the right balance.</p>');
 })();

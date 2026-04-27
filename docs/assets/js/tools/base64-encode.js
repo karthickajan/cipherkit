@@ -1,11 +1,7 @@
-/**
- * CipherKit — Base64 Encoder
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     code:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -15,10 +11,8 @@
     upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
     send:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
   function fmtSize(b) { if (b < 1024) return b + ' B'; if (b < 1048576) return (b / 1024).toFixed(1) + ' KB'; return (b / 1048576).toFixed(2) + ' MB'; }
-
   var sty = document.createElement('style');
   sty.textContent =
     '.b64-drop{border:2px dashed var(--border);border-radius:8px;padding:16px;text-align:center;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;margin-bottom:12px}'
@@ -30,7 +24,6 @@
     + '.b64-send:hover{background:rgba(0,255,136,.08)}'
     + '.b64-send svg{width:14px;height:14px}';
   document.head.appendChild(sty);
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -52,9 +45,7 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   function isPlaceholder() { return $('t-result').textContent.indexOf('appear') !== -1; }
-
   $('btn-clr').addEventListener('click', function () {
     $('t-input').value = '';
     $('t-result').className = 'out-body mono ph';
@@ -63,7 +54,6 @@
   });
   CK.wireCopy($('btn-cp'), function () { return isPlaceholder() ? '' : $('t-result').textContent; });
   CK.initAutoGrow($('t-input'));
-
   function doEncode() {
     var input = $('t-input').value;
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
@@ -80,7 +70,6 @@
     } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Error: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000), "Variant": $('t-mode').value, "Line Endings": $('t-newline').value}); }
   }
   $('btn-enc').addEventListener('click', doEncode);
-
   function handleFile(file) {
     if (!file) return;
     var reader = new FileReader();
@@ -94,23 +83,19 @@
     };
     reader.readAsDataURL(file);
   }
-
   // Remove accept attribute if present (accept all file types)
   $('file-input').removeAttribute('accept');
-
   // Browse button triggers file input
   $('browse-btn').addEventListener('click', function(e) {
     e.preventDefault();
     $('file-input').click();
   });
-
   // File input change
   $('file-input').addEventListener('change', function (e) {
     var file = this.files[0];
     if (file) handleFile(file);
     this.value = '';
   });
-
   // Drop zone click triggers file input
   var dz = $('drop-zone');
   dz.addEventListener('click', function (e) {
@@ -120,7 +105,6 @@
   dz.addEventListener('dragover', function (e) { e.preventDefault(); this.classList.add('drag-over'); });
   dz.addEventListener('dragleave', function () { this.classList.remove('drag-over'); });
   dz.addEventListener('drop', function (e) { e.preventDefault(); this.classList.remove('drag-over'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-
   // Drag and drop on input textarea
   var inputEl = $('t-input');
   inputEl.addEventListener('dragover', function (e) {
@@ -150,14 +134,12 @@
     };
     reader.readAsDataURL(file);
   });
-
   $('btn-send').addEventListener('click', function () {
     var output = isPlaceholder() ? '' : $('t-result').textContent;
     if (!output) { CK.toast('Nothing to send'); return; }
     try { sessionStorage.setItem('ck_b64_transfer', output); } catch (_) {}
     window.location.href = '/tools/base64-decode/';
   });
-
   $('btn-swap').addEventListener('click', function () {
     var ov = isPlaceholder() ? '' : $('t-result').textContent;
     if (!ov) return;
@@ -165,16 +147,12 @@
     $('t-input').scrollIntoView({ behavior: 'smooth', block: 'start' });
     CK.toast('Output moved to input');
   });
-
   $('t-mode').addEventListener('change', function () { if ($('t-input').value) doEncode(); });
   $('t-newline').addEventListener('change', function () { if ($('t-input').value) doEncode(); });
-
   CK.wireCtrlEnter('btn-enc');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { return isPlaceholder() ? '' : $('t-result').textContent; }, 'base64-encode-output.txt');
-
   CK.setUsageContent('<ol><li>Paste text or drag-drop a file into the input.</li><li>The Base64-encoded output appears instantly.</li><li>Toggle <strong>URL-safe</strong> mode to replace + and / with - and _ (safe for URLs and filenames).</li><li>Copy or download the result.</li></ol><h3>What is Base64?</h3><p>Base64 is an encoding scheme that converts binary data into ASCII text using 64 printable characters (A-Z, a-z, 0-9, +, /). It is not encryption \u2014 it is purely an encoding format.</p><h3>Common uses</h3><ul><li><strong>Email attachments</strong> \u2014 MIME encoding for binary files in email</li><li><strong>Data URIs</strong> \u2014 embed images directly in HTML/CSS as base64 strings</li><li><strong>API payloads</strong> \u2014 safely transmit binary data in JSON</li><li><strong>JWT tokens</strong> \u2014 the header and payload sections are Base64URL encoded</li><li><strong>Basic Auth</strong> \u2014 HTTP Basic Authentication encodes credentials as Base64</li></ul><p><strong>Note:</strong> Base64 increases data size by ~33%. It is not suitable for large files.</p>');
-
   (function () { var inp = $('t-input'); if (inp && !inp.value) { inp.value = 'Hello, World!'; doEncode(); } })();
   (function () { var dt; $('t-input').addEventListener('input', function () { clearTimeout(dt); dt = setTimeout(doEncode, 150); }); })();
 })();

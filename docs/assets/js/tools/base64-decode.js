@@ -1,11 +1,7 @@
-/**
- * CipherKit — Base64 Decoder
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     code:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -14,9 +10,7 @@
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
     upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   var sty = document.createElement('style');
   sty.textContent =
     '.b64-drop{border:2px dashed var(--border);border-radius:8px;padding:16px;text-align:center;color:var(--muted);font-size:12px;cursor:pointer;transition:all .2s;margin-bottom:12px}'
@@ -28,7 +22,6 @@
     + '.b64-bin-dl:hover{background:rgba(88,166,255,.08)}'
     + '.b64-bin-dl svg{width:14px;height:14px}';
   document.head.appendChild(sty);
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -46,11 +39,8 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   function isPlaceholder() { return $('t-result').textContent.indexOf('appear') !== -1; }
-
   var _lastRaw = null; /* stores raw atob output for binary download */
-
   function resetOutput() {
     $('t-result').className = 'out-body mono ph';
     $('t-result').textContent = 'Decoded output will appear here\u2026';
@@ -59,41 +49,26 @@
     $('btn-bin-dl').style.display = 'none';
     _lastRaw = null;
   }
-
   $('btn-clr').addEventListener('click', function () {
     $('t-input').value = '';
     resetOutput();
   });
   CK.wireCopy($('btn-cp'), function () { return isPlaceholder() ? '' : $('t-result').textContent; });
   CK.initAutoGrow($('t-input'));
-
-  /* ── Robust decode — handles text AND binary ── */
   function decodeBase64(input) {
     var cleaned = input.trim();
-
-    /* Strip data URI prefix if user pasted the full data URL */
     if (cleaned.indexOf('data:') === 0) {
       cleaned = cleaned.split(',')[1] || cleaned;
     }
-
-    /* Remove all whitespace and newlines */
     cleaned = cleaned.replace(/\s/g, '');
-
-    /* Convert URL-safe Base64 to standard */
     cleaned = cleaned.replace(/-/g, '+').replace(/_/g, '/');
-
-    /* Add padding if missing */
     var pad = cleaned.length % 4;
     if (pad === 2) cleaned += '==';
     else if (pad === 3) cleaned += '=';
-
-    /* Decode */
     var raw;
     try { raw = atob(cleaned); } catch (e) {
       throw new Error('Invalid Base64 \u2014 could not decode. Check your input.');
     }
-
-    /* Try UTF-8 text decode first */
     try {
       var pct = '';
       for (var i = 0; i < raw.length; i++) {
@@ -102,7 +77,6 @@
       var decoded = decodeURIComponent(pct);
       return { type: 'text', value: decoded, raw: raw };
     } catch (e) {
-      /* Binary data — cannot display as text */
       return {
         type: 'binary',
         value: '[Binary data \u2014 this appears to be a file (image, PDF, etc.), not text.\nBinary files cannot be displayed as readable text.]',
@@ -110,31 +84,26 @@
       };
     }
   }
-
   function doDecode() {
     var input = $('t-input').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
     $('bin-warn').style.display = 'none';
     $('btn-bin-dl').style.display = 'none';
     _lastRaw = null;
-
     if (!input) {
       $('t-err').textContent = 'Please enter Base64 to decode.';
       $('t-err').style.display = 'block';
       return;
     }
-
     try {
       var result = decodeBase64(input);
       _lastRaw = result.raw;
-
       if (result.type === 'text') {
         $('t-result').className = 'out-body mono b';
         $('t-result').style.color = '';
         $('t-result').textContent = result.value;
         CK.toast('Base64 decoded');
       } else {
-        /* Binary — detect file type for the message */
         var fileInfo = detectMime(result.raw);
         var typeName = fileInfo.ext ? fileInfo.ext.slice(1).toUpperCase() + ' file' : 'binary file';
         $('t-result').className = 'out-body mono';
@@ -152,16 +121,12 @@
     }
   }
   $('btn-dec').addEventListener('click', doDecode);
-
-  /* ── Detect MIME type from raw binary magic bytes ── */
   function detectMime(raw) {
-    /* Check first few bytes against known file signatures */
     var hex = '';
     for (var i = 0; i < Math.min(raw.length, 16); i++) {
       hex += ('00' + raw.charCodeAt(i).toString(16)).slice(-2);
     }
     hex = hex.toLowerCase();
-
     if (hex.indexOf('89504e47') === 0) return { mime: 'image/png', ext: '.png' };
     if (hex.indexOf('ffd8ff') === 0)   return { mime: 'image/jpeg', ext: '.jpg' };
     if (hex.indexOf('47494638') === 0) return { mime: 'image/gif', ext: '.gif' };
@@ -179,15 +144,10 @@
     if (hex.indexOf('52494646') === 0 && hex.indexOf('41564920') === 16) return { mime: 'video/avi', ext: '.avi' };
     if (hex.indexOf('52494646') === 0 && hex.indexOf('57415645') === 16) return { mime: 'audio/wav', ext: '.wav' };
     if (raw.indexOf('%!PS-Adobe') === 0) return { mime: 'application/postscript', ext: '.eps' };
-
-    /* Also check for SVG (text-based but still an image) */
     var head = raw.substring(0, 256).toLowerCase();
     if (head.indexOf('<svg') !== -1) return { mime: 'image/svg+xml', ext: '.svg' };
-
     return { mime: 'application/octet-stream', ext: '' };
   }
-
-  /* ── Download binary data as a proper file ── */
   function downloadBinary() {
     if (!_lastRaw) return;
     var info = detectMime(_lastRaw);
@@ -206,11 +166,7 @@
     URL.revokeObjectURL(url);
     CK.toast('Downloaded as ' + info.mime.split('/')[1].toUpperCase());
   }
-
-  /* Binary download button */
   $('btn-bin-dl').addEventListener('click', downloadBinary);
-
-  /* File upload (read as text → paste into input) */
   function handleFile(file) {
     if (!file) return;
     var reader = new FileReader();
@@ -227,8 +183,6 @@
   dz.addEventListener('dragover', function (e) { e.preventDefault(); this.classList.add('drag-over'); });
   dz.addEventListener('dragleave', function () { this.classList.remove('drag-over'); });
   dz.addEventListener('drop', function (e) { e.preventDefault(); this.classList.remove('drag-over'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-
-  /* Swap */
   $('btn-swap').addEventListener('click', function () {
     var ov = isPlaceholder() ? '' : $('t-result').textContent;
     if (!ov) return;
@@ -236,28 +190,19 @@
     $('t-input').scrollIntoView({ behavior: 'smooth', block: 'start' });
     CK.toast('Output moved to input');
   });
-
   CK.wireCtrlEnter('btn-dec');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
-
-  /* Header Download button — works for both text and binary */
   $('btn-dl').addEventListener('click', function () {
     if (isPlaceholder()) return;
     if (_lastRaw && $('btn-bin-dl').style.display !== 'none') {
-      /* Binary result — download as proper file */
       downloadBinary();
     } else {
-      /* Text result — download as .txt */
       var txt = $('t-result').textContent;
       if (!txt) return;
       CK.downloadOutput(txt, 'base64-decode-output.txt');
     }
   });
-
-
   CK.setUsageContent('<ol><li><strong>Paste a Base64 string</strong> into the input field.</li><li>Click <strong>Decode</strong> to convert back to plain text.</li></ol><p>Supports both standard and URL-safe Base64 input. The decoder automatically handles missing padding and URL-safe character substitutions.</p>');
-
-  /* sessionStorage transfer from encoder */
   (function () {
     try {
       var transferred = sessionStorage.getItem('ck_b64_transfer');
@@ -268,11 +213,8 @@
         return;
       }
     } catch (_) {}
-    /* Default sample */
     var inp = $('t-input');
     if (inp && !inp.value) { inp.value = 'SGVsbG8sIFdvcmxkIQ=='; doDecode(); }
   })();
-
-  /* Live decode */
   (function () { var dt; $('t-input').addEventListener('input', function () { clearTimeout(dt); dt = setTimeout(doDecode, 150); }); })();
 })();

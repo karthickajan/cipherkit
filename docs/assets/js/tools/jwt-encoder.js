@@ -1,11 +1,7 @@
-/**
- * CipherKit — JWT Encoder
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     key:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,11 +9,8 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
   function b64urlEnc(str) { return btoa(str).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); }
-
-  /* HMAC-SHA256 using Web Crypto */
   function hmacSign(header, payload, secret, algo) {
     var msg = b64urlEnc(header) + '.' + b64urlEnc(payload);
     var enc = new TextEncoder();
@@ -30,7 +23,6 @@
         return msg + '.' + b64urlEnc(bin);
       });
   }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -48,11 +40,9 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('t-payload').value=''; $('t-secret').value=''; $('t-result').className='out-body mono ph'; $('t-result').textContent='JWT will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('appear')===-1?t:''; });
   CK.initAutoGrow($('t-payload'));
-
   $('btn-enc').addEventListener('click', function () {
     var payloadStr = $('t-payload').value.trim();
     var secret = $('t-secret').value;
@@ -61,7 +51,6 @@
     if (!payloadStr) { $('t-err').textContent = 'Please enter a JSON payload.'; $('t-err').style.display = 'block'; return; }
     if (!secret) { $('t-err').textContent = 'Please enter a secret key.'; $('t-err').style.display = 'block'; return; }
     try { JSON.parse(payloadStr); } catch(e) { $('t-err').textContent = 'Invalid JSON payload: ' + e.message; $('t-err').style.display = 'block'; return; }
-
     var header = JSON.stringify({"alg":algo,"typ":"JWT"});
     hmacSign(header, payloadStr, secret, algo).then(function(token) {
       $('t-result').className = 'out-body mono b'; $('t-result').textContent = token;
@@ -70,10 +59,7 @@
       $('t-err').textContent = 'Signing failed: ' + e.message; $('t-err').style.display = 'block';
     });
   });
-
-  
   CK.wireCtrlEnter('btn-enc');
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'jwt-encoder-output.txt');
-
   CK.setUsageContent('<ol><li>Enter a <strong>JSON payload</strong> with your claims.</li><li>Choose an <strong>algorithm</strong> (HS256/384/512).</li><li>Enter a <strong>secret key</strong> for HMAC signing.</li><li>Click <strong>Create JWT</strong> to generate the token.</li></ol><p>Uses the Web Crypto API for HMAC signing. Your secret never leaves the browser. For RS256/ES256, use a library like jose.js.</p>');
 })();

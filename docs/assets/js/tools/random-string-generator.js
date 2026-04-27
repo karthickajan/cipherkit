@@ -1,11 +1,7 @@
-/**
- * CipherKit — Random String Generator
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     hash:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   var PRESETS = {
     alpha:  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
     alnum:  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
@@ -23,7 +17,6 @@
     base64: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
     custom: ''
   };
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -40,10 +33,8 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('t-preset').addEventListener('change', function () { $('custom-row').style.display = this.value === 'custom' ? '' : 'none'; });
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('Click')===-1?t:''; });
-
   $('btn-gen').addEventListener('click', function () {
     var len = parseInt($('t-len').value, 10) || 32;
     var count = parseInt($('t-count').value, 10);
@@ -61,12 +52,8 @@
     $('t-result').className = 'out-body mono b'; $('t-result').textContent = lines.join('\n');
     CK.toast(count + ' string' + (count > 1 ? 's' : '') + ' generated');
   });
-
   $('btn-gen').click();
-
-  
   CK.wireCtrlEnter('btn-gen');
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'random-string-generator-output.txt');
-
   CK.setUsageContent('<ol><li>Set <strong>length</strong>, <strong>count</strong>, and <strong>charset</strong> (alphanumeric, hex, base64, or custom).</li><li>Click <strong>Generate</strong>.</li></ol><p>Uses <code>crypto.getRandomValues()</code> for cryptographically secure random generation. Great for API keys, tokens, and test data.</p>');
 })();

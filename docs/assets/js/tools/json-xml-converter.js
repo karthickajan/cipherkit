@@ -1,11 +1,7 @@
-/**
- * CipherKit — JSON → XML Converter
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     swap:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><line x1="3" y1="5" x2="21" y2="5"/><polyline points="7 23 3 19 7 15"/><line x1="21" y1="19" x2="3" y2="19"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,21 +9,15 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
-  /* ---- JS object → XML helper ---- */
   function escXml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
   function objToXml(obj, tag, indent) {
     var pad = '  '.repeat(indent);
     if (obj === null || obj === undefined) return pad + '<' + tag + '/>\n';
     if (typeof obj !== 'object') return pad + '<' + tag + '>' + escXml(obj) + '</' + tag + '>\n';
-
     var attrs = '';
     var children = '';
     var keys = Object.keys(obj);
-
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i];
       if (k.charAt(0) === '@') {
@@ -44,13 +34,10 @@
         children += objToXml(obj[k], k, indent + 1);
       }
     }
-
     if (!children) return pad + '<' + tag + attrs + '/>\n';
-    /* Check if children is text-only (no newlines from child elements) */
     if (children.indexOf('\n') === -1) return pad + '<' + tag + attrs + '>' + children + '</' + tag + '>\n';
     return pad + '<' + tag + attrs + '>\n' + children + pad + '</' + tag + '>\n';
   }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -66,11 +53,9 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'XML output will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.initAutoGrow($('t-input'));
-
   $('btn-conv').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     var rootTag = $('t-root').value.trim() || 'root';
@@ -86,14 +71,9 @@
       $('t-err').textContent = 'Invalid JSON: ' + e.message; $('t-err').style.display = 'block';
     }
   });
-
-  
   CK.wireCtrlEnter('btn-conv');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'json-xml-converter-output.json');
-
   CK.setUsageContent('<ol><li><strong>Paste</strong> your JSON data.</li><li>Optionally set a <strong>root element</strong> name.</li><li>Click <strong>Convert</strong> to transform it to XML.</li></ol><p>Keys starting with <code>@</code> become XML attributes. <code>#text</code> becomes text content. Arrays become repeated elements. The converter handles nested objects recursively.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='{"person":{"name":"John","age":30,"city":"New York"}}';inp.dispatchEvent(new Event('input'));}})();
 })();

@@ -1,16 +1,7 @@
-/**
- * CipherKit — JSON Formatter & Validator
- * Tree renderer with syntax highlighting, collapse/expand, line numbers,
- * search/filter, copy path on hover, expand/collapse all.
- *
- * Collapse/expand uses a parent→children map (_groupParent) so nested
- * groups collapse/expand recursively and correctly.
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     code:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -21,11 +12,8 @@
     plus:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
     search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
   function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-  /* ── SCOPED STYLES ──────────────────────────────────────────────────── */
   var sty = document.createElement('style');
   sty.textContent =
     '.jt-wrap{font-family:var(--mono);font-size:12px;line-height:1.7;background:#0a0a0a;overflow:auto;height:60vh;min-height:200px;resize:vertical;padding:0}'
@@ -57,8 +45,6 @@
     + '.sh-mark{background:rgba(0,255,136,0.2);color:inherit;border-radius:2px}'
     + '.sh-mark-active{background:rgba(0,255,136,0.5);color:#0a0a0a}';
   document.head.appendChild(sty);
-
-  /* ── UI ──────────────────────────────────────────────────────────────── */
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -86,13 +72,9 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   var _raw = '';
-  /* ── STATE ──────────────────────────────────────────────────────────── */
   var _nid = 0;
   var _groupParent = {};   /* groupId → parentGroupId */
-
-  /* ── CLEAR ──────────────────────────────────────────────────────────── */
   $('btn-clr').addEventListener('click', function () {
     $('t-input').value = '';
     var r = $('t-result');
@@ -100,11 +82,8 @@
     r.innerHTML = 'Formatted JSON will appear here\u2026';
     $('jt-tb').style.display = 'none'; _raw = ''; _groupParent = {};
   });
-
   CK.wireCopy($('btn-cp'), function () { return _raw; });
   CK.initAutoGrow($('t-input'));
-
-  /* ── TREE BUILDER ───────────────────────────────────────────────────── */
   function renderVal(v, depth, path, last, parentGroup) {
     if (v === null)             return [{ h: '<span class="jt-null">null</span>'   + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
     if (typeof v === 'boolean') return [{ h: '<span class="jt-bool">' + v + '</span>' + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
@@ -113,7 +92,6 @@
     if (Array.isArray(v)) return renderArr(v, depth, path, last, '', parentGroup);
     return renderObj(v, depth, path, last, '', parentGroup);
   }
-
   function inlineVal(v) {
     if (v === null) return '<span class="jt-null">null</span>';
     if (typeof v === 'boolean') return '<span class="jt-bool">' + v + '</span>';
@@ -121,13 +99,11 @@
     if (typeof v === 'string')  return '<span class="jt-str">"' + esc(v) + '"</span>';
     return esc(JSON.stringify(v));
   }
-
   function renderObj(obj, depth, path, last, prefix, parentGroup) {
     var keys = Object.keys(obj);
     if (!keys.length) return [{ h: prefix + '<span class="jt-brk">{}</span>' + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
     var id = 'jn' + (_nid++), out = [];
     if (parentGroup) _groupParent[id] = parentGroup;
-    /* Opening brace line: belongs to parent group (so collapsing parent hides this line) */
     out.push({ h: prefix + '<span class="jt-tog" data-n="' + id + '" data-c="' + keys.length + ' keys">\u25BE</span><span class="jt-brk">{</span>', p: path, d: depth, g: parentGroup, nOpen: id });
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i], cp = path + '.' + k, il = i === keys.length - 1, v = obj[k];
@@ -139,11 +115,9 @@
         out.push({ h: kh + inlineVal(v) + (il ? '' : ','), p: cp, d: depth + 1, g: id });
       }
     }
-    /* Closing brace: belongs to THIS group (hidden when this group collapses) */
     out.push({ h: '<span class="jt-brk">}</span>' + (last ? '' : ','), p: path, d: depth, g: id, nClose: id });
     return out;
   }
-
   function renderArr(arr, depth, path, last, prefix, parentGroup) {
     if (!arr.length) return [{ h: prefix + '<span class="jt-brk">[]</span>' + (last ? '' : ','), p: path, d: depth, g: parentGroup }];
     var id = 'jn' + (_nid++), out = [];
@@ -161,7 +135,6 @@
     out.push({ h: '<span class="jt-brk">]</span>' + (last ? '' : ','), p: path, d: depth, g: id, nClose: id });
     return out;
   }
-
   function buildHTML(lines) {
     var s = '<div class="jt-wrap">';
     for (var i = 0; i < lines.length; i++) {
@@ -175,8 +148,6 @@
     }
     return s + '</div>';
   }
-
-  /* ── GET ALL DESCENDANT GROUPS (BFS) ─────────────────────────────── */
   function getDescendantGroups(gid) {
     var result = [], queue = [gid];
     while (queue.length) {
@@ -190,29 +161,23 @@
     }
     return result;
   }
-
-  /* ── TOGGLE (event delegation) ────────────────────────────────────── */
   document.addEventListener('click', function (e) {
     var tog = e.target.closest('.jt-tog');
     if (!tog) return;
     var n = tog.dataset.n, wrap = $('t-result');
     var isCollapsed = tog.textContent === '\u25B8';
-
     if (isCollapsed) {
-      /* EXPAND: show ONLY direct children of this group */
       wrap.querySelectorAll('[data-g="' + n + '"]').forEach(function (el) {
         el.classList.remove('jt-hid');
       });
       tog.textContent = '\u25BE';
     } else {
-      /* COLLAPSE: hide ALL descendants recursively */
       var allGroups = [n].concat(getDescendantGroups(n));
       for (var i = 0; i < allGroups.length; i++) {
         var gid = allGroups[i];
         wrap.querySelectorAll('[data-g="' + gid + '"]').forEach(function (el) {
           el.classList.add('jt-hid');
         });
-        /* Also flip nested toggles to collapsed state */
         if (gid !== n) {
           var openLine = wrap.querySelector('[data-no="' + gid + '"]');
           if (openLine) {
@@ -224,15 +189,11 @@
       tog.textContent = '\u25B8';
     }
   });
-
-  /* ── EXPAND ALL ────────────────────────────────────────────────────── */
   $('btn-exp').addEventListener('click', function () {
     var w = $('t-result');
     w.querySelectorAll('.jt-hid').forEach(function (el) { el.classList.remove('jt-hid'); });
     w.querySelectorAll('.jt-tog').forEach(function (t) { t.textContent = '\u25BE'; });
   });
-
-  /* ── COLLAPSE ALL ──────────────────────────────────────────────────── */
   $('btn-col').addEventListener('click', function () {
     var w = $('t-result');
     w.querySelectorAll('.jt-tog').forEach(function (t) {
@@ -242,12 +203,9 @@
       w.querySelectorAll('[data-g="' + n + '"]').forEach(function (el) { el.classList.add('jt-hid'); });
     });
   });
-
-  /* ── SEARCH (TreeWalker + <mark> highlighting + prev/next + case toggle) ── */
   var _searchMarks = [];
   var _curMatch = -1;
   var _caseSensitive = false;
-
   function clearSearch() {
     var w = $('t-result');
     for (var mi = 0; mi < _searchMarks.length; mi++) {
@@ -261,10 +219,8 @@
     var badge = $('jt-match-count');
     if (badge) { badge.textContent = ''; badge.className = 'jt-match-info'; }
   }
-
   function setActiveMatch(idx) {
     if (!_searchMarks.length) return;
-    /* Remove active class from previous */
     for (var i = 0; i < _searchMarks.length; i++) {
       _searchMarks[i].className = 'sh-mark';
     }
@@ -276,30 +232,23 @@
     var badge = $('jt-match-count');
     if (badge) { badge.textContent = (_curMatch + 1) + ' / ' + _searchMarks.length; badge.className = 'jt-match-info'; }
   }
-
   function runSearch() {
     var q = $('jt-si').value, w = $('t-result');
     clearSearch();
     if (!q) return;
-
     var jtWrap = w.querySelector('.jt-wrap');
     if (!jtWrap) return;
-
     var qSearch = _caseSensitive ? q : q.toLowerCase();
-
-    /* Walk all text nodes */
     var walker = document.createTreeWalker(jtWrap, NodeFilter.SHOW_TEXT, null, false);
     var textNodes = [];
     var node;
     while ((node = walker.nextNode())) textNodes.push(node);
-
     for (var ti = 0; ti < textNodes.length; ti++) {
       var tn = textNodes[ti];
       var text = tn.textContent;
       var textCmp = _caseSensitive ? text : text.toLowerCase();
       var idx = textCmp.indexOf(qSearch);
       if (idx === -1) continue;
-
       var parent = tn.parentNode;
       var frag = document.createDocumentFragment();
       var lastIdx = 0;
@@ -315,8 +264,6 @@
       }
       if (lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
       parent.replaceChild(frag, tn);
-
-      /* Expand ancestor groups so match is visible */
       var line = parent.closest('.jt-line');
       if (line) {
         line.classList.remove('jt-hid');
@@ -333,7 +280,6 @@
         }
       }
     }
-
     var badge = $('jt-match-count');
     if (_searchMarks.length) {
       setActiveMatch(0);
@@ -341,21 +287,14 @@
       if (badge) { badge.textContent = 'No matches'; badge.className = 'jt-match-info no-match'; }
     }
   }
-
   $('jt-si').addEventListener('input', runSearch);
-
-  /* Case-sensitive toggle */
   $('btn-cs').addEventListener('click', function () {
     _caseSensitive = !_caseSensitive;
     this.classList.toggle('active', _caseSensitive);
     runSearch();
   });
-
-  /* Prev / Next buttons */
   $('btn-next').addEventListener('click', function () { if (_searchMarks.length) setActiveMatch(_curMatch + 1); });
   $('btn-prev').addEventListener('click', function () { if (_searchMarks.length) setActiveMatch(_curMatch - 1); });
-
-  /* Keyboard: Enter=next, Shift+Enter=prev, Escape=clear */
   $('jt-si').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -367,8 +306,6 @@
       clearSearch();
     }
   });
-
-  /* ── COPY PATH ON HOVER ────────────────────────────────────────────── */
   var _tip = null;
   $('t-result').addEventListener('mouseover', function (e) {
     var line = e.target.closest('.jt-line');
@@ -387,8 +324,6 @@
     rmTip();
   });
   function rmTip() { if (_tip && _tip.parentNode) _tip.parentNode.removeChild(_tip); _tip = null; }
-
-  /* ── FORMAT ─────────────────────────────────────────────────────────── */
   $('btn-fmt').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
@@ -416,13 +351,9 @@
       window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000), "Indent": $('t-indent').value});
     }
   });
-
   CK.wireCtrlEnter('btn-fmt');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { return _raw; }, 'json-formatter-output.json');
-
   CK.setUsageContent('<ol><li>Paste raw or minified JSON into the input field.</li><li>Click <strong>Format</strong> to beautify with syntax highlighting.</li><li>Use the <strong>tree view</strong> to collapse and expand individual nodes.</li><li>Click any key to copy its JSON path.</li><li>Use <strong>Search</strong> to find keys in large JSON objects.</li></ol><h3>What does this tool do?</h3><p>The JSON Formatter validates your JSON for syntax errors and displays it in a readable, indented format with colour-coded keys, strings, numbers, and booleans. The collapsible tree view lets you navigate large JSON structures without scrolling through thousands of lines.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='{"name":"John","age":30,"city":"New York","hobbies":["reading","coding"]}';inp.dispatchEvent(new Event('input'));var b=$('btn-fmt');if(b)b.click();}})();
 })();

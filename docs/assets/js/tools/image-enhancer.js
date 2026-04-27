@@ -1,13 +1,8 @@
-/**
- * CipherKit — Image Filters & Effects
- * Client-side Canvas API filters: sharpen, brighten, contrast, grayscale, sepia, invert.
- */
 (function(){
   'use strict';
   var root=document.getElementById('tool-root');if(!root)return;
   var IC={image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></svg>',play:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',dl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',sparkle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg>'};
   function $(id){return document.getElementById(id);}
-
   root.innerHTML='<div class="tool-single-col"><div class="tool-card-ui">'
     +'<div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-green">'+IC.image+'</div><h2 id="t-heading">Image Filters & Effects</h2></div><span class="tc-badge tc-badge-green">Filters</span></div>'
     +'<div class="tc-body" role="region" aria-labelledby="t-heading">'
@@ -25,8 +20,6 @@
     +'<div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div>'
     +'<div class="out-body" id="t-result" role="status" style="text-align:center;min-height:80px;padding:16px"><span style="color:var(--muted);font-style:italic">Enhanced image will appear here\u2026</span></div></div>'
     +'</div></div></div>';
-
-  /* Upload zone wiring */
   (function(){
     var zone=$('ie-drop'),fi=$('t-file');
     zone.addEventListener('click',function(e){if(e.target===fi)return;fi.click();});
@@ -36,8 +29,6 @@
     fi.addEventListener('change',function(){if(fi.files[0])showFileInfo(fi.files[0]);});
     function showFileInfo(f){zone.classList.add('has-file');zone.innerHTML='<p style="color:#e0e0e0;font-size:14px;margin:0">'+f.name+'</p><p style="color:#555;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';}
   })();
-
-  /* localStorage counter (informational only — does NOT block) */
   var RL_KEY='ck_imgenhance_uses';
   function getUsesToday(){
     try{var d=JSON.parse(localStorage.getItem(RL_KEY)||'{}');var today=new Date().toISOString().slice(0,10);if(d.date!==today)return 0;return d.count||0;}catch(e){return 0;}
@@ -48,10 +39,7 @@
   }
   function showLimit(){$('t-limit').textContent='Daily enhancements: '+getUsesToday()+' / 3 (resets midnight)';}
   showLimit();
-
   var _dataUrl='';
-
-  /* Client-side Canvas filters */
   function applyFilter(img,mode,intensity){
     var c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
     var ctx=c.getContext('2d');
@@ -66,7 +54,6 @@
     ctx.filter=filterStr;ctx.drawImage(img,0,0);
     return c;
   }
-
   function sharpenCanvas(ctx,w,h,strength){
     var imageData=ctx.getImageData(0,0,w,h);
     var data=imageData.data;
@@ -83,7 +70,6 @@
     }
     ctx.putImageData(imageData,0,0);
   }
-
   $('btn-enhance').addEventListener('click',function(){
     var file=$('t-file').files[0];$('t-err').textContent='';$('t-err').style.display='none';
     if(!file){$('t-err').textContent='Select an image file.';$('t-err').style.display='block';return;}
@@ -105,7 +91,6 @@
       img.src=e.target.result;
     };reader.readAsDataURL(file);
   });
-
   $('btn-dl').addEventListener('click',function(){if(!_dataUrl){CK.toast('Enhance first','err');return;}var a=document.createElement('a');a.download='enhanced.png';a.href=_dataUrl;a.click();CK.toast('Downloaded');});
   $('btn-clr').addEventListener('click',function(){$('t-file').value='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Enhanced image will appear here\u2026</span>';_dataUrl='';});
   CK.wireCtrlEnter('btn-enhance');

@@ -1,15 +1,7 @@
-/**
- * CipherKit — AES Encryption / Decryption Tool
- * Renders Encrypt + Decrypt panels into #tool-root
- * Requires: CryptoJS (loaded via CDN before this script)
- */
 (function () {
   'use strict';
-
   var root = document.getElementById('tool-root');
   if (!root) return;
-
-  /* ── SVG ICONS ─────────────────────────────────────────────────────────── */
   var IC = {
     lock:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
     unlock:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
@@ -22,15 +14,11 @@
     play:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     check:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>'
   };
-
-  /* ── HELPERS ────────────────────────────────────────────────────────────── */
   function $(id) { return document.getElementById(id); }
-
   function clearField(id) {
     var el = $(id);
     if (el) { el.value = ''; el.dispatchEvent(new Event('input')); }
   }
-
   function setOut(id, text, cls) {
     var el = $(id);
     if (!el) return;
@@ -39,22 +27,18 @@
     if (cls) el.classList.add(cls);
     el.textContent = text;
   }
-
   function setError(id, msg) {
     var el = $(id);
     if (!el) return;
     el.textContent = msg;
     el.style.display = 'block';
   }
-
   function clearError(id) {
     var el = $(id);
     if (!el) return;
     el.textContent = '';
     el.style.display = 'none';
   }
-
-  /* ── KEY UTILITIES ──────────────────────────────────────────────────────── */
   function padKey(key, size) {
     var bytes  = parseInt(size, 10) / 8;
     var hexLen = bytes * 2;
@@ -66,20 +50,17 @@
     var hex = CryptoJS.SHA256(key).toString(CryptoJS.enc.Hex);
     return CryptoJS.enc.Hex.parse(hex.substring(0, hexLen));
   }
-
   function parseIV(ivStr) {
     var s = (ivStr || '').trim();
     if (!s) return null;
     if (/^[0-9a-fA-F]{32}$/.test(s)) return CryptoJS.enc.Hex.parse(s);
     return CryptoJS.enc.Utf8.parse(s.padEnd(16, '0').substring(0, 16));
   }
-
   function generateRandomHex(bytes) {
     var arr = new Uint8Array(bytes);
     crypto.getRandomValues(arr);
     return Array.from(arr, function (b) { return b.toString(16).padStart(2, '0'); }).join('');
   }
-
   function modeObj(m) {
     var modes = {
       CBC: CryptoJS.mode.CBC, ECB: CryptoJS.mode.ECB,
@@ -88,13 +69,9 @@
     };
     return modes[m] || CryptoJS.mode.CBC;
   }
-
-  /* ── KEY LENGTH VALIDATION ──────────────────────────────────────────────── */
   function requiredKeyLen(size) {
     return parseInt(size, 10) / 8;
   }
-
-  /* ── STRENGTH BAR ───────────────────────────────────────────────────────── */
   function updateStrength(inputId, barId) {
     var v  = $(inputId).value;
     var el = $(barId);
@@ -110,12 +87,8 @@
     var bar = el.closest('[role=progressbar]');
     if (bar) bar.setAttribute('aria-valuenow', String(s));
   }
-
-  /* ── RENDER UI ──────────────────────────────────────────────────────────── */
   root.innerHTML = ''
     + '<div class="tool-two-col">'
-
-    /* ──────── ENCRYPT CARD ──────── */
     + '<div class="tool-card-ui">'
     +   '<div class="tc-head">'
     +     '<div class="tc-title">'
@@ -125,8 +98,6 @@
     +     '<span class="tc-badge tc-badge-green" aria-label="Algorithm: AES">AES</span>'
     +   '</div>'
     +   '<div class="tc-body" role="region" aria-labelledby="encrypt-heading">'
-
-    /* Controls row */
     +     '<div class="ctrl-row">'
     +       '<div class="sel-group">'
     +         '<label for="enc-keysize">Key Size</label>'
@@ -147,8 +118,6 @@
     +         '<select id="enc-output"><option>Base64</option><option>Hex</option></select>'
     +       '</div>'
     +     '</div>'
-
-    /* Plaintext */
     +     '<div class="field">'
     +       '<div class="field-hdr">'
     +         '<label for="enc-plain">Plaintext</label>'
@@ -159,8 +128,6 @@
     +       '<textarea id="enc-plain" placeholder="Enter text to encrypt\u2026" rows="4"></textarea>'
     +       '<div class="inline-error" id="enc-plain-err" role="alert" aria-live="assertive"></div>'
     +     '</div>'
-
-    /* Secret key */
     +     '<div class="field">'
     +       '<div class="field-hdr"><label for="enc-key">Secret Key</label></div>'
     +       '<div class="input-wrap">'
@@ -177,8 +144,6 @@
     +       '</div>'
     +       '<div class="inline-error" id="enc-key-err" role="alert" aria-live="assertive"></div>'
     +     '</div>'
-
-    /* IV */
     +     '<div class="field" id="enc-iv-wrap">'
     +       '<div class="field-hdr">'
     +         '<label for="enc-iv">IV &mdash; Initialization Vector</label>'
@@ -189,13 +154,9 @@
     +       '<input type="text" id="enc-iv" placeholder="Leave blank to auto-generate" autocomplete="off">'
     +       '<div class="inline-error" id="enc-iv-err" role="alert" aria-live="assertive"></div>'
     +     '</div>'
-
-    /* Encrypt button */
     +     '<button type="button" class="act-btn act-green" id="btn-encrypt" aria-label="Encrypt plaintext with AES">'
     +       IC.lock + ' <span>Encrypt</span>'
     +     '</button>'
-
-    /* Output */
     +     '<div class="out-box">'
     +       '<div class="out-head">'
     +         '<div class="out-label">' + IC.play + ' <span>Encrypted Output</span></div>'
@@ -203,11 +164,8 @@
     +       '</div>'
     +       '<div class="out-body ph" id="enc-result" role="status" aria-live="polite" aria-label="Encrypted output">Output will appear here\u2026</div>'
     +     '</div>'
-
     +   '</div>'
     + '</div>'
-
-    /* ──────── DECRYPT CARD ──────── */
     + '<div class="tool-card-ui">'
     +   '<div class="tc-head">'
     +     '<div class="tc-title">'
@@ -217,8 +175,6 @@
     +     '<span class="tc-badge tc-badge-blue" aria-label="Algorithm: AES">AES</span>'
     +   '</div>'
     +   '<div class="tc-body" role="region" aria-labelledby="decrypt-heading">'
-
-    /* Controls row */
     +     '<div class="ctrl-row">'
     +       '<div class="sel-group">'
     +         '<label for="dec-keysize">Key Size</label>'
@@ -239,8 +195,6 @@
     +         '<select id="dec-input-fmt"><option>Base64</option><option>Hex</option></select>'
     +       '</div>'
     +     '</div>'
-
-    /* Ciphertext */
     +     '<div class="field">'
     +       '<div class="field-hdr">'
     +         '<label for="dec-cipher">Ciphertext</label>'
@@ -252,8 +206,6 @@
     +       '<textarea id="dec-cipher" placeholder="Paste encrypted ciphertext here\u2026" rows="4"></textarea>'
     +       '<div class="inline-error" id="dec-cipher-err" role="alert" aria-live="assertive"></div>'
     +     '</div>'
-
-    /* Secret key */
     +     '<div class="field">'
     +       '<div class="field-hdr"><label for="dec-key">Secret Key</label></div>'
     +       '<div class="input-wrap">'
@@ -266,8 +218,6 @@
     +       '<div class="kbar-wrap" aria-hidden="true"></div>'
     +       '<div class="inline-error" id="dec-key-err" role="alert" aria-live="assertive"></div>'
     +     '</div>'
-
-    /* IV */
     +     '<div class="field" id="dec-iv-wrap">'
     +       '<div class="field-hdr">'
     +         '<label for="dec-iv">IV &mdash; Initialization Vector</label>'
@@ -276,13 +226,9 @@
     +       '<input type="text" id="dec-iv" placeholder="IV used during encryption" autocomplete="off">'
     +       '<div class="inline-error" id="dec-iv-err" role="alert" aria-live="assertive"></div>'
     +     '</div>'
-
-    /* Decrypt button */
     +     '<button type="button" class="act-btn act-blue" id="btn-decrypt" aria-label="Decrypt AES ciphertext">'
     +       IC.unlock + ' <span>Decrypt</span>'
     +     '</button>'
-
-    /* Output */
     +     '<div class="out-box">'
     +       '<div class="out-head">'
     +         '<div class="out-label">' + IC.play + ' <span>Decrypted Output</span></div>'
@@ -290,56 +236,35 @@
     +       '</div>'
     +       '<div class="out-body ph b" id="dec-result" role="status" aria-live="polite" aria-label="Decrypted output">Output will appear here\u2026</div>'
     +     '</div>'
-
     +   '</div>'
     + '</div>'
-
     + '</div>'; /* close .tool-two-col */
-
-  /* ── WIRE EVENTS ────────────────────────────────────────────────────────── */
-
-  /* Toggle IV visibility based on mode */
   function toggleIV(prefix, mode) {
     var wrap = $(prefix + '-iv-wrap');
     if (wrap) wrap.style.display = mode === 'ECB' ? 'none' : '';
   }
-
   $('enc-mode').addEventListener('change', function () { toggleIV('enc', this.value); });
   $('dec-mode').addEventListener('change', function () { toggleIV('dec', this.value); });
-
-  /* Clear buttons */
   $('btn-clear-plain').addEventListener('click', function () { clearField('enc-plain'); clearError('enc-plain-err'); });
   $('btn-clear-cipher').addEventListener('click', function () { clearField('dec-cipher'); clearError('dec-cipher-err'); });
-
-  /* Generate key */
   $('btn-gen-key').addEventListener('click', function () {
     $('enc-key').value = generateRandomHex(32);
     updateStrength('enc-key', 'enc-strength');
     CK.toast('Key generated');
   });
-
-  /* Generate IV */
   $('btn-gen-iv').addEventListener('click', function () {
     $('enc-iv').value = generateRandomHex(16);
     CK.toast('IV generated');
   });
-
-  /* Toggle key visibility */
   CK.wirePassToggle($('enc-key'), $('btn-toggle-enc-key'));
   CK.wirePassToggle($('dec-key'), $('btn-toggle-dec-key'));
-
-  /* Key strength */
   $('enc-key').addEventListener('input', function () {
     updateStrength('enc-key', 'enc-strength');
     clearError('enc-key-err');
   });
-
-  /* Clear errors on input */
   $('enc-plain').addEventListener('input', function () { clearError('enc-plain-err'); });
   $('dec-cipher').addEventListener('input', function () { clearError('dec-cipher-err'); });
   $('dec-key').addEventListener('input', function () { clearError('dec-key-err'); });
-
-  /* Transfer from encrypt */
   $('btn-from-enc').addEventListener('click', function () {
     var v = $('enc-result').textContent;
     if (v && v.indexOf('appear here') === -1 && v.indexOf('failed') === -1) {
@@ -351,14 +276,10 @@
       CK.toast('Output transferred to decrypt');
     }
   });
-
-  /* Sync key */
   $('btn-sync-key').addEventListener('click', function () {
     var k = $('enc-key').value;
     if (k) { $('dec-key').value = k; CK.toast('Key synced'); }
   });
-
-  /* Copy buttons */
   CK.wireCopy($('btn-copy-enc'), function () {
     var t = $('enc-result').textContent;
     return (t && t.indexOf('appear here') === -1 && t.indexOf('failed') === -1) ? t : '';
@@ -367,27 +288,21 @@
     var t = $('dec-result').textContent;
     return (t && t.indexOf('appear here') === -1 && t.indexOf('failed') === -1) ? t : '';
   });
-
-  /* ── ENCRYPT ────────────────────────────────────────────────────────────── */
   $('btn-encrypt').addEventListener('click', function () {
     clearError('enc-plain-err');
     clearError('enc-key-err');
     clearError('enc-iv-err');
-
     var plain  = $('enc-plain').value;
     var key    = $('enc-key').value;
     var mode   = $('enc-mode').value;
     var ksz    = $('enc-keysize').value;
     var outFmt = $('enc-output').value;
     var ivStr  = $('enc-iv').value;
-
     if (!plain.trim()) { setError('enc-plain-err', 'Plaintext is required.'); return; }
     if (!key.trim())   { setError('enc-key-err', 'Secret key is required.'); return; }
-
     try {
       var keyWA = padKey(key, ksz);
       var cfg   = { mode: modeObj(mode), padding: CryptoJS.pad.Pkcs7 };
-
       if (mode !== 'ECB') {
         var ivWA = parseIV(ivStr);
         if (!ivWA) {
@@ -397,12 +312,10 @@
         }
         cfg.iv = ivWA;
       }
-
       var enc = CryptoJS.AES.encrypt(plain, keyWA, cfg);
       var out = outFmt === 'Base64'
         ? enc.toString()
         : enc.ciphertext.toString(CryptoJS.enc.Hex);
-
       setOut('enc-result', out, 'g');
       CK.toast('Encrypted successfully');
     } catch (e) {
@@ -410,43 +323,34 @@
       window.CKFeedback && window.CKFeedback.reportError(e.message, {"Plaintext": ($('enc-plain').value || '').substring(0, 2000), "Secret Key": ($('enc-key').value || '').substring(0, 2000), "IV": ($('enc-iv').value || '').substring(0, 2000), "Mode": $('enc-mode').value, "Key Size": $('enc-keysize').value, "Output Format": $('enc-output').value});
     }
   });
-
-  /* ── DECRYPT ────────────────────────────────────────────────────────────── */
   $('btn-decrypt').addEventListener('click', function () {
     clearError('dec-cipher-err');
     clearError('dec-key-err');
     clearError('dec-iv-err');
-
     var cipher = ($('dec-cipher').value || '').trim();
     var key    = $('dec-key').value;
     var mode   = $('dec-mode').value;
     var ksz    = $('dec-keysize').value;
     var inFmt  = $('dec-input-fmt').value;
     var ivStr  = $('dec-iv').value;
-
     if (!cipher) { setError('dec-cipher-err', 'Ciphertext is required.'); return; }
     if (!key.trim()) { setError('dec-key-err', 'Secret key is required.'); return; }
-
     try {
       var keyWA = padKey(key, ksz);
       var cfg   = { mode: modeObj(mode), padding: CryptoJS.pad.Pkcs7 };
-
       if (mode !== 'ECB' && ivStr.trim()) {
         cfg.iv = /^[0-9a-fA-F]{32}$/.test(ivStr.trim())
           ? CryptoJS.enc.Hex.parse(ivStr.trim())
           : CryptoJS.enc.Utf8.parse(ivStr.padEnd(16, '0').substring(0, 16));
       }
-
       var cp = CryptoJS.lib.CipherParams.create({
         ciphertext: inFmt === 'Base64'
           ? CryptoJS.enc.Base64.parse(cipher)
           : CryptoJS.enc.Hex.parse(cipher)
       });
-
       var dec = CryptoJS.AES.decrypt(cp, keyWA, cfg);
       var res = dec.toString(CryptoJS.enc.Utf8);
       if (!res) throw new Error('Wrong key, IV, or format.');
-
       setOut('dec-result', res, 'b');
       CK.toast('Decrypted successfully');
     } catch (e) {
@@ -454,8 +358,6 @@
       window.CKFeedback && window.CKFeedback.reportError(e.message, {"Ciphertext": ($('dec-cipher').value || '').substring(0, 2000), "Secret Key": ($('dec-key').value || '').substring(0, 2000), "IV": ($('dec-iv').value || '').substring(0, 2000), "Mode": $('dec-mode').value, "Key Size": $('dec-keysize').value, "Input Format": $('dec-input-fmt').value});
     }
   });
-
-  /* ── KEYBOARD SHORTCUT (Ctrl/Cmd + Enter) ───────────────────────────────── */
   document.addEventListener('keydown', function (e) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
@@ -467,11 +369,7 @@
       }
     }
   });
-
-  /* ── USAGE CONTENT (SEO) ────────────────────────────────────────────────── */
-  
   CK.wireCtrlEnter('btn-gen-key');
-
   CK.setUsageContent(
     '<ol>'
     + '<li>Enter the text you want to encrypt.</li>'
@@ -484,5 +382,4 @@
     + '<p>AES (Advanced Encryption Standard) is a symmetric block cipher — the same key encrypts and decrypts. It is the most widely used encryption algorithm, adopted by the US government and used in TLS, WPA2, and most secure applications.</p>'
     + '<p><strong>Security note:</strong> This tool uses AES-GCM mode with a random IV for each encryption. Never reuse the same key for highly sensitive data in production — use a proper key management system.</p>'
   );
-
 })();

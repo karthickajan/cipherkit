@@ -1,11 +1,7 @@
-/**
- * CipherKit — TOTP / 2FA Code Generator
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     key:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -32,8 +26,6 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
-  /* Base32 decode */
   function b32decode(s) {
     var alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567', bits = '', bytes = [];
     s = s.replace(/[\s=-]/g, '').toUpperCase();
@@ -45,15 +37,11 @@
     for (var j = 0; j + 8 <= bits.length; j += 8) bytes.push(parseInt(bits.substr(j, 8), 2));
     return new Uint8Array(bytes);
   }
-
-  /* HMAC-SHA1 via Web Crypto */
   async function hmacSha1(key, msg) {
     var ckey = await crypto.subtle.importKey('raw', key, { name: 'HMAC', hash: 'SHA-1' }, false, ['sign']);
     var sig = await crypto.subtle.sign('HMAC', ckey, msg);
     return new Uint8Array(sig);
   }
-
-  /* Generate TOTP */
   async function generateTOTP(secret, digits, period) {
     var keyBytes = b32decode(secret);
     var epoch = Math.floor(Date.now() / 1000);
@@ -66,7 +54,6 @@
     var code = ((hmac[offset] & 0x7f) << 24 | hmac[offset+1] << 16 | hmac[offset+2] << 8 | hmac[offset+3]) % Math.pow(10, digits);
     return String(code).padStart(digits, '0');
   }
-
   var _interval = null;
   function startTimer() {
     if (_interval) clearInterval(_interval);
@@ -78,7 +65,6 @@
       if (remaining === period) $('btn-gen').click(); // auto-refresh
     }, 1000);
   }
-
   $('btn-gen').addEventListener('click', async function () {
     var secret = $('t-secret').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
@@ -94,10 +80,8 @@
       CK.toast('TOTP code generated');
     } catch (e) { $('t-err').textContent = 'Error: ' + e.message; $('t-err').style.display = 'block'; }
   });
-
   $('btn-clr').addEventListener('click', function () { $('t-secret').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Code will appear here\u2026'; $('t-timer').textContent = '--'; if (_interval) clearInterval(_interval); });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.wireCtrlEnter('btn-gen');
-
   CK.setUsageContent('<ol><li>Enter your <strong>Base32 secret</strong> (from your authenticator app setup).</li><li>Choose digits (6 or 8) and period (30s or 60s).</li><li>Click <strong>Generate Code</strong> — auto-refreshes each period.</li></ol><p>Uses HMAC-SHA1 per <a href="https://tools.ietf.org/html/rfc6238" target="_blank">RFC 6238</a>. Compatible with Google Authenticator, Authy, etc. Your secret never leaves your device.</p>');
 })();

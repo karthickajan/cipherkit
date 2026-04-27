@@ -1,11 +1,7 @@
-/**
- * CipherKit — YAML ↔ JSON Converter
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     swap:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><line x1="3" y1="5" x2="21" y2="5"/><polyline points="7 23 3 19 7 15"/><line x1="21" y1="19" x2="3" y2="19"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,37 +9,23 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
-  /* ---- Lightweight YAML parser ---- */
   function parseYAML(text) {
     var lines = text.split('\n');
     var stack = [{ indent: -1, obj: {} }];
-
     for (var i = 0; i < lines.length; i++) {
       var raw = lines[i];
-      /* Skip blanks and comments */
       if (/^\s*(#.*)?$/.test(raw)) continue;
-      /* Document separators */
       if (/^---/.test(raw) || /^\.\.\./.test(raw)) continue;
-
       var indent = raw.search(/\S/);
       var trimmed = raw.trim();
-
-      /* Pop stack to find parent */
       while (stack.length > 1 && indent <= stack[stack.length - 1].indent) stack.pop();
       var parent = stack[stack.length - 1];
-
-      /* List item */
       if (trimmed.charAt(0) === '-') {
         var listVal = trimmed.substring(1).trim();
-        /* Ensure parent holds an array or convert */
         if (!Array.isArray(parent.obj)) {
-          /* We need to attach array to the last key of grandparent */
           var gp = stack.length > 1 ? stack[stack.length - 1] : parent;
           if (!Array.isArray(gp.obj)) {
-            /* Find the key this list belongs to */
             var keys = Object.keys(gp.obj);
             var lastKey = keys[keys.length - 1];
             if (lastKey !== undefined && gp.obj[lastKey] === null) {
@@ -58,7 +40,6 @@
         if (Array.isArray(parent.obj)) {
           var parsed = parseScalar(listVal);
           if (listVal.indexOf(':') !== -1 && typeof parsed === 'string') {
-            /* Inline key: value in list item */
             var cp = listVal.indexOf(':');
             var lk = listVal.substring(0, cp).trim();
             var lv = listVal.substring(cp + 1).trim();
@@ -72,19 +53,13 @@
         }
         continue;
       }
-
-      /* Key: value */
       var colonPos = trimmed.indexOf(':');
       if (colonPos === -1) continue;
       var key = trimmed.substring(0, colonPos).trim();
       var val = trimmed.substring(colonPos + 1).trim();
-
       if (typeof parent.obj !== 'object' || Array.isArray(parent.obj)) continue;
-
       if (val === '' || val === '|' || val === '>') {
-        /* Block scalar or nested object */
         if (val === '|' || val === '>') {
-          /* Collect block scalar */
           var blockLines = [];
           var bi = i + 1;
           var blockIndent = -1;
@@ -103,7 +78,6 @@
         } else {
           parent.obj[key] = null;
           stack.push({ indent: indent, obj: parent.obj });
-          /* Will be filled by nested lines or converted to array */
           var child = {};
           parent.obj[key] = child;
           stack.push({ indent: indent, obj: child });
@@ -112,24 +86,19 @@
         parent.obj[key] = parseScalar(val);
       }
     }
-
     return stack[0].obj;
   }
-
   function parseScalar(s) {
     if (!s) return null;
-    /* Remove quotes */
     if ((s.charAt(0) === '"' && s.charAt(s.length - 1) === '"') || (s.charAt(0) === "'" && s.charAt(s.length - 1) === "'")) return s.substring(1, s.length - 1);
     if (s === 'true') return true;
     if (s === 'false') return false;
     if (s === 'null' || s === '~') return null;
-    /* Inline array [a, b] */
     if (s.charAt(0) === '[' && s.charAt(s.length - 1) === ']') {
       try { return JSON.parse(s); } catch (e) {
         return s.substring(1, s.length - 1).split(',').map(function (x) { return parseScalar(x.trim()); });
       }
     }
-    /* Inline object {a: b} */
     if (s.charAt(0) === '{' && s.charAt(s.length - 1) === '}') {
       try { return JSON.parse(s); } catch (e) { return s; }
     }
@@ -137,13 +106,10 @@
     if (/^-?\d+\.\d+$/.test(s)) return parseFloat(s);
     return s;
   }
-
-  /* ---- JSON → YAML ---- */
   function jsonToYAML(obj, indent) {
     if (indent === undefined) indent = 0;
     var pad = '  '.repeat(indent);
     var out = '';
-
     if (Array.isArray(obj)) {
       for (var i = 0; i < obj.length; i++) {
         if (obj[i] !== null && typeof obj[i] === 'object' && !Array.isArray(obj[i])) {
@@ -173,7 +139,6 @@
     }
     return out;
   }
-
   function scalarToYAML(v) {
     if (v === null || v === undefined) return 'null';
     if (typeof v === 'boolean') return v ? 'true' : 'false';
@@ -182,7 +147,6 @@
     if (/[:{}\[\],&*?|>!%#@`"']/.test(s) || s === '' || /^\s|\s$/.test(s)) return '"' + s.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
     return s;
   }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -198,8 +162,6 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
-  /* Auto-detect direction from URL slug */
   var _pathSlug = (window.location.pathname.match(/\/tools\/([^/]+)/) || [])[1] || '';
   if (_pathSlug === 'json-to-yaml') {
     $('t-mode').value = 'json2yaml';
@@ -207,23 +169,19 @@
     $('lbl-out').textContent = 'YAML Output';
     $('t-input').placeholder = 'Paste JSON here\u2026';
   }
-
   var BASE = '';
   $('t-mode').addEventListener('change', function () {
     var y2j = this.value === 'yaml2json';
     $('lbl-input').textContent = y2j ? 'YAML Input' : 'JSON Input';
     $('lbl-out').textContent = y2j ? 'JSON Output' : 'YAML Output';
     $('t-input').placeholder = y2j ? 'Paste YAML here\u2026' : 'Paste JSON here\u2026';
-    /* pushState for SEO slug */
     var newSlug = y2j ? 'yaml-json-converter' : 'json-to-yaml';
     var newPath = BASE + '/tools/' + newSlug + '/';
     if (window.location.pathname !== newPath) history.pushState(null, '', newPath);
   });
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Output will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.initAutoGrow($('t-input'));
-
   $('btn-conv').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     var mode = $('t-mode').value;
@@ -244,14 +202,9 @@
       $('t-err').textContent = 'Conversion failed: ' + e.message; $('t-err').style.display = 'block';
     }
   });
-
-  
   CK.wireCtrlEnter('btn-conv');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'yaml-json-converter-output.json');
-
   CK.setUsageContent('<ol><li>Choose <strong>direction</strong> (YAML → JSON or JSON → YAML).</li><li><strong>Paste data</strong> and click <strong>Convert</strong>.</li></ol><p>Supports common YAML features: key-value pairs, nested objects, lists, inline arrays/objects, block scalars (<code>|</code> and <code>&gt;</code>), comments, and quoted strings. For complex YAML with anchors and aliases, consider a full YAML library.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='name: John\nage: 30\ncity: New York\nhobbies:\n  - reading\n  - coding';inp.dispatchEvent(new Event('input'));}})();
 })();

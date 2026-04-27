@@ -1,11 +1,7 @@
-/**
- * CipherKit — SSL Certificate Decoder
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -30,8 +24,6 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
-  /* Minimal ASN.1 DER parser */
   function parseDER(bytes, offset) {
     if (offset >= bytes.length) return null;
     var tag = bytes[offset++];
@@ -39,16 +31,13 @@
     if (len & 0x80) { var n = len & 0x7f; len = 0; for (var i = 0; i < n; i++) len = (len << 8) | bytes[offset++]; }
     return { tag: tag, data: bytes.slice(offset, offset + len), next: offset + len };
   }
-
   function readOID(data) {
     var oid = [Math.floor(data[0] / 40), data[0] % 40], val = 0;
     for (var i = 1; i < data.length; i++) { val = (val << 7) | (data[i] & 0x7f); if (!(data[i] & 0x80)) { oid.push(val); val = 0; } }
     return oid.join('.');
   }
-
   function readUTF8(data) { return new TextDecoder().decode(data); }
   function toHex(arr) { return Array.from(arr, function(b) { return b.toString(16).padStart(2, '0'); }).join(':'); }
-
   function decodePEM(pem) {
     var b64 = pem.replace(/-----[^-]+-----/g, '').replace(/\s/g, '');
     var bin = atob(b64);
@@ -56,8 +45,6 @@
     for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
     return bytes;
   }
-
-  /* Known OIDs */
   var OID_MAP = {
     '2.5.4.3': 'CN', '2.5.4.6': 'C', '2.5.4.7': 'L', '2.5.4.8': 'ST',
     '2.5.4.10': 'O', '2.5.4.11': 'OU', '1.2.840.113549.1.1.11': 'SHA256withRSA',
@@ -65,7 +52,6 @@
     '1.2.840.113549.1.1.1': 'RSA', '1.2.840.10045.2.1': 'EC',
     '2.5.29.17': 'SAN', '2.5.29.19': 'Basic Constraints'
   };
-
   function extractDN(data) {
     var parts = [], offset = 0;
     while (offset < data.length) {
@@ -78,29 +64,22 @@
     }
     return parts.join(', ');
   }
-
   $('btn-dec').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
     if (!input) { $('t-err').textContent = 'Paste a PEM certificate.'; $('t-err').style.display = 'block'; return; }
     try {
       var bytes = decodePEM(input);
-      /* Parse outermost SEQUENCE */
       var outer = parseDER(bytes, 0);
       if (!outer || outer.tag !== 0x30) throw new Error('Not a valid certificate');
       var tbs = parseDER(outer.data, 0);
       if (!tbs || tbs.tag !== 0x30) throw new Error('Cannot parse TBSCertificate');
       var d = tbs.data, off = 0, info = {};
-      /* version */
       var v = parseDER(d, off);
       if (v && v.tag === 0xa0) { var vi = parseDER(v.data, 0); info.version = 'v' + ((vi ? vi.data[0] : 0) + 1); off = v.next; } else { info.version = 'v1'; }
-      /* serial */
       var ser = parseDER(d, off); if (ser) { info.serial = toHex(ser.data); off = ser.next; }
-      /* sig algo */
       var sigAlgo = parseDER(d, off); if (sigAlgo) { var oa = parseDER(sigAlgo.data, 0); info.sigAlgo = oa ? (OID_MAP[readOID(oa.data)] || readOID(oa.data)) : 'Unknown'; off = sigAlgo.next; }
-      /* issuer */
       var issuer = parseDER(d, off); if (issuer) { info.issuer = extractDN(issuer.data); off = issuer.next; }
-      /* validity */
       var validity = parseDER(d, off);
       if (validity) {
         var nb = parseDER(validity.data, 0);
@@ -109,9 +88,7 @@
         info.notAfter = na ? readUTF8(na.data) : '';
         off = validity.next;
       }
-      /* subject */
       var subject = parseDER(d, off); if (subject) { info.subject = extractDN(subject.data); off = subject.next; }
-
       var out = 'Version:       ' + (info.version || '') + '\n'
         + 'Serial:        ' + (info.serial || '') + '\n'
         + 'Signature:     ' + (info.sigAlgo || '') + '\n'
@@ -123,12 +100,10 @@
       CK.toast('Certificate decoded');
     } catch (e) { $('t-err').textContent = 'Error: ' + e.message; $('t-err').style.display = 'block'; }
   });
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Certificate details will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'ssl-cert-output.txt');
   CK.wireCtrlEnter('btn-dec');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
-
   CK.setUsageContent('<ol><li><strong>Paste</strong> a PEM-encoded certificate (starts with -----BEGIN CERTIFICATE-----).</li><li>Click <strong>Decode Certificate</strong> to extract details.</li><li>View subject, issuer, validity dates, serial number, and more.</li></ol><p>Uses a lightweight client-side ASN.1 DER parser. No data sent to any server.</p>');
 })();

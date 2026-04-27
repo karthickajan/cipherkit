@@ -1,6 +1,3 @@
-/**
- * CipherKit — JSON Schema Validator
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
@@ -14,7 +11,6 @@
     check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>'
   };
   function $(id){return document.getElementById(id);}
-
   root.innerHTML='<div class="tool-single-col"><div class="tool-card-ui"><div class="tc-head"><div class="tc-title"><div class="tc-icon tc-icon-purple">'+IC.code+'</div><h2 id="t-heading">JSON Schema Validator</h2></div><span class="tc-badge tc-badge-purple">Validate</span></div><div class="tc-body" role="region" aria-labelledby="t-heading">'
     +'<div class="tool-two-col">'
     +'<div class="field"><div class="field-hdr"><label for="t-schema">JSON Schema</label></div><textarea id="t-schema" placeholder="Paste JSON Schema\u2026" rows="10" class="mono"></textarea></div>'
@@ -24,7 +20,6 @@
     +'<div class="inline-error" id="t-err" role="alert"></div>'
     +'<div class="out-box"><div class="out-head"><div class="out-label">'+IC.play+' <span>Result</span></div><div class="out-btns"><button type="button" class="copy-btn" id="btn-cp" aria-label="Copy">'+IC.copy+' <span>Copy</span></button><button type="button" class="dl-btn" id="btn-dl" aria-label="Download">'+IC.dl+' <span>Download</span></button></div></div><div class="out-body mono ph" id="t-result" role="status" aria-live="polite">Validation result will appear here\u2026</div></div>'
     +'</div></div></div>';
-
   function validateSchema(schema,data,path){
     var errors=[];
     if(schema.type){
@@ -47,7 +42,6 @@
     if(schema.enum&&schema.enum.indexOf(data)===-1)errors.push(path+': not in enum ['+schema.enum.join(', ')+']');
     return errors;
   }
-
   $('btn-val').addEventListener('click',function(){
     $('t-err').textContent='';$('t-err').style.display='none';
     var s=$('t-schema').value.trim(),d=$('t-data').value.trim();
@@ -58,7 +52,6 @@
     if(errs.length===0){$('t-result').className='out-body mono g';$('t-result').textContent='\u2713 Valid — JSON data matches the schema.';CK.toast('Validation passed');}
     else{$('t-result').className='out-body mono err';$('t-result').textContent='\u2717 Invalid — '+errs.length+' error(s):\n\n'+errs.join('\n');CK.toast('Validation failed','err');}
   });
-
   CK.wireCopy($('btn-cp'),function(){var t=$('t-result').textContent;return t.indexOf('appear')===-1?t:'';});
   CK.wireDownload($('btn-dl'),function(){var t=$('t-result').textContent;return t.indexOf('appear')===-1?t:'';}, 'json-schema-validation.txt');
   CK.wireCtrlEnter('btn-val');

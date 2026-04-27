@@ -1,11 +1,7 @@
-/**
- * CipherKit — HTML Formatter
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     code:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -14,15 +10,10 @@
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
     mini:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
-  /* ── Format / Minify ─────────────────────────────────────────────────── */
   var VOID_TAGS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
-
   function formatHTML(html, indent) {
     var pad = indent === 'tab' ? '\t' : ' '.repeat(parseInt(indent, 10));
-    /* Split into tokens: tags and text chunks */
     var tokens = [];
     var re = /(<\/?\w[^>]*\/?>|<!--[\s\S]*?-->)/g;
     var last = 0, m;
@@ -38,7 +29,6 @@
       var tail = html.substring(last).trim();
       if (tail) tokens.push({ type: 'text', value: tail });
     }
-
     var out = [];
     var depth = 0;
     for (var i = 0; i < tokens.length; i++) {
@@ -48,18 +38,14 @@
         continue;
       }
       var tag = tk.value;
-      /* Comment */
       if (/^<!--/.test(tag)) { out.push(pad.repeat(depth) + tag); continue; }
-      /* Closing tag */
       if (/^<\//.test(tag)) { depth = Math.max(0, depth - 1); out.push(pad.repeat(depth) + tag); continue; }
-      /* Self-closing or void */
       var tagName = (tag.match(/^<(\w+)/) || [])[1] || '';
       out.push(pad.repeat(depth) + tag);
       if (!(/\/>$/.test(tag)) && !VOID_TAGS.test(tagName)) { depth++; }
     }
     return out.join('\n');
   }
-
   function minifyHTML(html) {
     return html
       .replace(/<!--[\s\S]*?-->/g, '')          /* strip comments */
@@ -67,11 +53,7 @@
       .replace(/\s{2,}/g, ' ')                  /* collapse runs */
       .trim();
   }
-
-  /* ── Mode ─────────────────────────────────────────────────────────────── */
   var mode = 'format';
-
-  /* ── UI ──────────────────────────────────────────────────────────────── */
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -90,30 +72,23 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   CK.initTabs($('mode-tabs'), function (v) { mode = v; $('t-indent').disabled = (v === 'minify'); $('t-indent').closest('.sel-group').style.opacity = v === 'minify' ? '.35' : '1'; });
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Formatted HTML will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.initAutoGrow($('t-input'));
-
   $('btn-fmt').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     var indent = $('t-indent').value;
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
     if (!input) { $('t-err').textContent = 'Enter HTML to format.'; $('t-err').style.display = 'block'; return; }
-
     var result = mode === 'minify' ? minifyHTML(input) : formatHTML(input, indent);
     $('t-result').className = 'out-body mono b';
     $('t-result').textContent = result;
     CK.toast(mode === 'minify' ? 'HTML minified' : 'HTML formatted');
   });
-
   CK.wireCtrlEnter('btn-fmt');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'html-formatter-output.html');
-
   CK.setUsageContent('<ol><li><strong>Paste</strong> your HTML.</li><li>Choose <strong>Format</strong> or <strong>Minify</strong> mode.</li><li>Select indent style and click <strong>Format</strong>.</li></ol><p>Indents nested tags, handles self-closing and void elements, or minifies by stripping comments and whitespace.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='<div class="container"><header><h1>Hello World</h1><nav><a href="/">Home</a><a href="/about">About</a></nav></header><main><p>Welcome to the page.</p><ul><li>Item 1</li><li>Item 2</li></ul></main><footer><p>&copy; 2025</p></footer></div>';inp.dispatchEvent(new Event('input'));}})();
 })();

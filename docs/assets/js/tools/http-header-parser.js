@@ -1,11 +1,7 @@
-/**
- * CipherKit — HTTP Header Parser
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
     copy:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -30,11 +24,9 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value=''; $('t-result').className='out-body mono ph'; $('t-result').textContent='Parsed headers will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t=$('t-result').textContent; return t.indexOf('appear')===-1?t:''; });
   CK.initAutoGrow($('t-input'));
-
   $('btn-parse').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     $('t-err').textContent=''; $('t-err').style.display='none';
@@ -44,7 +36,6 @@
     var statusLine = '';
     lines.forEach(function (line) {
       if (!line.trim()) return;
-      /* Status line detection: HTTP/1.1 200 OK or GET /path HTTP/1.1 */
       if (/^(HTTP\/|GET |POST |PUT |DELETE |PATCH |HEAD |OPTIONS )/i.test(line)) { statusLine = line; return; }
       var idx = line.indexOf(':');
       if (idx === -1) return;
@@ -58,11 +49,8 @@
     $('t-result').className = 'out-body mono b'; $('t-result').textContent = out;
     CK.toast(headers.length + ' headers parsed');
   });
-
-  
   CK.wireCtrlEnter('btn-parse');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'http-header-parser-output.txt');
-
   CK.setUsageContent('<ol><li><strong>Paste</strong> raw HTTP headers (from curl, dev tools, etc.).</li><li>Click <strong>Parse</strong> to get a structured, numbered breakdown.</li></ol><p>Detects HTTP status lines and request lines automatically. Each header is parsed into name-value pairs.</p>');
 })();

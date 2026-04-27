@@ -1,11 +1,7 @@
-/**
- * CipherKit — Binary Decoder
- */
 (function () {
   'use strict';
   var root = document.getElementById('tool-root');
   if (!root) return;
-
   var IC = {
     binary: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="8" height="18" rx="2"/><rect x="14" y="3" width="8" height="18" rx="2"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="18" y1="8" x2="18" y2="12"/></svg>',
     copy:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
@@ -13,9 +9,7 @@
     play:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
     dl:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>'
   };
-
   function $(id) { return document.getElementById(id); }
-
   root.innerHTML =
     '<div class="tool-single-col">'
     + '<div class="tool-card-ui">'
@@ -30,16 +24,13 @@
     +   '</div>'
     + '</div>'
     + '</div>';
-
   $('btn-clr').addEventListener('click', function () { $('t-input').value = ''; $('t-result').className = 'out-body mono ph'; $('t-result').textContent = 'Decoded text will appear here\u2026'; });
   CK.wireCopy($('btn-cp'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; });
   CK.initAutoGrow($('t-input'));
-
   $('btn-dec').addEventListener('click', function () {
     var input = $('t-input').value.trim();
     $('t-err').textContent = ''; $('t-err').style.display = 'none';
     if (!input) { $('t-err').textContent = 'Please enter a binary string.'; $('t-err').style.display = 'block'; return; }
-    /* Strip separators */
     var chunks = input.replace(/[^01]/g, ' ').trim().split(/\s+/);
     if (!chunks.length || !chunks[0]) { $('t-err').textContent = 'No valid binary data found.'; $('t-err').style.display = 'block'; return; }
     var text = '';
@@ -51,20 +42,11 @@
     $('t-result').className = 'out-body mono b'; $('t-result').textContent = text;
     CK.toast('Binary decoded');
   });
-
-  
   CK.wireCtrlEnter('btn-dec');
   CK.wireCharCounter($('t-input'), $('t-input-meta'));
   CK.wireDownload($('btn-dl'), function () { var t = $('t-result').textContent; return t.indexOf('appear') === -1 ? t : ''; }, 'binary-decode-output.txt');
-
   CK.setUsageContent('<ol><li><strong>Enter a binary string</strong> (e.g. <code>01001000 01101001</code>).</li><li>Any separators (spaces, commas, newlines) are automatically handled.</li><li>Click <strong>Decode</strong> to convert back to text.</li></ol><p>Each group of binary digits is converted to its character code. Supports 8-bit, 16-bit, or any width binary groups.</p>');
-
-  /* CK-PATCHED — sample data */
   (function(){var inp=$('t-input');if(inp&&!inp.value){inp.value='01001000 01101001';inp.dispatchEvent(new Event('input'));var b=$('btn-dec');if(b)b.click();}})();
-
-  /* CK-PATCHED — live output */
   (function(){var _dt;var _inp=$('t-input');var _btn=$('btn-dec');if(_inp&&_btn){_inp.addEventListener('input',function(){clearTimeout(_dt);_dt=setTimeout(function(){_btn.click()},150)})}})();
-
-  /* CK-PATCHED — swap button */
   (function(){var sb=$('btn-swap');if(sb){sb.addEventListener('click',function(){var oe=$('t-result');var ie=$('t-input');var ov=oe?oe.value||oe.textContent:'';if(!ov||ov.indexOf('appear')!==-1)return;ie.value=ov;ie.dispatchEvent(new Event('input'));ie.scrollIntoView({behavior:'smooth',block:'start'});CK.toast('Output moved to input')})}})();
 })();

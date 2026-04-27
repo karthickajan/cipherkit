@@ -69,6 +69,26 @@ function minifyCSS(css) {
     .trim();
 }
 
+/** Simple JS minifier — collapses blank lines (safe, no regex-based comment stripping) */
+function minifyJS(js) {
+  const lines = js.split('\n');
+  const out = [];
+  let inBlockComment = false;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmed = line.trim();
+    // Skip pure block comment lines (start/end on own line only)
+    if (!inBlockComment && (trimmed === '/**' || trimmed === '/*')) { inBlockComment = true; continue; }
+    if (inBlockComment) { if (trimmed === '*/' || trimmed.endsWith('*/')) { inBlockComment = false; } continue; }
+    // Skip standalone single-line block comments like /* ── SECTION ── */
+    if (/^\s*\/\*[^*]*\*\/\s*$/.test(line) && !line.includes("'") && !line.includes('"') && !line.includes('`')) continue;
+    // Skip blank lines
+    if (trimmed === '') continue;
+    out.push(line);
+  }
+  return out.join('\n');
+}
+
 function writeDist(relPath, content) {
   const full = path.join(DIST, relPath);
   mkdirp(path.dirname(full));
@@ -163,6 +183,11 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
     .tool-interface-wrap{max-width:1100px;margin:0 auto;padding:28px 24px;min-height:60vh}
     .tool-container{min-height:400px}
     .tool-page-lower{min-height:280px}
+    .hero{text-align:center;padding:64px 24px 48px}
+    .hero-inner{max-width:680px;margin:0 auto}
+    .hero h1{font-size:clamp(32px,5vw,54px);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin-bottom:18px;background:linear-gradient(120deg,#dde4ed,#3dd68c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Syne',Arial,sans-serif}
+    .hero-sub{font-size:14px;margin-bottom:32px;color:#9ea7b2;line-height:1.8}
+    .hub-section{content-visibility:auto;contain-intrinsic-size:0 600px}
   </style>
 
   <!-- Stylesheets -->
@@ -950,6 +975,11 @@ function copyAssets() {
         // Minify CSS files
         const raw = fs.readFileSync(s, 'utf8');
         fs.writeFileSync(d, minifyCSS(raw), 'utf8');
+        console.log(`  ✓ assets/${path.relative(assetDist, d)} (minified)`);
+      } else if (entry.name.endsWith('.js')) {
+        // Minify JS files
+        const raw = fs.readFileSync(s, 'utf8');
+        fs.writeFileSync(d, minifyJS(raw), 'utf8');
         console.log(`  ✓ assets/${path.relative(assetDist, d)} (minified)`);
       } else {
         fs.copyFileSync(s, d);
