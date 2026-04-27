@@ -434,3 +434,52 @@
     right: 20px;
   }
 }
+
+/* ── LIGHT THEME ─────────────────────────────────────────────────────────── */
+[data-theme="light"] .ck-fab {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+[data-theme="light"] .ck-feedback-popover {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 12px 32px rgba(0,0,0,.12);
+}
+[data-theme="light"] .ck-fb-emoji-btn {
+  border-color: var(--border);
+}
+[data-theme="light"] .ck-fb-textarea {
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--text);
+}
+[data-theme="light"] .ck-fb-submit {
+  background: var(--green);
+  color: #fff;
+}
+[data-theme="light"] .ck-fb-sent {
+  background: var(--sf2);
+  color: var(--green);
+}
+/* Feedback thumbs */
+[data-theme="light"] .ck-fp-thumb-btn {
+  background: var(--sf2);
+  border-color: var(--border);
+}
+[data-theme="light"] .ck-fp-thumb-btn:hover {
+  background: var(--surface);
+  border-color: var(--muted);
+}
+[data-theme="light"] .ck-fp-thumb-btn.selected {
+  border-color: var(--green);
+  background: rgba(26,140,91,.06);
+}
+/* Feedback debug/toggle */
+[data-theme="light"] .ck-fp-debug-toggle {
+  background: var(--sf2);
+  border-color: var(--border);
+}
+[data-theme="light"] .ck-fp-toggle {
+  background: var(--border);
+}

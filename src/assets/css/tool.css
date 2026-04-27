@@ -1320,3 +1320,187 @@ input[type="color"].ck-swatch::-moz-color-swatch { border: none; border-radius: 
   text-transform: uppercase;
   letter-spacing: .3px;
 }
+
+/* ── LIGHT THEME OVERRIDES ───────────────────────────────────────────────── */
+[data-theme="light"] .tool-input,
+[data-theme="light"] .tool-output,
+[data-theme="light"] textarea,
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="number"],
+[data-theme="light"] input[type="password"],
+[data-theme="light"] select {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+[data-theme="light"] .badge-green {
+  background: rgba(26,140,91,.1);
+  color: #1a8c5b;
+}
+[data-theme="light"] .related-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="light"] .related-card:hover {
+  border-color: #1a8c5b;
+}
+[data-theme="light"] .breadcrumb a { color: var(--muted); }
+[data-theme="light"] .tool-tagline { color: var(--muted); }
+
+/* Mode tabs */
+[data-theme="light"] .mode-tabs {
+  background: var(--sf2);
+  border-color: var(--border);
+}
+[data-theme="light"] .mt { color: var(--muted); }
+[data-theme="light"] .mt:hover { color: var(--text); background: var(--surface); }
+[data-theme="light"] .mt.active,
+[data-theme="light"] .mt[aria-pressed="true"] {
+  background: var(--surface);
+  color: var(--green);
+  border-color: var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+/* Output box */
+[data-theme="light"] .out-box { background: var(--sf2); }
+[data-theme="light"] .out-head { background: var(--sf2); }
+
+/* Tool card UI */
+[data-theme="light"] .tool-card-ui { background: var(--surface); border-color: var(--border); }
+[data-theme="light"] .tc-head { background: var(--sf2); }
+[data-theme="light"] .tc-body { background: var(--surface); }
+
+/* Date/time inputs */
+[data-theme="light"] input[type="date"],
+[data-theme="light"] input[type="time"] {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+  color-scheme: light;
+}
+[data-theme="light"] input[type="date"]:focus,
+[data-theme="light"] input[type="time"]:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(26,140,91,.1);
+}
+
+/* Datetime editor */
+[data-theme="light"] .datetime-editor {
+  background: var(--sf2);
+  border-color: var(--border);
+}
+[data-theme="light"] .dte-field {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+[data-theme="light"] .dte-field:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(26,140,91,.1);
+}
+[data-theme="light"] .dte-label { color: var(--muted); }
+[data-theme="light"] .dte-sep { color: var(--border); }
+[data-theme="light"] .dte-now-btn {
+  border-color: var(--border);
+  color: var(--muted);
+}
+[data-theme="light"] .dte-now-btn:hover { color: var(--green); border-color: var(--green); }
+
+/* Upload zone */
+[data-theme="light"] .upload-zone {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="light"] .upload-zone:hover,
+[data-theme="light"] .upload-zone.drag-over {
+  border-color: var(--green);
+  background: rgba(26,140,91,.03);
+}
+[data-theme="light"] .upload-zone.has-file { border-color: var(--border); }
+[data-theme="light"] .upload-label { color: var(--muted); }
+[data-theme="light"] .upload-sub { color: var(--dim); }
+[data-theme="light"] .upload-formats { color: var(--dim); }
+[data-theme="light"] .upload-link { color: var(--green); }
+
+/* Color swatch */
+[data-theme="light"] input[type="color"].ck-swatch { border-color: var(--border); }
+[data-theme="light"] input[type="color"].ck-swatch:hover { border-color: var(--green); }
+[data-theme="light"] .ck-recent-swatch { border-color: var(--border); }
+[data-theme="light"] .ck-recent-swatch:hover { border-color: var(--green); }
+[data-theme="light"] .ck-hex-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,140,91,.08); }
+
+/* History */
+[data-theme="light"] .ck-hist-entry:hover { background: rgba(0,0,0,.04); }
+[data-theme="light"] .ck-hist-in,
+[data-theme="light"] .ck-hist-out,
+[data-theme="light"] .ck-hist-kv { color: var(--muted); }
+[data-theme="light"] .ck-hist-arrow,
+[data-theme="light"] .ck-hist-time,
+[data-theme="light"] .ck-hist-clear { color: var(--dim); }
+[data-theme="light"] .ck-hist-lbl { color: var(--muted); }
+
+/* Action buttons — keep vibrant but adjust text */
+[data-theme="light"] .act-green { background: linear-gradient(135deg,#1a8c5b,#22a06b); color: #fff; }
+[data-theme="light"] .act-blue  { background: linear-gradient(135deg,#0969da,#218bff); color: #fff; }
+[data-theme="light"] .act-purple { background: linear-gradient(135deg,#8250df,#9a6dff); color: #fff; }
+[data-theme="light"] .act-amber { background: linear-gradient(135deg,#b45309,#d97706); color: #fff; }
+
+/* Pill buttons, icon buttons */
+[data-theme="light"] .pill-btn { background: var(--sf2); border-color: var(--border); color: var(--muted); }
+[data-theme="light"] .icon-btn { background: var(--sf2); border-color: var(--border); color: var(--muted); }
+
+/* Focus rings */
+[data-theme="light"] textarea:focus,
+[data-theme="light"] input[type=text]:focus,
+[data-theme="light"] input[type=password]:focus,
+[data-theme="light"] input[type=number]:focus {
+  border-color: rgba(26,140,91,.4);
+  box-shadow: 0 0 0 3px rgba(26,140,91,.08);
+}
+
+/* Usage guide & SEO content */
+[data-theme="light"] .usage-guide,
+[data-theme="light"] .seo-content {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+/* Copy-link button */
+[data-theme="light"] .ck-copy-link { border-color: var(--border); color: var(--muted); }
+[data-theme="light"] .ck-copy-link:hover { color: var(--green); border-color: var(--green); }
+
+/* ── JS-injected tool overrides (regex-tester, image-resizer, docx-to-html) ── */
+/* Regex tester flags */
+[data-theme="light"] .rx-flag { background: var(--sf2) !important; border-color: var(--border) !important; }
+[data-theme="light"] .rx-flag.on { background: var(--surface) !important; color: var(--green) !important; border-color: var(--green) !important; }
+
+/* Image resizer */
+[data-theme="light"] .ir-tab { background: var(--sf2) !important; border-color: var(--border) !important; color: var(--muted) !important; }
+[data-theme="light"] .ir-tab:hover { border-color: var(--dim) !important; }
+[data-theme="light"] .ir-tab.active { background: var(--surface) !important; border-color: var(--green) !important; color: var(--green) !important; }
+[data-theme="light"] .ir-field input,
+[data-theme="light"] .ir-field select { background: var(--surface) !important; border-color: var(--border) !important; color: var(--text) !important; }
+[data-theme="light"] .ir-field input:focus,
+[data-theme="light"] .ir-field select:focus { border-color: var(--green) !important; }
+[data-theme="light"] .ir-chain { background: var(--sf2) !important; border-color: var(--border) !important; }
+[data-theme="light"] .ir-chain:hover,
+[data-theme="light"] .ir-chain.locked { border-color: var(--green) !important; }
+[data-theme="light"] .ir-out-tab { background: var(--sf2) !important; border-color: var(--border) !important; }
+[data-theme="light"] .ir-out-tab.active { border-color: var(--green) !important; color: var(--green) !important; }
+[data-theme="light"] .ir-aspect-btn { background: var(--sf2) !important; border-color: var(--border) !important; }
+[data-theme="light"] .ir-aspect-btn.active { border-color: var(--green) !important; color: var(--green) !important; }
+[data-theme="light"] .ir-upload { background: var(--surface) !important; border-color: var(--border) !important; }
+[data-theme="light"] .ir-upload:hover,
+[data-theme="light"] .ir-upload.dragover { border-color: var(--green) !important; background: rgba(26,140,91,.03) !important; }
+
+/* Docx-to-HTML */
+[data-theme="light"] .d2h-tabs { background: var(--sf2) !important; border-color: var(--border) !important; }
+[data-theme="light"] .d2h-tab { color: var(--muted) !important; }
+[data-theme="light"] .d2h-tab:hover { color: var(--text) !important; background: var(--surface) !important; }
+[data-theme="light"] .d2h-tab.active { background: var(--surface) !important; color: var(--purple) !important; border-color: var(--border) !important; box-shadow: 0 1px 3px rgba(0,0,0,.08) !important; }
+
+/* Generic: any element with dark bg inside tool-root */
+[data-theme="light"] .out-body { background: var(--sf2); }
+[data-theme="light"] .out-head { border-bottom-color: var(--border); }
+[data-theme="light"] .out-text { color: var(--text); }

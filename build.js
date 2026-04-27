@@ -186,7 +186,13 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
     .hero h1{font-size:clamp(32px,5vw,54px);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin-bottom:18px;background:linear-gradient(120deg,#dde4ed,#3dd68c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Syne',Arial,sans-serif}
     .hero-sub{font-size:14px;margin-bottom:32px;color:#9ea7b2;line-height:1.8}
     .hub-section{content-visibility:auto;contain-intrinsic-size:0 600px}
+    .theme-icon-sun{display:none}.theme-icon-moon{display:block}
+    [data-theme="light"] .theme-icon-sun{display:block}[data-theme="light"] .theme-icon-moon{display:none}
+    [data-theme="light"] body{background:#f5f7fa;color:#1f2328}
+    [data-theme="light"] .site-header{background:rgba(245,247,250,.92);border-bottom-color:#d0d7de}
+    [data-theme="light"] .hero h1{background:linear-gradient(120deg,#1f2328,#1a8c5b);-webkit-background-clip:text;background-clip:text}
   </style>
+  <script>try{var t=localStorage.getItem('ck-theme');if(t){document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#f5f7fa'}}catch(e){}</script>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css">
@@ -270,6 +276,10 @@ function buildNavbar(headerBadge, activeCategory) {
       </span>
       <button id="gh-stars" class="gh-stars-badge" onclick="CK.bookmarkSite(event)" aria-label="Bookmark this site" type="button">🔖 <span id="gh-star-count">Bookmark</span></button>
     </div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light/dark mode" onclick="CK.toggleTheme()">
+      <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
   </div>
 </header>
 `.trim();
@@ -307,7 +317,7 @@ function buildFooter() {
       </a>
       <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
       <a href="${site.github}" class="footer-github" target="_blank" rel="noopener">View on GitHub ↗</a>
-      <div style="font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 4px;">
+      <div class="footer-crafted" style="font-size: 12px; color: var(--muted); opacity: 0.6; margin-top: 4px;">
         Crafted by <a href="https://karthickajan.github.io/Ajan/" target="_blank" rel="noopener noreferrer">Ajan</a>
       </div>
     </div>
@@ -536,7 +546,20 @@ ${navbar}
   <div class="tool-interface-wrap" id="tool-interface">
     <div class="tool-container" id="tool-root">
       <!-- Tool UI rendered here by ${tool.jsFile} -->
-      <div class="tool-loading">Loading tool...</div>
+      ${tool.slug === 'diff-checker' ? `<div class="tool-skeleton" aria-hidden="true" style="display:flex;gap:12px;padding:16px;min-height:50vh">
+        <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:6px;border:1px solid rgba(255,255,255,0.08);padding:16px">
+          <div style="height:14px;width:40%;background:rgba(255,255,255,0.06);border-radius:4px;margin-bottom:12px"></div>
+          <div style="height:14px;width:90%;background:rgba(255,255,255,0.04);border-radius:4px;margin-bottom:8px"></div>
+          <div style="height:14px;width:75%;background:rgba(255,255,255,0.04);border-radius:4px;margin-bottom:8px"></div>
+          <div style="height:14px;width:85%;background:rgba(255,255,255,0.04);border-radius:4px"></div>
+        </div>
+        <div style="flex:1;background:rgba(255,255,255,0.03);border-radius:6px;border:1px solid rgba(255,255,255,0.08);padding:16px">
+          <div style="height:14px;width:40%;background:rgba(255,255,255,0.06);border-radius:4px;margin-bottom:12px"></div>
+          <div style="height:14px;width:90%;background:rgba(255,255,255,0.04);border-radius:4px;margin-bottom:8px"></div>
+          <div style="height:14px;width:75%;background:rgba(255,255,255,0.04);border-radius:4px;margin-bottom:8px"></div>
+          <div style="height:14px;width:85%;background:rgba(255,255,255,0.04);border-radius:4px"></div>
+        </div>
+      </div>` : '<div class="tool-loading">Loading tool...</div>'}
     </div>
   </div>
 
@@ -693,7 +716,7 @@ ${buildNavbar()}
 
     <!-- Recently Used (hidden by default, populated by JS) -->
     <section id="recently-used" style="display:none; margin-bottom: 2rem;">
-      <h2 style="font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:#444; margin-bottom:12px;">Recently used</h2>
+      <h2 style="font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:12px;">Recently used</h2>
       <div id="recent-tools-row" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
     </section>
 
@@ -791,10 +814,10 @@ searchInput.addEventListener('input', function() {
     var color = hubColors[item.hub] || '#00ff88';
     var card = document.createElement('a');
     card.href = '/tools/' + item.slug + '/';
-    card.style.cssText = 'display:inline-flex;flex-direction:column;gap:4px;padding:10px 14px;background:#111;border:1px solid #1e1e1e;border-radius:9px;text-decoration:none;transition:border-color 0.15s;min-width:120px;';
-    card.onmouseenter = function() { card.style.borderColor = '#2a2a2a'; };
-    card.onmouseleave = function() { card.style.borderColor = '#1e1e1e'; };
-    card.innerHTML = '<span style="font-size:13px;color:#e0e0e0;white-space:nowrap;">' + item.name + '</span>'
+    card.style.cssText = 'display:inline-flex;flex-direction:column;gap:4px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:9px;text-decoration:none;transition:border-color 0.15s;min-width:120px;';
+    card.onmouseenter = function() { card.style.borderColor = 'var(--green)'; };
+    card.onmouseleave = function() { card.style.borderColor = 'var(--border)'; };
+    card.innerHTML = '<span style="font-size:13px;color:var(--text);white-space:nowrap;">' + item.name + '</span>'
       + '<span style="font-size:11px;color:' + color + ';opacity:0.8;">' + item.hub + '</span>';
     row.appendChild(card);
   });

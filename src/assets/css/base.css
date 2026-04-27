@@ -238,3 +238,43 @@ select:focus {
 
 .spin-icon { animation: spin .7s linear infinite; }
 .fade-up   { animation: fadeUp .3s ease; }
+
+/* ── LIGHT THEME ─────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:       #f5f7fa;
+  --surface:  #ffffff;
+  --sf2:      #eef1f6;
+  --border:   #d0d7de;
+  --green:    #1a8c5b;
+  --gdim:     #d4f0e2;
+  --amber:    #b45309;
+  --red:      #cf222e;
+  --blue:     #0969da;
+  --purple:   #8250df;
+  --text:     #1f2328;
+  --muted:    #656d76;
+  --dim:      #656d76;
+}
+[data-theme="light"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+[data-theme="light"] .site-header {
+  background: rgba(245,247,250,.92);
+  border-bottom-color: var(--border);
+}
+[data-theme="light"] ::-webkit-scrollbar-track { background: var(--surface); }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: var(--border); }
+[data-theme="light"] code,
+[data-theme="light"] pre { background: var(--sf2); }
+
+/* Toast in light mode — dark bg for visibility */
+[data-theme="light"] .toast {
+  background: #1f2328;
+  border-color: #1a8c5b;
+  color: #3dd68c;
+}
+
+/* Links — use green */
+[data-theme="light"] a { color: var(--green); }
+[data-theme="light"] a:hover { color: #15703e; }
