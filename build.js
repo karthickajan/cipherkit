@@ -122,8 +122,9 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <link rel="manifest" href="${BASE_PATH}/site.webmanifest">
 
   <!-- Fonts — non-blocking, font-display:swap prevents layout shift -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
   <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Syne:wght@400;600;700;800&display=swap"
     onload="this.onload=null;this.rel='stylesheet'">
@@ -152,7 +153,8 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css">
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css">
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css"></noscript>
 
   <!-- GA4 anonymous analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL"></script>
@@ -221,7 +223,7 @@ function buildNavbar(headerBadge, activeCategory) {
         <span class="live-dot"${dotStyle} aria-hidden="true"></span>
         ${badge.text}
       </span>
-      <a id="gh-stars" href="javascript:void(0)" class="gh-stars-badge" title="Bookmark CipherKit" onclick="CK.bookmarkSite(event)">🔖 <span id="gh-star-count">Bookmark</span></a>
+      <button id="gh-stars" class="gh-stars-badge" onclick="CK.bookmarkSite(event)" aria-label="Bookmark this site" type="button">🔖 <span id="gh-star-count">Bookmark</span></button>
     </div>
   </div>
 </header>

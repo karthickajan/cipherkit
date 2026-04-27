@@ -1,0 +1,14 @@
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/js/core/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/js/tools/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/js/vendors/*
+  Cache-Control: public, max-age=31536000, immutable

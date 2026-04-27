@@ -403,6 +403,10 @@
 
   /* ── CORE RENDER LOGIC ──────────────────────────────────────────────────── */
   function renderDiff() {
+    var cb = typeof requestIdleCallback === 'function' ? requestIdleCallback : function(fn) { setTimeout(fn, 0); };
+    cb(function() { renderDiffSync(); }, { timeout: 500 });
+  }
+  function renderDiffSync() {
     currentDiff = lcsDiffAligned($('t-left').value, $('t-right').value);
     
     $('dm-stats-bar').innerHTML = 
