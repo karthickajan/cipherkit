@@ -761,12 +761,13 @@ searchInput.addEventListener('input', function() {
   }
 
   const hubBadge = {
-    crypto:    { label: 'Crypto',    color: '#00ff88', bg: 'rgba(0,255,136,0.08)' },
-    encoding:  { label: 'Encoding',  color: '#00d4ff', bg: 'rgba(0,212,255,0.08)' },
-    converter: { label: 'Converter', color: '#a78bfa', bg: 'rgba(167,139,250,0.08)' },
-    dev:       { label: 'Dev',       color: '#fb923c', bg: 'rgba(251,146,60,0.08)' },
-    image:     { label: 'Image',     color: '#f472b6', bg: 'rgba(244,114,182,0.08)' }
+    crypto:    { label: 'Crypto',    color: ['#00ff88','#0d7a40'], bg: ['rgba(0,255,136,0.08)','rgba(13,122,64,0.1)'] },
+    encoding:  { label: 'Encoding',  color: ['#00d4ff','#0874a6'], bg: ['rgba(0,212,255,0.08)','rgba(8,116,166,0.1)'] },
+    converter: { label: 'Converter', color: ['#a78bfa','#7c3aed'], bg: ['rgba(167,139,250,0.08)','rgba(124,58,237,0.1)'] },
+    dev:       { label: 'Dev',       color: ['#fb923c','#c2410c'], bg: ['rgba(251,146,60,0.08)','rgba(194,65,12,0.1)'] },
+    image:     { label: 'Image',     color: ['#f472b6','#be185d'], bg: ['rgba(244,114,182,0.08)','rgba(190,24,93,0.1)'] }
   };
+  var isLt = document.documentElement.getAttribute('data-theme') === 'light' ? 1 : 0;
 
   const hits = TOOLS.filter(t =>
     t.title.toLowerCase().includes(q) ||
@@ -776,12 +777,12 @@ searchInput.addEventListener('input', function() {
 
   searchGrid.innerHTML = hits.length
     ? hits.map(t => {
-        const badge = hubBadge[t.category] || { label: t.category, color: '#9ea7b2', bg: 'rgba(158,167,178,0.08)' };
+        const badge = hubBadge[t.category] || { label: t.category, color: ['#9ea7b2','#656d76'], bg: ['rgba(158,167,178,0.08)','rgba(101,109,118,0.1)'] };
         return \`
         <a href="${BASE_PATH}/tools/\${t.slug}/" class="tool-card">
           <div class="tool-card-title">\${t.title}</div>
           <div class="tool-card-tag">\${t.tagline}</div>
-          <span class="hub-badge" style="color:\${badge.color};background:\${badge.bg};font-size:10px;padding:2px 8px;border-radius:99px;margin-top:6px;display:inline-block;font-family:var(--sans);font-weight:600">\${badge.label}</span>
+          <span class="hub-badge" style="color:\${badge.color[isLt]};background:\${badge.bg[isLt]};font-size:10px;padding:2px 8px;border-radius:99px;margin-top:6px;display:inline-block;font-family:var(--sans);font-weight:600">\${badge.label}</span>
         </a>\`;
       }).join('')
     : '<p class="no-results">No tools found. <a href="https://github.com/karthickajan/cipherkit/issues" target="_blank">Suggest one ↗</a></p>';
@@ -802,16 +803,18 @@ searchInput.addEventListener('input', function() {
   if (!Array.isArray(recent) || recent.length === 0) return;
 
   var hubColors = {
-    'Crypto Hub': '#00ff88', 'Encoding Hub': '#00d4ff',
-    'Converter Hub': '#a78bfa', 'Dev Hub': '#fb923c', 'Image Hub': '#f472b6'
+    'Crypto Hub': ['#00ff88','#0d7a40'], 'Encoding Hub': ['#00d4ff','#0874a6'],
+    'Converter Hub': ['#a78bfa','#7c3aed'], 'Dev Hub': ['#fb923c','#c2410c'], 'Image Hub': ['#f472b6','#be185d']
   };
+  var isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
   var row = document.getElementById('recent-tools-row');
   var section = document.getElementById('recently-used');
   if (!row || !section) return;
 
   recent.slice(0, 5).forEach(function(item) {
-    var color = hubColors[item.hub] || '#00ff88';
+    var colors = hubColors[item.hub] || ['#00ff88','#0d7a40'];
+    var color = isLight ? colors[1] : colors[0];
     var card = document.createElement('a');
     card.href = '/tools/' + item.slug + '/';
     card.style.cssText = 'display:inline-flex;flex-direction:column;gap:4px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:9px;text-decoration:none;transition:border-color 0.15s;min-width:120px;';
