@@ -106,9 +106,10 @@ function copySrc(srcRel, distRel) {
 }
 
 // ── SHARED HEAD HTML ────────────────────────────────────────────────────────
-function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', extraImgSrc = '' }) {
+function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', extraImgSrc = '', extraConnectSrc = '' }) {
   const canonical = `${DOMAIN}${canonicalPath}`;
   const imgSrc = `'self' data: blob: https://www.google-analytics.com${extraImgSrc ? ' ' + extraImgSrc : ''}`;
+  const connectSrc = `'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com${extraConnectSrc ? ' ' + extraConnectSrc : ''}`;
   return `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,7 +124,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src ${imgSrc}; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src ${connectSrc}; img-src ${imgSrc}; frame-ancestors 'none';">
 
   <!-- Open Graph -->
   <meta property="og:title" content="${pageTitle}">
@@ -357,7 +358,7 @@ function buildFooter() {
   </div>
 
   <div class="footer-bottom">
-  <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="mailto:karthickajangs@gmail.com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a></p>
+  <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="${BASE_PATH}/tools/support/">Support</a>. <a href="mailto:karthickajangs@gmail.com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a></p>
   </div>
 </footer>
 `.trim();
@@ -929,6 +930,12 @@ ${buildFooter()}
 </html>`;
 }
 
+// ── SUPPORT PAGE (external module — avoids nested template-literal issues) ────
+const _buildSupportPage = require('./build-support-page.js');
+function buildSupportPage() {
+  return _buildSupportPage({ buildHead, buildNavbar, buildFooter, SVG, BASE_PATH, site });
+}
+
 // ── SITEMAP ───────────────────────────────────────────────────────────────────
 function buildSitemap() {
   const today = new Date().toISOString().split('T')[0];
@@ -941,6 +948,7 @@ function buildSitemap() {
     { loc: `${DOMAIN}/tools/dev/`,        priority: '0.8', freq: 'weekly' },
     { loc: `${DOMAIN}/tools/image/`,      priority: '0.8', freq: 'weekly' },
     { loc: `${DOMAIN}/tools/privacy-policy/`, priority: '0.3', freq: 'yearly' },
+    { loc: `${DOMAIN}/tools/support/`,        priority: '0.4', freq: 'monthly' },
   ];
 
   const toolUrls = tools.map(t => ({
@@ -1165,6 +1173,11 @@ function build() {
   // 6. Privacy Policy page
   console.log('📜 Building privacy policy...');
   writeDist('tools/privacy-policy/index.html', buildPrivacyPage());
+  console.log('');
+
+  // 6b. Support page
+  console.log('💚 Building support page...');
+  writeDist('tools/support/index.html', buildSupportPage());
   console.log('');
 
   // 7. SEO files
