@@ -88,7 +88,6 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
 
   // ── Peerlist ──
   p.push('          <h3 style="color:var(--green);margin-bottom:12px">Peerlist Launchpad</h3>');
-  p.push('          <p style="color:var(--muted);margin-bottom:12px">Ranked <strong style="color:var(--text)">#1</strong> on Launchpad India.</p>');
   p.push('          <a href="https://peerlist.io/karthick_ajan/project/cipherkit" target="_blank" rel="noreferrer">');
   p.push('            <img src="https://peerlist.io/api/v1/projects/embed/PRJHJKNJDN8N97RG7FONBD7B79AJE8?showUpvote=true&theme=dark" alt="CipherKit on Peerlist Launchpad" loading="lazy" style="width:auto;height:72px;border-radius:6px">');
   p.push('          </a>');
@@ -116,7 +115,7 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('            ' + platformBtn('https://cipherkit.hashnode.dev/stop-pasting-your-company-s-api-payloads-into-random-websites', 'Hashnode'));
   p.push('            ' + platformBtn('https://stackshare.io/cipherkit', 'StackShare'));
   p.push('            ' + platformBtn('https://www.saashub.com/cipherkit-app-alternatives', 'SaaSHub'));
-  p.push('            ' + platformBtn('https://launchpadindia.co/listing/cipherkit?sort=top', 'Launchpad India'));
+  p.push('            ' + platformBtn('https://launchpadindia.co/listing/cipherkit?sort=top', 'Launchpad India &#127942; #1'));
   p.push('            ' + platformBtn(site.github, 'GitHub &#11088;'));
   p.push('          </div>');
 
