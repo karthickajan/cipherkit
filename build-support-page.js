@@ -100,23 +100,17 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('          </a>');
   p.push('          ' + copyBlock(embeds.vibeRank));
 
-  // ── Fazier ──
-  p.push('          <h3 style="color:var(--green);margin-bottom:12px">Fazier</h3>');
-  p.push('          <a href="https://fazier.com/launches/cipherkit" target="_blank" rel="noopener">');
-  p.push('            <img src="https://fazier.com/api/v1/public/badges/embed_image.svg?launch_id=8284&badge_type=featured&variant=3&theme=neutral" width="200" alt="CipherKit — Featured on Fazier" loading="lazy" style="border-radius:6px">');
-  p.push('          </a>');
-  p.push('          ' + copyBlock(embeds.fazier));
-
-  // ── Platform links ──
+  // ── Platform links (including Fazier as link-only) ──
   p.push('          <h3 style="color:var(--green);margin-bottom:12px">More Platforms</h3>');
   p.push('          <div style="display:flex;flex-wrap:wrap;gap:10px">');
+  p.push('            ' + platformBtn('https://fazier.com/launches/cipherkit', 'Fazier'));
   p.push('            ' + platformBtn('https://www.producthunt.com/products/cipherkit', 'Product Hunt'));
   p.push('            ' + platformBtn('https://dev.to/karthick_ajan/cipherkit-5h2i', 'DEV.to'));
   p.push('            ' + platformBtn('https://cipherkit.hashnode.dev/stop-pasting-your-company-s-api-payloads-into-random-websites', 'Hashnode'));
   p.push('            ' + platformBtn('https://stackshare.io/cipherkit', 'StackShare'));
   p.push('            ' + platformBtn('https://www.saashub.com/cipherkit-app-alternatives', 'SaaSHub'));
   p.push('            ' + platformBtn('https://launchpadindia.co/listing/cipherkit?sort=top', 'Launchpad India &#127942; #1'));
-  p.push('            ' + platformBtn(site.github, 'GitHub &#11088;'));
+  p.push('            ' + platformBtn(site.github, 'GitHub &#9733;'));
   p.push('          </div>');
 
   p.push('        </div>');
@@ -147,7 +141,7 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('                <code style="background:var(--bg);padding:2px 8px;border-radius:4px;border:1px solid var(--border);font-size:11px;user-select:all">karthickajangs-1@oksbi</code>');
   p.push('              </p>');
   p.push('              <p style="color:var(--muted);font-size:12px;margin-top:8px">Scan with any UPI app<br>(GPay, PhonePe, Paytm, etc.)</p>');
-  p.push('              <a href="upi://pay?pa=karthickajangs-1@oksbi&pn=Karthick%20Ajan&cu=INR" style="display:inline-block;margin-top:12px;padding:8px 20px;background:var(--green);color:#02150a;border-radius:6px;font-weight:700;font-size:13px;text-decoration:none">Open UPI App</a>');
+  p.push('              <a href="upi://pay?pa=karthickajangs-1@oksbi&pn=Karthick%20Ajan&cu=INR" style="display:inline-block;margin-top:12px;padding:10px 28px;background:var(--green);color:#02150a;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none">Open UPI App</a>');
   p.push('            </div>');
 
   // ── GitHub Sponsors card ──
@@ -161,7 +155,7 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('            <div style="flex:1;min-width:240px;text-align:center;padding:20px;background:var(--bg);border:1px solid var(--border);border-radius:10px">');
   p.push('              <h3 style="color:var(--green);margin-bottom:12px;font-size:15px">Free Support</h3>');
   p.push('              <p style="color:var(--muted);font-size:13px;margin-bottom:16px">No money? No problem.<br>A GitHub star helps more than you think.</p>');
-  p.push('              <a href="' + site.github + '" target="_blank" rel="noopener" style="display:inline-block;padding:10px 28px;background:var(--green);color:#02150a;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none">&#11088; Star on GitHub</a>');
+  p.push('              <a href="' + site.github + '" target="_blank" rel="noopener" style="display:inline-block;padding:10px 28px;background:var(--green);color:#02150a;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none">&#9733; Star on GitHub</a>');
   p.push('            </div>');
 
   p.push('          </div>');
