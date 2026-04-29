@@ -1134,6 +1134,10 @@ ${footer}
   <span id="toast-msg">Copied to clipboard</span>
 </div>
 
+<script src="/assets/js/core/ui.js" defer></script>
+<script src="/assets/js/feedback.js" defer></script>
+<script src="/assets/js/core/ck-state.js" defer></script>
+
 </body>
 </html>`;
 }

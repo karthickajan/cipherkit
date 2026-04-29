@@ -111,6 +111,7 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('            ' + platformBtn('https://www.saashub.com/cipherkit-app-alternatives', 'SaaSHub'));
   p.push('            ' + platformBtn('https://launchpadindia.co/listing/cipherkit?sort=top', 'Launchpad India &#127942; #1'));
   p.push('            ' + platformBtn(site.github, 'GitHub &#9733;'));
+  p.push('            ' + platformBtn('https://news.ycombinator.com/item?id=44486498', 'Hacker News'));
   p.push('          </div>');
 
   p.push('        </div>');
@@ -173,6 +174,10 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('</main>');
   p.push('');
   p.push(footer);
+  p.push('');
+  p.push('<script src="/assets/js/core/ui.js" defer></script>');
+  p.push('<script src="/assets/js/feedback.js" defer></script>');
+  p.push('<script src="/assets/js/core/ck-state.js" defer></script>');
   p.push('');
   p.push('</body>');
   p.push('</html>');
