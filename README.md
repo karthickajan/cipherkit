@@ -68,12 +68,9 @@ node build.js
 
 ---
 
-## 📜 License
-
-MIT — free to use, fork, and build on.
-
----
-
-## 🙏 Contributing
+##  Contributing
 
 Found a bug or want a new tool? [Open an issue](https://github.com/karthickajan/cipherkit/issues) or PR — contributions welcome.
+
+## License
+MIT License — © 2026 Karthick Ajan G S
