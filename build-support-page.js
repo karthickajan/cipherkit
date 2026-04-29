@@ -7,7 +7,7 @@
 module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter, SVG, BASE_PATH, site }) {
   const head = buildHead({
     pageTitle:       'Support CipherKit — Badges & Donate',
-    metaDescription: 'Support CipherKit — embed badges, share on platforms, or donate via UPI/GPay. 100% open-source developer tools.',
+    metaDescription: 'Support CipherKit — embed badges, share the project, or donate via UPI or GitHub Sponsors.',
     canonicalPath:   '/tools/support/',
     // Allow all HTTPS images — this is a badge showcase page with many external image hosts
     extraImgSrc:     'https:'
@@ -89,14 +89,14 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   // ── Peerlist ──
   p.push('          <h3 style="color:var(--green);margin-bottom:12px">Peerlist Launchpad</h3>');
   p.push('          <a href="https://peerlist.io/karthick_ajan/project/cipherkit" target="_blank" rel="noreferrer">');
-  p.push('            <img src="https://peerlist.io/api/v1/projects/embed/PRJHJKNJDN8N97RG7FONBD7B79AJE8?showUpvote=true&theme=dark" alt="CipherKit on Peerlist Launchpad" loading="lazy" style="width:auto;height:72px;border-radius:6px">');
+  p.push('            <img src="https://peerlist.io/api/v1/projects/embed/PRJHJKNJDN8N97RG7FONBD7B79AJE8?showUpvote=true&theme=dark" alt="CipherKit on Peerlist Launchpad" loading="lazy" width="180" height="72" style="width:auto;height:72px;border-radius:6px">');
   p.push('          </a>');
   p.push('          ' + copyBlock(embeds.peerlist));
 
   // ── VibeRank ──
   p.push('          <h3 style="color:var(--green);margin-bottom:12px">VibeRank</h3>');
   p.push('          <a href="https://viberank.dev/apps/Cipherkit" target="_blank" rel="noopener noreferrer">');
-  p.push('            <img src="https://viberank.dev/badge?app=Cipherkit&theme=dark" alt="CipherKit on VibeRank" loading="lazy" style="height:54px;border-radius:6px">');
+  p.push('            <img src="https://viberank.dev/badge?app=Cipherkit&theme=dark" alt="CipherKit on VibeRank" loading="lazy" width="180" height="54" style="height:54px;border-radius:6px">');
   p.push('          </a>');
   p.push('          ' + copyBlock(embeds.vibeRank));
 
