@@ -40,6 +40,7 @@
       var text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
       $('t-result').className = 'out-body mono b'; $('t-result').textContent = text;
       CK.toast('Hex decoded');
+      CK.scrollToOutput($('t-result'));
     } catch (e) {
       $('t-err').textContent = 'Failed to decode bytes as UTF-8 text.'; $('t-err').style.display = 'block';
     }

@@ -67,6 +67,7 @@
       $('t-result').className = 'out-body mono b'; $('t-result').textContent = encoded;
       $('file-info').style.display = 'none';
       CK.toast('Base64 encoded');
+      CK.scrollToOutput($('t-result'));
     } catch (e) { $('t-result').className = 'out-body err'; $('t-result').textContent = 'Error: ' + e.message; window.CKFeedback && window.CKFeedback.reportError(e.message, {"Input": ($('t-input').value || '').substring(0, 2000), "Variant": $('t-mode').value, "Line Endings": $('t-newline').value}); }
   }
   $('btn-enc').addEventListener('click', doEncode);
@@ -80,6 +81,7 @@
       $('file-info').textContent = '\uD83D\uDCC4 ' + file.name + ' \u2014 ' + fmtSize(file.size);
       $('file-info').style.display = 'block';
       CK.toast('File encoded to Base64');
+      CK.scrollToOutput($('t-result'));
     };
     reader.readAsDataURL(file);
   }
