@@ -358,7 +358,7 @@ function buildFooter() {
   </div>
 
   <div class="footer-bottom">
-  <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="${BASE_PATH}/tools/support/">Support</a>. <a href="mailto:karthickajangs@gmail.com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a></p>
+  <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="${BASE_PATH}/tools/support/">Support</a>. <a href="mailto&#58;karthickajangs&#64;gmail&#46;com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a></p>
   </div>
 </footer>
 `.trim();
