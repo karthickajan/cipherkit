@@ -80,8 +80,9 @@
     [data-theme="light"] .dm-st-rem { color: #cf222e; }
     .dm-input-undo:disabled, .dm-input-redo:disabled { opacity: 0.35; cursor: not-allowed; }
     .dm-input-undo:not(:disabled):hover, .dm-input-redo:not(:disabled):hover { background: #00c96a !important; color: #000 !important; }
-    .dm-input-clr:hover { background: #ff4444 !important; color: #fff !important; }
+    .dm-input-clr:hover { color: #ff4444 !important; border-color: rgba(255,68,68,0.5) !important; background: rgba(255,68,68,0.08) !important; }
     .dm-input-raw:hover { background: #00c96a !important; color: #000 !important; }
+    #btn-back.active { border-color: #00ff88; color: #00ff88; background: rgba(0,255,136,0.08); }
   `;
   document.head.appendChild(sty);
   var currentDiff = null;
@@ -90,66 +91,87 @@
   var settings = { wrap: true, hideUnchanged: false };
   var diffBlockEls = [];
   var currentNavIndex = -1;
-  // Undo/redo stack for raw textarea input
-  var undoStack = { left: [], right: [] };
-  var redoStack = { left: [], right: [] };
-  var MAX_STACK = 50;
-  var prevLeft = '';
-  var prevRight = '';
-  function pushUndo(side, value) {
-    undoStack[side].push(value);
-    if (undoStack[side].length > MAX_STACK) undoStack[side].shift();
-    redoStack[side] = [];
-    updateUndoRedoButtons();
+  // Undo/redo history for raw textarea input (paired left+right snapshots)
+  var leftHistory = [''];
+  var rightHistory = [''];
+  var leftIndex = 0;
+  var rightIndex = 0;
+  var recordTimer;
+  function recordState() {
+    var leftVal = $('t-left').value;
+    var rightVal = $('t-right').value;
+    leftHistory = leftHistory.slice(0, leftIndex + 1);
+    rightHistory = rightHistory.slice(0, rightIndex + 1);
+    leftHistory.push(leftVal);
+    rightHistory.push(rightVal);
+    if (leftHistory.length > 50) {
+      leftHistory.shift();
+      rightHistory.shift();
+    } else {
+      leftIndex = leftHistory.length - 1;
+      rightIndex = rightHistory.length - 1;
+    }
+    updateUndoRedoState();
   }
-  function undoSide(side) {
-    var ta = side === 'left' ? $('t-left') : $('t-right');
-    if (undoStack[side].length === 0) return;
-    redoStack[side].push(ta.value);
-    ta.value = undoStack[side].pop();
-    if (side === 'left') prevLeft = ta.value; else prevRight = ta.value;
-    updateUndoRedoButtons();
+  function undoAction() {
+    if (leftIndex <= 0) return;
+    leftIndex--;
+    rightIndex--;
+    $('t-left').value = leftHistory[leftIndex];
+    $('t-right').value = rightHistory[rightIndex];
+    updateUndoRedoState();
   }
-  function redoSide(side) {
-    var ta = side === 'left' ? $('t-left') : $('t-right');
-    if (redoStack[side].length === 0) return;
-    undoStack[side].push(ta.value);
-    ta.value = redoStack[side].pop();
-    if (side === 'left') prevLeft = ta.value; else prevRight = ta.value;
-    updateUndoRedoButtons();
+  function redoAction() {
+    if (leftIndex >= leftHistory.length - 1) return;
+    leftIndex++;
+    rightIndex++;
+    $('t-left').value = leftHistory[leftIndex];
+    $('t-right').value = rightHistory[rightIndex];
+    updateUndoRedoState();
   }
-  function updateUndoRedoButtons() {
-    var ub = $('btn-undo'), rb = $('btn-redo');
-    if (ub) { ub.disabled = undoStack.left.length === 0 && undoStack.right.length === 0 && historyIndex <= 0; }
-    if (rb) { rb.disabled = redoStack.left.length === 0 && redoStack.right.length === 0 && historyIndex >= historyStack.length - 1; }
+  function updateUndoRedoState() {
+    var undoBtn = $('btn-undo-input');
+    var redoBtn = $('btn-redo-input');
+    var canUndo = leftIndex > 0;
+    var canRedo = leftIndex < leftHistory.length - 1;
+    if (undoBtn) { undoBtn.disabled = !canUndo; undoBtn.style.opacity = canUndo ? '1' : '0.3'; undoBtn.style.cursor = canUndo ? 'pointer' : 'not-allowed'; }
+    if (redoBtn) { redoBtn.disabled = !canRedo; redoBtn.style.opacity = canRedo ? '1' : '0.3'; redoBtn.style.cursor = canRedo ? 'pointer' : 'not-allowed'; }
+  }
+  function resetHistory() {
+    leftHistory = [''];
+    rightHistory = [''];
+    leftIndex = 0;
+    rightIndex = 0;
+    updateUndoRedoState();
   }
   function saveHistory(leftText, rightText) {
     historyStack = historyStack.slice(0, historyIndex + 1);
     historyStack.push({ l: leftText, r: rightText });
     historyIndex++;
-    updateUndoRedoButtons();
+    updateMergeUndoRedo();
   }
-  function updateHistoryButtons() {
-    updateUndoRedoButtons();
+  function updateMergeUndoRedo() {
+    var undoBtn = $('btn-undo'), redoBtn = $('btn-redo');
+    var canUndo = historyIndex > 0;
+    var canRedo = historyIndex < historyStack.length - 1;
+    if (undoBtn) { undoBtn.disabled = !canUndo; undoBtn.style.opacity = canUndo ? '1' : '0.3'; undoBtn.style.cursor = canUndo ? 'pointer' : 'not-allowed'; undoBtn.title = canUndo ? 'Undo last merge' : 'Nothing to undo'; }
+    if (redoBtn) { redoBtn.disabled = !canRedo; redoBtn.style.opacity = canRedo ? '1' : '0.3'; redoBtn.style.cursor = canRedo ? 'pointer' : 'not-allowed'; redoBtn.title = canRedo ? 'Redo last merge' : 'Nothing to redo'; }
   }
   $('tool-root').addEventListener('click', function(e) {
     var btn = e.target.closest('button');
     if(!btn) return;
     if(btn.id === 'btn-undo') {
-      // If in resolve view, use history stack
-      if ($('view-resolve').style.display !== 'none' && historyIndex > 0) { historyIndex--; restoreHistoryState(); }
-      // If in input view, use per-textarea undo stacks
-      else if ($('view-input').style.display !== 'none') { undoSide('left'); undoSide('right'); }
+      if (historyIndex > 0) { historyIndex--; restoreHistoryState(); }
     }
     else if(btn.id === 'btn-redo') {
-      if ($('view-resolve').style.display !== 'none' && historyIndex < historyStack.length - 1) { historyIndex++; restoreHistoryState(); }
-      else if ($('view-input').style.display !== 'none') { redoSide('left'); redoSide('right'); }
+      if (historyIndex < historyStack.length - 1) { historyIndex++; restoreHistoryState(); }
     }
   });
   function restoreHistoryState() {
     var state = historyStack[historyIndex];
     $('t-left').value = state.l; $('t-right').value = state.r;
     renderDiff();
+    updateMergeUndoRedo();
   }
   function lcsDiffAligned(textA, textB) {
     let a = textA === '' ? [] : textA.split('\n');
@@ -321,45 +343,35 @@
       </div>
     </div>
   `;
-  function showResolveView() { $('view-input').style.display = 'none'; $('view-resolve').style.display = 'block'; }
-  function showInputView() { $('view-input').style.display = 'block'; $('view-resolve').style.display = 'none'; }
+  function showResolveView() { $('view-input').style.display = 'none'; $('view-resolve').style.display = 'block'; $('btn-back').classList.remove('active'); }
+  function showInputView() { $('view-input').style.display = 'block'; $('view-resolve').style.display = 'none'; $('btn-back').classList.add('active'); }
+  // Clear button
   $('btn-clr').addEventListener('click', function () { 
-    $('t-left').value=''; $('t-right').value=''; 
+    $('t-left').value = ''; $('t-right').value = '';
     historyStack = []; historyIndex = -1;
-    undoStack.left = []; undoStack.right = [];
-    redoStack.left = []; redoStack.right = [];
-    prevLeft = ''; prevRight = '';
-    updateUndoRedoButtons();
+    resetHistory();
   });
-  // Track textarea input for undo
+  // Debounced input recording for undo
   $('t-left').addEventListener('input', function () {
-    pushUndo('left', prevLeft);
-    prevLeft = $('t-left').value;
+    clearTimeout(recordTimer);
+    recordTimer = setTimeout(recordState, 400);
   });
   $('t-right').addEventListener('input', function () {
-    pushUndo('right', prevRight);
-    prevRight = $('t-right').value;
+    clearTimeout(recordTimer);
+    recordTimer = setTimeout(recordState, 400);
   });
   // Input view undo/redo buttons
-  $('btn-undo-input').addEventListener('click', function () { undoSide('left'); undoSide('right'); });
-  $('btn-redo-input').addEventListener('click', function () { redoSide('left'); redoSide('right'); });
-  // Keep input view buttons in sync
-  var _origUpdateUndoRedo = updateUndoRedoButtons;
-  updateUndoRedoButtons = function () {
-    var ub = $('btn-undo'), rb = $('btn-redo');
-    var ubi = $('btn-undo-input'), rbi = $('btn-redo-input');
-    var undoDisabled = undoStack.left.length === 0 && undoStack.right.length === 0 && historyIndex <= 0;
-    var redoDisabled = redoStack.left.length === 0 && redoStack.right.length === 0 && historyIndex >= historyStack.length - 1;
-    if (ub) ub.disabled = undoDisabled;
-    if (rb) rb.disabled = redoDisabled;
-    if (ubi) ubi.disabled = undoStack.left.length === 0 && undoStack.right.length === 0;
-    if (rbi) rbi.disabled = redoStack.left.length === 0 && redoStack.right.length === 0;
-  };
+  $('btn-undo-input').addEventListener('click', undoAction);
+  $('btn-redo-input').addEventListener('click', redoAction);
+  // Init undo/redo state
+  updateUndoRedoState();
   $('btn-back').addEventListener('click', showInputView);
   $('btn-compare').addEventListener('click', function () {
-    if(historyIndex === -1) saveHistory($('t-left').value, $('t-right').value);
+    historyStack = []; historyIndex = -1;
+    saveHistory($('t-left').value, $('t-right').value);
     renderDiff();
     showResolveView();
+    updateMergeUndoRedo();
   });
   $('cb-wrap').addEventListener('change', (e) => {
     settings.wrap = e.target.checked;
