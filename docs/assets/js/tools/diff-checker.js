@@ -290,8 +290,8 @@
         <div class="tc-body">
           <div id="view-input">
             <div style="display:flex; gap:16px; margin-bottom:16px;">
-              <div class="dm-pane"><div class="field-hdr"><label for="t-left">Left Editor (Original)</label></div><textarea id="t-left" placeholder="Paste left text..." rows="16" class="mono"></textarea></div>
-              <div class="dm-pane"><div class="field-hdr"><label for="t-right">Right Editor (Modified)</label></div><textarea id="t-right" placeholder="Paste right text..." rows="16" class="mono"></textarea></div>
+              <div class="dm-pane"><div class="field-hdr"><label for="t-left">Left Editor (Original)</label></div><textarea id="t-left" placeholder="Paste left text..." rows="16" class="mono" autocomplete="off"></textarea></div>
+              <div class="dm-pane"><div class="field-hdr"><label for="t-right">Right Editor (Modified)</label></div><textarea id="t-right" placeholder="Paste right text..." rows="16" class="mono" autocomplete="off"></textarea></div>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <div style="display:flex; gap:8px; align-items:center;">
