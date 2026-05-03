@@ -342,7 +342,6 @@
       r.innerHTML = buildHTML(lines);
       $('jt-tb').style.display = 'flex';
       CK.toast('JSON formatted');
-      CK.scrollToOutput($('t-result'));
     } catch (e) {
       $('t-err').textContent = 'Invalid JSON: ' + e.message; $('t-err').style.display = 'block';
       var r2 = $('t-result');

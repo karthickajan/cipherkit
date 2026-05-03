@@ -103,7 +103,6 @@
         $('t-result').style.color = '';
         $('t-result').textContent = result.value;
         CK.toast('Base64 decoded');
-        CK.scrollToOutput($('t-result'));
       } else {
         var fileInfo = detectMime(result.raw);
         var typeName = fileInfo.ext ? fileInfo.ext.slice(1).toUpperCase() + ' file' : 'binary file';
@@ -113,7 +112,6 @@
         $('bin-warn').style.display = 'block';
         $('btn-bin-dl').style.display = 'inline-flex';
         CK.toast('Detected ' + typeName);
-        CK.scrollToOutput($('t-result'));
       }
     } catch (e) {
       $('t-result').className = 'out-body err';

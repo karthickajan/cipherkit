@@ -51,9 +51,7 @@
       if(detected){$('t-from-fmt').value=detected;updateURL();}
       var info=zone.querySelector('.ic-file-info');
       if(!info){zone.classList.add('has-file');var children=zone.querySelectorAll(':not(input)');children.forEach(function(c){c.style.display='none';});info=document.createElement('div');info.className='ic-file-info';zone.appendChild(info);}
-      info.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="2.5" style="width:24px;height:24px;margin-bottom:8px"><polyline points="20 6 9 17 4 12"/></svg><p style="color:#00ff88;font-size:14px;margin:0">'+f.name+'</p><p style="color:#888;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';
-      zone.style.borderColor='#00ff88';zone.style.borderStyle='solid';zone.style.background='rgba(0,255,136,.05)';
-      if(typeof CK!=='undefined'&&CK.toast)CK.toast('Image loaded');
+      info.innerHTML='<p style="color:#e0e0e0;font-size:14px;margin:0">'+f.name+'</p><p style="color:#555;font-size:12px;margin:4px 0 0">'+(f.size/1024).toFixed(1)+' KB</p>';
     }
   })();
   $('btn-conv').addEventListener('click',function(){
@@ -98,7 +96,7 @@
     reader.readAsDataURL(fileOrBlob);
   }
   $('btn-dl').addEventListener('click',function(){if(!_blob){CK.toast('Convert first','err');return;}var a=document.createElement('a');a.download=_origName+'.'+_ext;a.href=_blobUrl;a.click();CK.toast('Downloaded');});
-  $('btn-clr').addEventListener('click',function(){_selectedFile=null;_blob=null;if(_blobUrl)URL.revokeObjectURL(_blobUrl);_blobUrl='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span>';var z=$('ic-drop');if(z){z.classList.remove('has-file');z.style.borderColor='';z.style.borderStyle='';z.style.background='';var info=z.querySelector('.ic-file-info');if(info)info.remove();var children=z.querySelectorAll(':not(input)');children.forEach(function(c){c.style.display='';});$('t-file').value='';}});
+  $('btn-clr').addEventListener('click',function(){_selectedFile=null;_blob=null;if(_blobUrl)URL.revokeObjectURL(_blobUrl);_blobUrl='';$('t-result').innerHTML='<span style="color:var(--muted);font-style:italic">Converted image will appear here\u2026</span>';var z=$('ic-drop');if(z){z.classList.remove('has-file');var info=z.querySelector('.ic-file-info');if(info)info.remove();var children=z.querySelectorAll(':not(input)');children.forEach(function(c){c.style.display='';});$('t-file').value='';}});
   CK.wireCtrlEnter('btn-conv');
   CK.setUsageContent('<ol><li>Upload an <strong>image file</strong> (PNG, JPEG, WebP, HEIC, GIF, BMP, etc.).</li><li>The <strong>From</strong> format is auto-detected. Select <strong>To</strong> format and quality.</li><li>Click <strong>Convert</strong> and download the result.</li></ol><p>HEIC files (from iPhones) are decoded via heic2any, then converted locally. All processing is client-side — no uploads.</p>');
 })();

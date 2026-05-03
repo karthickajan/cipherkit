@@ -117,6 +117,7 @@
 /* ── RELATED TOOLS ───────────────────────────────────────────────────────── */
 .related-tools {
   margin-bottom: 48px;
+  padding-top: 48px;
 }
 .related-tools h2 {
   font-size: 16px;
@@ -160,7 +161,8 @@
   background:    var(--surface);
   border:        1px solid var(--border);
   border-radius: var(--r-lg);
-  padding:       28px;
+  padding:       32px;
+  margin-bottom: 48px;
 }
 .usage-guide h2 {
   font-size:     16px;
@@ -191,8 +193,9 @@
   background:    var(--surface);
   border:        1px solid var(--border);
   border-radius: var(--r-lg);
-  padding:       28px;
+  padding:       32px;
   margin-top:    24px;
+  margin-bottom: 48px;
 }
 .seo-content h2 {
   font-size:     16px;
@@ -253,7 +256,7 @@
 
 /* Card head */
 .tc-head {
-  padding:       14px 18px;
+  padding:       18px 22px;
   border-bottom: 1px solid var(--border);
   display:       flex;
   align-items:   center;
@@ -309,7 +312,7 @@
 
 /* Card body */
 .tc-body {
-  padding: 18px;
+  padding: 28px;
   flex:    1;
   display: flex;
   flex-direction: column;

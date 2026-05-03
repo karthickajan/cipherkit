@@ -285,12 +285,6 @@
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.content = next === 'light' ? '#f5f7fa' : '#07090d';
   }
-  function scrollToOutput(outputEl, delay) {
-    if (!outputEl) return;
-    setTimeout(function() {
-      outputEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, delay || 300);
-  }
   window.CK = {
     toast,
     copyText,
@@ -308,6 +302,5 @@
     wireCharCounter,
     bookmarkSite,
     toggleTheme,
-    scrollToOutput,
   };
 })();
