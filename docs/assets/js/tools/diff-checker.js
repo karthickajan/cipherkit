@@ -78,6 +78,10 @@
     [data-theme="light"] .diff-del-inline { background: rgba(207,34,46,0.2); }
     [data-theme="light"] .dm-st-add { color: #1a8c5b; }
     [data-theme="light"] .dm-st-rem { color: #cf222e; }
+    .dm-input-undo:disabled, .dm-input-redo:disabled { opacity: 0.35; cursor: not-allowed; }
+    .dm-input-undo:not(:disabled):hover, .dm-input-redo:not(:disabled):hover { background: #00c96a !important; color: #000 !important; }
+    .dm-input-clr:hover { background: #ff4444 !important; color: #fff !important; }
+    .dm-input-raw:hover { background: #00c96a !important; color: #000 !important; }
   `;
   document.head.appendChild(sty);
   var currentDiff = null;
@@ -86,21 +90,61 @@
   var settings = { wrap: true, hideUnchanged: false };
   var diffBlockEls = [];
   var currentNavIndex = -1;
+  // Undo/redo stack for raw textarea input
+  var undoStack = { left: [], right: [] };
+  var redoStack = { left: [], right: [] };
+  var MAX_STACK = 50;
+  var prevLeft = '';
+  var prevRight = '';
+  function pushUndo(side, value) {
+    undoStack[side].push(value);
+    if (undoStack[side].length > MAX_STACK) undoStack[side].shift();
+    redoStack[side] = [];
+    updateUndoRedoButtons();
+  }
+  function undoSide(side) {
+    var ta = side === 'left' ? $('t-left') : $('t-right');
+    if (undoStack[side].length === 0) return;
+    redoStack[side].push(ta.value);
+    ta.value = undoStack[side].pop();
+    if (side === 'left') prevLeft = ta.value; else prevRight = ta.value;
+    updateUndoRedoButtons();
+  }
+  function redoSide(side) {
+    var ta = side === 'left' ? $('t-left') : $('t-right');
+    if (redoStack[side].length === 0) return;
+    undoStack[side].push(ta.value);
+    ta.value = redoStack[side].pop();
+    if (side === 'left') prevLeft = ta.value; else prevRight = ta.value;
+    updateUndoRedoButtons();
+  }
+  function updateUndoRedoButtons() {
+    var ub = $('btn-undo'), rb = $('btn-redo');
+    if (ub) { ub.disabled = undoStack.left.length === 0 && undoStack.right.length === 0 && historyIndex <= 0; }
+    if (rb) { rb.disabled = redoStack.left.length === 0 && redoStack.right.length === 0 && historyIndex >= historyStack.length - 1; }
+  }
   function saveHistory(leftText, rightText) {
     historyStack = historyStack.slice(0, historyIndex + 1);
     historyStack.push({ l: leftText, r: rightText });
     historyIndex++;
-    updateHistoryButtons();
+    updateUndoRedoButtons();
   }
   function updateHistoryButtons() {
-    $('btn-undo').disabled = historyIndex <= 0;
-    $('btn-redo').disabled = historyIndex >= historyStack.length - 1;
+    updateUndoRedoButtons();
   }
   $('tool-root').addEventListener('click', function(e) {
     var btn = e.target.closest('button');
     if(!btn) return;
-    if(btn.id === 'btn-undo' && historyIndex > 0) { historyIndex--; restoreHistoryState(); } 
-    else if(btn.id === 'btn-redo' && historyIndex < historyStack.length - 1) { historyIndex++; restoreHistoryState(); }
+    if(btn.id === 'btn-undo') {
+      // If in resolve view, use history stack
+      if ($('view-resolve').style.display !== 'none' && historyIndex > 0) { historyIndex--; restoreHistoryState(); }
+      // If in input view, use per-textarea undo stacks
+      else if ($('view-input').style.display !== 'none') { undoSide('left'); undoSide('right'); }
+    }
+    else if(btn.id === 'btn-redo') {
+      if ($('view-resolve').style.display !== 'none' && historyIndex < historyStack.length - 1) { historyIndex++; restoreHistoryState(); }
+      else if ($('view-input').style.display !== 'none') { redoSide('left'); redoSide('right'); }
+    }
   });
   function restoreHistoryState() {
     var state = historyStack[historyIndex];
@@ -227,18 +271,22 @@
               <div class="dm-pane"><div class="field-hdr"><label for="t-left">Left Editor (Original)</label></div><textarea id="t-left" placeholder="Paste left text..." rows="16" class="mono"></textarea></div>
               <div class="dm-pane"><div class="field-hdr"><label for="t-right">Right Editor (Modified)</label></div><textarea id="t-right" placeholder="Paste right text..." rows="16" class="mono"></textarea></div>
             </div>
-            <div style="display:flex; justify-content:space-between;">
-              <button type="button" class="act-btn act-amber" id="btn-compare">${IC.diff} <span>Compare & Resolve Workspace</span></button>
-              <button type="button" class="pill-btn" id="btn-clr">${IC.trash} <span>Clear All</span></button>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="display:flex; gap:8px; align-items:center;">
+                <button type="button" class="act-btn act-amber" id="btn-compare">${IC.diff} <span>Compare & Resolve Workspace</span></button>
+                <button type="button" class="pill-btn dm-history-btn dm-input-undo" id="btn-undo-input" title="Undo" disabled style="min-width:32px;min-height:32px;padding:6px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);transition:all .2s">${IC.undo}</button>
+                <button type="button" class="pill-btn dm-history-btn dm-input-redo" id="btn-redo-input" title="Redo" disabled style="min-width:32px;min-height:32px;padding:6px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);transition:all .2s">${IC.redo}</button>
+              </div>
+              <button type="button" class="pill-btn dm-input-clr" id="btn-clr" style="min-width:32px;min-height:32px;padding:6px 12px;font-size:13px;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);cursor:pointer;transition:all .2s">${IC.trash} <span>Clear All</span></button>
             </div>
           </div>
           <div id="view-resolve" style="display:none;">
             <div class="dm-toolbar">
               <div style="display:flex; gap:12px; align-items:center;">
-                <button type="button" class="pill-btn" id="btn-back">${IC.edit} <span>Raw Editors</span></button>
+                <button type="button" class="pill-btn dm-input-raw" id="btn-back" style="padding:6px 14px;font-size:13px;font-weight:500;border:1px solid rgba(255,255,255,0.2);border-radius:6px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.85);cursor:pointer;transition:all .2s">${IC.edit} <span>Raw Editors</span></button>
                 <div style="width:1px; height:20px; background:var(--border); margin: 0 4px;"></div>
-                <button type="button" class="pill-btn dm-history-btn" id="btn-undo" title="Undo" disabled>${IC.undo}</button>
-                <button type="button" class="pill-btn dm-history-btn" id="btn-redo" title="Redo" disabled>${IC.redo}</button>
+                <button type="button" class="pill-btn dm-history-btn" id="btn-undo" title="Undo" disabled style="min-width:32px;min-height:32px;padding:6px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05)">${IC.undo}</button>
+                <button type="button" class="pill-btn dm-history-btn" id="btn-redo" title="Redo" disabled style="min-width:32px;min-height:32px;padding:6px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05)">${IC.redo}</button>
               </div>
               <div style="display:flex; gap:16px; align-items:center;">
                 <label class="dm-feature-toggle"><input type="checkbox" id="cb-wrap" checked> Wrap Lines</label>
@@ -276,8 +324,37 @@
   function showResolveView() { $('view-input').style.display = 'none'; $('view-resolve').style.display = 'block'; }
   function showInputView() { $('view-input').style.display = 'block'; $('view-resolve').style.display = 'none'; }
   $('btn-clr').addEventListener('click', function () { 
-    $('t-left').value=''; $('t-right').value=''; historyStack = []; historyIndex = -1; updateHistoryButtons();
+    $('t-left').value=''; $('t-right').value=''; 
+    historyStack = []; historyIndex = -1;
+    undoStack.left = []; undoStack.right = [];
+    redoStack.left = []; redoStack.right = [];
+    prevLeft = ''; prevRight = '';
+    updateUndoRedoButtons();
   });
+  // Track textarea input for undo
+  $('t-left').addEventListener('input', function () {
+    pushUndo('left', prevLeft);
+    prevLeft = $('t-left').value;
+  });
+  $('t-right').addEventListener('input', function () {
+    pushUndo('right', prevRight);
+    prevRight = $('t-right').value;
+  });
+  // Input view undo/redo buttons
+  $('btn-undo-input').addEventListener('click', function () { undoSide('left'); undoSide('right'); });
+  $('btn-redo-input').addEventListener('click', function () { redoSide('left'); redoSide('right'); });
+  // Keep input view buttons in sync
+  var _origUpdateUndoRedo = updateUndoRedoButtons;
+  updateUndoRedoButtons = function () {
+    var ub = $('btn-undo'), rb = $('btn-redo');
+    var ubi = $('btn-undo-input'), rbi = $('btn-redo-input');
+    var undoDisabled = undoStack.left.length === 0 && undoStack.right.length === 0 && historyIndex <= 0;
+    var redoDisabled = redoStack.left.length === 0 && redoStack.right.length === 0 && historyIndex >= historyStack.length - 1;
+    if (ub) ub.disabled = undoDisabled;
+    if (rb) rb.disabled = redoDisabled;
+    if (ubi) ubi.disabled = undoStack.left.length === 0 && undoStack.right.length === 0;
+    if (rbi) rbi.disabled = redoStack.left.length === 0 && redoStack.right.length === 0;
+  };
   $('btn-back').addEventListener('click', showInputView);
   $('btn-compare').addEventListener('click', function () {
     if(historyIndex === -1) saveHistory($('t-left').value, $('t-right').value);
