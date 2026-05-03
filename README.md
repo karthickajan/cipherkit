@@ -1,19 +1,28 @@
 # CipherKit — Dev tools that don't phone home.
 
-> 77 free browser-based developer tools. 100% client-side. No login. No server. No tracking.
+> 85 free browser-based developer tools.
+> 100% client-side. No login. No server. No tracking.
 
-![Tools](https://img.shields.io/badge/tools-77-00ff88?style=flat-square)
+![Tools](https://img.shields.io/badge/tools-85-00ff88?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 ![Client Side](https://img.shields.io/badge/client--side-100%25-00d4ff?style=flat-square)
 ![No Login](https://img.shields.io/badge/login-none-green?style=flat-square)
 
 🔗 **[cipherkit.app](https://cipherkit.app)**
 
+![CipherKit Preview](./docs/assets/preview.png)
+
 ---
 
-## What is CipherKit?
+## ✨ Features
 
-CipherKit is a free, open-source collection of 77 developer utilities that run entirely in your browser. No data ever leaves your device.
+- ✅ 100% client-side — your data never leaves the browser
+- ✅ No login, no account, no sign-up
+- ✅ No tracking. No ads.
+- ✅ Dark & light mode
+- ✅ Mobile-friendly, 90+ Lighthouse score
+- ✅ Open source — MIT license
+- ✅ Fast — vanilla HTML/CSS/JS, no framework bloat
 
 ---
 
@@ -31,19 +40,20 @@ XML↔JSON, JSON↔YAML, CSV→JSON, CSV→Excel, JSON→CSV, Markdown→PDF, Nu
 ### 🛠️ Dev Hub (21 tools)
 JWT Decoder/Encoder, UUID Generator, Password Generator, String Generator, Unix Timestamp, Epoch Converter, Cron Builder/Explainer, Regex Tester, Diff Checker, SQL Formatter, Markdown Preview, Lorem Ipsum, HTTP Header Parser, Word Counter, IP Tools, Gzip Tool, ASCII Table, Bit/Byte Calculator, DNS Lookup
 
-### 🖼️ Image Hub (13 tools)
-QR Generator, Image Resizer, Format Converter, SVG→PNG, PNG↔JPG↔WebP converters, Color Converter, Color Palette Generator, Image Filters & Effects
+### 🖼️ Image Hub (21 tools)
+QR Generator, Image Resizer, Format Converter, SVG→PNG, PNG↔JPG↔WebP↔HEIC converters, Color Converter, Color Palette Generator, Image Filters & Effects, XML/YAML/HTML/CSS Formatters, JS Minifier
 
 ---
 
-## ✨ Features
+## 🚀 Running Locally
 
-- ✅ 100% client-side — your data never leaves the browser
-- ✅ No login, no account, no sign-up
-- ✅ No tracking (GA4 anonymous analytics only)
-- ✅ Mobile-friendly
-- ✅ Open source — MIT license
-- ✅ Fast — vanilla HTML/CSS/JS, no framework bloat
+```bash
+git clone https://github.com/karthickajan/cipherkit.git
+cd cipherkit
+node build.js
+npx serve docs -p 3000
+# Open http://localhost:3000
+```
 
 ---
 
@@ -56,19 +66,7 @@ QR Generator, Image Resizer, Format Converter, SVG→PNG, PNG↔JPG↔WebP conve
 
 ---
 
-## 🚀 Running Locally
-
-```bash
-git clone https://github.com/karthickajan/cipherkit.git
-cd cipherkit
-npm install
-node build.js
-# Open docs/index.html in your browser
-```
-
----
-
-##  Contributing
+## Contributing
 
 Found a bug or want a new tool? [Open an issue](https://github.com/karthickajan/cipherkit/issues) or PR — contributions welcome.
 
