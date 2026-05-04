@@ -101,7 +101,9 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('          ' + copyBlock(embeds.vibeRank));
 
   // ── Platform links (including Fazier as link-only) ──
-  p.push('          <h3 style="color:var(--green);margin-bottom:12px">More Platforms</h3>');
+  p.push('          <h3 style="color:var(--green);margin-bottom:12px">LaunchPad India</h3>');
+  p.push('          <a href="https://launchpadindia.co/listing/9c462e2c-e086-433f-9176-1c5ef82ab602" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0;padding:10px 16px;background:#1f2937;border:1px solid #374151;border-radius:10px;text-decoration:none;font-family:system-ui,-apple-system,sans-serif;box-shadow:0 1px 3px rgba(0,0,0,0.3)"><img src="https://launchpadindia.co/logo.png" alt="LaunchPad India" width="28" height="28" style="object-fit:contain" /><div style="display:flex;flex-direction:column;gap:2px"><span style="color:#f9fafb;font-weight:700;font-size:13px">LaunchPad<span style="color:#fb923c">India</span></span><span style="color:#9ca3af;font-weight:500;font-size:11px">#1 Product of the Week</span></div></a>');
+  p.push('          <h3 style="color:var(--green);margin-bottom:12px;margin-top:20px">More Platforms</h3>');
   p.push('          <div style="display:flex;flex-wrap:wrap;gap:10px">');
   p.push('            ' + platformBtn('https://fazier.com/launches/cipherkit', 'Fazier'));
   p.push('            ' + platformBtn('https://www.producthunt.com/products/cipherkit', 'Product Hunt'));
@@ -109,7 +111,6 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('            ' + platformBtn('https://cipherkit.hashnode.dev/stop-pasting-your-company-s-api-payloads-into-random-websites', 'Hashnode'));
   p.push('            ' + platformBtn('https://stackshare.io/cipherkit', 'StackShare'));
   p.push('            ' + platformBtn('https://www.saashub.com/cipherkit-app-alternatives', 'SaaSHub'));
-  p.push('            ' + platformBtn('https://launchpadindia.co/listing/cipherkit?sort=top', 'Launchpad India &#127942; #1'));
   p.push('            ' + platformBtn(site.github, 'GitHub &#9733;'));
   p.push('            ' + platformBtn('https://news.ycombinator.com/item?id=44486498', 'Hacker News'));
   p.push('          </div>');
