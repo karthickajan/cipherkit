@@ -321,6 +321,11 @@ function buildFooter() {
       <div class="footer-crafted" style="font-size: 12px; color: var(--muted); opacity: 0.6; margin-top: 4px;">
         Crafted by <a href="https://karthickajan.github.io/Ajan/" target="_blank" rel="noopener noreferrer">Ajan</a>
       </div>
+      <div style="margin-top:12px">
+        <a href="https://launchboosts.com/project/cipherkit" target="_blank" rel="noopener noreferrer" aria-label="Featured on LaunchBoosts">
+          <img src="https://launchboosts.com/badges/featured-dark.svg" alt="Featured on LaunchBoosts" width="180" height="54" style="height:36px;width:auto;display:block;opacity:0.85">
+        </a>
+      </div>
     </div>
 
     <div class="footer-links">
@@ -700,13 +705,6 @@ ${buildNavbar()}
         <a href="#converter" class="hub-pill"><span class="hub-pill-icon">${SVG.arrows}</span> Converter Hub</a>
         <a href="#dev" class="hub-pill"><span class="hub-pill-icon">${SVG.gear}</span> Dev Hub</a>
         <a href="#image" class="hub-pill"><span class="hub-pill-icon">${SVG.image}</span> Image Hub</a>
-      </div>
-
-      <!-- Featured badges -->
-      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;margin-top:28px">
-        <a href="https://launchboosts.com/project/cipherkit" target="_blank" rel="noopener noreferrer" aria-label="Featured on LaunchBoosts">
-          <img src="https://launchboosts.com/badges/featured-dark.svg" alt="Featured on LaunchBoosts" width="180" height="54" style="height:54px;width:auto;border-radius:6px;display:block">
-        </a>
       </div>
     </div>
   </section>

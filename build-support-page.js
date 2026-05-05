@@ -112,7 +112,7 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   // ── LaunchBoosts ──
   p.push('          <h3 style="color:var(--green);margin-bottom:12px">LaunchBoosts</h3>');
   p.push('          <a href="https://launchboosts.com/project/cipherkit" target="_blank" rel="noopener noreferrer" style="display:inline-block;max-width:270px">');
-  p.push('            <img src="https://launchboosts.com/badges/featured-dark.svg" alt="Featured on LaunchBoosts" loading="lazy" width="270" style="width:100%;height:auto;border-radius:6px">');
+  p.push('            <img src="https://launchboosts.com/badges/featured-dark.svg" alt="Featured on LaunchBoosts" loading="lazy" height="54" style="height:54px;width:auto;border-radius:6px">');
   p.push('          </a>');
   p.push('          ' + copyBlock(embeds.launchBoosts));
 
