@@ -701,6 +701,13 @@ ${buildNavbar()}
         <a href="#dev" class="hub-pill"><span class="hub-pill-icon">${SVG.gear}</span> Dev Hub</a>
         <a href="#image" class="hub-pill"><span class="hub-pill-icon">${SVG.image}</span> Image Hub</a>
       </div>
+
+      <!-- Featured badges -->
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;margin-top:28px">
+        <a href="https://launchboosts.com/project/cipherkit" target="_blank" rel="noopener noreferrer" aria-label="Featured on LaunchBoosts">
+          <img src="https://launchboosts.com/badges/featured-dark.svg" alt="Featured on LaunchBoosts" width="180" height="54" style="height:54px;width:auto;border-radius:6px;display:block">
+        </a>
+      </div>
     </div>
   </section>
 

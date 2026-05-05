@@ -20,7 +20,8 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
     peerlist:  '<a href="https://peerlist.io/karthick_ajan/project/cipherkit" target="_blank" rel="noreferrer"><img src="https://peerlist.io/api/v1/projects/embed/PRJHJKNJDN8N97RG7FONBD7B79AJE8?showUpvote=true&theme=dark" alt="CipherKit on Peerlist" style="width:auto;height:72px" /></a>',
     vibeRank:  '<a href="https://viberank.dev/apps/Cipherkit" target="_blank" rel="noopener noreferrer"><img src="https://viberank.dev/badge?app=Cipherkit&theme=dark" alt="CipherKit on VibeRank" /></a>',
     fazier:    '<a href="https://fazier.com/launches/cipherkit" target="_blank"><img src="https://fazier.com/api/v1/public/badges/embed_image.svg?launch_id=8284&badge_type=featured&variant=3&theme=neutral" width="270" alt="CipherKit on Fazier" /></a>',
-    launchpadIndia: '<a href="https://launchpadindia.co/listing/9c462e2c-e086-433f-9176-1c5ef82ab602" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0;padding:10px 16px;background:#1f2937;border:1px solid #374151;border-radius:10px;text-decoration:none;font-family:system-ui,-apple-system,sans-serif;box-shadow:0 1px 3px rgba(0,0,0,0.3)"><img src="https://launchpadindia.co/logo.png" alt="LaunchPad India" width="28" height="28" style="object-fit:contain" /><div style="display:flex;flex-direction:column;gap:2px"><span style="color:#f9fafb;font-weight:700;font-size:13px">LaunchPad<span style="color:#fb923c">India</span></span><span style="color:#9ca3af;font-weight:500;font-size:11px">#1 Product of the Week</span></div></a>',
+    launchpadIndia: '<a href="https://launchpadindia.co/listing/9c462e2c-e086-433f-9176-1c5ef82ab602" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#1f2937;border:1px solid #374151;border-radius:10px;text-decoration:none;font-family:system-ui,-apple-system,sans-serif;box-shadow:0 1px 3px rgba(0,0,0,0.3)"><img src="https://launchpadindia.co/logo.png" alt="LaunchPad India" width="28" height="28" style="object-fit:contain" /><div style="display:flex;flex-direction:column;gap:2px"><span style="color:#f9fafb;font-weight:700;font-size:13px">LaunchPad<span style="color:#fb923c">India</span></span><span style="color:#9ca3af;font-weight:500;font-size:11px">#1 Product of the Week</span></div></a>',
+    launchBoosts: '<a href="https://launchboosts.com/project/cipherkit" target="_blank" rel="noopener noreferrer"><img src="https://launchboosts.com/badges/featured-dark.svg" alt="Featured on LaunchBoosts" width="180" height="54" style="height:54px;width:auto" /></a>',
   };
 
   function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -107,6 +108,13 @@ module.exports = function buildSupportPage({ buildHead, buildNavbar, buildFooter
   p.push('            <a href="https://launchpadindia.co/listing/9c462e2c-e086-433f-9176-1c5ef82ab602" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#1f2937;border:1px solid #374151;border-radius:10px;text-decoration:none;font-family:system-ui,-apple-system,sans-serif;box-shadow:0 1px 3px rgba(0,0,0,0.3)"><img src="https://launchpadindia.co/logo.png" alt="LaunchPad India" width="28" height="28" style="object-fit:contain" /><div style="display:flex;flex-direction:column;gap:2px"><span style="color:#f9fafb;font-weight:700;font-size:13px">LaunchPad<span style="color:#fb923c">India</span></span><span style="color:#9ca3af;font-weight:500;font-size:11px">#1 Product of the Week</span></div></a>');
   p.push('          </div>');
   p.push('          ' + copyBlock(embeds.launchpadIndia));
+
+  // ── LaunchBoosts ──
+  p.push('          <h3 style="color:var(--green);margin-bottom:12px">LaunchBoosts</h3>');
+  p.push('          <a href="https://launchboosts.com/project/cipherkit" target="_blank" rel="noopener noreferrer" style="display:inline-block;max-width:270px">');
+  p.push('            <img src="https://launchboosts.com/badges/featured-dark.svg" alt="Featured on LaunchBoosts" loading="lazy" width="270" style="width:100%;height:auto;border-radius:6px">');
+  p.push('          </a>');
+  p.push('          ' + copyBlock(embeds.launchBoosts));
 
   // ── More Platforms ──
   p.push('          <h3 style="color:var(--green);margin-bottom:12px">More Platforms</h3>');
