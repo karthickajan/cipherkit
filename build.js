@@ -108,7 +108,7 @@ function copySrc(srcRel, distRel) {
 // ── SHARED HEAD HTML ────────────────────────────────────────────────────────
 function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', extraImgSrc = '', extraConnectSrc = '' }) {
   const canonical = `${DOMAIN}${canonicalPath}`;
-  const imgSrc = `'self' data: blob: https://www.google-analytics.com${extraImgSrc ? ' ' + extraImgSrc : ''}`;
+  const imgSrc = `'self' data: blob: https://www.google-analytics.com https://launchboosts.com${extraImgSrc ? ' ' + extraImgSrc : ''}`;
   const connectSrc = `'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com${extraConnectSrc ? ' ' + extraConnectSrc : ''}`;
   return `
   <meta charset="UTF-8">
