@@ -332,8 +332,8 @@ function buildFooter() {
       </a>
       <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
       <a href="${site.github}" class="footer-github" target="_blank" rel="noopener">View on GitHub ↗</a>
-      <div class="footer-crafted" style="font-size: 12px; color: var(--muted); opacity: 0.6; margin-top: 4px;">
-        Crafted by <a href="https://karthickajan.github.io/Ajan/" target="_blank" rel="noopener noreferrer">Ajan</a>
+      <div class="footer-crafted" style="font-size: 12px; color: #9ea7b2; margin-top: 4px;">
+        Crafted by <a href="https://karthickajan.github.io/Ajan/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">Ajan</a>
       </div>
       <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start">
         <a href="https://launchboosts.com/project/cipherkit" target="_blank" rel="noopener noreferrer" aria-label="Featured on LaunchBoosts">
