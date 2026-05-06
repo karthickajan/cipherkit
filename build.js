@@ -987,11 +987,6 @@ function buildRobots() {
 Allow: /
 
 Sitemap: ${DOMAIN}/sitemap.xml
-
-# AI Discovery
-# See https://llmstxt.org for spec
-Llms-txt: ${DOMAIN}/llms.txt
-Llms-full-txt: ${DOMAIN}/llms-full.txt
 `;
 }
 
