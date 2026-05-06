@@ -15,6 +15,18 @@
 const BASE_PATH = '';
 const fs   = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+
+// ── Cache-busting version (content hash of CSS/JS source files) ──────────────
+function assetHash(filePath) {
+  try {
+    const content = fs.readFileSync(filePath);
+    return crypto.createHash('md5').update(content).digest('hex').slice(0, 8);
+  } catch (e) { return Date.now().toString(36); }
+}
+const ASSET_V = assetHash(path.join(__dirname, 'src/assets/css/base.css')) +
+                assetHash(path.join(__dirname, 'src/assets/js/core/ui.js'));
+const V = `?v=${ASSET_V.slice(0, 8)}`;
 
 // ── INLINE SVG ICONS (no emojis anywhere) ────────────────────────────────────
 const SVG = {
@@ -196,14 +208,14 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <script>try{var t=localStorage.getItem('ck-theme');if(t){document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#f5f7fa'}}catch(e){}</script>
 
   <!-- Stylesheets — base & layout loaded async (critical CSS already inlined above) -->
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css"></noscript>
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css"></noscript>
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css"></noscript>
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css"></noscript>
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css${V}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css${V}"></noscript>
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css${V}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css${V}"></noscript>
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css${V}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css${V}"></noscript>
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css${V}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css${V}"></noscript>
 
   <!-- GA4 anonymous analytics — deferred to not block rendering -->
   <script>
@@ -603,11 +615,11 @@ ${footer}
 </div>
 
 <!-- Core JS -->
-<script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ui.js${V}" defer></script>
 
 <!-- Feedback Widget -->
 <script>window.CIPHERKIT_TOOL_NAME = '${tool.title}';</script>
-<script src="${BASE_PATH}/assets/js/feedback.js" defer></script>
+<script src="${BASE_PATH}/assets/js/feedback.js${V}" defer></script>
 
 <!-- Vendor JS -->
 ${vendorScripts}
@@ -616,7 +628,7 @@ ${vendorScripts}
 <script src="${toolJsSrc}" defer></script>
 
 <!-- State: permalinks, recent tools, history -->
-<script src="${BASE_PATH}/assets/js/core/ck-state.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ck-state.js${V}" defer></script>
 
 </body>
 </html>`;
@@ -749,7 +761,7 @@ ${buildFooter()}
   <span id="toast-msg"></span>
 </div>
 
-<script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ui.js${V}" defer></script>
 <script defer>
 // ── SEARCH ──────────────────────────────────────────────────────────────────
 const TOOLS = ${JSON.stringify(tools.map(t => ({
@@ -843,7 +855,7 @@ searchInput.addEventListener('input', function() {
 </script>
 
 <!-- State: recent tools on homepage -->
-<script src="${BASE_PATH}/assets/js/core/ck-state.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ck-state.js${V}" defer></script>
 
 </body>
 </html>`;
@@ -937,7 +949,7 @@ ${buildNavbar(null, cat.id)}
 
 ${buildFooter()}
 
-<script src="${BASE_PATH}/assets/js/core/ui.js" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ui.js${V}" defer></script>
 </body>
 </html>`;
 }
@@ -1146,9 +1158,9 @@ ${footer}
   <span id="toast-msg">Copied to clipboard</span>
 </div>
 
-<script src="/assets/js/core/ui.js" defer></script>
-<script src="/assets/js/feedback.js" defer></script>
-<script src="/assets/js/core/ck-state.js" defer></script>
+<script src="/assets/js/core/ui.js${V}" defer></script>
+<script src="/assets/js/feedback.js${V}" defer></script>
+<script src="/assets/js/core/ck-state.js${V}" defer></script>
 
 </body>
 </html>`;
