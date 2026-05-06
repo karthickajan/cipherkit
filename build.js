@@ -206,10 +206,8 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   </style>
   <script>try{var t=localStorage.getItem('ck-theme');if(t){document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#f5f7fa'}}catch(e){}</script>
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css${V}">
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css${V}">
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css${V}">
+  <!-- Stylesheets (single concatenated bundle to eliminate request chain) -->
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/app.css${V}">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css${V}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css${V}"></noscript>
 
@@ -1036,6 +1034,14 @@ function copyAssets() {
   }
 
   copyDir(assetSrc, assetDist);
+
+  // ── Concatenate base + layout + tool CSS into single app.css ──
+  const cssDir = path.join(DIST, 'assets/css');
+  const appCss = ['base.css', 'layout.css', 'tool.css']
+    .map(f => fs.readFileSync(path.join(cssDir, f), 'utf8'))
+    .join('\n');
+  fs.writeFileSync(path.join(cssDir, 'app.css'), appCss, 'utf8');
+  console.log('  ✓ assets/css/app.css (concatenated base+layout+tool)');
 }
 
 // ── PRIVACY POLICY PAGE ──────────────────────────────────────────────────────

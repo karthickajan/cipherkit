@@ -83,10 +83,8 @@
   </style>
   <script>try{var t=localStorage.getItem('ck-theme');if(t){document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#f5f7fa'}}catch(e){}</script>
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="/assets/css/base.css?v=e74c4c91">
-  <link rel="stylesheet" href="/assets/css/layout.css?v=e74c4c91">
-  <link rel="stylesheet" href="/assets/css/tool.css?v=e74c4c91">
+  <!-- Stylesheets (single concatenated bundle to eliminate request chain) -->
+  <link rel="stylesheet" href="/assets/css/app.css?v=e74c4c91">
   <link rel="stylesheet" href="/assets/css/feedback.css?v=e74c4c91" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/css/feedback.css?v=e74c4c91"></noscript>
 
