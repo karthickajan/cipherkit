@@ -206,13 +206,10 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   </style>
   <script>try{var t=localStorage.getItem('ck-theme');if(t){document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#f5f7fa'}}catch(e){}</script>
 
-  <!-- Stylesheets — base & layout loaded async (critical CSS already inlined above) -->
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css${V}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css${V}"></noscript>
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css${V}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css${V}"></noscript>
-  <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css${V}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css${V}"></noscript>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/base.css${V}">
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/layout.css${V}">
+  <link rel="stylesheet" href="${BASE_PATH}/assets/css/tool.css${V}">
   <link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css${V}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="${BASE_PATH}/assets/css/feedback.css${V}"></noscript>
 
