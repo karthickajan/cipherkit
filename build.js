@@ -804,6 +804,60 @@ searchInput.addEventListener('input', function() {
 });
 </script>
 
+<!-- Typewriter placeholder for hero search -->
+<script defer>
+(function(){
+  var el = document.getElementById('tool-search');
+  if (!el || !document.querySelector('.hero')) return;
+  var words = ["AES Encryption","JWT Decoder","Base64 Encode","Hex Decoder","Bcrypt Generator","UUID Generator","Cron Expression","Regex Tester","Text Diff Checker","JSON Formatter"];
+  var fallback = el.getAttribute('placeholder') || '';
+  var idx = 0, pos = 0, deleting = false, tid = 0, active = true;
+
+  function tick() {
+    if (!active) return;
+    var word = words[idx];
+    if (!deleting) {
+      pos++;
+      el.setAttribute('placeholder', word.slice(0, pos));
+      if (pos >= word.length) {
+        deleting = true;
+        tid = setTimeout(tick, 1200);
+        return;
+      }
+      tid = setTimeout(tick, 80);
+    } else {
+      pos--;
+      el.setAttribute('placeholder', word.slice(0, pos) || '\\u200B');
+      if (pos <= 0) {
+        deleting = false;
+        idx = (idx + 1) % words.length;
+        tid = setTimeout(tick, 300);
+        return;
+      }
+      tid = setTimeout(tick, 40);
+    }
+  }
+
+  function stop() {
+    active = false;
+    clearTimeout(tid);
+    el.setAttribute('placeholder', fallback);
+  }
+  function resume() {
+    if (el.value.length > 0) return;
+    active = true;
+    pos = 0;
+    idx = (idx + 1) % words.length;
+    deleting = false;
+    tick();
+  }
+
+  el.addEventListener('focus', stop);
+  el.addEventListener('blur', resume);
+  tick();
+})();
+</script>
+
 <!-- Recently Used (inline, runs before ck-state.js) -->
 <script defer>
 (function() {
