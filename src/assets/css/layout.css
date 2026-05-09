@@ -251,7 +251,7 @@
 
 .hero h1 {
   font-size:     clamp(32px, 5vw, 54px);
-  font-weight:   700;
+  font-weight:   900;
   line-height:   1.15;
   letter-spacing: -0.02em;
   margin-bottom: 18px;
@@ -262,9 +262,9 @@
 }
 
 .hero-sub {
-  font-size:     14px;
+  font-size:     13px;
   margin-bottom: 32px;
-  color:         var(--muted);
+  color:         #888;
   line-height:   1.8;
 }
 
