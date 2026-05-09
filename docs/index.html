@@ -759,16 +759,31 @@ searchInput.addEventListener('input', function() {
 (function(){
   var el = document.getElementById('tool-search');
   if (!el || !document.querySelector('.hero')) return;
-  var words = ["AES Encryption","JWT Decoder","Base64 Encode","Hex Decoder","Bcrypt Generator","UUID Generator","Cron Expression","Regex Tester","Text Diff Checker","JSON Formatter"];
+  var words = ["AES Encryption","Decode JWT Token", "Base64 Encode","Format JSON","Generate UUID","Hex to Text","Test Regex","Compare Text","Bcrypt Password","PNG to JPG"];
   var fallback = el.getAttribute('placeholder') || '';
   var idx = 0, pos = 0, deleting = false, tid = 0, active = true;
+  var cursorOn = true, cid = 0;
+
+  function setPlc(text) {
+    el.setAttribute('placeholder', text + (cursorOn ? '|' : ''));
+  }
+
+  function blink() {
+    if (!active) return;
+    cursorOn = !cursorOn;
+    var word = words[idx];
+    var text = pos > 0 ? word.slice(0, pos) : '\u200B';
+    setPlc(text);
+    cid = setTimeout(blink, 500);
+  }
 
   function tick() {
     if (!active) return;
+    cursorOn = true;
     var word = words[idx];
     if (!deleting) {
       pos++;
-      el.setAttribute('placeholder', word.slice(0, pos));
+      setPlc(word.slice(0, pos));
       if (pos >= word.length) {
         deleting = true;
         tid = setTimeout(tick, 1200);
@@ -777,7 +792,7 @@ searchInput.addEventListener('input', function() {
       tid = setTimeout(tick, 80);
     } else {
       pos--;
-      el.setAttribute('placeholder', word.slice(0, pos) || '\u200B');
+      setPlc(pos > 0 ? word.slice(0, pos) : '\u200B');
       if (pos <= 0) {
         deleting = false;
         idx = (idx + 1) % words.length;
@@ -791,20 +806,24 @@ searchInput.addEventListener('input', function() {
   function stop() {
     active = false;
     clearTimeout(tid);
+    clearTimeout(cid);
     el.setAttribute('placeholder', fallback);
   }
   function resume() {
     if (el.value.length > 0) return;
     active = true;
+    cursorOn = true;
     pos = 0;
     idx = (idx + 1) % words.length;
     deleting = false;
     tick();
+    cid = setTimeout(blink, 500);
   }
 
   el.addEventListener('focus', stop);
   el.addEventListener('blur', resume);
   tick();
+  cid = setTimeout(blink, 500);
 })();
 </script>
 
