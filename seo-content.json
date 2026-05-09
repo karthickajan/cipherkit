@@ -550,5 +550,30 @@
         "a": "WebP is a modern image format developed by Google that provides 25–35 % smaller file sizes than JPEG at equivalent quality. All modern browsers support it. Serving WebP improves page load times and Core Web Vitals scores."
       }
     ]
+  },
+  "hex-decode": {
+    "heading": "Hex Decoder",
+    "description": "Hex decoding converts a hexadecimal-encoded string back into its original text or binary representation. Each pair of hex digits (00–FF) maps to a single byte. Hex encoding is widely used in networking, cryptography, and low-level programming to represent binary data in a human-readable format.",
+    "commonUses": [
+      "Decoding hex-encoded API responses or webhook payloads",
+      "Converting hex color codes or raw byte sequences to readable text",
+      "Inspecting network packet captures and binary protocol data",
+      "Reversing hex-encoded hashes, keys, or encrypted output for debugging",
+      "Decoding hex representations in log files and error messages"
+    ],
+    "faq": [
+      {
+        "q": "What is hex decoding?",
+        "a": "Hex decoding converts a string of hexadecimal characters (0–9, A–F) back into the original bytes. Each pair of hex digits represents one byte (0–255)."
+      },
+      {
+        "q": "Is hex decoding the same as decryption?",
+        "a": "No. Hex decoding is a simple format conversion, not a cryptographic operation. It reverses hex encoding but does not decrypt encrypted data."
+      },
+      {
+        "q": "Is this hex decoder free and private?",
+        "a": "Yes. CipherKit's hex decoder runs entirely in your browser. No data is sent to any server — your input never leaves your device."
+      }
+    ]
   }
 }

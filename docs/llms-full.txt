@@ -245,6 +245,8 @@ Description: Free online hex encoder. Convert plain text or ASCII strings to hex
 URL: https://cipherkit.app/tools/hex-decode/
 Category: encoding
 Description: Free online hex decoder. Convert hexadecimal strings back to plain text or ASCII instantly in your browser.
+Hex decoding converts a hexadecimal-encoded string back into its original text or binary representation. Each pair of hex digits (00–FF) maps to a single byte. Hex encoding is widely used in networking, cryptography, and low-level programming to represent binary data in a human-readable format.
+Common uses: Decoding hex-encoded API responses or webhook payloads, Converting hex color codes or raw byte sequences to readable text, Inspecting network packet captures and binary protocol data, Reversing hex-encoded hashes, keys, or encrypted output for debugging, Decoding hex representations in log files and error messages
 
 ### Binary Encoder
 URL: https://cipherkit.app/tools/binary-encode/
