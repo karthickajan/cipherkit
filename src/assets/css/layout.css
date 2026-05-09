@@ -507,6 +507,7 @@
 .breadcrumb a { color: var(--muted); }
 .breadcrumb a:hover { color: var(--green); opacity: 1; }
 /* ── NAV SEARCH ──────────────────────────────────────────────────────────── */
+.home-page .nav-search-wrapper { display: none; }
 .nav-search-wrapper {
   position: relative;
   flex: 0 1 260px;

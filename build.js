@@ -672,7 +672,7 @@ ${JSON.stringify({
 <head>
 ${head}
 </head>
-<body>
+<body class="home-page">
 
 <a href="#main-content" class="skip-link">Skip to content</a>
 
