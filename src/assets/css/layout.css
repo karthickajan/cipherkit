@@ -93,14 +93,8 @@
 .nav-link--active {
   color: var(--green) !important;
   opacity: 1 !important;
-}
-.nav-link--active::after {
-  content: '';
-  display: block;
-  height: 2px;
-  background: var(--green);
-  border-radius: 1px;
-  margin-top: 2px;
+  border-bottom: 2px solid var(--green);
+  border-radius: 6px 6px 0 0;
 }
 
 /* Header badges */
