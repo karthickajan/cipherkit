@@ -37,6 +37,7 @@
 .tool-header-inner {
   max-width: var(--max-w);
   margin:    0 auto;
+  padding:   0 24px;
 }
 
 .tool-header h1 { margin-bottom: 10px; }
