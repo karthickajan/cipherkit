@@ -195,7 +195,8 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
     .tool-page-lower{min-height:280px}
     .hero{text-align:center;padding:48px 24px 36px}
     .hero-inner{max-width:720px;margin:0 auto}
-    .hero h1{font-size:clamp(32px,4.5vw,52px);font-weight:900;line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px;color:#fff;font-family:'Syne',Arial,sans-serif}
+    .hero h1{font-size:clamp(26px,3.6vw,42px);font-weight:900;line-height:1.05;letter-spacing:-0.02em;margin-bottom:16px;color:#fff;font-family:'Syne',Arial,sans-serif}
+    .hero h1 em{color:#00ff88;font-style:normal}
     .hero-accent{font-size:16px;font-weight:500;color:#00ff88;letter-spacing:0.02em;margin-bottom:16px}
     .hero-sub{font-size:14px;margin-bottom:28px;color:#888;line-height:1.7}
     .hub-section{content-visibility:auto;contain-intrinsic-size:0 600px}
@@ -204,6 +205,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
     [data-theme="light"] body{background:#f5f7fa;color:#1f2328}
     [data-theme="light"] .site-header{background:rgba(245,247,250,.92);border-bottom-color:#d0d7de}
     [data-theme="light"] .hero h1{color:#1f2328}
+    [data-theme="light"] .hero h1 em{color:#1a8c5b}
     [data-theme="light"] .hero-accent{color:#1a8c5b}
   </style>
   <script>try{var t=localStorage.getItem('ck-theme');if(t){document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#f5f7fa'}}catch(e){}</script>
@@ -685,7 +687,7 @@ ${buildNavbar()}
   <!-- Hero -->
   <section class="hero" aria-label="Introduction">
     <div class="hero-inner">
-      <h1>Stop pasting sensitive data<br>into random websites.</h1>
+      <h1>Stop pasting sensitive data<br>into random <em>websites.</em></h1>
       <p class="hero-accent">${tools.length}+ free tools. 100% in your browser. Zero tracking.</p>
       <p class="hero-sub">AES, JWT, Base64, SHA, Regex and 80+ more — all running locally.</p>
 
@@ -699,6 +701,7 @@ ${buildNavbar()}
           aria-label="Search tools"
           autocomplete="off"
         >
+        <span class="hero-search-hint" aria-hidden="true">⌘K</span>
         </div>
       </div>
 

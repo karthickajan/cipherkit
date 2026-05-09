@@ -219,13 +219,17 @@
 .hero-inner { max-width: 720px; margin: 0 auto; }
 
 .hero h1 {
-  font-size:     clamp(32px, 4.5vw, 52px);
+  font-size:     clamp(26px, 3.6vw, 42px);
   font-weight:   900;
-  line-height:   1.15;
+  line-height:   1.05;
   letter-spacing: -0.02em;
   margin-bottom: 16px;
   color:         #ffffff;
   font-family:   var(--sans);
+}
+.hero h1 em {
+  color:      #00ff88;
+  font-style: normal;
 }
 
 .hero-accent {
@@ -251,22 +255,34 @@
 }
 .hero-search input {
   width:           100%;
-  max-width:       500px;
+  max-width:       640px;
+  height:          56px;
   background:      #0a0a0a;
-  border:          1px solid #2a2a2a;
-  border-radius:   8px;
+  border:          1.5px solid #00ff88;
+  border-radius:   10px;
   color:           var(--text);
   font-family:     var(--mono);
   font-size:       16px;
-  padding:         12px 18px;
+  padding:         0 48px 0 20px;
   outline:         none;
   transition:      border-color .2s, box-shadow .2s;
+  box-shadow:      0 0 24px rgba(0,255,136,0.15);
 }
 .hero-search input:focus {
   border-color: #00ff88;
-  box-shadow:   0 0 0 3px rgba(0,255,136,0.12);
+  box-shadow:   0 0 36px rgba(0,255,136,0.3);
 }
 .hero-search input::placeholder { color: var(--muted); }
+.hero-search-hint {
+  position:    absolute;
+  right:       20px;
+  top:         50%;
+  transform:   translateY(-50%);
+  font-size:   12px;
+  color:       #555;
+  font-family: var(--mono);
+  pointer-events: none;
+}
 
 /* Hub quick links */
 .hub-pills {
@@ -783,12 +799,12 @@
 }
 /* Hero light theme */
 [data-theme="light"] .hero h1 { color: #1f2328; }
+[data-theme="light"] .hero h1 em { color: #1a8c5b; }
 [data-theme="light"] .hero-accent { color: #1a8c5b; }
-/* Hero search */
 [data-theme="light"] .hero-search input {
   background: var(--surface);
-  border-color: var(--border);
-  color: var(--text);
+  border-color: #1a8c5b;
+  box-shadow: 0 0 24px rgba(26,140,91,0.1);
 }
 [data-theme="light"] .hero-search input::placeholder { color: #9ca3af; }
 [data-theme="light"] .hero-search input:focus {
