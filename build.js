@@ -725,17 +725,17 @@ ${buildNavbar()}
   <!-- Tool Hubs -->
   <div class="hubs-wrap" id="hubs-wrap">
 
-    <!-- Recently Used (hidden by default, populated by JS) -->
-    <section id="recently-used" style="display:none; margin-bottom: 2rem;">
-      <h2 style="font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:12px;">Recently used</h2>
-      <div id="recent-tools-row" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
-    </section>
-
     ${categorySection('crypto')}
     ${categorySection('encoding')}
     ${categorySection('converter')}
     ${categorySection('dev')}
     ${categorySection('image')}
+
+    <!-- Recently Used (hidden by default, populated by JS) -->
+    <section id="recently-used" style="display:none; margin-bottom: 2rem;">
+      <h2 style="font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:12px;">Recently used</h2>
+      <div id="recent-tools-row" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+    </section>
   </div>
 
 </main>
