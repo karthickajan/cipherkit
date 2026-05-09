@@ -687,7 +687,7 @@ ${buildNavbar()}
   <!-- Hero -->
   <section class="hero" aria-label="Introduction">
     <div class="hero-inner">
-      <h1>Stop pasting sensitive data<br><span style="white-space:nowrap">into random <em>tools.</em></span></h1>
+      <h1>Stop pasting sensitive data into random <em>tools.</em></h1>
       <p class="hero-accent">${tools.length}+ free tools. 100% in your browser. Zero tracking.</p>
       <p class="hero-sub">AES, JWT, Base64, SHA, Regex and 80+ more — all running locally.</p>
 

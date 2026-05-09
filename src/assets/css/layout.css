@@ -587,18 +587,18 @@
   background: conic-gradient(
     from var(--ck-angle),
     transparent 0deg,
-    #00ff88 60deg,
-    #00d4ff 120deg,
-    transparent 180deg
+    #00ff88 40deg,
+    #00d4ff 140deg,
+    transparent 200deg
   );
   animation: ck-spin 3s linear infinite;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.7;
   transition: opacity .3s ease;
 }
 
 .search-glow-wrapper:focus-within::before {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .search-glow-wrapper > * {
