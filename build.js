@@ -194,15 +194,17 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
     .tool-container{min-height:400px}
     .tool-page-lower{min-height:280px}
     .hero{text-align:center;padding:64px 24px 48px}
-    .hero-inner{max-width:680px;margin:0 auto}
-    .hero h1{font-size:clamp(32px,5vw,54px);font-weight:900;line-height:1.15;letter-spacing:-0.02em;margin-bottom:18px;background:linear-gradient(120deg,#dde4ed,#3dd68c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Syne',Arial,sans-serif}
-    .hero-sub{font-size:13px;margin-bottom:32px;color:#888;line-height:1.8}
+    .hero-inner{max-width:720px;margin:0 auto}
+    .hero h1{font-size:clamp(48px,7vw,88px);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:18px;color:#fff;font-family:'Syne',Arial,sans-serif}
+    .hero-accent{font-size:18px;font-weight:500;color:#00ff88;letter-spacing:0.02em;margin-bottom:20px}
+    .hero-sub{font-size:15px;margin-bottom:32px;color:#888;line-height:1.8}
     .hub-section{content-visibility:auto;contain-intrinsic-size:0 600px}
     .theme-icon-sun{display:none}.theme-icon-moon{display:block}
     [data-theme="light"] .theme-icon-sun{display:block}[data-theme="light"] .theme-icon-moon{display:none}
     [data-theme="light"] body{background:#f5f7fa;color:#1f2328}
     [data-theme="light"] .site-header{background:rgba(245,247,250,.92);border-bottom-color:#d0d7de}
-    [data-theme="light"] .hero h1{background:linear-gradient(120deg,#1f2328,#1a8c5b);-webkit-background-clip:text;background-clip:text}
+    [data-theme="light"] .hero h1{color:#1f2328}
+    [data-theme="light"] .hero-accent{color:#1a8c5b}
   </style>
   <script>try{var t=localStorage.getItem('ck-theme');if(t){document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#f5f7fa'}}catch(e){}</script>
 
@@ -683,12 +685,9 @@ ${buildNavbar()}
   <!-- Hero -->
   <section class="hero" aria-label="Introduction">
     <div class="hero-inner">
-      <div class="hero-pill">
-        <span class="hero-pill-icon">${SVG.shield}</span>
-        Free. Client-side. No tracking.
-      </div>
-      <h1>Developer Crypto & Utility Tools</h1>
-      <p class="hero-sub">${tools.length} free online tools for developers. AES, RSA, SHA, JWT, Base64, JSON — all run in your browser. Your data never leaves your device.</p>
+      <h1>Stop pasting sensitive data<br>into random websites.</h1>
+      <p class="hero-accent">${tools.length}+ free tools. 100% in your browser. Zero tracking.</p>
+      <p class="hero-sub">AES, JWT, Base64, SHA, Regex and 80+ more — all running locally.</p>
 
       <!-- Search -->
       <div class="hero-search" role="search">
