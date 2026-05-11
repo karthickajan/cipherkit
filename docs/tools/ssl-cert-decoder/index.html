@@ -58,26 +58,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the SSL Certificate Decoder free?",
+      "name": "What is a PEM Decoder?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "PEM (Privacy Enhanced Mail) is a Base64-encoded format used for SSL certificates, private keys, and public keys. A PEM decoder parses these files to reveal the underlying certificate details — validity dates, issuer, subject, and key type."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Why use CipherKit's PEM Decoder?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Your private keys and certificates never leave your browser. This is critical — pasting PEM files into unknown online tools exposes your private key infrastructure. CipherKit processes everything locally."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the SSL Certificate Decoder do?",
+      "name": "When to use this tool",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online SSL certificate decoder. Parse and inspect PEM X.509 certificates to view subject, issuer, validity, and serial number."
+        "text": "Use when inspecting SSL certificate expiry, verifying certificate chains, debugging TLS handshake issues, or confirming a certificate matches its private key."
       }
     }
   ]
@@ -257,6 +257,28 @@
       </div>
     </section>
 
+    <section class="seo-content">
+      <h2>What is SSL Certificate Decoder?</h2>
+      <p>PEM (Privacy Enhanced Mail) is a Base64-encoded format used for SSL certificates, private keys, and public keys. A PEM decoder parses these files to reveal the underlying certificate details — validity dates, issuer, subject, and key type.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Inspecting SSL certificate expiry dates</li>
+      <li>Verifying certificate chains</li>
+      <li>Debugging TLS handshake issues</li>
+      <li>Confirming a certificate matches its private key</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is a PEM Decoder?</h3>
+    <p>PEM (Privacy Enhanced Mail) is a Base64-encoded format used for SSL certificates, private keys, and public keys. A PEM decoder parses these files to reveal the underlying certificate details — validity dates, issuer, subject, and key type.</p>
+
+    <h3>Why use CipherKit's PEM Decoder?</h3>
+    <p>Your private keys and certificates never leave your browser. This is critical — pasting PEM files into unknown online tools exposes your private key infrastructure. CipherKit processes everything locally.</p>
+
+    <h3>When to use this tool</h3>
+    <p>Use when inspecting SSL certificate expiry, verifying certificate chains, debugging TLS handshake issues, or confirming a certificate matches its private key.</p>
+    </section>
   </div>
 
 </main>

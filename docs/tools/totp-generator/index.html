@@ -58,26 +58,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the TOTP Generator free?",
+      "name": "What is a TOTP Generator?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "TOTP (Time-based One-Time Password) generates 6-digit codes that expire every 30 seconds — the same mechanism used by Google Authenticator and Authy. Based on RFC 6238 and used for two-factor authentication (2FA)."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Why use CipherKit?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Your TOTP secret key is extremely sensitive. CipherKit generates codes entirely client-side — your secret never touches a server. Safe for testing 2FA implementations during development."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the TOTP Generator do?",
+      "name": "When to use",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online TOTP generator. Generate time-based one-time passwords (2FA codes) from any Base32 secret key directly in your browser."
+        "text": "Testing 2FA integration during development, verifying TOTP secret keys, or generating backup codes when your authenticator app is unavailable."
       }
     }
   ]
@@ -257,6 +257,27 @@
       </div>
     </section>
 
+    <section class="seo-content">
+      <h2>What is TOTP Generator?</h2>
+      <p>TOTP (Time-based One-Time Password) generates 6-digit codes that expire every 30 seconds — the same mechanism used by Google Authenticator and Authy. Based on RFC 6238 and used for two-factor authentication (2FA).</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Testing 2FA integration during development</li>
+      <li>Verifying TOTP secret keys</li>
+      <li>Generating backup codes when authenticator app is unavailable</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is a TOTP Generator?</h3>
+    <p>TOTP (Time-based One-Time Password) generates 6-digit codes that expire every 30 seconds — the same mechanism used by Google Authenticator and Authy. Based on RFC 6238 and used for two-factor authentication (2FA).</p>
+
+    <h3>Why use CipherKit?</h3>
+    <p>Your TOTP secret key is extremely sensitive. CipherKit generates codes entirely client-side — your secret never touches a server. Safe for testing 2FA implementations during development.</p>
+
+    <h3>When to use</h3>
+    <p>Testing 2FA integration during development, verifying TOTP secret keys, or generating backup codes when your authenticator app is unavailable.</p>
+    </section>
   </div>
 
 </main>

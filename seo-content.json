@@ -575,5 +575,191 @@
         "a": "Yes. CipherKit's hex decoder runs entirely in your browser. No data is sent to any server — your input never leaves your device."
       }
     ]
+  },
+  "webp-to-jpg": {
+    "heading": "WebP to JPG Converter",
+    "description": "WebP is a modern image format by Google offering superior compression. Converting WebP to JPG makes images compatible with apps, devices, and platforms that don't support WebP — including older email clients, Word documents, and some CMS platforms.",
+    "commonUses": [
+      "Email attachments for clients that don't support WebP",
+      "Uploading images to platforms that reject WebP files",
+      "Sharing images with non-technical users on older devices"
+    ],
+    "faq": [
+      {
+        "q": "What is WebP to JPG conversion?",
+        "a": "WebP is a modern image format by Google offering superior compression. Converting WebP to JPG makes images compatible with apps, devices, and platforms that don't support WebP — including older email clients, Word documents, and some CMS platforms."
+      },
+      {
+        "q": "Why convert WebP to JPG on CipherKit?",
+        "a": "100% client-side conversion. Your images never leave your browser — no upload to any server, no storage, no tracking."
+      },
+      {
+        "q": "When to use this tool",
+        "a": "Use when you need JPG for email attachments, when a platform rejects WebP uploads, or when sharing images with non-technical users on older devices."
+      }
+    ]
+  },
+  "jpg-to-webp": {
+    "heading": "JPG to WebP Converter",
+    "description": "WebP delivers 25-35% smaller file sizes than JPG at equivalent quality. Converting JPG to WebP reduces page load times and improves Core Web Vitals scores — making it essential for web developers optimizing site performance.",
+    "commonUses": [
+      "Optimizing images for web performance",
+      "Meeting WebP requirements in modern frameworks",
+      "Reducing bandwidth for mobile users"
+    ],
+    "faq": [
+      {
+        "q": "What is JPG to WebP conversion?",
+        "a": "WebP delivers 25-35% smaller file sizes than JPG at equivalent quality. Converting JPG to WebP reduces page load times and improves Core Web Vitals scores — making it essential for web developers optimizing site performance."
+      },
+      {
+        "q": "Why convert JPG to WebP on CipherKit?",
+        "a": "Fully in-browser conversion. No file is uploaded to any server. Works offline once the page is loaded. Free with no file size limits."
+      },
+      {
+        "q": "When to use this tool",
+        "a": "Use when optimizing images for web performance, when your framework requires WebP format, or when reducing bandwidth for mobile users."
+      }
+    ]
+  },
+  "html-encode": {
+    "heading": "HTML Entity Encoder",
+    "description": "HTML encoding converts special characters like <, >, &, and quotes into their HTML entity equivalents (&lt; &gt; &amp;). This prevents XSS vulnerabilities and ensures special characters render correctly in browsers instead of being parsed as HTML tags.",
+    "commonUses": [
+      "Sanitizing user input before rendering in HTML",
+      "Preparing code snippets for blog posts",
+      "Fixing broken characters in email templates"
+    ],
+    "faq": [
+      {
+        "q": "What is HTML Encoding?",
+        "a": "HTML encoding converts special characters like <, >, &, and quotes into their HTML entity equivalents (&lt; &gt; &amp;). This prevents XSS vulnerabilities and ensures special characters render correctly in browsers instead of being parsed as HTML tags."
+      },
+      {
+        "q": "Why use CipherKit's HTML Encoder?",
+        "a": "Client-side only. Encode sensitive template strings, user-generated content, or code snippets without pasting them into an online service that logs inputs."
+      },
+      {
+        "q": "When to use this tool",
+        "a": "Use when sanitizing user input before rendering in HTML, preparing code snippets for blog posts, or fixing broken characters in email templates."
+      }
+    ]
+  },
+  "ssl-cert-decoder": {
+    "heading": "SSL Certificate Decoder",
+    "description": "PEM (Privacy Enhanced Mail) is a Base64-encoded format used for SSL certificates, private keys, and public keys. A PEM decoder parses these files to reveal the underlying certificate details — validity dates, issuer, subject, and key type.",
+    "commonUses": [
+      "Inspecting SSL certificate expiry dates",
+      "Verifying certificate chains",
+      "Debugging TLS handshake issues",
+      "Confirming a certificate matches its private key"
+    ],
+    "faq": [
+      {
+        "q": "What is a PEM Decoder?",
+        "a": "PEM (Privacy Enhanced Mail) is a Base64-encoded format used for SSL certificates, private keys, and public keys. A PEM decoder parses these files to reveal the underlying certificate details — validity dates, issuer, subject, and key type."
+      },
+      {
+        "q": "Why use CipherKit's PEM Decoder?",
+        "a": "Your private keys and certificates never leave your browser. This is critical — pasting PEM files into unknown online tools exposes your private key infrastructure. CipherKit processes everything locally."
+      },
+      {
+        "q": "When to use this tool",
+        "a": "Use when inspecting SSL certificate expiry, verifying certificate chains, debugging TLS handshake issues, or confirming a certificate matches its private key."
+      }
+    ]
+  },
+  "jpg-to-jpeg": {
+    "heading": "JPEG to WebP Converter",
+    "description": "JPEG and JPG are the same format. Converting JPEG to WebP reduces file size by 25-35% while maintaining visual quality — essential for improving Google PageSpeed and Core Web Vitals scores.",
+    "commonUses": [
+      "Optimizing images before uploading to a CMS",
+      "Reducing bandwidth on image-heavy landing pages",
+      "Meeting WebP requirements in modern web frameworks"
+    ],
+    "faq": [
+      {
+        "q": "What is JPEG to WebP conversion?",
+        "a": "JPEG and JPG are the same format. Converting JPEG to WebP reduces file size by 25-35% while maintaining visual quality — essential for improving Google PageSpeed and Core Web Vitals scores."
+      },
+      {
+        "q": "Why use CipherKit?",
+        "a": "No upload. No server. Converts entirely in your browser. Works with any JPEG or JPG file instantly."
+      },
+      {
+        "q": "When to use",
+        "a": "Optimizing images before uploading to a CMS, reducing bandwidth on image-heavy landing pages, or meeting WebP requirements in modern web frameworks."
+      }
+    ]
+  },
+  "sql-formatter": {
+    "heading": "SQL Formatter",
+    "description": "A MySQL formatter (also called SQL beautifier) indents and structures raw SQL queries for readability. It standardizes keyword casing, adds consistent spacing, and makes complex queries easier to review and debug.",
+    "commonUses": [
+      "Formatting SQL before committing to version control",
+      "Cleaning up auto-generated ORM output",
+      "Debugging long nested queries during code reviews"
+    ],
+    "faq": [
+      {
+        "q": "What is a MySQL Formatter?",
+        "a": "A MySQL formatter (also called SQL beautifier) indents and structures raw SQL queries for readability. It standardizes keyword casing, adds consistent spacing, and makes complex queries easier to review and debug."
+      },
+      {
+        "q": "Why use CipherKit?",
+        "a": "Your SQL queries may contain table names, column values, and sensitive schema details. CipherKit formats entirely client-side — nothing is sent to any server."
+      },
+      {
+        "q": "When to use",
+        "a": "Before committing SQL to version control, during code reviews, when debugging long nested queries, or cleaning up auto-generated ORM output."
+      }
+    ]
+  },
+  "totp-generator": {
+    "heading": "TOTP Generator",
+    "description": "TOTP (Time-based One-Time Password) generates 6-digit codes that expire every 30 seconds — the same mechanism used by Google Authenticator and Authy. Based on RFC 6238 and used for two-factor authentication (2FA).",
+    "commonUses": [
+      "Testing 2FA integration during development",
+      "Verifying TOTP secret keys",
+      "Generating backup codes when authenticator app is unavailable"
+    ],
+    "faq": [
+      {
+        "q": "What is a TOTP Generator?",
+        "a": "TOTP (Time-based One-Time Password) generates 6-digit codes that expire every 30 seconds — the same mechanism used by Google Authenticator and Authy. Based on RFC 6238 and used for two-factor authentication (2FA)."
+      },
+      {
+        "q": "Why use CipherKit?",
+        "a": "Your TOTP secret key is extremely sensitive. CipherKit generates codes entirely client-side — your secret never touches a server. Safe for testing 2FA implementations during development."
+      },
+      {
+        "q": "When to use",
+        "a": "Testing 2FA integration during development, verifying TOTP secret keys, or generating backup codes when your authenticator app is unavailable."
+      }
+    ]
+  },
+  "rsa-key-generator": {
+    "heading": "RSA Key Pair Generator",
+    "description": "RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security.",
+    "commonUses": [
+      "Generating SSH key pairs for server access",
+      "Creating keys for JWT RS256 signing",
+      "Testing asymmetric encryption implementations",
+      "Generating self-signed certificate keys"
+    ],
+    "faq": [
+      {
+        "q": "What is RSA Key Generation?",
+        "a": "RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security."
+      },
+      {
+        "q": "Why use CipherKit?",
+        "a": "Private key generation must never happen on a remote server — the server could log or store your key. CipherKit generates RSA key pairs entirely in your browser using the Web Crypto API. Your private key never leaves your device."
+      },
+      {
+        "q": "When to use",
+        "a": "Generating SSH key pairs for server access, creating keys for JWT RS256 signing, testing asymmetric encryption implementations, or generating self-signed certificate keys."
+      }
+    ]
   }
 }

@@ -58,26 +58,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the RSA Key Pair Generator free?",
+      "name": "What is RSA Key Generation?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Why use CipherKit?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Private key generation must never happen on a remote server — the server could log or store your key. CipherKit generates RSA key pairs entirely in your browser using the Web Crypto API. Your private key never leaves your device."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the RSA Key Pair Generator do?",
+      "name": "When to use",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online RSA key pair generator. Generate RSA 2048-bit or 4096-bit public and private key pairs in PKCS#8 format directly in your browser."
+        "text": "Generating SSH key pairs for server access, creating keys for JWT RS256 signing, testing asymmetric encryption implementations, or generating self-signed certificate keys."
       }
     }
   ]
@@ -257,6 +257,28 @@
       </div>
     </section>
 
+    <section class="seo-content">
+      <h2>What is RSA Key Pair Generator?</h2>
+      <p>RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security.</p>
+
+      <h2>Common Uses</h2>
+      <ul>
+      <li>Generating SSH key pairs for server access</li>
+      <li>Creating keys for JWT RS256 signing</li>
+      <li>Testing asymmetric encryption implementations</li>
+      <li>Generating self-signed certificate keys</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+    <h3>What is RSA Key Generation?</h3>
+    <p>RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security.</p>
+
+    <h3>Why use CipherKit?</h3>
+    <p>Private key generation must never happen on a remote server — the server could log or store your key. CipherKit generates RSA key pairs entirely in your browser using the Web Crypto API. Your private key never leaves your device.</p>
+
+    <h3>When to use</h3>
+    <p>Generating SSH key pairs for server access, creating keys for JWT RS256 signing, testing asymmetric encryption implementations, or generating self-signed certificate keys.</p>
+    </section>
   </div>
 
 </main>

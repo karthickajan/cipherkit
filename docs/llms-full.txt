@@ -187,6 +187,8 @@ Common uses: API request signing — verify that requests come from authorised c
 URL: https://cipherkit.app/tools/rsa-key-generator/
 Category: crypto
 Description: Free online RSA key pair generator. Generate RSA 2048-bit or 4096-bit public and private key pairs in PKCS#8 format directly in your browser.
+RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security.
+Common uses: Generating SSH key pairs for server access, Creating keys for JWT RS256 signing, Testing asymmetric encryption implementations, Generating self-signed certificate keys
 
 ### Hash Comparator & Verifier
 URL: https://cipherkit.app/tools/hash-comparator/
@@ -230,6 +232,8 @@ Common uses: Decoding query parameters from server logs or analytics data, Debug
 URL: https://cipherkit.app/tools/html-encode/
 Category: encoding
 Description: Free online HTML entity encoder. Convert special characters like <, >, &, and quotes to HTML entities for safe display in web pages.
+HTML encoding converts special characters like <, >, &, and quotes into their HTML entity equivalents (&lt; &gt; &amp;). This prevents XSS vulnerabilities and ensures special characters render correctly in browsers instead of being parsed as HTML tags.
+Common uses: Sanitizing user input before rendering in HTML, Preparing code snippets for blog posts, Fixing broken characters in email templates
 
 ### HTML Entity Decoder
 URL: https://cipherkit.app/tools/html-decode/
@@ -384,6 +388,8 @@ Description: Free online lorem ipsum generator. Generate custom amounts of place
 URL: https://cipherkit.app/tools/sql-formatter/
 Category: dev
 Description: Free online SQL formatter. Beautify and format SQL queries for MySQL, PostgreSQL, SQLite, and SQL Server instantly in your browser.
+A MySQL formatter (also called SQL beautifier) indents and structures raw SQL queries for readability. It standardizes keyword casing, adds consistent spacing, and makes complex queries easier to review and debug.
+Common uses: Formatting SQL before committing to version control, Cleaning up auto-generated ORM output, Debugging long nested queries during code reviews
 
 ### Markdown Previewer
 URL: https://cipherkit.app/tools/markdown-preview/
@@ -423,11 +429,15 @@ Description: Free online password strength checker. Analyze entropy, crack time,
 URL: https://cipherkit.app/tools/totp-generator/
 Category: crypto
 Description: Free online TOTP generator. Generate time-based one-time passwords (2FA codes) from any Base32 secret key directly in your browser.
+TOTP (Time-based One-Time Password) generates 6-digit codes that expire every 30 seconds — the same mechanism used by Google Authenticator and Authy. Based on RFC 6238 and used for two-factor authentication (2FA).
+Common uses: Testing 2FA integration during development, Verifying TOTP secret keys, Generating backup codes when authenticator app is unavailable
 
 ### SSL Certificate Decoder
 URL: https://cipherkit.app/tools/ssl-cert-decoder/
 Category: crypto
 Description: Free online SSL certificate decoder. Parse and inspect PEM X.509 certificates to view subject, issuer, validity, and serial number.
+PEM (Privacy Enhanced Mail) is a Base64-encoded format used for SSL certificates, private keys, and public keys. A PEM decoder parses these files to reveal the underlying certificate details — validity dates, issuer, subject, and key type.
+Common uses: Inspecting SSL certificate expiry dates, Verifying certificate chains, Debugging TLS handshake issues, Confirming a certificate matches its private key
 
 ### JSON Schema Validator
 URL: https://cipherkit.app/tools/json-schema-validator/
@@ -537,6 +547,8 @@ Description: Free online PNG to WebP converter. Convert PNG images to WebP forma
 URL: https://cipherkit.app/tools/jpg-to-webp/
 Category: image
 Description: Free online JPG to WebP converter. Convert JPEG images to WebP format for better compression. 100% client-side using Canvas API — no uploads.
+WebP delivers 25-35% smaller file sizes than JPG at equivalent quality. Converting JPG to WebP reduces page load times and improves Core Web Vitals scores — making it essential for web developers optimizing site performance.
+Common uses: Optimizing images for web performance, Meeting WebP requirements in modern frameworks, Reducing bandwidth for mobile users
 
 ### WebP to PNG Converter
 URL: https://cipherkit.app/tools/webp-to-png/
@@ -547,6 +559,8 @@ Description: Free online WebP to PNG converter. Convert WebP images to PNG forma
 URL: https://cipherkit.app/tools/webp-to-jpg/
 Category: image
 Description: Free online WebP to JPG converter. Convert WebP images to JPEG format for universal compatibility. 100% client-side using Canvas API — no uploads.
+WebP is a modern image format by Google offering superior compression. Converting WebP to JPG makes images compatible with apps, devices, and platforms that don't support WebP — including older email clients, Word documents, and some CMS platforms.
+Common uses: Email attachments for clients that don't support WebP, Uploading images to platforms that reject WebP files, Sharing images with non-technical users on older devices
 
 ### JSON to YAML Converter
 URL: https://cipherkit.app/tools/json-to-yaml/
