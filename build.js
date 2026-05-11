@@ -1062,6 +1062,12 @@ function buildRobots() {
   return `User-agent: *
 Allow: /
 
+# Block UTM/ref tracking params from being indexed
+Disallow: /*?ref=
+Disallow: /*?utm_source=
+Disallow: /*?utm_medium=
+Disallow: /*?utm_campaign=
+
 Sitemap: ${DOMAIN}/sitemap.xml
 `;
 }
