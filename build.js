@@ -118,10 +118,11 @@ function copySrc(srcRel, distRel) {
 }
 
 // ── SHARED HEAD HTML ────────────────────────────────────────────────────────
-function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', extraImgSrc = '', extraConnectSrc = '' }) {
+function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', extraImgSrc = '', extraConnectSrc = '', extraFrameSrc = '' }) {
   const canonical = `${DOMAIN}${canonicalPath}`;
   const imgSrc = `'self' data: blob: https://www.google-analytics.com https://launchboosts.com https://dofollow.tools${extraImgSrc ? ' ' + extraImgSrc : ''}`;
   const connectSrc = `'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com${extraConnectSrc ? ' ' + extraConnectSrc : ''}`;
+  const frameSrc = extraFrameSrc ? ` frame-src ${extraFrameSrc};` : '';
   return `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,7 +136,7 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', 
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src ${connectSrc}; img-src ${imgSrc};">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src ${connectSrc}; img-src ${imgSrc};${frameSrc}">
 
   <!-- Open Graph -->
   <meta property="og:title" content="${pageTitle}">
@@ -475,6 +476,90 @@ function buildRelatedTools(tool) {
     </div>
   </section>
 `.trim();
+}
+
+// ── CHESSY (IFRAME) TOOL PAGE ─────────────────────────────────────────────────
+function buildIframeToolPage(tool) {
+  const head = buildHead({
+    pageTitle:       tool.pageTitle,
+    metaDescription: tool.metaDescription,
+    canonicalPath:   `/tools/${tool.slug}/`,
+    extraMeta: `
+  <meta name="keywords" content="chess screenshot analyzer, chess board to FEN, chess image to lichess, chess OCR, chess position from photo, chess.com screenshot, analyze chess position" />
+  <script type="application/ld+json">
+  ${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": tool.title,
+    "applicationCategory": "UtilitiesApplication",
+    "description": tool.metaDescription,
+    "url": `${DOMAIN}/tools/${tool.slug}`,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "operatingSystem": "Web"
+  }, null, 2)}
+  </script>`,
+    extraConnectSrc: 'https://karthickajan-chessy.hf.space',
+    extraFrameSrc: 'https://karthickajan-chessy.hf.space',
+    extraImgSrc: ''
+  });
+
+  const navbar = buildNavbar(null, tool.category);
+  const footer = buildFooter();
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+${head}
+<style>
+  .chessy-tool-wrapper{width:100%;height:calc(100vh - 60px);overflow:hidden}
+  .chessy-tool-wrapper iframe{border:none}
+  .chessy-seo-content{background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.06)}
+  [data-theme="light"] .chessy-seo-content{background:rgba(0,0,0,.02);border-top-color:rgba(0,0,0,.08)}
+</style>
+</head>
+<body>
+
+<a href="#tool-interface" class="skip-link">Skip to tool</a>
+
+${navbar}
+
+<main id="main-content">
+  <div class="chessy-tool-wrapper" id="tool-interface">
+    <iframe
+      src="${tool.iframeSrc}"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      allow="clipboard-read; clipboard-write"
+      title="Chessy 2D — Chess Board Analyzer"
+      loading="lazy"
+    ></iframe>
+  </div>
+
+  <div class="chessy-seo-content">
+    <details style="padding:16px;max-width:800px;margin:auto">
+      <summary style="cursor:pointer;font-weight:500">About Chess Board Analyzer</summary>
+      <p>Chess Board Analyzer converts any chess screenshot into a playable position.
+      Upload or paste (Ctrl+V) a screenshot from chess.com, Lichess, Chessify, or any
+      2D chess app. The tool detects the board using computer vision, identifies all
+      64 squares, and reconstructs the exact FEN position — all in under 1 second.</p>
+      <p>Once analyzed, use the interactive board editor to fix any misidentified pieces
+      by dragging them. The built-in Stockfish engine shows the evaluation bar and
+      suggests the best move. Click "Open in Lichess" to continue analysis there.</p>
+      <p>Supports: chess.com (all piece themes), Lichess (all themes), Chessify,
+      Chess.com app screenshots, ChessKid, and most 2D digital boards.</p>
+    </details>
+  </div>
+</main>
+
+${footer}
+
+<!-- Core JS -->
+<script src="${BASE_PATH}/assets/js/core/ui.js${V}" defer></script>
+<script src="${BASE_PATH}/assets/js/core/ck-state.js${V}" defer></script>
+
+</body>
+</html>`;
 }
 
 // ── TOOL PAGE TEMPLATE ────────────────────────────────────────────────────────
@@ -1257,7 +1342,11 @@ function build() {
   // 5. Tool pages
   console.log(`🛠️  Building ${tools.length} tool pages...`);
   for (const tool of tools) {
-    writeDist(`tools/${tool.slug}/index.html`, buildToolPage(tool));
+    if (tool.iframe) {
+      writeDist(`tools/${tool.slug}/index.html`, buildIframeToolPage(tool));
+    } else {
+      writeDist(`tools/${tool.slug}/index.html`, buildToolPage(tool));
+    }
   }
   console.log('');
 

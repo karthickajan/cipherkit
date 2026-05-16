@@ -2372,6 +2372,32 @@
       "phase": 8,
       "status": "ready",
       "priority": 85
+    },
+    {
+      "slug": "chess-board-analyzer",
+      "title": "Chess Board Analyzer",
+      "pageTitle": "Chess Board Analyzer — Screenshot to FEN & Lichess | CipherKit",
+      "metaDescription": "Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.",
+      "h1": "Chess Board Analyzer",
+      "tagline": "Upload or paste a chess screenshot — get the position in Lichess instantly",
+      "category": "dev",
+      "hub": "Dev Hub",
+      "tags": [
+        "chess",
+        "image",
+        "AI",
+        "FEN",
+        "Lichess"
+      ],
+      "relatedTools": [
+        "image-converter",
+        "image-resizer"
+      ],
+      "iframe": true,
+      "iframeSrc": "https://karthickajan-chessy.hf.space/?__theme=system&embedded=true",
+      "phase": 9,
+      "status": "ready",
+      "priority": 86
     }
   ]
 }

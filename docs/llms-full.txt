@@ -1,8 +1,8 @@
 # CipherKit
-> 85 free online developer tools — encryption, hashing, encoding, formatting, image conversion. 100% client-side, no server, no tracking. Open source.
+> 86 free online developer tools — encryption, hashing, encoding, formatting, image conversion. 100% client-side, no server, no tracking. Open source.
 
 ## About
-CipherKit is a free, open-source collection of 85 developer tools that run entirely in the browser. No data is sent to any server. No login required. No cookies (except anonymous Google Analytics). Hosted on GitHub Pages.
+CipherKit is a free, open-source collection of 86 developer tools that run entirely in the browser. No data is sent to any server. No login required. No cookies (except anonymous Google Analytics). Hosted on GitHub Pages.
 
 - Website: https://cipherkit.app
 - GitHub: https://github.com/karthickajan/cipherkit
@@ -101,6 +101,7 @@ CipherKit is a free, open-source collection of 85 developer tools that run entir
 - [HTML Formatter](https://cipherkit.app/tools/html-formatter/): Format and minify HTML — with proper tag indentation
 - [CSS Formatter](https://cipherkit.app/tools/css-formatter/): Format and minify CSS — with @media and nested rule support
 - [JavaScript Minifier](https://cipherkit.app/tools/js-minifier/): Minify and format JavaScript — with size reduction stats
+- [Chess Board Analyzer](https://cipherkit.app/tools/chess-board-analyzer/): Upload or paste a chess screenshot — get the position in Lichess instantly
 
 ## Key Features
 - 100% client-side: all processing happens in the browser
@@ -616,3 +617,8 @@ Description: Free online CSS formatter and minifier. Beautify CSS with proper in
 URL: https://cipherkit.app/tools/js-minifier/
 Category: dev
 Description: Free online JavaScript minifier and formatter. Minify JS by stripping comments and whitespace, or re-format with proper indentation. Shows size reduction stats.
+
+### Chess Board Analyzer
+URL: https://cipherkit.app/tools/chess-board-analyzer/
+Category: dev
+Description: Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.

@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free online RSA key pair generator. Generate RSA 2048-bit or 4096-bit public and private key pairs in PKCS#8 format directly in your browser.">
+  <meta name="description" content="Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#07090d">
   <meta name="google-site-verification" content="UC-6PSV0VLbnfHxe9FoC2l7MWoX1Qi1CY1-_bV7lxQw" />
-  <link rel="canonical" href="https://cipherkit.app/tools/rsa-key-generator/">
+  <link rel="canonical" href="https://cipherkit.app/tools/chess-board-analyzer/">
 
   <!-- Security headers (meta fallbacks — real headers need a CDN/server) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; img-src 'self' data: blob: https://www.google-analytics.com https://launchboosts.com https://dofollow.tools;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com https://karthickajan-chessy.hf.space; img-src 'self' data: blob: https://www.google-analytics.com https://launchboosts.com https://dofollow.tools; frame-src https://karthickajan-chessy.hf.space;">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="RSA Key Pair Generator – Generate RSA Public & Private Keys Online | CipherKit">
-  <meta property="og:description" content="Free online RSA key pair generator. Generate RSA 2048-bit or 4096-bit public and private key pairs in PKCS#8 format directly in your browser.">
+  <meta property="og:title" content="Chess Board Analyzer — Screenshot to FEN & Lichess | CipherKit">
+  <meta property="og:description" content="Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cipherkit.app/tools/rsa-key-generator/">
+  <meta property="og:url" content="https://cipherkit.app/tools/chess-board-analyzer/">
   <meta property="og:site_name" content="CipherKit">
   <meta property="og:image" content="https://cipherkit.app/android-chrome-512x512.png">
   <meta property="og:image:width" content="512">
@@ -27,63 +27,30 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="RSA Key Pair Generator – Generate RSA Public & Private Keys Online | CipherKit">
-  <meta name="twitter:description" content="Free online RSA key pair generator. Generate RSA 2048-bit or 4096-bit public and private key pairs in PKCS#8 format directly in your browser.">
+  <meta name="twitter:title" content="Chess Board Analyzer — Screenshot to FEN & Lichess | CipherKit">
+  <meta name="twitter:description" content="Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.">
   <meta name="twitter:image" content="https://cipherkit.app/android-chrome-512x512.png">
 
-  <script type="application/ld+json">{
+  
+  <meta name="keywords" content="chess screenshot analyzer, chess board to FEN, chess image to lichess, chess OCR, chess position from photo, chess.com screenshot, analyze chess position" />
+  <script type="application/ld+json">
+  {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "RSA Key Pair Generator",
-  "url": "https://cipherkit.app/tools/rsa-key-generator/",
-  "description": "Free online RSA key pair generator. Generate RSA 2048-bit or 4096-bit public and private key pairs in PKCS#8 format directly in your browser.",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "All",
+  "@type": "SoftwareApplication",
+  "name": "Chess Board Analyzer",
+  "applicationCategory": "UtilitiesApplication",
+  "description": "Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.",
+  "url": "https://cipherkit.app/tools/chess-board-analyzer",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
-  "provider": {
-    "@type": "Organization",
-    "name": "CipherKit",
-    "url": "https://cipherkit.app"
-  }
+  "operatingSystem": "Web"
 }
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is RSA Key Generation?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why use CipherKit?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Private key generation must never happen on a remote server — the server could log or store your key. CipherKit generates RSA key pairs entirely in your browser using the Web Crypto API. Your private key never leaves your device."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "When to use",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Generating SSH key pairs for server access, creating keys for JWT RS256 signing, testing asymmetric encryption implementations, or generating self-signed certificate keys."
-      }
-    }
-  ]
-}</script>
+  </script>
 
-  <title>RSA Key Pair Generator – Generate RSA Public & Private Keys Online | CipherKit</title>
+  <title>Chess Board Analyzer — Screenshot to FEN & Lichess | CipherKit</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -149,6 +116,12 @@
   <script>
     (function(){var loaded=false;function loadGA(){if(loaded)return;loaded=true;var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL';s.async=true;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-31DPEW6FGL',{anonymize_ip:true});}['scroll','click','keydown','touchstart'].forEach(function(e){document.addEventListener(e,loadGA,{once:true,passive:true});});})();
   </script>
+<style>
+  .chessy-tool-wrapper{width:100%;height:calc(100vh - 60px);overflow:hidden}
+  .chessy-tool-wrapper iframe{border:none}
+  .chessy-seo-content{background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.06)}
+  [data-theme="light"] .chessy-seo-content{background:rgba(0,0,0,.02);border-top-color:rgba(0,0,0,.08)}
+</style>
 </head>
 <body>
 
@@ -171,10 +144,10 @@
     <button class="hamburger-btn" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
 
     <nav class="header-nav" id="header-nav" aria-label="Tool categories">
-      <a href="/tools/crypto/" class="nav-link nav-link--active"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> Crypto</a>
+      <a href="/tools/crypto/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> Crypto</a>
       <a href="/tools/encoding/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span> Encoding</a>
       <a href="/tools/converter/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></span> Converter</a>
-      <a href="/tools/dev/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Dev</a>
+      <a href="/tools/dev/" class="nav-link nav-link--active"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Dev</a>
       <a href="/tools/image/" class="nav-link"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span> Image</a>
     </nav>
 
@@ -197,90 +170,33 @@
   </div>
 </header>
 
-<main class="tool-page" id="main-content">
-
-  <!-- Tool Header -->
-  <div class="tool-header">
-    <div class="tool-header-inner">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
-        <span aria-hidden="true">›</span>
-        <a href="/tools/crypto/">Crypto Hub</a>
-        <span aria-hidden="true">›</span>
-        <span aria-current="page">RSA Key Pair Generator</span>
-      </nav>
-      <h1>RSA Key Pair Generator</h1>
-      <p class="tool-tagline">Generate RSA public & private key pairs — 1024, 2048, or 4096-bit</p>
-      <div class="tool-badges">
-        <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Free</span>
-        <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> Client-Side</span>
-        <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> No Login</span>
-        <span class="badge badge-green"><span class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> No Storage</span>
-      </div>
-    </div>
+<main id="main-content">
+  <div class="chessy-tool-wrapper" id="tool-interface">
+    <iframe
+      src="https://karthickajan-chessy.hf.space/?__theme=system&embedded=true"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      allow="clipboard-read; clipboard-write"
+      title="Chessy 2D — Chess Board Analyzer"
+      loading="lazy"
+    ></iframe>
   </div>
 
-  <!-- Tool Interface (injected by tool JS) -->
-  <div class="tool-interface-wrap" id="tool-interface">
-    <div class="tool-container" id="tool-root">
-      <!-- Tool UI rendered here by rsa-key-generator.js -->
-      <div class="tool-loading">Loading tool...</div>
-    </div>
+  <div class="chessy-seo-content">
+    <details style="padding:16px;max-width:800px;margin:auto">
+      <summary style="cursor:pointer;font-weight:500">About Chess Board Analyzer</summary>
+      <p>Chess Board Analyzer converts any chess screenshot into a playable position.
+      Upload or paste (Ctrl+V) a screenshot from chess.com, Lichess, Chessify, or any
+      2D chess app. The tool detects the board using computer vision, identifies all
+      64 squares, and reconstructs the exact FEN position — all in under 1 second.</p>
+      <p>Once analyzed, use the interactive board editor to fix any misidentified pieces
+      by dragging them. The built-in Stockfish engine shows the evaluation bar and
+      suggests the best move. Click "Open in Lichess" to continue analysis there.</p>
+      <p>Supports: chess.com (all piece themes), Lichess (all themes), Chessify,
+      Chess.com app screenshots, ChessKid, and most 2D digital boards.</p>
+    </details>
   </div>
-
-  <!-- Related Tools -->
-  <div class="tool-page-lower">
-    <section class="related-tools" aria-labelledby="related-heading">
-    <h2 id="related-heading">Related Tools</h2>
-    <div class="related-grid">
-      
-      <a href="/tools/rsa-encrypt-decrypt/" class="related-card">
-        <span class="related-title">RSA Encrypt & Decrypt</span>
-        <span class="related-tag">Encrypt with RSA public key, decrypt with private key — OAEP padding</span>
-      </a>
-      <a href="/tools/aes-encryption/" class="related-card">
-        <span class="related-title">AES Encryption Tool</span>
-        <span class="related-tag">Encrypt text with AES-128, 192, or 256-bit keys — 100% client-side</span>
-      </a>
-      <a href="/tools/hmac-generator/" class="related-card">
-        <span class="related-title">HMAC Generator</span>
-        <span class="related-tag">Generate HMAC message authentication codes — SHA256, SHA512, SHA1, MD5</span>
-      </a>
-    </div>
-  </section>
-
-    <!-- SEO Content Block — How to Use -->
-    <section class="usage-guide" aria-labelledby="usage-heading">
-      <h2 id="usage-heading">How to Use the RSA Key Pair Generator</h2>
-      <div class="usage-content" id="usage-content">
-        <ol><li>Select the <strong>key size</strong> (2048 or 4096 bits).</li><li>Choose the <strong>hash algorithm</strong> (SHA-256, SHA-384, or SHA-512).</li><li>Click <strong>Generate Key Pair</strong> to create the RSA public and private keys.</li><li>Copy or download the keys as <strong>.pem</strong> files.</li></ol><p>RSA key generation uses the Web Crypto API for secure, browser-native key pair creation. Private keys never leave your browser. Use 4096-bit keys for maximum security.</p>
-      </div>
-    </section>
-
-    <section class="seo-content">
-      <h2>What is RSA Key Pair Generator?</h2>
-      <p>RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security.</p>
-
-      <h2>Common Uses</h2>
-      <ul>
-      <li>Generating SSH key pairs for server access</li>
-      <li>Creating keys for JWT RS256 signing</li>
-      <li>Testing asymmetric encryption implementations</li>
-      <li>Generating self-signed certificate keys</li>
-      </ul>
-
-      <h2>Frequently Asked Questions</h2>
-    <h3>What is RSA Key Generation?</h3>
-    <p>RSA is an asymmetric cryptographic algorithm that generates a public/private key pair. Public keys encrypt data; private keys decrypt it. RSA keys are used in SSH authentication, SSL certificates, JWT signing, and API security.</p>
-
-    <h3>Why use CipherKit?</h3>
-    <p>Private key generation must never happen on a remote server — the server could log or store your key. CipherKit generates RSA key pairs entirely in your browser using the Web Crypto API. Your private key never leaves your device.</p>
-
-    <h3>When to use</h3>
-    <p>Generating SSH key pairs for server access, creating keys for JWT RS256 signing, testing asymmetric encryption implementations, or generating self-signed certificate keys.</p>
-    </section>
-  </div>
-
 </main>
 
 <footer class="site-footer">
@@ -377,28 +293,8 @@
   </div>
 </footer>
 
-<!-- Toast notification -->
-<div class="toast" id="toast" role="alert" aria-live="assertive">
-  <span class="toast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-    <polyline points="20 6 9 17 4 12"/>
-  </svg></span>
-  <span id="toast-msg">Copied to clipboard</span>
-</div>
-
 <!-- Core JS -->
 <script src="/assets/js/core/ui.js?v=25bd0372" defer></script>
-
-<!-- Feedback Widget -->
-<script>window.CIPHERKIT_TOOL_NAME = 'RSA Key Pair Generator';</script>
-<script src="/assets/js/feedback.js?v=25bd0372" defer></script>
-
-<!-- Vendor JS -->
-
-
-<!-- Tool-specific JS -->
-<script src="/assets/js/tools/rsa-key-generator.js" defer></script>
-
-<!-- State: permalinks, recent tools, history -->
 <script src="/assets/js/core/ck-state.js?v=25bd0372" defer></script>
 
 </body>
