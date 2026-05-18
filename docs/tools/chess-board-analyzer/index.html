@@ -121,6 +121,10 @@
   .chessy-tool-wrapper iframe{border:none}
   .chessy-seo-content{background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.06)}
   [data-theme="light"] .chessy-seo-content{background:rgba(0,0,0,.02);border-top-color:rgba(0,0,0,.08)}
+  .ck-fab{background:#1a6b3f;border-color:#28a060}
+  .ck-fab svg{stroke:#fff}
+  .ck-fab:hover{background:#22875a;border-color:#3dd68c}
+  .ck-fab:hover svg{stroke:#fff}
 </style>
 </head>
 <body>
@@ -293,8 +297,22 @@
   </div>
 </footer>
 
+<!-- Toast notification -->
+<div class="toast" id="toast" role="alert" aria-live="assertive">
+  <span class="toast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg></span>
+  <span id="toast-msg">Copied to clipboard</span>
+</div>
+
 <!-- Core JS -->
 <script src="/assets/js/core/ui.js?v=25bd0372" defer></script>
+
+<!-- Feedback Widget -->
+<script>window.CIPHERKIT_TOOL_NAME = 'Chess Board Analyzer';</script>
+<script>window.CIPHERKIT_IFRAME_TOOL = true;</script>
+<script src="/assets/js/feedback.js?v=25bd0372" defer></script>
+
 <script src="/assets/js/core/ck-state.js?v=25bd0372" defer></script>
 
 </body>
