@@ -101,7 +101,7 @@ CipherKit is a free, open-source collection of 86 developer tools that run entir
 - [HTML Formatter](https://cipherkit.app/tools/html-formatter/): Format and minify HTML — with proper tag indentation
 - [CSS Formatter](https://cipherkit.app/tools/css-formatter/): Format and minify CSS — with @media and nested rule support
 - [JavaScript Minifier](https://cipherkit.app/tools/js-minifier/): Minify and format JavaScript — with size reduction stats
-- [Chess Board Analyzer](https://cipherkit.app/tools/chess-board-analyzer/): Upload or paste a chess screenshot — get the position in Lichess instantly
+- [Live Chess Analysis & Eval Bar — Board Analyzer Online](https://cipherkit.app/tools/chess-board-analyzer/): Live eval bar, Stockfish analysis, screenshot-to-FEN — all free, instant, no signup
 
 ## Key Features
 - 100% client-side: all processing happens in the browser
@@ -618,7 +618,7 @@ URL: https://cipherkit.app/tools/js-minifier/
 Category: dev
 Description: Free online JavaScript minifier and formatter. Minify JS by stripping comments and whitespace, or re-format with proper indentation. Shows size reduction stats.
 
-### Chess Board Analyzer
+### Live Chess Analysis & Eval Bar — Board Analyzer Online
 URL: https://cipherkit.app/tools/chess-board-analyzer/
 Category: dev
-Description: Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.
+Description: Free live chess game analysis with Stockfish eval bar. Upload a screenshot or paste a live game link — get instant evaluation, best moves, and FEN. Works with chess.com, Lichess, and any 2D board. No signup required.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.">
+  <meta name="description" content="Free live chess game analysis with Stockfish eval bar. Upload a screenshot or paste a live game link — get instant evaluation, best moves, and FEN. Works with chess.com, Lichess, and any 2D board. No signup required.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#07090d">
   <meta name="google-site-verification" content="UC-6PSV0VLbnfHxe9FoC2l7MWoX1Qi1CY1-_bV7lxQw" />
@@ -16,8 +16,8 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com https://karthickajan-chessy.hf.space; img-src 'self' data: blob: https://www.google-analytics.com https://launchboosts.com https://dofollow.tools; frame-src https://karthickajan-chessy.hf.space;">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Chess Board Analyzer — Screenshot to FEN & Lichess | CipherKit">
-  <meta property="og:description" content="Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.">
+  <meta property="og:title" content="Live Chess Game Analysis Online — Free Eval Bar & Board Analyzer | CipherKit">
+  <meta property="og:description" content="Free live chess game analysis with Stockfish eval bar. Upload a screenshot or paste a live game link — get instant evaluation, best moves, and FEN. Works with chess.com, Lichess, and any 2D board. No signup required.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cipherkit.app/tools/chess-board-analyzer/">
   <meta property="og:site_name" content="CipherKit">
@@ -27,30 +27,82 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Chess Board Analyzer — Screenshot to FEN & Lichess | CipherKit">
-  <meta name="twitter:description" content="Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.">
+  <meta name="twitter:title" content="Live Chess Game Analysis Online — Free Eval Bar & Board Analyzer | CipherKit">
+  <meta name="twitter:description" content="Free live chess game analysis with Stockfish eval bar. Upload a screenshot or paste a live game link — get instant evaluation, best moves, and FEN. Works with chess.com, Lichess, and any 2D board. No signup required.">
   <meta name="twitter:image" content="https://cipherkit.app/android-chrome-512x512.png">
 
   
-  <meta name="keywords" content="chess screenshot analyzer, chess board to FEN, chess image to lichess, chess OCR, chess position from photo, chess.com screenshot, analyze chess position" />
+  <meta name="keywords" content="live chess analysis online, live game eval bar chess, chess game analysis online free, chess eval bar, stockfish analysis online, chess position analyzer, chess screenshot to FEN, chess board analyzer, live chess evaluation, analyze chess game online, chess analysis tool free, alternative to lichess analysis, chess.com game analyzer, live chess engine online, chess board recognition" />
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Chess Board Analyzer",
-  "applicationCategory": "UtilitiesApplication",
-  "description": "Upload or paste a chess screenshot and get the exact board position as FEN in under 1 second. Works with chess.com, Lichess, Chessify, and any 2D board. Free, instant, no signup.",
+  "name": "Live Chess Game Analysis — Eval Bar & Board Analyzer",
+  "applicationCategory": "GameApplication",
+  "applicationSubCategory": "Chess Analysis Tool",
+  "description": "Free live chess game analysis with Stockfish eval bar. Upload a screenshot or paste a live game link — get instant evaluation, best moves, and FEN. Works with chess.com, Lichess, and any 2D board. No signup required.",
   "url": "https://cipherkit.app/tools/chess-board-analyzer",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
-  "operatingSystem": "Web"
+  "operatingSystem": "Web",
+  "browserRequirements": "Requires a modern browser with WebAssembly support",
+  "featureList": "Live eval bar, Stockfish engine, Screenshot to FEN, Live game tracking, Board editor, Open in Lichess",
+  "screenshot": "https://cipherkit.app/android-chrome-512x512.png"
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I get a live eval bar for my chess game online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your live game link (Lichess or chess.com) into CipherKit's Chess Analyzer. The built-in Stockfish engine instantly shows a live evaluation bar with best-move arrows — no download, no signup, completely free."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I analyze a chess.com or Lichess game in real time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Enter your game URL in the Live Game Tracking section. The tool follows the game move-by-move, showing the eval bar and Stockfish's top 3 engine lines with zero lag if you provide a Lichess Board API token, or ~2 second polling without one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the chess screenshot to FEN feature work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Upload or paste (Ctrl+V) any chess screenshot. The tool uses pure computer vision (no AI cloud calls) to detect the board grid, identify all 64 squares and piece types, then outputs the exact FEN string in under 500 ms. Works with chess.com, Lichess, Chessify, ChessKid, and any 2D board theme."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this chess analysis tool really free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "100% free with no limits. No account required, no ads, no data sent to servers. The Stockfish engine runs directly in your browser via WebAssembly for maximum privacy and speed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best free alternative to Lichess analysis board?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CipherKit's Live Chess Analyzer offers Stockfish evaluation, an interactive board editor, live game tracking with eval bar, and screenshot-to-FEN — all in one tool. Unlike Lichess analysis, it also supports pasting screenshots directly and tracking chess.com games."
+      }
+    }
+  ]
 }
   </script>
 
-  <title>Chess Board Analyzer — Screenshot to FEN & Lichess | CipherKit</title>
+  <title>Live Chess Game Analysis Online — Free Eval Bar & Board Analyzer | CipherKit</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -117,10 +169,25 @@
     (function(){var loaded=false;function loadGA(){if(loaded)return;loaded=true;var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=G-31DPEW6FGL';s.async=true;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','G-31DPEW6FGL',{anonymize_ip:true});}['scroll','click','keydown','touchstart'].forEach(function(e){document.addEventListener(e,loadGA,{once:true,passive:true});});})();
   </script>
 <style>
-  .chessy-tool-wrapper{width:100%;height:calc(100vh - 60px);overflow:hidden}
+  .chessy-tool-wrapper{width:100%;height:calc(100vh - 60px);overflow:hidden;position:relative}
   .chessy-tool-wrapper iframe{border:none}
-  .chessy-seo-content{background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.06)}
+  .chessy-seo-content{background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.06);padding:32px 24px}
   [data-theme="light"] .chessy-seo-content{background:rgba(0,0,0,.02);border-top-color:rgba(0,0,0,.08)}
+  .chessy-seo-inner{max-width:860px;margin:0 auto}
+  .chessy-seo-inner h2{font-family:'Syne',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:700;margin:28px 0 12px;color:#fff}
+  .chessy-seo-inner h3{font-size:16px;font-weight:600;margin:20px 0 8px;color:#ccc}
+  .chessy-seo-inner p,.chessy-seo-inner li{font-size:14px;line-height:1.7;color:#999;margin-bottom:10px}
+  .chessy-seo-inner ul{padding-left:20px;margin-bottom:16px}
+  .chessy-seo-inner details{margin-top:24px;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:16px}
+  .chessy-seo-inner summary{cursor:pointer;font-weight:600;font-size:15px;color:#ddd}
+  .chessy-seo-inner .faq-item{margin:16px 0;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .chessy-seo-inner .faq-q{font-weight:600;color:#ddd;margin-bottom:6px}
+  .chessy-seo-inner .faq-a{color:#999;font-size:13px;line-height:1.7}
+  [data-theme="light"] .chessy-seo-inner h2{color:#1f2328}
+  [data-theme="light"] .chessy-seo-inner h3{color:#333}
+  [data-theme="light"] .chessy-seo-inner p,[data-theme="light"] .chessy-seo-inner li{color:#555}
+  [data-theme="light"] .chessy-seo-inner .faq-q{color:#222}
+  [data-theme="light"] .chessy-seo-inner .faq-a{color:#555}
   .ck-fab{background:#1a6b3f;border-color:#28a060}
   .ck-fab svg{stroke:#fff}
   .ck-fab:hover{background:#22875a;border-color:#3dd68c}
@@ -182,24 +249,90 @@
       height="100%"
       frameborder="0"
       allow="clipboard-read; clipboard-write"
-      title="Chessy 2D — Chess Board Analyzer"
+      title="Live Chess Game Analysis — Free Eval Bar & Stockfish Engine Online"
       loading="lazy"
     ></iframe>
   </div>
 
   <div class="chessy-seo-content">
-    <details style="padding:16px;max-width:800px;margin:auto">
-      <summary style="cursor:pointer;font-weight:500">About Chess Board Analyzer</summary>
-      <p>Chess Board Analyzer converts any chess screenshot into a playable position.
-      Upload or paste (Ctrl+V) a screenshot from chess.com, Lichess, Chessify, or any
-      2D chess app. The tool detects the board using computer vision, identifies all
-      64 squares, and reconstructs the exact FEN position — all in under 1 second.</p>
-      <p>Once analyzed, use the interactive board editor to fix any misidentified pieces
-      by dragging them. The built-in Stockfish engine shows the evaluation bar and
-      suggests the best move. Click "Open in Lichess" to continue analysis there.</p>
-      <p>Supports: chess.com (all piece themes), Lichess (all themes), Chessify,
-      Chess.com app screenshots, ChessKid, and most 2D digital boards.</p>
-    </details>
+    <div class="chessy-seo-inner">
+      <h2>Live Chess Game Analysis with Free Eval Bar Online</h2>
+      <p>Analyze any chess game online with a <strong>live evaluation bar</strong> powered by Stockfish — the world's strongest open-source chess engine. Paste a live game link from <strong>chess.com</strong> or <strong>Lichess</strong> and watch the eval bar update in real time, or upload a board screenshot to get instant position analysis. 100% free, no signup, runs entirely in your browser.</p>
+
+      <h3>Key Features</h3>
+      <ul>
+        <li><strong>Live Eval Bar</strong> — Real-time Stockfish evaluation bar shows who's winning during any live chess game</li>
+        <li><strong>Live Game Tracking</strong> — Paste a Lichess or chess.com game URL and follow along with engine analysis move-by-move</li>
+        <li><strong>Screenshot to FEN</strong> — Upload or paste (Ctrl+V) any chess screenshot; get the exact FEN position in under 500ms using pure computer vision</li>
+        <li><strong>Stockfish Engine</strong> — Full-strength Stockfish running in-browser via WebAssembly. See top 3 engine lines, depth, and centipawn evaluation</li>
+        <li><strong>Interactive Board Editor</strong> — Drag pieces to correct any position, flip the board, set castling rights</li>
+        <li><strong>Open in Lichess</strong> — One click to continue deeper analysis on Lichess with the current position</li>
+        <li><strong>Zero Lag Tracking</strong> — With a free Lichess Board API token, get instant move updates with zero polling delay</li>
+      </ul>
+
+      <h3>How to Use the Live Chess Eval Bar</h3>
+      <ol style="padding-left:20px;margin-bottom:16px">
+        <li>Paste your live game URL in the "Live Game Tracking" box (supports Lichess and chess.com links)</li>
+        <li>Click "Track" — the eval bar appears instantly showing Stockfish's evaluation</li>
+        <li>Watch the evaluation update after each move in real time</li>
+        <li>Click "Analyze" at any point to see the best move, top engine lines, and alternative variations</li>
+      </ol>
+
+      <h3>How to Analyze a Chess Screenshot</h3>
+      <ol style="padding-left:20px;margin-bottom:16px">
+        <li>Take a screenshot of any chess position (chess.com, Lichess, a book, a stream, any 2D board)</li>
+        <li>Upload or paste (Ctrl+V) the image into the analyzer</li>
+        <li>The tool detects the board, identifies all pieces, and outputs the FEN in under 1 second</li>
+        <li>Use the eval bar and Stockfish to find the best move, or click "Open in Lichess" for deeper analysis</li>
+      </ol>
+
+      <h3>Supported Platforms</h3>
+      <p>Works with screenshots and live game links from: <strong>chess.com</strong> (all piece themes and board colors), <strong>Lichess</strong> (all themes), <strong>Chessify</strong>, <strong>Chess24</strong>, <strong>ChessKid</strong>, <strong>365chess</strong>, <strong>Chess Tempo</strong>, and virtually any 2D digital chess board. Also works with photos of printed chess diagrams and book positions.</p>
+
+      <h2>Why Choose This Over Other Chess Analysis Tools?</h2>
+      <ul>
+        <li><strong>Completely free</strong> — No premium tiers, no credit card, no "5 analyses per day" limit</li>
+        <li><strong>No download required</strong> — Runs in your browser. No app install, no Java, no extensions</li>
+        <li><strong>Private</strong> — Your positions and games are never sent to any server. Stockfish runs locally</li>
+        <li><strong>Screenshot support</strong> — Unlike Lichess analysis or 365chess, you can paste any board screenshot directly</li>
+        <li><strong>Live tracking</strong> — Unlike ChessCompass or DecodeChess, track live games with a real-time eval bar</li>
+        <li><strong>All-in-one</strong> — Combines screenshot OCR + live game tracking + Stockfish eval + board editor in one tool</li>
+      </ul>
+
+      <details>
+        <summary>Frequently Asked Questions about Live Chess Analysis</summary>
+
+        <div class="faq-item">
+          <div class="faq-q">How do I get a live eval bar for my chess game online?</div>
+          <div class="faq-a">Paste your live game link (Lichess or chess.com) into CipherKit's Chess Analyzer. The built-in Stockfish engine instantly shows a live evaluation bar with best-move arrows — no download, no signup, completely free.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Can I analyze a chess.com or Lichess game in real time?</div>
+          <div class="faq-a">Yes. Enter your game URL in the Live Game Tracking section. The tool follows the game move-by-move, showing the eval bar and Stockfish's top 3 engine lines with zero lag if you provide a Lichess Board API token, or ~2 second polling without one.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">How does the chess screenshot to FEN feature work?</div>
+          <div class="faq-a">Upload or paste (Ctrl+V) any chess screenshot. The tool uses pure computer vision (no AI cloud calls) to detect the board grid, identify all 64 squares and piece types, then outputs the exact FEN string in under 500 ms. Works with chess.com, Lichess, Chessify, ChessKid, and any 2D board theme.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Is this chess analysis tool really free?</div>
+          <div class="faq-a">100% free with no limits. No account required, no ads, no data sent to servers. The Stockfish engine runs directly in your browser via WebAssembly for maximum privacy and speed.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">What is the best free alternative to Lichess analysis board?</div>
+          <div class="faq-a">CipherKit's Live Chess Analyzer offers Stockfish evaluation, an interactive board editor, live game tracking with eval bar, and screenshot-to-FEN — all in one tool. Unlike Lichess analysis, it also supports pasting screenshots directly and tracking chess.com games.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Does it work on mobile?</div>
+          <div class="faq-a">Yes. The tool is fully responsive and works on iOS and Android browsers. Upload screenshots from your camera roll or paste from clipboard.</div>
+        </div>
+      </details>
+    </div>
   </div>
 </main>
 
@@ -309,7 +442,7 @@
 <script src="/assets/js/core/ui.js?v=25bd0372" defer></script>
 
 <!-- Feedback Widget -->
-<script>window.CIPHERKIT_TOOL_NAME = 'Chess Board Analyzer';</script>
+<script>window.CIPHERKIT_TOOL_NAME = 'Live Chess Analysis & Eval Bar — Board Analyzer Online';</script>
 <script>window.CIPHERKIT_IFRAME_TOOL = true;</script>
 <script src="/assets/js/feedback.js?v=25bd0372" defer></script>
 

@@ -1,0 +1,43 @@
+# CipherKit Disavow File
+# Updated: 18 May 2026
+# Submit to: Google Search Console → Security & Manual Actions → Disavow Links
+
+# ── Spam domains detected April-May 2026 ──
+
+# Spam .site domains (Fiverr/ITXoft spam network)
+domain:itxoft-affordable-seo-solutions.site
+domain:itxoft-cost-effective-seo-services.site
+domain:fiverr-seo-for-small-businesses.site
+domain:fiverr-quality-seo-at-affordable-rates.site
+domain:fiverr-seo-for-business-growth.site
+domain:fiverr-cost-effective-seo.site
+domain:fiverr-affordable-seo-services.site
+
+# Spam .shop domains (PBN/link farm network)
+domain:linkrankpro.shop
+domain:zoldexlinks.shop
+domain:rankchief.shop
+domain:rank-your-website.shop
+domain:seogeko.shop
+domain:technomarkethq.shop
+domain:premium-backlinks-usa.shop
+domain:pbnseolinks.shop
+domain:premiumseolinks.shop
+domain:toplinkranker.shop
+domain:seolinkpro.shop
+domain:authoritybacklinks.shop
+domain:ranklinkx.shop
+domain:linkrankboost.shop
+domain:linkseopro.shop
+
+# Other spam domains
+domain:rank-now.website
+domain:seodaro.com
+domain:bowora.com
+domain:primeseo.xyz
+domain:rglinks.org
+domain:sideenhancer.online
+domain:leonlinks.org
+domain:jameslinks.agency
+
+
