@@ -357,7 +357,7 @@ Description: Free online HTTP header parser. Paste raw HTTP headers and get a st
 ### Bcrypt Hash Generator
 URL: https://cipherkit.app/tools/bcrypt-generator/
 Category: crypto
-Description: Free online bcrypt hash generator. Hash passwords using the bcrypt algorithm with configurable cost factor directly in your browser.
+Description: Generate and verify bcrypt password hashes online, free and 100% client-side. No server, no logging. Supports configurable cost factor (salt rounds 10-14). Bcrypt encoder, bcrypt password generator, bcryptjs — all in your browser.
 Bcrypt is a password hashing function designed specifically for storing passwords securely. Unlike general-purpose hash functions (MD5, SHA-256), bcrypt is intentionally slow — it applies a cost factor that makes brute-force attacks computationally expensive. It also automatically handles salting to prevent rainbow table attacks.
 Common uses: Hashing user passwords before storing in a database, Verifying passwords by comparing a plaintext attempt against a stored hash, Choosing an appropriate cost factor for your server's performance budget
 

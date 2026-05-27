@@ -1055,8 +1055,8 @@
     {
       "slug": "bcrypt-generator",
       "title": "Bcrypt Hash Generator",
-      "pageTitle": "Bcrypt Hash Generator – Hash Passwords with Bcrypt Online | CipherKit",
-      "metaDescription": "Free online bcrypt hash generator. Hash passwords using the bcrypt algorithm with configurable cost factor directly in your browser.",
+      "pageTitle": "Bcrypt Generator Online — Free Client-Side Bcrypt Hash Tool | CipherKit",
+      "metaDescription": "Generate and verify bcrypt password hashes online, free and 100% client-side. No server, no logging. Supports configurable cost factor (salt rounds 10-14). Bcrypt encoder, bcrypt password generator, bcryptjs — all in your browser.",
       "h1": "Bcrypt Hash Generator",
       "tagline": "Hash passwords with bcrypt — configure cost factor, verify hashes",
       "category": "crypto",
