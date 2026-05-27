@@ -597,7 +597,8 @@
         "q": "When to use this tool",
         "a": "Use when you need JPG for email attachments, when a platform rejects WebP uploads, or when sharing images with non-technical users on older devices."
       }
-    ]
+    ],
+    "articleHtml": "<article style=\"background:#111;border:1px solid #1e1e1e;padding:24px;border-radius:8px;margin-top:32px;color:#ccc;font-family:inherit;\"><h2 style=\"color:#ffffff;margin-bottom:16px;\">WebP to JPG Converter — No Upload Required</h2><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">What is WebP and Why Convert to JPG?</h3><p>WebP is Google's modern image format offering superior compression and quality compared to legacy formats. However, JPG remains the most universally compatible image format — email clients, older software, print workflows, and some social media platforms still require JPG/JPEG. Converting WebP to JPG ensures your images work everywhere without compatibility issues.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">Why Use CipherKit's WebP to JPG Converter?</h3><p>Conversion happens entirely in your browser via the Canvas API — no file is uploaded to any server, ever. Your images stay private on your device. It works offline once loaded, has no file size limits, adds no watermarks, and supports batch conversion of multiple WebP files at once.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">When to Convert WebP to JPG</h3><p>Convert WebP to JPG when attaching images to emails that strip modern formats, uploading to social media platforms that don't accept WebP, preparing files for print and publishing workflows, editing in older image software without WebP support, creating website fallback images for legacy browsers, or sharing photos with non-technical users who may not be able to open WebP files.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">How to Convert WebP to JPG</h3><ol style=\"padding-left:20px;line-height:1.8;\"><li>Drag and drop your WebP file or click to select it.</li><li>Preview appears instantly with quality settings.</li><li>Click download to save your converted JPG file.</li></ol></article>"
   },
   "jpg-to-webp": {
     "heading": "JPG to WebP Converter",
@@ -620,7 +621,8 @@
         "q": "When to use this tool",
         "a": "Use when optimizing images for web performance, when your framework requires WebP format, or when reducing bandwidth for mobile users."
       }
-    ]
+    ],
+    "articleHtml": "<article style=\"background:#111;border:1px solid #1e1e1e;padding:24px;border-radius:8px;margin-top:32px;color:#ccc;font-family:inherit;\"><h2 style=\"color:#ffffff;margin-bottom:16px;\">JPG to WebP Converter — Reduce File Size Without Quality Loss</h2><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">What is WebP?</h3><p>WebP is a modern image format developed by Google that provides 25–35% smaller file sizes than JPG at equivalent visual quality. It supports both lossy and lossless compression and is now supported by all modern browsers including Chrome, Firefox, Safari, and Edge. WebP is the ideal format for web performance optimization.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">JPG to WebP for Web Performance</h3><p>Converting JPG to WebP directly improves Core Web Vitals, particularly Largest Contentful Paint (LCP), by reducing image payload sizes. Google explicitly recommends serving images in modern formats like WebP for faster page loads and better search rankings. This JPG to WebP online converter is perfect for developers and designers optimizing assets before deployment — no command-line tools or server-side processing required.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">How to Convert JPG to WebP</h3><ol style=\"padding-left:20px;line-height:1.8;\"><li>Drag and drop your JPG/JPEG file or click to select it.</li><li>Preview appears instantly with quality and compression settings.</li><li>Click download to save your optimized WebP file.</li></ol></article>"
   },
   "html-encode": {
     "heading": "HTML Entity Encoder",
@@ -761,5 +763,55 @@
         "a": "Generating SSH key pairs for server access, creating keys for JWT RS256 signing, testing asymmetric encryption implementations, or generating self-signed certificate keys."
       }
     ]
+  },
+  "webp-to-png": {
+    "heading": "WebP to PNG Converter",
+    "description": "WebP is a modern compressed image format, but PNG remains essential for lossless quality and transparency support in design workflows. Converting WebP to PNG preserves alpha channels and ensures pixel-perfect output for graphics, logos, and screenshots.",
+    "commonUses": [
+      "Lossless image conversion for graphic design",
+      "Preserving transparency for logos and overlays",
+      "Editing in software that doesn't support WebP",
+      "Archiving images in universally supported lossless format"
+    ],
+    "faq": [
+      {
+        "q": "What is WebP to PNG conversion?",
+        "a": "Converting WebP to PNG produces a lossless image with full transparency support. PNG is universally supported across all image editors, operating systems, and platforms."
+      },
+      {
+        "q": "Why use CipherKit's WebP to PNG Converter?",
+        "a": "Your files never leave your browser — conversion runs entirely client-side using the Canvas API. No server upload, no file size limits, no watermarks. Transparency is fully preserved."
+      },
+      {
+        "q": "When to use this tool",
+        "a": "Use when you need lossless images for graphic design, when editing in software that doesn't support WebP, when preserving transparency for logos, or when archiving images in a universally supported format."
+      }
+    ],
+    "articleHtml": "<article style=\"background:#111;border:1px solid #1e1e1e;padding:24px;border-radius:8px;margin-top:32px;color:#ccc;font-family:inherit;\"><h2 style=\"color:#ffffff;margin-bottom:16px;\">WebP to PNG Converter — Lossless, No Upload</h2><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">What is WebP to PNG Conversion?</h3><p>WebP is a modern compressed image format, but PNG remains essential for lossless quality and transparency support in design workflows. Converting WebP to PNG preserves alpha channels and ensures pixel-perfect output for graphics, logos, screenshots, and any image where lossless fidelity matters.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">Why Use CipherKit's WebP to PNG Converter?</h3><p>Your files never leave your browser — conversion runs entirely client-side using the Canvas API. No server upload, no file size limits, no watermarks. Transparency is fully preserved during conversion, making it safe for design assets and icons.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">When to Convert WebP to PNG</h3><p>Use this tool when you need lossless images for graphic design, when editing in software that doesn't support WebP, when preserving transparency for logos and overlays, or when archiving images in a universally supported lossless format.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">How to Convert WebP to PNG</h3><ol style=\"padding-left:20px;line-height:1.8;\"><li>Drag and drop your WebP file or click to select it.</li><li>Preview appears instantly with the converted output.</li><li>Click download to save your lossless PNG file.</li></ol></article>"
+  },
+  "png-to-webp": {
+    "heading": "PNG to WebP Converter",
+    "description": "PNG files are lossless but often very large. WebP can reduce PNG file sizes by 26–34% while preserving transparency and near-identical visual quality — making it essential for web performance optimization.",
+    "commonUses": [
+      "Optimizing website assets for performance",
+      "Reducing image payload for mobile apps",
+      "Preparing transparent graphics for modern web delivery",
+      "Batch-converting PNG icons and illustrations"
+    ],
+    "faq": [
+      {
+        "q": "What is PNG to WebP conversion?",
+        "a": "PNG files are lossless but often very large. WebP can reduce PNG file sizes by 26–34% while preserving transparency and near-identical visual quality — essential for web performance."
+      },
+      {
+        "q": "Why use CipherKit's PNG to WebP Converter?",
+        "a": "All conversion happens in your browser using the Canvas API. No files are uploaded to any server, there are no size limits, and no watermarks are added. Your images remain completely private."
+      },
+      {
+        "q": "When to use this tool",
+        "a": "Use when optimizing website assets for performance, reducing image payload for mobile apps, preparing transparent graphics for modern web delivery, or batch-converting PNG icons before deployment."
+      }
+    ],
+    "articleHtml": "<article style=\"background:#111;border:1px solid #1e1e1e;padding:24px;border-radius:8px;margin-top:32px;color:#ccc;font-family:inherit;\"><h2 style=\"color:#ffffff;margin-bottom:16px;\">PNG to WebP Converter — Smaller Files, Same Quality</h2><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">Why Convert PNG to WebP?</h3><p>PNG files are lossless but often very large. WebP can reduce PNG file sizes by 26–34% while preserving transparency and near-identical visual quality. For web assets, this means faster page loads, lower bandwidth costs, and improved Core Web Vitals scores — all without sacrificing the alpha channel your designs need.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">Why Use CipherKit's PNG to WebP Converter?</h3><p>All conversion happens in your browser using the Canvas API. No files are uploaded to any server, there are no size limits, and no watermarks are added. Your images remain completely private and the tool works offline once loaded.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">When to Convert PNG to WebP</h3><p>Use this tool when optimizing website assets for performance, reducing image payload for mobile apps, preparing transparent graphics for modern web delivery, or batch-converting PNG icons and illustrations to the smaller WebP format before deployment.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">How to Convert PNG to WebP</h3><ol style=\"padding-left:20px;line-height:1.8;\"><li>Drag and drop your PNG file or click to select it.</li><li>Preview appears with quality and compression options.</li><li>Click download to save your optimized WebP file.</li></ol></article>"
   }
 }

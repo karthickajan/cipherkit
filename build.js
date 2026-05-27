@@ -450,7 +450,7 @@ ${usesHtml}
 
       <h2>Frequently Asked Questions</h2>
 ${faqHtml}
-    </section>`;
+    </section>${seo.articleHtml ? '\n\n    ' + seo.articleHtml : ''}`;
 }
 
 // ── RELATED TOOLS SECTION ────────────────────────────────────────────────────

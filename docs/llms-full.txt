@@ -542,24 +542,28 @@ Description: Free online JPG to PNG converter. Convert JPEG images to PNG format
 ### PNG to WebP Converter
 URL: https://cipherkit.app/tools/png-to-webp/
 Category: image
-Description: Free online PNG to WebP converter. Convert PNG images to WebP format for smaller file sizes. 100% client-side using Canvas API — no uploads.
+Description: Convert PNG to WebP free. Reduce PNG file sizes significantly while preserving transparency. Browser-based, no upload, instant.
+PNG files are lossless but often very large. WebP can reduce PNG file sizes by 26–34% while preserving transparency and near-identical visual quality — making it essential for web performance optimization.
+Common uses: Optimizing website assets for performance, Reducing image payload for mobile apps, Preparing transparent graphics for modern web delivery, Batch-converting PNG icons and illustrations
 
 ### JPG to WebP Converter
 URL: https://cipherkit.app/tools/jpg-to-webp/
 Category: image
-Description: Free online JPG to WebP converter. Convert JPEG images to WebP format for better compression. 100% client-side using Canvas API — no uploads.
+Description: Convert JPG to WebP free online. Client-side browser conversion, no upload needed. Reduce image file size by up to 35% with WebP format. Fast, private, free.
 WebP delivers 25-35% smaller file sizes than JPG at equivalent quality. Converting JPG to WebP reduces page load times and improves Core Web Vitals scores — making it essential for web developers optimizing site performance.
 Common uses: Optimizing images for web performance, Meeting WebP requirements in modern frameworks, Reducing bandwidth for mobile users
 
 ### WebP to PNG Converter
 URL: https://cipherkit.app/tools/webp-to-png/
 Category: image
-Description: Free online WebP to PNG converter. Convert WebP images to PNG format for broader compatibility. 100% client-side using Canvas API — no uploads.
+Description: Convert WebP to PNG online free. Lossless conversion with transparency preserved. 100% client-side, no upload required.
+WebP is a modern compressed image format, but PNG remains essential for lossless quality and transparency support in design workflows. Converting WebP to PNG preserves alpha channels and ensures pixel-perfect output for graphics, logos, and screenshots.
+Common uses: Lossless image conversion for graphic design, Preserving transparency for logos and overlays, Editing in software that doesn't support WebP, Archiving images in universally supported lossless format
 
 ### WebP to JPG Converter
 URL: https://cipherkit.app/tools/webp-to-jpg/
 Category: image
-Description: Free online WebP to JPG converter. Convert WebP images to JPEG format for universal compatibility. 100% client-side using Canvas API — no uploads.
+Description: Convert WebP to JPG free online. 100% browser-based — no upload, no server, instant conversion. Supports batch WebP to JPEG conversion with quality control. Private and fast.
 WebP is a modern image format by Google offering superior compression. Converting WebP to JPG makes images compatible with apps, devices, and platforms that don't support WebP — including older email clients, Word documents, and some CMS platforms.
 Common uses: Email attachments for clients that don't support WebP, Uploading images to platforms that reject WebP files, Sharing images with non-technical users on older devices
 
