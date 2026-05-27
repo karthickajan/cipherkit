@@ -863,6 +863,11 @@ ${JSON.stringify({
   "name": site.name,
   "url": DOMAIN,
   "description": site.description,
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "url": `${DOMAIN}/tools/support/`
+  },
   "potentialAction": {
     "@type": "SearchAction",
     "target": `${DOMAIN}/?q={search_term_string}`,
