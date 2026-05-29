@@ -329,9 +329,6 @@ function buildFooter() {
       </a>
       <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
       <a href="${site.github}" class="footer-github" target="_blank" rel="noopener">View on GitHub ↗</a>
-      <div class="footer-crafted" style="font-size: 12px; color: #9ea7b2; margin-top: 4px;">
-        Crafted by <a href="https://karthickajan.github.io/Ajan/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">Ajan</a>
-      </div>
     </div>
 
     <div class="footer-links">
@@ -369,10 +366,7 @@ function buildFooter() {
   </div>
 
   <div class="footer-bottom">
-  <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="${BASE_PATH}/tools/support/">Support</a>. <a href="mailto&#58;karthickajangs&#64;gmail&#46;com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a></p>
-  <div class="built-by">
-    <span>Built by </span><a href="https://karthickajan.github.io" rel="author" target="_blank">Karthick Ajan G S</a><span> — Software Engineer · CipherKit is an open-source, 100% client-side developer toolkit.</span>
-  </div>
+  <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="${BASE_PATH}/tools/support/">Support</a>. <a href="mailto&#58;karthickajangs&#64;gmail&#46;com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a>. Built by <a href="https://karthickajan.github.io/Ajan/" rel="author" target="_blank">Karthick Ajan</a>.</p>
   </div>
 </footer>
 `.trim();
@@ -958,17 +952,17 @@ ${buildNavbar()}
   <!-- Tool Hubs -->
   <div class="hubs-wrap" id="hubs-wrap">
 
-    ${categorySection('crypto')}
-    ${categorySection('encoding')}
-    ${categorySection('converter')}
-    ${categorySection('dev')}
-    ${categorySection('image')}
-
     <!-- Recently Used (hidden by default, populated by JS) -->
     <section id="recently-used" style="display:none; margin-bottom: 2rem;">
       <h2 style="font-size:13px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:12px;">Recently used</h2>
       <div id="recent-tools-row" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
     </section>
+
+    ${categorySection('crypto')}
+    ${categorySection('encoding')}
+    ${categorySection('converter')}
+    ${categorySection('dev')}
+    ${categorySection('image')}
   </div>
 
 </main>

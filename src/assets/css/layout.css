@@ -699,6 +699,18 @@
   }
   .footer-links {
     grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .footer-col h3 {
+    font-size: 11px;
+  }
+  .footer-col ul {
+    min-height: auto;
+    gap: 6px;
+  }
+  .footer-col li a,
+  .footer-col a {
+    font-size: 12px;
   }
 }
 

@@ -69,6 +69,8 @@
   font-weight:   700;
   line-height:   1;
   vertical-align: middle;
+  white-space:   nowrap;
+  flex-shrink:   0;
 }
 .badge-icon {
   display:     inline-flex;
@@ -110,7 +112,7 @@
 .tool-page-lower {
   max-width: var(--max-w);
   margin:    0 auto;
-  padding:   0 24px 80px;
+  padding:   0 24px 48px;
   min-height: 280px;
   contain: layout;
   content-visibility: auto;
@@ -119,8 +121,8 @@
 
 /* ── RELATED TOOLS ───────────────────────────────────────────────────────── */
 .related-tools {
-  margin-bottom: 48px;
-  padding-top: 48px;
+  margin-bottom: 24px;
+  padding-top: 0;
 }
 .related-tools h2 {
   font-size: 16px;
@@ -165,7 +167,7 @@
   border:        1px solid var(--border);
   border-radius: var(--r-lg);
   padding:       32px;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
 }
 .usage-guide h2 {
   font-size:     16px;
@@ -197,8 +199,8 @@
   border:        1px solid var(--border);
   border-radius: var(--r-lg);
   padding:       32px;
-  margin-top:    24px;
-  margin-bottom: 48px;
+  margin-top:    16px;
+  margin-bottom: 24px;
 }
 .seo-content h2 {
   font-size:     16px;
@@ -716,6 +718,37 @@ textarea:focus-visible, input:focus-visible {
 @media (max-width: 760px) {
   .tool-two-col { grid-template-columns: 1fr; }
   .related-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .related-grid { grid-template-columns: 1fr; }
+  .tool-interface-wrap { padding: 16px; }
+  
+  /* SEO content mobile spacing */
+  .seo-content {
+    padding: 16px;
+  }
+  .seo-content h2 {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  .seo-content h3 {
+    font-size: 14px;
+  }
+  .seo-content p,
+  .seo-content li {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  
+  /* Usage guide mobile spacing */
+  .usage-guide {
+    padding: 20px 16px;
+  }
+  .usage-content ol,
+  .usage-content ul {
+    padding-left: 16px;
+  }
 }
 @media (max-width: 480px) {
   .related-grid { grid-template-columns: 1fr; }
