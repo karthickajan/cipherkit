@@ -43,9 +43,11 @@
 .tool-header h1 { margin-bottom: 10px; }
 
 .tool-tagline {
-  font-size:  14px;
-  color:      var(--muted);
-  margin-bottom: 16px;
+  color: #888888;
+  font-size: 0.95rem;
+  max-width: 680px;
+  margin: 0.5rem 0 1.5rem 0;
+  line-height: 1.6;
 }
 
 .tool-badges {
@@ -1508,3 +1510,19 @@ input[type="color"].ck-swatch::-moz-color-swatch { border: none; border-radius: 
 [data-theme="light"] .out-body { background: var(--sf2); }
 [data-theme="light"] .out-head { border-bottom-color: var(--border); }
 [data-theme="light"] .out-text { color: var(--text); }
+
+/* Built-by E-E-A-T block */
+.built-by {
+  font-size: 0.8rem;
+  color: #444444;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #1e1e1e;
+}
+.built-by a {
+  color: #00ff88;
+  text-decoration: none;
+}
+.built-by a:hover {
+  text-decoration: underline;
+}
