@@ -120,7 +120,7 @@ function copySrc(srcRel, distRel) {
 // ── SHARED HEAD HTML ────────────────────────────────────────────────────────
 function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', extraImgSrc = '', extraConnectSrc = '', extraFrameSrc = '' }) {
   const canonical = `${DOMAIN}${canonicalPath}`;
-  const imgSrc = `'self' data: blob: https://www.google-analytics.com${extraImgSrc ? ' ' + extraImgSrc : ''}`;
+  const imgSrc = `'self' data: blob: https://www.google-analytics.com https://dofollow.tools${extraImgSrc ? ' ' + extraImgSrc : ''}`;
   const connectSrc = `'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com${extraConnectSrc ? ' ' + extraConnectSrc : ''}`;
   const frameSrc = extraFrameSrc ? ` frame-src ${extraFrameSrc};` : '';
   return `
@@ -329,6 +329,11 @@ function buildFooter() {
       </a>
       <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
       <a href="${site.github}" class="footer-github" target="_blank" rel="noopener">View on GitHub ↗</a>
+      <div style="margin-top:12px">
+        <a href="https://dofollow.tools" target="_blank" rel="noopener noreferrer">
+          <img src="https://dofollow.tools/badge/badge_transparent.svg" alt="Featured on Dofollow.Tools" width="200" height="54" loading="lazy" style="height:36px;width:auto;display:block;opacity:0.85">
+        </a>
+      </div>
     </div>
 
     <div class="footer-links">
