@@ -371,7 +371,7 @@ function buildFooter() {
   </div>
 
   <div class="footer-bottom">
-  <p>© ${year} CipherKit. Open source. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="${BASE_PATH}/tools/support/">Support</a>. <a href="mailto&#58;karthickajangs&#64;gmail&#46;com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a>. Built by <a href="https://karthickajan.github.io/Ajan/" rel="author" target="_blank">Karthick Ajan</a>.</p>
+  <p>© ${year} CipherKit. <a href="${site.github}">GitHub</a>. <a href="${BASE_PATH}/tools/privacy-policy/">Privacy Policy</a>. <a href="${BASE_PATH}/tools/support/">Support</a>. <a href="mailto&#58;karthickajangs&#64;gmail&#46;com" class="footer-contact-link" aria-label="Contact CipherKit">Contact</a>. Built by <a href="https://karthickajan.github.io/Ajan/" rel="author" target="_blank">Karthick Ajan</a>.</p>
   </div>
 </footer>
 `.trim();
@@ -1543,14 +1543,14 @@ ${buildFooter()}
   // 10. llms.txt — AI discovery files
   console.log('\n🤖 Building AI discovery files...');
   const llmsTxt = `# CipherKit
-> ${tools.length} free online developer tools — encryption, hashing, encoding, formatting, image conversion. 100% client-side, no server, no tracking. Open source.
+> ${tools.length} free online developer tools — encryption, hashing, encoding, formatting, image conversion. 100% client-side, no server, no tracking.
 
 ## About
-CipherKit is a free, open-source collection of ${tools.length} developer tools that run entirely in the browser. No data is sent to any server. No login required. No cookies (except anonymous Google Analytics). Hosted on GitHub Pages.
+CipherKit is a free collection of ${tools.length} developer tools that run entirely in the browser. No data is sent to any server. No login required. No cookies (except anonymous Google Analytics). Hosted on GitHub Pages.
 
 - Website: ${DOMAIN}
 - GitHub: ${site.github}
-- License: Open Source
+- License: Custom Source-Available (Educational Use Only)
 
 ## Categories
 ${categories.map(c => `- [${c.label}](${DOMAIN}/tools/${c.id}/): ${c.description}`).join('\n')}

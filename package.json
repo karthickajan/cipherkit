@@ -16,7 +16,7 @@
     "jwt"
   ],
   "author": "karthickajan",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "engines": {
     "node": ">=16"
   },

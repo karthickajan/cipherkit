@@ -4,7 +4,7 @@
 > 100% client-side. No login. No server. No tracking.
 
 ![Tools](https://img.shields.io/badge/tools-85-00ff88?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
+![License](https://img.shields.io/badge/license-Custom-blue?style=flat-square)
 ![Client Side](https://img.shields.io/badge/client--side-100%25-00d4ff?style=flat-square)
 ![No Login](https://img.shields.io/badge/login-none-green?style=flat-square)
 
@@ -21,7 +21,7 @@
 - ✅ No tracking. No ads.
 - ✅ Dark & light mode
 - ✅ Mobile-friendly, 90+ Lighthouse score
-- ✅ Open source — MIT license
+- ✅ Source-available — view & learn from the code
 - ✅ Fast — vanilla HTML/CSS/JS, no framework bloat
 
 ---
@@ -68,7 +68,9 @@ npx serve docs -p 3000
 
 ## Contributing
 
-Found a bug or want a new tool? [Open an issue](https://github.com/karthickajan/cipherkit/issues) or PR — contributions welcome.
+Found a bug or want a new tool? [Open an issue](https://github.com/karthickajan/cipherkit/issues) — feedback welcome.
 
 ## License
-MIT License — © 2026 Karthick Ajan G S
+Custom Source-Available License — © 2026 Karthick Ajan G S
+
+This software is provided for **educational and personal learning purposes only**. You may view and study the source code, but **hosting, deploying, or redistributing the software is strictly prohibited**. See the [LICENSE](./LICENSE) file for full terms.

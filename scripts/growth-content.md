@@ -90,7 +90,7 @@ GitHub: https://github.com/karthickajan/cipherkit
 
 Built with vanilla HTML/CSS/JS. A single `build.js` reads `tools.json` and generates 94 static pages. Hosted free on GitHub Pages.
 
-Contributions welcome — whether it's new tools, bug fixes, or UX improvements. MIT-style, free forever.
+Contributions welcome — whether it's new tools, bug fixes, or UX improvements. Source-available, free to use.
 
 ---
 

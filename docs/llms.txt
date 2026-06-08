@@ -1,12 +1,12 @@
 # CipherKit
-> 86 free online developer tools — encryption, hashing, encoding, formatting, image conversion. 100% client-side, no server, no tracking. Open source.
+> 86 free online developer tools — encryption, hashing, encoding, formatting, image conversion. 100% client-side, no server, no tracking.
 
 ## About
-CipherKit is a free, open-source collection of 86 developer tools that run entirely in the browser. No data is sent to any server. No login required. No cookies (except anonymous Google Analytics). Hosted on GitHub Pages.
+CipherKit is a free collection of 86 developer tools that run entirely in the browser. No data is sent to any server. No login required. No cookies (except anonymous Google Analytics). Hosted on GitHub Pages.
 
 - Website: https://cipherkit.app
 - GitHub: https://github.com/karthickajan/cipherkit
-- License: Open Source
+- License: Custom Source-Available (Educational Use Only)
 
 ## Categories
 - [Crypto Hub](https://cipherkit.app/tools/crypto/): Encryption, decryption, and hashing tools
