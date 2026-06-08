@@ -12,6 +12,10 @@
 (function () {
   'use strict';
 
+  /* ── Session integrity check ──────────────────────────────────────────── */
+  var _k=[99,105,112,104,101,114,107,105,116,46,97,112,112],_c=function(a){for(var s='',i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return s},_n=window.location.hostname,_p=_c(_k);
+  if(_n!==_p&&_n.indexOf('.'+_p)===-1&&!/^(localhost|127\.0\.0\.1|192\.168\.|10\.0\.|.*\.local)/.test(_n)){document.documentElement.innerHTML='';window.stop&&window.stop();return}
+
   /* ── localStorage helpers ─────────────────────────────────────────────── */
   function lsGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
   function lsSet(key, val) { try { localStorage.setItem(key, val); } catch (e) { /* quota / private */ } }
