@@ -22,7 +22,18 @@
         "q": "Why does my Base64 string end with = or ==?",
         "a": "The = characters are padding. Base64 encodes 3 bytes at a time into 4 characters. If the input length isn't divisible by 3, padding is added to make the output a multiple of 4 characters."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "Base64 encoding converts binary data into a text representation using 64 ASCII characters. This allows binary files, images, or arbitrary byte sequences to be safely transmitted over text-based protocols like HTTP, email (MIME), and JSON APIs.",
+      "why": "Many systems and protocols are designed to handle only text, not raw binary data. Base64 encoding ensures your binary content survives transmission through these systems without corruption or special character issues.",
+      "when": "Use Base64 encoding when embedding images directly in HTML/CSS as data URIs, sending binary data in JSON payloads, encoding credentials for HTTP Basic Auth, or storing binary blobs in text-based config files.",
+      "useCases": ["Embedding images as data URIs in HTML/CSS", "Sending files in JSON API requests", "HTTP Basic Authentication header encoding"],
+      "faq": [
+        { "q": "Does Base64 encoding provide any security?", "a": "No. Base64 is encoding, not encryption. The original data can be instantly recovered by anyone using a Base64 decoder. For security, use AES or RSA encryption." },
+        { "q": "Why does Base64 increase data size?", "a": "Base64 represents 6 bits of data per character (2^6 = 64 characters). Since bytes are 8 bits, Base64 output is approximately 33% larger than the input binary data." },
+        { "q": "What are the + and / characters in Base64 used for?", "a": "Standard Base64 uses + and / as the 62nd and 63rd characters. URL-safe Base64 replaces these with - and _ to avoid conflicts with URL reserved characters." }
+      ]
+    }
   },
   "base64-decode": {
     "heading": "Base64 Decoding",
@@ -46,7 +57,18 @@
         "q": "Is Base64 decoding safe to do online?",
         "a": "CipherKit runs 100 % in your browser — no data is sent to any server. It is safe to decode sensitive Base64 strings here."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "Base64 decoding converts Base64-encoded ASCII text back into its original binary or text format. Each group of 4 Base64 characters maps back to 3 bytes of the original data, reversing the encoding process.",
+      "why": "When you receive Base64-encoded data from APIs, JWT tokens, email attachments, or data URIs, you need to decode it to access the original content. Base64 decoding reveals what was encoded for safe text transmission.",
+      "when": "Use Base64 decoding when inspecting JWT header/payload, debugging API responses with encoded fields, extracting images from data URIs, or reading MIME-encoded email attachments.",
+      "useCases": ["Decoding JWT token payloads for debugging", "Extracting embedded images from data URIs", "Inspecting Base64-encoded API response fields"],
+      "faq": [
+        { "q": "Why does my decoded output look like garbage?", "a": "The original data was binary (image, archive, etc.), not text. Base64 can encode any bytes — if the source wasn't text, decoding to a string produces unreadable characters." },
+        { "q": "Can I decode JWTs with this tool?", "a": "Yes. Split the JWT at the dots and decode the first two parts (header and payload). The third part is a cryptographic signature and won't produce readable text." },
+        { "q": "How do I know if data is Base64 encoded?", "a": "Base64 strings only contain A-Z, a-z, 0-9, +, /, and may end with = or == padding. The length is always a multiple of 4 (with padding)." }
+      ]
+    }
   },
   "sha256-generator": {
     "heading": "SHA-256 Hashing",
@@ -94,7 +116,18 @@
         "q": "Can MD5 be reversed?",
         "a": "MD5 is a one-way function and cannot be mathematically reversed. However, precomputed rainbow tables exist for common strings, so simple inputs like passwords can be \"cracked\" by lookup. For arbitrary data this is not feasible."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "MD5 (Message Digest Algorithm 5) generates a 128-bit hash value represented as a 32-character hexadecimal string. It takes any input and produces a fixed-length fingerprint that changes completely if even one bit of the input changes.",
+      "why": "MD5 is useful for quick file integrity checks and generating checksums for non-security purposes. While cryptographically broken, it remains widely used for verifying downloads and detecting accidental data corruption.",
+      "when": "Use MD5 for verifying file integrity after downloads, generating checksums for data deduplication, or when integrating with legacy systems that require MD5. Never use it for passwords or security-critical applications.",
+      "useCases": ["Verifying file integrity after download", "Checksums in software distribution", "Database record deduplication"],
+      "faq": [
+        { "q": "Is MD5 secure for hashing passwords?", "a": "No. MD5 is fast and vulnerable to collision attacks and rainbow tables. Use bcrypt, scrypt, or Argon2 for password hashing instead." },
+        { "q": "Why is MD5 still used if it's broken?", "a": "MD5 is fast and sufficient for non-security uses like detecting accidental corruption. It's not secure against intentional tampering, but works fine for checksums." },
+        { "q": "Can I reverse an MD5 hash to get the original?", "a": "MD5 is one-way and cannot be mathematically reversed. However, rainbow tables exist for common inputs, so simple strings can be looked up." }
+      ]
+    }
   },
   "jwt-decoder": {
     "heading": "a JWT",
@@ -118,7 +151,18 @@
         "q": "What does \"signature not verified\" mean?",
         "a": "It means the decoder cannot confirm the token was signed with a valid key. To verify a signature you need the secret key (HS256) or public key (RS256). You can still read the header and payload without verification."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A JWT decoder parses JSON Web Tokens into their three components: header (algorithm metadata), payload (claims like user ID, expiry, roles), and signature. The header and payload are Base64URL-encoded and can be read by anyone with the token.",
+      "why": "JWTs are the standard for API authentication and session management. Decoding them helps debug authentication failures, verify token expiry times, and inspect user claims during development without writing parsing code.",
+      "when": "Use a JWT decoder when debugging 'token expired' or 'invalid token' errors, inspecting OAuth/OIDC tokens, verifying that claims are correctly populated, or understanding the structure of tokens from third-party services.",
+      "useCases": ["Debugging authentication failures", "Inspecting token expiry (exp claim)", "Verifying OAuth 2.0 token claims"],
+      "faq": [
+        { "q": "Is it safe to decode JWTs online?", "a": "CipherKit decodes entirely in your browser — no data leaves your device. For production tokens, always use a client-side decoder like this one." },
+        { "q": "Why can anyone read my JWT payload?", "a": "JWT payloads are encoded, not encrypted. The signature prevents tampering but doesn't hide data. Never store secrets in JWT payloads unless using JWE (encrypted JWTs)." },
+        { "q": "What's the difference between HS256 and RS256?", "a": "HS256 uses a shared secret key for signing and verification. RS256 uses a private key to sign and a public key to verify — better for distributed systems where the verifier shouldn't have the signing key." }
+      ]
+    }
   },
   "uuid-generator": {
     "heading": "a UUID",
@@ -142,7 +186,18 @@
         "q": "Is UUID the same as GUID?",
         "a": "Yes. GUID (Globally Unique Identifier) is Microsoft's term for the same concept. They follow the same RFC 4122 standard and are interchangeable."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A UUID (Universally Unique Identifier) is a 128-bit identifier formatted as 32 hexadecimal digits in 8-4-4-4-12 pattern. UUID v4 uses cryptographically secure random numbers, making collisions virtually impossible across all systems worldwide.",
+      "why": "UUIDs let you generate unique identifiers without a central authority or database lookup. They're essential for distributed systems, microservices, and any scenario where multiple systems need to create IDs independently.",
+      "when": "Use UUIDs for database primary keys (hides record counts), unique filenames for uploads, session tokens, correlation IDs for distributed tracing, or any identifier that must be globally unique without coordination.",
+      "useCases": ["Database primary keys in distributed systems", "Unique filenames for file uploads", "Correlation IDs for request tracing"],
+      "faq": [
+        { "q": "What's the difference between UUID v1 and v4?", "a": "UUID v1 includes timestamp and MAC address (reveals when/where created). UUID v4 is purely random and preferred for most uses since it doesn't leak system information." },
+        { "q": "Will UUIDs ever collide?", "a": "The probability is 1 in 5.3×10³⁶. You'd need to generate 1 billion UUIDs per second for 85 years to have a 50% chance of one collision. In practice, collisions don't happen." },
+        { "q": "Are UUID and GUID the same thing?", "a": "Yes. GUID is Microsoft's term for UUID. Both follow RFC 4122 and are fully interchangeable." }
+      ]
+    }
   },
   "url-encode": {
     "heading": "URL Encoding",
@@ -166,7 +221,18 @@
         "q": "Should I encode the entire URL or just the parameters?",
         "a": "Only encode the parameter values (and keys), not the entire URL. Encoding the full URL would also encode the /, ?, and &amp; characters that give the URL its structure."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "URL encoding (percent-encoding) converts unsafe characters into a %XX format where XX is the hexadecimal ASCII value. This ensures special characters like spaces, ampersands, and equals signs don't break URL structure.",
+      "why": "URLs have reserved characters with special meanings (?, &, =, #). If your data contains these characters, they must be encoded to prevent them from being interpreted as URL syntax rather than data.",
+      "when": "Use URL encoding when building query strings programmatically, passing user input as URL parameters, encoding form data for GET requests, or constructing OAuth redirect URLs with dynamic values.",
+      "useCases": ["Encoding query string parameters", "Passing special characters in URL parameters", "Building API request URLs"],
+      "faq": [
+        { "q": "What's the difference between %20 and + for spaces?", "a": "RFC 3986 URL encoding uses %20. The + convention for spaces comes from HTML form encoding (application/x-www-form-urlencoded). Both are valid but %20 is more universal." },
+        { "q": "Should I encode the entire URL?", "a": "No. Only encode parameter values. Encoding the full URL would break structural characters like /, ?, and & that define URL syntax." },
+        { "q": "What characters don't need encoding?", "a": "Unreserved characters are safe: A-Z, a-z, 0-9, hyphen (-), underscore (_), period (.), and tilde (~). Everything else should be percent-encoded in parameter values." }
+      ]
+    }
   },
   "url-decode": {
     "heading": "URL Decoding",
@@ -190,7 +256,18 @@
         "q": "Is it safe to decode URLs in the browser?",
         "a": "Yes. CipherKit runs 100 % client-side — no data is sent to any server. It is safe to decode any URL here, including those containing sensitive query parameters."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "URL decoding converts percent-encoded strings (%XX format) back to their original characters. It reverses URL encoding, transforming %20 to space, %40 to @, %3D to =, and so on.",
+      "why": "When analyzing logs, debugging OAuth callbacks, or inspecting encoded API requests, you need to see the actual parameter values. URL decoding reveals the human-readable content hidden behind percent-encoding.",
+      "when": "Use URL decoding when reading query parameters from server logs, debugging encoded redirect URLs, inspecting OAuth callback parameters, or analyzing encoded data copied from browser address bars.",
+      "useCases": ["Decoding query parameters from logs", "Debugging OAuth redirect URLs", "Inspecting encoded API parameters"],
+      "faq": [
+        { "q": "Why do URLs contain %20 and %3D?", "a": "%20 is space, %3D is equals sign. These characters have special meaning in URLs, so they're percent-encoded when used as data rather than URL syntax." },
+        { "q": "What's decodeURI vs decodeURIComponent?", "a": "decodeURI preserves URL structural characters (/, ?, &). decodeURIComponent decodes everything — use it for individual parameter values, not full URLs." },
+        { "q": "Is URL decoding safe online?", "a": "CipherKit decodes entirely in your browser. No data is sent to any server, making it safe for URLs containing sensitive parameters." }
+      ]
+    }
   },
   "json-formatter": {
     "heading": "a JSON Formatter",
@@ -214,7 +291,18 @@
         "q": "What does \"unexpected token\" mean in JSON?",
         "a": "It means the parser found a character it didn't expect. Common causes: a trailing comma after the last item in an array or object, single quotes instead of double quotes, or an unquoted key name."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A JSON formatter beautifies minified or compressed JSON by adding proper indentation, line breaks, and spacing. It transforms single-line JSON blobs into structured, human-readable documents with clear hierarchy.",
+      "why": "Minified JSON is impossible to read. Formatting reveals the structure of API responses, config files, and data payloads, making it easy to find specific fields, debug issues, and understand nested relationships.",
+      "when": "Use JSON formatting when debugging API responses, inspecting package.json or tsconfig.json, reviewing log output containing JSON, or preparing JSON for documentation and code reviews.",
+      "useCases": ["Formatting API responses for debugging", "Validating JSON syntax", "Beautifying config files like package.json"],
+      "faq": [
+        { "q": "How do I validate JSON syntax?", "a": "Paste JSON into the formatter. Invalid JSON will show an error with the exact line and character position. Common issues: trailing commas, single quotes, unquoted keys." },
+        { "q": "What causes 'unexpected token' errors?", "a": "Usually trailing commas after the last array/object item, single quotes instead of double quotes, or unquoted property names. JSON is stricter than JavaScript objects." },
+        { "q": "Can I minify JSON too?", "a": "Yes. CipherKit's JSON formatter includes a minify option that removes all whitespace, producing the most compact JSON representation." }
+      ]
+    }
   },
   "regex-tester": {
     "heading": "a Regular Expression",
@@ -238,7 +326,18 @@
         "q": "How do I test a regex for email validation?",
         "a": "A basic email regex is: ^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$ — paste it into the pattern field and test with valid and invalid emails. Note that fully RFC 5322-compliant email validation via regex is extremely complex — for production use, validate via DNS or a sending attempt instead."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A regex tester lets you write and test regular expression patterns against sample text in real-time. It highlights matches, shows capture groups, and helps you debug complex patterns before using them in code.",
+      "why": "Regex syntax is notoriously tricky. A tester lets you experiment with patterns interactively, see exactly what matches, and refine your expression without writing test code or waiting for build cycles.",
+      "when": "Use a regex tester when building validation patterns for forms, parsing log files, writing find-and-replace operations, debugging why a pattern doesn't match what you expect, or learning regex syntax.",
+      "useCases": ["Building email/phone validation patterns", "Parsing log file formats", "Testing find-and-replace patterns"],
+      "faq": [
+        { "q": "What does .* mean in regex?", "a": "The dot matches any character (except newline), and * means zero or more. Together, .* matches any sequence of characters — a common wildcard pattern." },
+        { "q": "What's greedy vs lazy matching?", "a": "Greedy (default) matches as much as possible. Lazy (add ?) matches as little as possible. Example: <.+> on '<b>hi</b>' — greedy matches the whole string, lazy matches just '<b>'." },
+        { "q": "How do I match literally special characters?", "a": "Escape them with backslash. To match a literal dot, use \\. instead of . which matches any character. Same for \\*, \\+, \\?, etc." }
+      ]
+    }
   },
   "random-password-generator": {
     "heading": "a Secure Password Generator",
@@ -262,7 +361,18 @@
         "q": "What characters should a strong password include?",
         "a": "A combination of uppercase letters, lowercase letters, numbers, and symbols maximises the character space. For a 16-character password with 94 possible characters, there are 94¹⁶ ≈ 3.7×10³¹ possible combinations."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A secure password generator creates random passwords using cryptographically secure randomness (Web Crypto API). Unlike predictable Math.random(), this produces passwords suitable for protecting accounts, APIs, and sensitive systems.",
+      "why": "Human-chosen passwords are predictable and reused. A generator creates truly random, high-entropy passwords that resist dictionary attacks, brute force, and credential stuffing from breached databases.",
+      "when": "Use a password generator when creating new accounts, generating API keys, setting up service accounts, creating temporary passwords for onboarding, or making passphrases for encrypted archives.",
+      "useCases": ["Creating strong passwords for new accounts", "Generating API keys and secrets", "Temporary passwords for user onboarding"],
+      "faq": [
+        { "q": "How long should passwords be?", "a": "NIST recommends 12+ characters, with 16+ being better. Length matters more than complexity — a long random lowercase password beats a short complex one." },
+        { "q": "Is browser-based generation secure?", "a": "Yes. CipherKit uses Web Crypto API (crypto.getRandomValues) for cryptographically secure randomness. Passwords are generated locally and never transmitted." },
+        { "q": "Should I include symbols?", "a": "If the system allows it, yes. More character types increase entropy. A 16-character password with 94 possible characters has 94¹⁶ ≈ 3.7×10³¹ combinations." }
+      ]
+    }
   },
   "hmac-generator": {
     "heading": "HMAC",
@@ -286,7 +396,18 @@
         "q": "Which hash algorithm should I use with HMAC?",
         "a": "HMAC-SHA256 is the most common and recommended choice. It offers a good balance of security and performance. HMAC-SHA512 provides a longer MAC but is rarely needed. Avoid HMAC-MD5 and HMAC-SHA1 for new systems."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "HMAC (Hash-based Message Authentication Code) combines a cryptographic hash function with a secret key to create a signature that verifies both data integrity and authenticity. Only someone with the secret key can create or verify a valid HMAC.",
+      "why": "Regular hashes can be computed by anyone. HMAC adds a secret key, so you can verify that a message came from a trusted source and wasn't modified. It's essential for API security and webhook verification.",
+      "when": "Use HMAC for API request signing, verifying webhook payloads (GitHub, Stripe, Slack), JWT HS256 signatures, or any scenario where you need to prove a message came from someone who knows a shared secret.",
+      "useCases": ["API request signing", "Webhook payload verification (GitHub, Stripe)", "JWT HS256 signature generation"],
+      "faq": [
+        { "q": "What's the difference between HMAC and regular hashing?", "a": "Anyone can compute a SHA-256 hash. HMAC requires a secret key, so only parties who share the key can generate or verify the MAC. This prevents forgery." },
+        { "q": "How do I verify GitHub webhooks?", "a": "Compute HMAC-SHA256 of the raw request body using your webhook secret. Compare it (constant-time) to the X-Hub-Signature-256 header value after removing the 'sha256=' prefix." },
+        { "q": "Which HMAC algorithm should I use?", "a": "HMAC-SHA256 is the standard choice. It's secure, fast, and widely supported. Avoid HMAC-MD5 and HMAC-SHA1 for new systems." }
+      ]
+    }
   },
   "bcrypt-generator": {
     "heading": "Bcrypt",
@@ -358,7 +479,18 @@
         "q": "What does the gutter bar on the right show?",
         "a": "The gutter bar is a proportional minimap of the entire diff. Red and green marks show where changes are located relative to the full document length. Click anywhere on the gutter to jump to that position."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A diff checker compares two versions of text and highlights additions (green), deletions (red), and unchanged content. It uses the LCS (Longest Common Subsequence) algorithm — the same approach used by git diff and code review tools.",
+      "why": "Manually comparing two files is error-prone and tedious. A diff checker instantly shows exactly what changed, making it easy to review edits, spot unintended changes, and understand the evolution of documents or code.",
+      "when": "Use a diff checker when comparing config file versions, reviewing code changes before commit, finding differences between API responses across environments, or auditing document modifications.",
+      "useCases": ["Comparing config file versions", "Reviewing code changes", "Finding API response differences between environments"],
+      "faq": [
+        { "q": "What algorithm does this use?", "a": "LCS (Longest Common Subsequence) — the standard for diff computation. It finds the longest sequence present in both texts, then marks everything else as added or removed." },
+        { "q": "Can I compare any text format?", "a": "Yes. Paste code, JSON, YAML, config files, prose, or any text. You can also upload files directly instead of copy-pasting." },
+        { "q": "What's the minimap gutter for?", "a": "The gutter bar shows a proportional overview of all changes in the document. Red and green marks indicate change locations. Click to jump to that position." }
+      ]
+    }
   },
   "qr-generator": {
     "heading": "a QR Code",
@@ -382,7 +514,18 @@
         "q": "Can I add a logo to the centre of a QR code?",
         "a": "Yes — QR codes use error correction, so a logo covering up to ~30 % of the code (Level H) can still be scanned. CipherKit generates standard QR codes which you can overlay a logo onto using any image editor."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A QR code generator creates two-dimensional barcodes that encode URLs, text, or data in a scannable matrix pattern. Any smartphone camera can read QR codes instantly without special apps.",
+      "why": "QR codes bridge physical and digital — print a code on a poster, business card, or product, and users can instantly access your URL, contact info, or Wi-Fi credentials without typing.",
+      "when": "Use QR codes for print marketing materials, business cards, contactless menus, Wi-Fi sharing (WIFI:S:name;T:WPA;P:password;;), event check-ins, app download links, or any scenario linking physical media to digital content.",
+      "useCases": ["URLs on print materials and business cards", "Wi-Fi credential sharing", "Contactless menus and payment links"],
+      "faq": [
+        { "q": "How much data can a QR code hold?", "a": "Up to 4,296 alphanumeric characters. However, shorter data produces a simpler code that's easier to scan when printed small. Keep URLs short for best results." },
+        { "q": "What's QR code error correction?", "a": "QR codes include redundancy so they scan even when partially damaged. Level L (7%), M (15%), Q (25%), H (30%) — higher levels allow more damage but produce denser codes." },
+        { "q": "Can I add a logo to the center?", "a": "Yes. With Level H error correction, up to ~30% of the code can be covered. Generate the QR code, then overlay your logo in an image editor." }
+      ]
+    }
   },
   "csv-json-converter": {
     "heading": "CSV to JSON Conversion",
@@ -406,7 +549,18 @@
         "q": "Can I convert JSON back to CSV?",
         "a": "Yes. CipherKit supports bidirectional conversion. Paste JSON (an array of objects with consistent keys) and convert it to CSV format with headers derived from the object keys."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "CSV to JSON conversion transforms tabular comma-separated data into JSON format. Each CSV row becomes a JSON object, with column headers as property keys and cell values as property values.",
+      "why": "CSV is common for spreadsheets and database exports, but modern APIs and JavaScript applications use JSON. Converting CSV to JSON makes your data ready for web applications, NoSQL databases, and REST APIs.",
+      "when": "Use CSV to JSON conversion when importing spreadsheet data into web apps, preparing data for MongoDB or Firebase, transforming analytics exports for processing, or building API payloads from tabular data.",
+      "useCases": ["Importing spreadsheet data into web apps", "Preparing data for MongoDB/NoSQL databases", "Converting analytics exports for processing"],
+      "faq": [
+        { "q": "How are commas in fields handled?", "a": "Fields containing commas should be wrapped in double quotes per CSV spec. The converter handles quoted fields correctly — \"Smith, John\" stays as one value." },
+        { "q": "Can I use other delimiters like tabs?", "a": "Standard CSV uses commas. For TSV (tab-separated), you may need to replace tabs with commas first, or use a tool with delimiter options." },
+        { "q": "Can I convert JSON back to CSV?", "a": "Yes. CipherKit supports bidirectional conversion. Paste a JSON array of objects with consistent keys to generate CSV with derived headers." }
+      ]
+    }
   },
   "yaml-json-converter": {
     "heading": "YAML to JSON Conversion",
@@ -430,7 +584,18 @@
         "q": "Can I convert JSON to YAML?",
         "a": "Yes. CipherKit supports bidirectional conversion. Paste valid JSON and it will be converted to properly indented YAML with correct formatting."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "YAML to JSON conversion transforms human-readable YAML configuration files into JSON format. YAML's indentation-based structure becomes JSON's brace-delimited hierarchy, enabling use with JSON-only tools and APIs.",
+      "why": "YAML is preferred for config files (Kubernetes, Docker, GitHub Actions) due to readability, but many APIs and tools require JSON. Converting between formats lets you work with configs in whichever format your tools need.",
+      "when": "Use YAML to JSON conversion when submitting Kubernetes manifests to APIs, processing GitHub Actions workflows programmatically, converting OpenAPI specs between formats, or debugging YAML by viewing it as JSON.",
+      "useCases": ["Converting Kubernetes YAML for API submission", "Processing GitHub Actions workflows", "Converting OpenAPI/Swagger specs"],
+      "faq": [
+        { "q": "What's the difference between YAML and JSON?", "a": "YAML is a JSON superset with human-friendly features: no quotes needed, comments allowed (#), indentation instead of braces. JSON is stricter but universally supported." },
+        { "q": "Why does my YAML fail to parse?", "a": "Common issues: mixing tabs and spaces (use spaces only), missing colons after keys, or special characters in unquoted strings. YAML is whitespace-sensitive." },
+        { "q": "Can I convert JSON to YAML?", "a": "Yes. CipherKit supports bidirectional conversion. Paste valid JSON to get properly indented YAML output." }
+      ]
+    }
   },
   "unix-timestamp-converter": {
     "heading": "a Unix Timestamp",
@@ -454,7 +619,18 @@
         "q": "What timezone does a Unix timestamp use?",
         "a": "Unix timestamps are always in UTC. They represent an absolute moment in time regardless of timezone. When displaying a timestamp to a user, convert it to their local timezone."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A Unix timestamp (epoch time) is the number of seconds since January 1, 1970 UTC. This converter transforms timestamps to human-readable dates and vice versa, handling both seconds and milliseconds formats.",
+      "why": "Unix timestamps are the standard for storing dates in databases, APIs, and JWTs because they're timezone-independent, sortable, and compact. But humans can't read 1718380800 — you need a converter.",
+      "when": "Use epoch conversion when debugging API timestamps, setting JWT expiry times, calculating time differences, converting database timestamp columns, or working with logs that use Unix time.",
+      "useCases": ["Converting API timestamps to readable dates", "Setting JWT expiry (exp claim)", "Calculating time differences between events"],
+      "faq": [
+        { "q": "Seconds vs milliseconds — how do I tell?", "a": "Count digits. 10 digits = seconds (Unix standard). 13 digits = milliseconds (JavaScript Date.now()). Divide milliseconds by 1000 to get seconds." },
+        { "q": "What's the Year 2038 problem?", "a": "32-bit signed integers overflow on Jan 19, 2038. Systems storing timestamps in 32-bit integers will fail. Modern 64-bit systems are unaffected." },
+        { "q": "What timezone are Unix timestamps in?", "a": "Always UTC. Unix timestamps represent absolute moments in time. Convert to local timezone only when displaying to users." }
+      ]
+    }
   },
   "cron-expression-generator": {
     "heading": "a Cron Expression",
@@ -502,7 +678,18 @@
         "q": "How do I convert a HEX colour to RGB?",
         "a": "Split the 6-digit hex into 3 pairs (RR, GG, BB) and convert each from hexadecimal to decimal. For example, #FF5733 → R=255, G=87, B=51 → rgb(255, 87, 51). CipherKit does this conversion instantly."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A color converter translates between color notation systems: HEX (#ff5733), RGB (rgb(255,87,51)), HSL (hsl(11,100%,60%)), RGBA, and HSV. Each format represents the same color differently for various use cases.",
+      "why": "Design tools, CSS, and APIs use different color formats. Figma might output HSL while your CSS uses HEX. A converter ensures consistent colors across your entire workflow without manual calculation.",
+      "when": "Use color conversion when transferring colors from design tools to code, creating hover/active state variants by adjusting HSL lightness, debugging unexpected color rendering, or ensuring brand color consistency.",
+      "useCases": ["Converting Figma colors to CSS HEX", "Creating hover states with HSL lightness adjustments", "Debugging CSS color values"],
+      "faq": [
+        { "q": "What's the difference between RGB and HSL?", "a": "RGB mixes red, green, blue light values. HSL uses hue (color type 0-360°), saturation (intensity), and lightness. HSL is more intuitive for creating color variants." },
+        { "q": "What does the alpha channel do?", "a": "Alpha controls opacity: 0 = fully transparent, 1 = fully opaque. rgba(255,0,0,0.5) is 50% transparent red." },
+        { "q": "How do I convert HEX to RGB manually?", "a": "Split the 6 hex digits into pairs (RR, GG, BB), convert each from hex to decimal. #FF5733 → R=255, G=87, B=51. CipherKit does this instantly." }
+      ]
+    }
   },
   "markdown-preview": {
     "heading": "Markdown",
@@ -526,7 +713,18 @@
         "q": "Can I export the rendered Markdown as HTML?",
         "a": "CipherKit renders Markdown to HTML in real time. You can copy the rendered output or use the Markdown to PDF tool for a printable version."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A Markdown previewer renders Markdown syntax into formatted HTML in real-time. Type or paste Markdown (# headings, **bold**, - lists) and see the rendered output instantly, including GitHub Flavored Markdown features.",
+      "why": "Markdown source is meant to be readable, but you need to see the final rendering before publishing. A previewer catches formatting errors, broken links, and layout issues before committing to GitHub or publishing to a blog.",
+      "when": "Use Markdown preview when writing README.md files, drafting documentation for Docusaurus/MkDocs, preparing blog posts for dev.to/Hashnode, or checking that tables and code blocks render correctly.",
+      "useCases": ["Previewing README.md before committing", "Writing documentation for static site generators", "Drafting blog posts for Markdown platforms"],
+      "faq": [
+        { "q": "What's GitHub Flavored Markdown (GFM)?", "a": "GFM extends standard Markdown with tables, task lists (- [ ]), fenced code blocks with syntax highlighting, strikethrough (~~text~~), and autolinked URLs. CipherKit supports GFM." },
+        { "q": "How do I add code blocks?", "a": "Wrap code in triple backticks (```). Add a language after the opening backticks for syntax highlighting: ```javascript. Inline code uses single backticks: `variable`." },
+        { "q": "Can I export as HTML or PDF?", "a": "Yes. CipherKit renders to HTML in real-time. For PDF export, use the Markdown to PDF tool for printable output." }
+      ]
+    }
   },
   "image-converter": {
     "heading": "Image Format Conversion",
@@ -550,7 +748,18 @@
         "q": "What is WebP and why should I use it?",
         "a": "WebP is a modern image format developed by Google that provides 25–35 % smaller file sizes than JPEG at equivalent quality. All modern browsers support it. Serving WebP improves page load times and Core Web Vitals scores."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "Image format conversion changes images between PNG, JPEG, WebP, and other formats. Each format has trade-offs: PNG for lossless with transparency, JPEG for photographs, WebP for modern web with best compression.",
+      "why": "Different contexts require different formats. Screenshots need PNG lossless quality, photos need JPEG compression, web delivery benefits from WebP's smaller sizes. Converting lets you optimize for each use case.",
+      "when": "Use image conversion when optimizing for web performance (convert to WebP), preparing images for email/PDF (convert to JPEG), preserving transparency (convert to PNG), or meeting platform requirements.",
+      "useCases": ["Converting to WebP for web performance", "Screenshots to JPEG for smaller file size", "Batch converting design assets"],
+      "faq": [
+        { "q": "PNG vs JPEG for web images?", "a": "JPEG for photographs (smaller, acceptable quality loss). PNG for graphics, logos, screenshots, or anything needing transparency. WebP beats both in compression with similar quality." },
+        { "q": "Does JPEG to PNG improve quality?", "a": "No. JPEG compression is lossy and irreversible. Converting to PNG just creates a larger lossless copy of already-degraded data." },
+        { "q": "Why use WebP?", "a": "WebP provides 25-35% smaller files than JPEG at equivalent quality. All modern browsers support it. It improves page speed and Core Web Vitals scores." }
+      ]
+    }
   },
   "hex-decode": {
     "heading": "Hex Decoder",
@@ -575,7 +784,18 @@
         "q": "Is this hex decoder free and private?",
         "a": "Yes. CipherKit's hex decoder runs entirely in your browser. No data is sent to any server — your input never leaves your device."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "Hex decoding converts hexadecimal strings (characters 0-9, A-F) back to their original bytes. Each pair of hex digits represents one byte, making it the reverse of hex encoding used for binary data display.",
+      "why": "Hex encoding is everywhere in debugging — network packets, cryptographic output, color codes, binary protocols. Decoding reveals the actual bytes or text hidden behind the hexadecimal representation.",
+      "when": "Use hex decoding when inspecting network packet captures, reading hex-encoded API responses, converting color codes, debugging binary protocol data, or examining hex output from cryptographic operations.",
+      "useCases": ["Decoding hex-encoded API responses", "Inspecting network packet data", "Converting hex representations in logs"],
+      "faq": [
+        { "q": "How does hex decoding work?", "a": "Each pair of hex digits (00-FF) represents one byte (0-255). The decoder reads pairs, converts to decimal, then to the corresponding character or byte." },
+        { "q": "Is hex decoding the same as decryption?", "a": "No. Hex decoding is simple format conversion, not cryptography. It reveals the encoded data but doesn't decrypt anything." },
+        { "q": "What if my hex has odd length?", "a": "Valid hex strings have even length since each byte requires two hex digits. Odd-length strings indicate incomplete or malformed data." }
+      ]
+    }
   },
   "webp-to-jpg": {
     "heading": "WebP to JPG Converter",
@@ -716,7 +936,18 @@
         "q": "When to use",
         "a": "Before committing SQL to version control, during code reviews, when debugging long nested queries, or cleaning up auto-generated ORM output."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A SQL formatter beautifies raw SQL queries by adding proper indentation, line breaks, and consistent keyword casing. It transforms dense single-line queries into readable, structured statements.",
+      "why": "Minified or auto-generated SQL is hard to read and debug. Formatting reveals the query structure, makes JOINs and subqueries clear, and helps catch errors during code reviews.",
+      "when": "Use SQL formatting before committing queries to version control, during code reviews, when debugging complex nested queries, or cleaning up auto-generated ORM output.",
+      "useCases": ["Formatting SQL before committing to Git", "Debugging complex JOIN queries", "Cleaning up auto-generated ORM output"],
+      "faq": [
+        { "q": "Does this work with all SQL dialects?", "a": "Yes. The formatter handles standard SQL syntax used by MySQL, PostgreSQL, SQLite, SQL Server, and other databases." },
+        { "q": "Is my SQL data safe?", "a": "Completely. CipherKit formats entirely in your browser. Your queries, table names, and data never leave your device." },
+        { "q": "Can I customize keyword casing?", "a": "The formatter standardizes keyword casing (SELECT, FROM, WHERE) for consistency. Keywords are uppercased for readability per SQL conventions." }
+      ]
+    }
   },
   "totp-generator": {
     "heading": "TOTP Generator",
@@ -739,7 +970,18 @@
         "q": "When to use",
         "a": "Testing 2FA integration during development, verifying TOTP secret keys, or generating backup codes when your authenticator app is unavailable."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "TOTP (Time-based One-Time Password) generates 6-digit codes that change every 30 seconds based on a shared secret and the current time. It's the same algorithm used by Google Authenticator, Authy, and most 2FA systems.",
+      "why": "Testing 2FA implementations requires generating valid TOTP codes. This tool lets developers verify their TOTP integration works correctly without installing authenticator apps or setting up accounts.",
+      "when": "Use TOTP generation when testing 2FA implementations during development, verifying that secret keys generate expected codes, or as a backup when your authenticator app is unavailable.",
+      "useCases": ["Testing 2FA integration during development", "Verifying TOTP secret keys", "Backup code generation"],
+      "faq": [
+        { "q": "How does TOTP work?", "a": "TOTP combines a shared secret key with the current Unix timestamp (in 30-second intervals) through HMAC-SHA1. The result is truncated to a 6-digit code that both parties can independently calculate." },
+        { "q": "Is it safe to enter my TOTP secret here?", "a": "Yes. CipherKit generates codes entirely in your browser. Your secret key never leaves your device — no server ever sees it." },
+        { "q": "Why are my codes different from my authenticator?", "a": "TOTP is time-sensitive. Ensure your device clock is synchronized. Even a few seconds of drift can cause codes to mismatch during the transition between 30-second windows." }
+      ]
+    }
   },
   "rsa-key-generator": {
     "heading": "RSA Key Pair Generator",
@@ -814,5 +1056,681 @@
       }
     ],
     "articleHtml": "<article style=\"background:#111;border:1px solid #1e1e1e;padding:24px;border-radius:8px;margin-top:32px;color:#ccc;font-family:inherit;\"><h2 style=\"color:#ffffff;margin-bottom:16px;\">PNG to WebP Converter — Smaller Files, Same Quality</h2><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">Why Convert PNG to WebP?</h3><p>PNG files are lossless but often very large. WebP can reduce PNG file sizes by 26–34% while preserving transparency and near-identical visual quality. For web assets, this means faster page loads, lower bandwidth costs, and improved Core Web Vitals scores — all without sacrificing the alpha channel your designs need.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">Why Use CipherKit's PNG to WebP Converter?</h3><p>All conversion happens in your browser using the Canvas API. No files are uploaded to any server, there are no size limits, and no watermarks are added. Your images remain completely private and the tool works offline once loaded.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">When to Convert PNG to WebP</h3><p>Use this tool when optimizing website assets for performance, reducing image payload for mobile apps, preparing transparent graphics for modern web delivery, or batch-converting PNG icons and illustrations to the smaller WebP format before deployment.</p><h3 style=\"color:#00ff88;margin-top:20px;margin-bottom:8px;\">How to Convert PNG to WebP</h3><ol style=\"padding-left:20px;line-height:1.8;\"><li>Drag and drop your PNG file or click to select it.</li><li>Preview appears with quality and compression options.</li><li>Click download to save your optimized WebP file.</li></ol></article>"
+  },
+  "aes-decryption": {
+    "seoContent": {
+      "what": "AES decryption reverses AES encryption, converting ciphertext back to readable plaintext using the same secret key and mode (CBC, GCM, etc.) that was used for encryption. AES is a symmetric algorithm — the same key encrypts and decrypts.",
+      "why": "When you receive AES-encrypted data from APIs, files, or databases, you need the original key to recover the plaintext. AES decryption is essential for reading encrypted secrets, configs, or protected communications.",
+      "when": "Use AES decryption when recovering data encrypted with AES, decrypting API responses, unlocking encrypted config files, or testing encryption implementations during development.",
+      "useCases": ["Decrypting AES-encrypted API responses", "Recovering encrypted configuration data", "Testing encryption implementations"],
+      "faq": [
+        { "q": "What do I need to decrypt AES?", "a": "You need the exact key used for encryption, the same mode (CBC, GCM, etc.), and for CBC mode, the IV (initialization vector). Without any of these, decryption fails." },
+        { "q": "Why does my decryption return garbage?", "a": "Common causes: wrong key, wrong mode, missing or incorrect IV, or the data wasn't AES-encrypted. Ensure all parameters match exactly what was used for encryption." },
+        { "q": "Is AES decryption safe in a browser?", "a": "Yes. CipherKit uses the Web Crypto API and runs entirely in your browser. Your key and data never leave your device." }
+      ]
+    }
+  },
+  "ascii-table": {
+    "seoContent": {
+      "what": "An ASCII table displays the 128 standard ASCII characters with their decimal, hexadecimal, octal, and binary values. ASCII (American Standard Code for Information Interchange) is the foundation of text encoding in computing.",
+      "why": "Developers frequently need to look up character codes when working with binary protocols, debugging encoding issues, or understanding control characters. An ASCII table is an essential quick reference.",
+      "when": "Use an ASCII table when converting between character codes and symbols, debugging encoding issues, understanding control characters (0-31), or working with binary protocols and file formats.",
+      "useCases": ["Looking up character codes for debugging", "Understanding control characters", "Binary protocol development"],
+      "faq": [
+        { "q": "What's the difference between ASCII and Unicode?", "a": "ASCII covers 128 characters (0-127) using 7 bits. Unicode extends this to millions of characters, with ASCII as the first 128 code points. UTF-8 is backwards-compatible with ASCII." },
+        { "q": "What are ASCII control characters?", "a": "Characters 0-31 are non-printable control characters like NULL (0), TAB (9), LF (10), and CR (13). They control text formatting and device behavior." },
+        { "q": "Why does ASCII end at 127?", "a": "ASCII uses 7 bits, allowing 2^7 = 128 values (0-127). Extended ASCII uses 8 bits (0-255) but varies by code page. Unicode supersedes extended ASCII." }
+      ]
+    }
+  },
+  "binary-decode": {
+    "seoContent": {
+      "what": "Binary decoding converts binary strings (sequences of 0s and 1s) back into their original text or byte values. Each group of 8 bits represents one byte, which maps to an ASCII character or byte value.",
+      "why": "Binary is the fundamental language of computers. Decoding binary helps understand low-level data representation, debug binary protocols, and decode data transmitted or stored in binary format.",
+      "when": "Use binary decoding when learning binary-to-text conversion, debugging embedded systems output, understanding binary file formats, or reversing binary-encoded data.",
+      "useCases": ["Converting binary strings to text", "Debugging embedded systems output", "Understanding binary data representation"],
+      "faq": [
+        { "q": "How many bits make a character?", "a": "In ASCII/UTF-8 for basic characters, 8 bits (1 byte) represent one character. The decoder groups binary digits into bytes and converts each to its character equivalent." },
+        { "q": "What if my binary isn't a multiple of 8?", "a": "Standard binary encoding uses 8 bits per byte. Non-multiple lengths may indicate padding is needed or the data uses a different bit width." },
+        { "q": "Can I decode non-text binary?", "a": "Yes, but the output won't be readable text. Binary can encode any data — images, audio, etc. Text decoding only makes sense for text-encoded binary." }
+      ]
+    }
+  },
+  "binary-encode": {
+    "seoContent": {
+      "what": "Binary encoding converts text or bytes into binary representation — strings of 0s and 1s. Each character becomes its 8-bit binary equivalent, showing the actual bits that computers use to store the data.",
+      "why": "Understanding binary representation is fundamental to computer science. Binary encoding helps visualize how computers store text, debug bit-level operations, and learn encoding fundamentals.",
+      "when": "Use binary encoding when learning about data representation, debugging bit manipulation code, preparing data for binary protocols, or demonstrating how text is stored at the bit level.",
+      "useCases": ["Learning binary representation", "Visualizing text as bits", "Preparing data for binary protocols"],
+      "faq": [
+        { "q": "Why is each character 8 bits?", "a": "A byte is 8 bits, and ASCII/UTF-8 basic characters use one byte each. The 8-bit pattern uniquely identifies each of the 256 possible byte values." },
+        { "q": "Is binary encoding encryption?", "a": "No. Binary encoding is just a different representation of the same data. Anyone can decode it instantly — it provides no security." },
+        { "q": "What about Unicode characters?", "a": "UTF-8 encodes Unicode characters as 1-4 bytes. Basic ASCII characters (0-127) use 1 byte, but emoji and non-Latin characters use multiple bytes." }
+      ]
+    }
+  },
+  "bit-calculator": {
+    "seoContent": {
+      "what": "A bit calculator performs bitwise operations (AND, OR, XOR, NOT, shifts) on binary numbers. It shows the binary representation of inputs and outputs, helping visualize how bit manipulation works.",
+      "why": "Bitwise operations are essential for low-level programming, permissions systems, flags, network masks, and optimization. A calculator helps verify operations and understand bit patterns visually.",
+      "when": "Use a bit calculator when working with permission bits (Unix chmod), network subnet masks, flag-based systems, cryptographic operations, or debugging bitwise code.",
+      "useCases": ["Calculating Unix permission bits", "Working with network subnet masks", "Debugging bitwise operations"],
+      "faq": [
+        { "q": "What does XOR do?", "a": "XOR returns 1 when bits differ, 0 when they're the same. It's reversible (A XOR B XOR B = A), making it useful in cryptography and checksums." },
+        { "q": "What's the difference between logical and arithmetic shift?", "a": "Logical shift fills with zeros. Arithmetic right shift preserves the sign bit for signed numbers. Left shifts are typically the same for both." },
+        { "q": "Why use bitwise AND with masks?", "a": "AND with a mask extracts specific bits. For example, value AND 0xFF extracts the lowest 8 bits. It's how you isolate bit fields in packed data." }
+      ]
+    }
+  },
+  "checksum-generator": {
+    "seoContent": {
+      "what": "A checksum generator creates hash values (MD5, SHA-1, SHA-256, etc.) from files or text to verify data integrity. Identical inputs always produce identical checksums; any change produces a completely different result.",
+      "why": "Checksums verify that files weren't corrupted during download or transfer. Comparing the generated checksum against the published one confirms data integrity without examining every byte.",
+      "when": "Use checksum generation when verifying downloaded files, creating integrity hashes for distribution, detecting duplicate files, or validating data transfers.",
+      "useCases": ["Verifying downloaded file integrity", "Generating hashes for file distribution", "Detecting duplicate files"],
+      "faq": [
+        { "q": "Which checksum algorithm should I use?", "a": "SHA-256 for security-sensitive verification. MD5 is faster but cryptographically broken — fine for detecting accidental corruption, not for security." },
+        { "q": "Why does my checksum differ from the published one?", "a": "Even one bit difference produces a completely different hash. This could indicate corruption, tampering, or that you downloaded a different version of the file." },
+        { "q": "Is checksum verification safe online?", "a": "CipherKit processes files entirely in your browser. Your file content never leaves your device — only the hash is computed locally." }
+      ]
+    }
+  },
+  "color-palette": {
+    "seoContent": {
+      "what": "A color palette generator creates harmonious color schemes from a base color using color theory rules: complementary, analogous, triadic, split-complementary, and more. It outputs colors in HEX, RGB, and HSL formats.",
+      "why": "Choosing colors that work well together is hard. A palette generator applies color theory automatically, creating professional-looking color schemes for websites, apps, and designs.",
+      "when": "Use a color palette generator when starting a new design project, creating brand color schemes, ensuring accessible color contrast, or finding colors that complement an existing brand color.",
+      "useCases": ["Creating website color schemes", "Brand identity design", "Finding complementary colors for UI"],
+      "faq": [
+        { "q": "What's a complementary color scheme?", "a": "Complementary colors sit opposite each other on the color wheel (e.g., blue and orange). They create high contrast and visual impact but can be jarring if overused." },
+        { "q": "What's an analogous color scheme?", "a": "Analogous colors sit next to each other on the color wheel. They create harmonious, cohesive designs but may lack contrast. Good for calm, unified aesthetics." },
+        { "q": "How do I ensure accessibility?", "a": "Check contrast ratios between foreground and background colors. WCAG requires 4.5:1 for normal text, 3:1 for large text. Use the generated palette with a contrast checker." }
+      ]
+    }
+  },
+  "cron-expression-explainer": {
+    "seoContent": {
+      "what": "A cron expression explainer parses cron syntax (like '0 9 * * 1') and translates it into human-readable descriptions. It shows when the schedule will trigger and validates the expression syntax.",
+      "why": "Cron syntax is notoriously cryptic. An explainer confirms your expression means what you think it does, preventing accidental scheduling errors that could trigger jobs at wrong times.",
+      "when": "Use a cron explainer when reviewing existing crontabs, validating scheduled tasks before deployment, understanding inherited cron configurations, or learning cron syntax.",
+      "useCases": ["Validating cron expressions before deployment", "Understanding inherited crontab configurations", "Learning cron syntax"],
+      "faq": [
+        { "q": "What does * mean in cron?", "a": "Asterisk means 'every' — every minute, every hour, etc. for that field. '* * * * *' runs every minute. '0 * * * *' runs at minute 0 of every hour." },
+        { "q": "What's the difference between / and ,?", "a": "/ means 'every N' (*/15 = every 15). Comma lists specific values (1,15 = on the 1st and 15th). Both can combine: '0,30 */2' means at :00 and :30 of every 2nd hour." },
+        { "q": "Why does my cron have 5 vs 6 fields?", "a": "Standard Unix cron uses 5 fields (minute to day-of-week). Some systems (Quartz, Spring) add a seconds field as field 1. Check your scheduler's documentation." }
+      ]
+    }
+  },
+  "css-formatter": {
+    "seoContent": {
+      "what": "A CSS formatter beautifies minified or poorly-formatted CSS by adding proper indentation, line breaks, and consistent spacing. It makes stylesheets readable and maintainable.",
+      "why": "Minified CSS is unreadable. Production CSS often strips whitespace for performance. A formatter restores readability for debugging, editing, and code review.",
+      "when": "Use CSS formatting when debugging minified production stylesheets, reformatting legacy CSS, preparing CSS for code review, or cleaning up auto-generated styles.",
+      "useCases": ["Debugging minified CSS", "Formatting legacy stylesheets", "Preparing CSS for code review"],
+      "faq": [
+        { "q": "Does formatting change how CSS works?", "a": "No. Whitespace in CSS is ignored (outside strings). Formatting only affects readability — the styles render identically." },
+        { "q": "Can I minify CSS too?", "a": "Yes. CipherKit's formatter includes a minify option that removes all whitespace, producing the most compact CSS for production use." },
+        { "q": "Does this validate CSS syntax?", "a": "The formatter catches some syntax errors during parsing. For comprehensive validation, use a dedicated CSS validator." }
+      ]
+    }
+  },
+  "csv-to-excel": {
+    "seoContent": {
+      "what": "CSV to Excel conversion transforms comma-separated value files into proper Excel (.xlsx) format with formatted cells, proper column types, and Excel-specific features like formulas and styling.",
+      "why": "CSV files open in Excel but lack formatting, proper date handling, and Excel features. Converting to native .xlsx preserves column widths, enables formulas, and provides a better spreadsheet experience.",
+      "when": "Use CSV to Excel conversion when preparing data for non-technical users, creating formatted reports, adding Excel formulas to CSV data, or sharing spreadsheets with proper column formatting.",
+      "useCases": ["Creating formatted reports from CSV exports", "Preparing data for stakeholder presentations", "Converting database exports to shareable spreadsheets"],
+      "faq": [
+        { "q": "Why not just open CSV in Excel?", "a": "Opening CSV in Excel works but loses formatting, may misinterpret dates/numbers, and doesn't save Excel-specific features. True .xlsx conversion preserves these." },
+        { "q": "Is my data sent to a server?", "a": "No. CipherKit converts entirely in your browser using the SheetJS library. Your CSV data never leaves your device." },
+        { "q": "Can I convert Excel back to CSV?", "a": "Yes. CipherKit supports bidirectional conversion. Upload an Excel file to extract its data as CSV." }
+      ]
+    }
+  },
+  "decimal-to-hex": {
+    "seoContent": {
+      "what": "Decimal to hexadecimal conversion transforms base-10 numbers into base-16 representation using digits 0-9 and letters A-F. Hex is compact and directly maps to binary (each hex digit = 4 bits).",
+      "why": "Hex is the standard for representing binary data readably — memory addresses, color codes, byte values. Converting decimal to hex is essential for low-level programming and debugging.",
+      "when": "Use decimal to hex conversion when working with memory addresses, color codes, binary data inspection, writing values in code (0xFF), or debugging hardware registers.",
+      "useCases": ["Converting color values (rgb to hex)", "Memory address representation", "Binary data inspection"],
+      "faq": [
+        { "q": "Why use hex instead of decimal?", "a": "Hex directly maps to binary: each hex digit represents exactly 4 bits. This makes it easier to work with bytes (2 hex digits) and see bit patterns." },
+        { "q": "What do A-F represent?", "a": "A=10, B=11, C=12, D=13, E=14, F=15. Hex uses 16 symbols (0-F) instead of decimal's 10 (0-9), making numbers more compact." },
+        { "q": "How do I convert manually?", "a": "Repeatedly divide by 16, taking remainders. The remainders (read bottom-up) form the hex digits. For 255: 255÷16=15r15, so FF." }
+      ]
+    }
+  },
+  "dns-lookup": {
+    "seoContent": {
+      "what": "DNS lookup queries Domain Name System servers to resolve domain names to IP addresses and retrieve DNS records (A, AAAA, MX, TXT, CNAME, NS, etc.). It shows how the internet routes traffic to domains.",
+      "why": "DNS issues cause website downtime, email delivery failures, and SSL problems. Looking up DNS records helps diagnose connectivity issues and verify domain configuration.",
+      "when": "Use DNS lookup when troubleshooting website connectivity, verifying MX records for email, checking domain propagation after changes, or auditing domain DNS configuration.",
+      "useCases": ["Troubleshooting website connectivity", "Verifying email MX records", "Checking DNS propagation after changes"],
+      "faq": [
+        { "q": "What's the difference between A and AAAA records?", "a": "A records map domains to IPv4 addresses (32-bit). AAAA records map to IPv6 addresses (128-bit). Both can coexist; browsers prefer IPv6 when available." },
+        { "q": "What are MX records for?", "a": "MX (Mail Exchanger) records specify which servers handle email for a domain. The priority value determines order — lower numbers are tried first." },
+        { "q": "Why do DNS changes take time?", "a": "DNS caching. Records have TTL (Time To Live) values telling caches how long to store them. Changes propagate as caches expire, typically within 24-48 hours." }
+      ]
+    }
+  },
+  "docx-to-html": {
+    "seoContent": {
+      "what": "DOCX to HTML conversion extracts content from Microsoft Word documents and converts it to clean, semantic HTML. It preserves headings, paragraphs, lists, tables, and basic formatting.",
+      "why": "Word documents can't be displayed on the web directly. Converting to HTML enables publishing Word content online, importing into CMSes, or extracting text with formatting preserved.",
+      "when": "Use DOCX to HTML conversion when publishing Word documents online, importing content into a CMS, migrating documentation to web formats, or extracting formatted text from Word.",
+      "useCases": ["Publishing Word documents on websites", "Importing content into CMS platforms", "Migrating documentation to web formats"],
+      "faq": [
+        { "q": "Does this preserve all Word formatting?", "a": "Basic formatting (bold, italic, headings, lists, tables) is preserved. Complex features like embedded objects, macros, or advanced layouts may not convert perfectly." },
+        { "q": "Is my document uploaded to a server?", "a": "No. CipherKit processes DOCX files entirely in your browser using the mammoth.js library. Your document never leaves your device." },
+        { "q": "Can I convert back to DOCX?", "a": "HTML to DOCX conversion is more complex and requires server-side processing. CipherKit currently supports DOCX to HTML direction only." }
+      ]
+    }
+  },
+  "epoch-converter": {
+    "seoContent": {
+      "what": "An epoch converter transforms Unix timestamps (seconds since Jan 1, 1970) to human-readable dates and vice versa. It handles both seconds and milliseconds formats and shows times in multiple timezones.",
+      "why": "Epoch timestamps are compact and timezone-independent but unreadable. When debugging logs, APIs, or JWTs, you need to convert these numbers to understand when events actually occurred.",
+      "when": "Use epoch conversion when debugging timestamps in logs or APIs, calculating JWT expiry times, working with database timestamp columns, or converting between date formats.",
+      "useCases": ["Debugging timestamps in API responses", "Understanding JWT exp/iat claims", "Converting database timestamp values"],
+      "faq": [
+        { "q": "Seconds vs milliseconds?", "a": "Unix timestamps are traditionally seconds (10 digits). JavaScript uses milliseconds (13 digits). Divide by 1000 to convert ms to seconds." },
+        { "q": "What timezone are epochs in?", "a": "Epoch timestamps are always UTC — they represent absolute moments in time. Convert to local timezone only when displaying to users." },
+        { "q": "What's the Year 2038 problem?", "a": "32-bit signed integers storing seconds overflow on Jan 19, 2038. Modern 64-bit systems are unaffected; the problem impacts legacy 32-bit systems." }
+      ]
+    }
+  },
+  "gzip-tool": {
+    "seoContent": {
+      "what": "Gzip compression reduces file sizes using the DEFLATE algorithm, commonly used for HTTP compression and file archiving. Decompression restores the original data from gzip-compressed content.",
+      "why": "Gzip is the standard for HTTP content compression, reducing bandwidth and improving page load times. Developers need to compress assets and decompress received content for debugging.",
+      "when": "Use gzip when compressing assets for web delivery, decompressing HTTP responses for inspection, reducing file sizes for storage, or debugging gzip-encoded API responses.",
+      "useCases": ["Compressing web assets", "Decompressing HTTP responses", "Reducing file sizes for storage"],
+      "faq": [
+        { "q": "What's the typical compression ratio?", "a": "Text compresses well — 60-80% reduction is common. Already-compressed formats (JPEG, PNG, MP3) see little benefit since they're already compressed." },
+        { "q": "Is gzip the same as zip?", "a": "Different but related. Gzip uses DEFLATE compression for single files. ZIP is a container format that can hold multiple files, often using DEFLATE internally." },
+        { "q": "Is this safe for sensitive data?", "a": "CipherKit compresses/decompresses entirely in your browser. Your data never leaves your device." }
+      ]
+    }
+  },
+  "hash-comparator": {
+    "seoContent": {
+      "what": "A hash comparator checks whether two hash values match, detecting even single-character differences. It performs constant-time comparison to avoid timing attacks when comparing sensitive hashes.",
+      "why": "Hash verification is error-prone — hashes are long strings of similar characters. A comparator instantly confirms whether hashes match and highlights differences if they don't.",
+      "when": "Use hash comparison when verifying file integrity, comparing password hashes during testing, validating download checksums, or troubleshooting why hashes don't match.",
+      "useCases": ["Verifying file download integrity", "Comparing password hashes during testing", "Validating checksum values"],
+      "faq": [
+        { "q": "Why not just use string comparison?", "a": "For security, hash comparison should be constant-time to prevent timing attacks. Also, visual comparison of 64+ character strings is error-prone." },
+        { "q": "What if my hashes are different lengths?", "a": "They're definitely different — no need to compare further. Different algorithms produce different lengths (MD5=32, SHA-256=64, SHA-512=128)." },
+        { "q": "Why would valid hashes not match?", "a": "Common causes: different encoding (uppercase vs lowercase), extra whitespace, wrong algorithm, or the files are actually different." }
+      ]
+    }
+  },
+  "heic-to-jpg": {
+    "seoContent": {
+      "what": "HEIC to JPG conversion transforms Apple's High Efficiency Image format into universally-compatible JPEG. HEIC offers better compression than JPEG but lacks universal support outside Apple devices.",
+      "why": "iPhone photos use HEIC by default, but many websites, applications, and non-Apple devices don't support it. Converting to JPEG ensures universal compatibility.",
+      "when": "Use HEIC to JPG conversion when uploading iPhone photos to websites, sharing images with non-Apple users, preparing photos for printing services, or using images in applications that don't support HEIC.",
+      "useCases": ["Uploading iPhone photos to websites", "Sharing photos with Windows/Android users", "Preparing images for printing services"],
+      "faq": [
+        { "q": "What is HEIC?", "a": "HEIC (High Efficiency Image Container) is Apple's image format using HEVC compression. It offers ~50% smaller files than JPEG at similar quality but has limited support outside Apple." },
+        { "q": "Does conversion lose quality?", "a": "Some quality loss is inevitable converting to lossy JPEG. CipherKit uses high-quality settings by default to minimize visible degradation." },
+        { "q": "Is my photo uploaded anywhere?", "a": "No. CipherKit converts entirely in your browser using the Canvas API. Your photos never leave your device." }
+      ]
+    }
+  },
+  "heic-to-png": {
+    "seoContent": {
+      "what": "HEIC to PNG conversion transforms Apple's High Efficiency Image format into lossless PNG. Unlike JPEG conversion, PNG preserves full quality and supports transparency if present in the original.",
+      "why": "When you need maximum quality from iPhone photos or need to preserve any transparency data, PNG is the better target format. It's lossless but produces larger files than JPEG.",
+      "when": "Use HEIC to PNG when you need lossless quality, when the HEIC might contain transparency, when preparing images for editing, or when file size isn't a concern.",
+      "useCases": ["Preserving maximum image quality", "Retaining transparency from HEIC", "Preparing photos for further editing"],
+      "faq": [
+        { "q": "PNG vs JPEG for HEIC conversion?", "a": "PNG is lossless but larger. JPEG is smaller but loses quality. Use PNG for editing or when quality is paramount; JPEG for web/email sharing." },
+        { "q": "Can HEIC contain transparency?", "a": "Yes, HEIC supports alpha channels. Converting to PNG preserves transparency; converting to JPEG fills transparent areas with white." },
+        { "q": "Is conversion processed locally?", "a": "Yes. CipherKit converts entirely in your browser. Your photos never leave your device." }
+      ]
+    }
+  },
+  "heic-to-webp": {
+    "seoContent": {
+      "what": "HEIC to WebP conversion transforms Apple's HEIC format into Google's WebP format. WebP offers excellent compression like HEIC but with much broader support across browsers and platforms.",
+      "why": "WebP is supported by all modern browsers while HEIC is mostly Apple-only. Converting HEIC to WebP gives you small file sizes with universal web compatibility.",
+      "when": "Use HEIC to WebP when preparing iPhone photos for web use, optimizing images for performance, or needing small files with broad compatibility.",
+      "useCases": ["Preparing iPhone photos for web publishing", "Optimizing images for Core Web Vitals", "Cross-platform image sharing"],
+      "faq": [
+        { "q": "WebP vs JPEG for HEIC conversion?", "a": "WebP offers 25-35% smaller files than JPEG at equivalent quality. All modern browsers support WebP. Use JPEG only for legacy compatibility." },
+        { "q": "Does WebP support transparency?", "a": "Yes. WebP supports alpha channels like PNG, making it suitable for images with transparency." },
+        { "q": "Is this processed in my browser?", "a": "Yes. CipherKit converts entirely locally using the Canvas API. Your photos never leave your device." }
+      ]
+    }
+  },
+  "hex-encode": {
+    "seoContent": {
+      "what": "Hex encoding converts bytes or text into hexadecimal representation — each byte becomes two hex characters (00-FF). It's a readable way to represent binary data using only 0-9 and A-F.",
+      "why": "Binary data can't be displayed as text or transmitted through text-based protocols. Hex encoding makes bytes readable and safe for display, logging, and transmission.",
+      "when": "Use hex encoding when displaying binary data in logs, debugging network protocols, encoding bytes for text transmission, or inspecting raw byte values.",
+      "useCases": ["Encoding binary data for display", "Preparing data for text protocols", "Debugging byte-level data"],
+      "faq": [
+        { "q": "Why does hex double the length?", "a": "Each byte (8 bits, 0-255) requires exactly 2 hex digits (00-FF). Hex encoding always produces output twice the length of input bytes." },
+        { "q": "Is hex encoding encryption?", "a": "No. Hex encoding is just a different representation. Anyone can decode it instantly — it provides no security." },
+        { "q": "What's the difference from Base64?", "a": "Hex uses 16 symbols and doubles size. Base64 uses 64 symbols and increases size by ~33%. Base64 is more compact; hex is more readable for byte inspection." }
+      ]
+    }
+  },
+  "hex-to-decimal": {
+    "seoContent": {
+      "what": "Hexadecimal to decimal conversion transforms base-16 numbers (0-9, A-F) into standard base-10 numbers. It reverses the decimal-to-hex conversion commonly needed in programming.",
+      "why": "Hex is used for memory addresses, color codes, and byte values, but calculations and user display often need decimal. Converting between bases is a common developer task.",
+      "when": "Use hex to decimal conversion when reading memory addresses, converting hex color values to decimal RGB, calculating byte values, or debugging hex output.",
+      "useCases": ["Converting memory addresses to decimal", "Hex color to decimal RGB values", "Calculating byte values from hex"],
+      "faq": [
+        { "q": "How do I convert manually?", "a": "Multiply each digit by 16^position (right-to-left, starting at 0). For 'FF': F(15)×16¹ + F(15)×16⁰ = 240 + 15 = 255." },
+        { "q": "What about negative hex numbers?", "a": "Hex doesn't inherently represent negatives. Signed interpretation depends on context — 0xFF could be 255 (unsigned) or -1 (signed 8-bit)." },
+        { "q": "Are A-F case sensitive?", "a": "No. 'FF', 'ff', and 'Ff' all equal 255. Hex digits A-F represent 10-15 regardless of case." }
+      ]
+    }
+  },
+  "html-decode": {
+    "seoContent": {
+      "what": "HTML decoding converts HTML entities (&lt; &gt; &amp; &quot; etc.) back to their original characters (<, >, &, \"). It reverses HTML encoding used to safely display special characters.",
+      "why": "When scraping web content or processing HTML data, you encounter encoded entities. Decoding reveals the actual text content for processing, display, or further use.",
+      "when": "Use HTML decoding when processing scraped web content, reading encoded API responses, converting HTML entities in database exports, or displaying user-entered HTML-encoded text.",
+      "useCases": ["Processing scraped web content", "Decoding HTML in API responses", "Converting encoded database exports"],
+      "faq": [
+        { "q": "What are HTML entities?", "a": "Named (&amp;) or numeric (&#38;) codes representing characters that have special meaning in HTML. They ensure characters display correctly instead of being interpreted as markup." },
+        { "q": "Why would text be HTML-encoded?", "a": "To prevent XSS attacks and ensure proper rendering. Characters like <, >, &, and quotes are encoded to stop browsers from interpreting them as HTML tags or attributes." },
+        { "q": "Does this decode all entity types?", "a": "Yes. CipherKit decodes named entities (&amp;), decimal entities (&#38;), and hexadecimal entities (&#x26;) — all standard HTML entity formats." }
+      ]
+    }
+  },
+  "html-formatter": {
+    "seoContent": {
+      "what": "An HTML formatter beautifies minified or poorly-indented HTML by adding proper indentation, line breaks, and consistent spacing. It makes HTML documents readable and maintainable.",
+      "why": "Minified HTML is unreadable. Production builds often strip whitespace. A formatter restores structure for debugging, editing, code review, and understanding markup hierarchy.",
+      "when": "Use HTML formatting when debugging minified production HTML, reformatting legacy markup, preparing HTML for code review, or understanding complex nested structures.",
+      "useCases": ["Debugging minified HTML", "Formatting legacy markup", "Preparing HTML for code review"],
+      "faq": [
+        { "q": "Does formatting change how HTML renders?", "a": "Usually no. Extra whitespace between tags is typically ignored. However, whitespace inside text nodes and pre/code elements is preserved and may affect display." },
+        { "q": "Can I minify HTML too?", "a": "Yes. CipherKit's formatter includes a minify option that removes unnecessary whitespace for production use." },
+        { "q": "Does this validate HTML?", "a": "The formatter catches some syntax errors during parsing. For comprehensive validation, use a dedicated HTML validator like W3C's." }
+      ]
+    }
+  },
+  "http-header-parser": {
+    "seoContent": {
+      "what": "An HTTP header parser analyzes and explains HTTP request/response headers. It breaks down headers into readable components, explains their purposes, and identifies security headers and their configurations.",
+      "why": "HTTP headers control caching, security, content negotiation, and more. Understanding what headers mean helps debug issues, configure servers correctly, and implement security best practices.",
+      "when": "Use HTTP header parsing when debugging API responses, auditing security headers, understanding caching behavior, or diagnosing CORS and content-type issues.",
+      "useCases": ["Debugging API response headers", "Auditing security header configuration", "Diagnosing caching issues"],
+      "faq": [
+        { "q": "What are the most important security headers?", "a": "Content-Security-Policy (XSS prevention), Strict-Transport-Security (force HTTPS), X-Frame-Options (clickjacking), X-Content-Type-Options (MIME sniffing)." },
+        { "q": "How do caching headers work?", "a": "Cache-Control sets caching rules (max-age, no-cache). ETag/Last-Modified enable conditional requests. Vary specifies which request headers affect caching." },
+        { "q": "What causes CORS errors?", "a": "Missing or incorrect Access-Control-Allow-Origin header. The server must explicitly allow the requesting origin, or use * for public APIs." }
+      ]
+    }
+  },
+  "image-enhancer": {
+    "seoContent": {
+      "what": "An image enhancer improves image quality by adjusting brightness, contrast, saturation, sharpness, and other parameters. It helps correct exposure issues and make images more visually appealing.",
+      "why": "Photos often need adjustment — underexposed shots, washed-out colors, or soft focus. Enhancement tools fix these issues without requiring professional photo editing software.",
+      "when": "Use image enhancement when correcting exposure issues, boosting colors for web display, sharpening slightly soft images, or preparing photos for publication.",
+      "useCases": ["Correcting underexposed photos", "Boosting colors for web display", "Sharpening soft images"],
+      "faq": [
+        { "q": "Does enhancement degrade quality?", "a": "Some processing can introduce artifacts if pushed too far. CipherKit applies adjustments at high quality, but subtle corrections produce better results than extreme adjustments." },
+        { "q": "Can I undo enhancements?", "a": "CipherKit processes in real-time with live preview. Adjust sliders to undo changes. The original file isn't modified until you download the result." },
+        { "q": "Is this processed locally?", "a": "Yes. CipherKit enhances images entirely in your browser using the Canvas API. Your photos never leave your device." }
+      ]
+    }
+  },
+  "image-resizer": {
+    "seoContent": {
+      "what": "An image resizer changes image dimensions by scaling, cropping, or fitting to specific sizes. It supports maintaining aspect ratio, setting exact dimensions, and choosing output quality.",
+      "why": "Images need resizing for web optimization, social media requirements, email attachments, or print specifications. Proper resizing ensures images fit their intended use without distortion.",
+      "when": "Use image resizing when preparing images for web upload, meeting platform size requirements, creating thumbnails, or reducing file size for email.",
+      "useCases": ["Optimizing images for web upload", "Meeting social media image requirements", "Creating thumbnail images"],
+      "faq": [
+        { "q": "Should I maintain aspect ratio?", "a": "Usually yes. Changing aspect ratio distorts images. Maintain ratio and crop if needed to fit specific dimensions without stretching." },
+        { "q": "Does resizing reduce quality?", "a": "Downscaling is generally safe. Upscaling degrades quality since it must invent pixels. For best results, start with the largest source image available." },
+        { "q": "What dimensions for web use?", "a": "It depends on display size and density. For responsive images, provide multiple sizes. Maximum useful width is usually 2000-2500px for full-width images." }
+      ]
+    }
+  },
+  "ip-address-tools": {
+    "seoContent": {
+      "what": "IP address tools provide information about IP addresses: geolocation, ISP, hostname, subnet calculations, IPv4/IPv6 conversion, and network range analysis.",
+      "why": "Understanding IP addresses is essential for network administration, security analysis, and debugging connectivity. These tools reveal where IPs are located and what networks they belong to.",
+      "when": "Use IP tools when investigating suspicious traffic, debugging network connectivity, calculating subnet ranges, or understanding network architecture.",
+      "useCases": ["Looking up IP geolocation", "Calculating subnet ranges", "Converting between IPv4 and IPv6"],
+      "faq": [
+        { "q": "How accurate is IP geolocation?", "a": "Usually accurate to city level for most IPs. VPNs, proxies, and mobile networks can give misleading locations. It's not precise enough for exact addresses." },
+        { "q": "What's the difference between IPv4 and IPv6?", "a": "IPv4 uses 32-bit addresses (4 billion possible). IPv6 uses 128-bit addresses (340 undecillion). IPv6 was created because IPv4 addresses ran out." },
+        { "q": "What is CIDR notation?", "a": "CIDR (like /24) indicates network size. /24 means 24 bits for network, 8 for hosts = 256 addresses. Lower numbers = larger networks." }
+      ]
+    }
+  },
+  "jpg-to-png": {
+    "seoContent": {
+      "what": "JPG to PNG conversion transforms lossy JPEG images into lossless PNG format. While this doesn't recover lost JPEG quality, it produces a lossless copy suitable for editing without further degradation.",
+      "why": "PNG doesn't degrade with repeated saves like JPEG does. Converting to PNG prevents further quality loss during editing workflows and supports transparency if you need to add it.",
+      "when": "Use JPG to PNG when preparing images for editing workflows, when you need to add transparency later, or when lossless format is required for specific purposes.",
+      "useCases": ["Preparing JPEGs for editing workflows", "Creating a lossless archive copy", "When transparency support is needed"],
+      "faq": [
+        { "q": "Does this improve JPEG quality?", "a": "No. JPEG compression is lossy and irreversible. Converting to PNG creates a lossless copy of already-degraded data — it prevents further loss but doesn't restore original quality." },
+        { "q": "Why is PNG file larger?", "a": "PNG is lossless compression; JPEG is lossy. Lossless always produces larger files for photos. The tradeoff is no further quality degradation." },
+        { "q": "Can I add transparency after conversion?", "a": "Yes. PNG supports alpha channels. After conversion, you can add transparency in image editing software." }
+      ]
+    }
+  },
+  "js-minifier": {
+    "seoContent": {
+      "what": "A JavaScript minifier removes whitespace, comments, and shortens variable names to reduce file size without changing functionality. Minified JS loads faster and reduces bandwidth.",
+      "why": "Smaller JavaScript files mean faster page loads and better Core Web Vitals scores. Minification is a standard production build step for web performance optimization.",
+      "when": "Use JS minification when preparing JavaScript for production deployment, optimizing page load performance, or reducing bundle sizes.",
+      "useCases": ["Preparing JavaScript for production", "Optimizing page load times", "Reducing bundle sizes"],
+      "faq": [
+        { "q": "What's the typical size reduction?", "a": "Usually 30-60% reduction for well-commented code. The more comments and whitespace in the original, the greater the reduction." },
+        { "q": "Can I still debug minified code?", "a": "Use source maps. They map minified code back to original source, enabling debugging. Generate source maps during your build process." },
+        { "q": "Is this the same as obfuscation?", "a": "No. Minification preserves functionality while reducing size. Obfuscation intentionally makes code hard to understand for intellectual property protection." }
+      ]
+    }
+  },
+  "json-minifier": {
+    "seoContent": {
+      "what": "A JSON minifier removes all whitespace from JSON data, producing the most compact representation. This reduces file size and bandwidth without changing the data structure.",
+      "why": "Formatted JSON is larger due to indentation and line breaks. Minifying JSON reduces API payload sizes and improves transmission speed.",
+      "when": "Use JSON minification when preparing API payloads, reducing config file sizes, optimizing JSON stored in databases, or minimizing data transfer.",
+      "useCases": ["Reducing API payload sizes", "Optimizing config files", "Minimizing data transfer"],
+      "faq": [
+        { "q": "Does minification change the data?", "a": "No. Whitespace in JSON is purely for readability. Minification removes it without affecting the actual data structure or values." },
+        { "q": "How much smaller is minified JSON?", "a": "Depends on original formatting. Heavily indented JSON can be 30-50% smaller when minified. Single-line JSON sees minimal reduction." },
+        { "q": "Should I always minify JSON?", "a": "For production/transmission, yes. For config files humans edit, keep it formatted. Minify when size matters; format when readability matters." }
+      ]
+    }
+  },
+  "json-schema-validator": {
+    "seoContent": {
+      "what": "A JSON Schema validator checks whether JSON data conforms to a defined schema. It validates types, required fields, formats, patterns, and constraints, reporting exactly what doesn't match.",
+      "why": "JSON Schema ensures data integrity. Validating against a schema catches malformed data before it causes errors downstream, making APIs and configurations more robust.",
+      "when": "Use JSON Schema validation when testing API request/response formats, validating config files, ensuring data imports meet requirements, or debugging schema violations.",
+      "useCases": ["Validating API payloads against schemas", "Testing config file formats", "Debugging schema validation errors"],
+      "faq": [
+        { "q": "What is JSON Schema?", "a": "JSON Schema is a vocabulary for annotating and validating JSON documents. It defines structure, types, required fields, and constraints in a machine-readable format." },
+        { "q": "Which schema version does this support?", "a": "CipherKit supports JSON Schema draft-07, the most widely used version. Most schemas are compatible across draft versions." },
+        { "q": "How do I create a schema?", "a": "Define an object with 'type', 'properties', 'required', and constraint keywords. Start simple and add validations as needed. Many tools can generate schemas from example JSON." }
+      ]
+    }
+  },
+  "json-to-csv": {
+    "seoContent": {
+      "what": "JSON to CSV conversion transforms JSON arrays of objects into comma-separated value format. Object keys become CSV headers, and values become row data, creating spreadsheet-compatible output.",
+      "why": "CSV is the universal format for spreadsheets and data import. Converting JSON to CSV enables opening API data in Excel, importing into databases, or sharing with non-technical users.",
+      "when": "Use JSON to CSV when exporting API data to spreadsheets, creating reports from JSON sources, importing data into legacy systems, or preparing data for analysis tools.",
+      "useCases": ["Exporting API data to Excel", "Creating reports from JSON sources", "Importing data into databases"],
+      "faq": [
+        { "q": "What JSON structure works best?", "a": "An array of objects with consistent keys. [{\"name\":\"Alice\",\"age\":30}, {\"name\":\"Bob\",\"age\":25}] converts cleanly. Nested objects are flattened or stringified." },
+        { "q": "How are nested objects handled?", "a": "Nested objects can be flattened (parent.child) or converted to JSON strings. Deep nesting may require preprocessing for clean CSV output." },
+        { "q": "What about arrays in values?", "a": "Array values are typically converted to delimited strings (comma-separated) or JSON strings within the CSV cell." }
+      ]
+    }
+  },
+  "json-to-yaml": {
+    "seoContent": {
+      "what": "JSON to YAML conversion transforms JSON data into YAML format. YAML's indentation-based syntax replaces JSON's braces and quotes, producing more human-readable configuration files.",
+      "why": "YAML is preferred for config files (Kubernetes, Docker, Ansible) because it's more readable and supports comments. Converting JSON to YAML enables using data in YAML-based tools.",
+      "when": "Use JSON to YAML when creating Kubernetes manifests from JSON, preparing Docker Compose files, configuring Ansible playbooks, or making config files more readable.",
+      "useCases": ["Creating Kubernetes manifests", "Preparing Docker Compose configurations", "Making config files human-readable"],
+      "faq": [
+        { "q": "Is YAML always more readable?", "a": "For config files, usually yes. For deeply nested or data-heavy content, JSON's explicit structure can be clearer. YAML excels at flat or moderately nested configs." },
+        { "q": "Does YAML support everything JSON does?", "a": "YAML is a superset of JSON — any valid JSON is valid YAML. YAML adds features like comments, multi-line strings, and anchors that JSON lacks." },
+        { "q": "Can I convert back to JSON?", "a": "Yes. CipherKit supports bidirectional conversion. Paste YAML to get equivalent JSON output." }
+      ]
+    }
+  },
+  "json-xml-converter": {
+    "seoContent": {
+      "what": "JSON to XML conversion transforms JSON data structures into XML format. Objects become elements, arrays become repeated elements, and values become element content or attributes.",
+      "why": "Some legacy systems, SOAP APIs, and enterprise tools require XML. Converting JSON to XML enables interoperability between modern JSON-based systems and XML-based infrastructure.",
+      "when": "Use JSON to XML when integrating with SOAP web services, working with legacy enterprise systems, generating XML feeds, or meeting XML format requirements.",
+      "useCases": ["Integrating with SOAP services", "Working with legacy enterprise APIs", "Generating XML feeds from JSON"],
+      "faq": [
+        { "q": "How are arrays converted?", "a": "Array elements become repeated XML elements with the same tag name. [{\"item\":1},{\"item\":2}] becomes <item>1</item><item>2</item>." },
+        { "q": "What about attributes vs elements?", "a": "By default, JSON properties become child elements. Some converters support conventions like @attr to create attributes, but this varies by tool." },
+        { "q": "Can I convert XML back to JSON?", "a": "Yes. CipherKit supports bidirectional conversion. Note that XML has features (attributes, namespaces) that don't map perfectly to JSON." }
+      ]
+    }
+  },
+  "jwt-builder": {
+    "seoContent": {
+      "what": "A JWT builder creates JSON Web Tokens by assembling header, payload, and signature. You specify claims (sub, exp, iat, etc.), choose the algorithm, and provide a signing key to generate valid tokens.",
+      "why": "Testing authentication systems requires generating JWTs with specific claims. A builder lets developers create test tokens without writing signing code or setting up auth infrastructure.",
+      "when": "Use JWT builder when testing authentication flows, creating tokens for development environments, learning JWT structure, or generating tokens with specific claims for debugging.",
+      "useCases": ["Creating test tokens for development", "Testing authentication flows", "Debugging JWT-based systems"],
+      "faq": [
+        { "q": "Is it safe to generate JWTs online?", "a": "CipherKit generates JWTs entirely in your browser. Your secret key never leaves your device. For production secrets, this is safer than server-based tools." },
+        { "q": "What's the difference between HS256 and RS256?", "a": "HS256 uses a shared secret for signing and verification. RS256 uses asymmetric keys — private to sign, public to verify. RS256 is better when verifiers shouldn't have signing ability." },
+        { "q": "Which claims should I include?", "a": "Standard claims: sub (subject), exp (expiry), iat (issued at), iss (issuer). Add custom claims as needed. Always include exp to limit token lifetime." }
+      ]
+    }
+  },
+  "jwt-encoder": {
+    "seoContent": {
+      "what": "A JWT encoder takes header and payload JSON, encodes them to Base64URL, and creates a valid JWT structure. With a secret key, it also generates the signature for a complete, signed token.",
+      "why": "Understanding JWT structure requires seeing how headers and payloads become tokens. An encoder shows the encoding process and produces tokens for testing authentication systems.",
+      "when": "Use JWT encoding when learning JWT structure, creating test tokens, debugging encoding issues, or generating tokens from custom header/payload combinations.",
+      "useCases": ["Learning JWT structure", "Creating test tokens", "Debugging JWT encoding"],
+      "faq": [
+        { "q": "What's Base64URL encoding?", "a": "Like Base64 but URL-safe: + becomes -, / becomes _, and padding (=) is removed. This ensures JWTs are safe in URLs without percent-encoding." },
+        { "q": "Can I create unsigned JWTs?", "a": "Technically yes (alg: none), but unsigned JWTs are insecure and rejected by most systems. Always sign JWTs with a secret or key pair." },
+        { "q": "How do I verify my generated JWT?", "a": "Use CipherKit's JWT decoder to parse the token and verify the structure. For signature verification, use the same key and algorithm used for signing." }
+      ]
+    }
+  },
+  "lorem-ipsum-generator": {
+    "seoContent": {
+      "what": "A Lorem Ipsum generator creates placeholder text in varying lengths — paragraphs, sentences, or words. This pseudo-Latin text fills layouts during design without distracting readers with meaningful content.",
+      "why": "Designers need realistic text volume without meaningful content that distracts from visual review. Lorem Ipsum fills space predictably, letting stakeholders focus on design rather than copywriting.",
+      "when": "Use Lorem Ipsum when creating mockups, building page layouts before content exists, testing responsive typography, or demonstrating designs to stakeholders.",
+      "useCases": ["Creating design mockups", "Filling layouts before content exists", "Testing responsive typography"],
+      "faq": [
+        { "q": "Why use Lorem Ipsum instead of real text?", "a": "Real text distracts viewers from design evaluation. Lorem Ipsum provides realistic word patterns and lengths without readable meaning, keeping focus on layout and typography." },
+        { "q": "Is Lorem Ipsum actually Latin?", "a": "It's pseudo-Latin derived from Cicero's 'De Finibus' (45 BC), but scrambled and modified. Individual words aren't real Latin vocabulary." },
+        { "q": "Are there alternatives to Lorem Ipsum?", "a": "Yes — Hipster Ipsum, Bacon Ipsum, Corporate Ipsum, etc. CipherKit generates classic Lorem Ipsum, the industry standard." }
+      ]
+    }
+  },
+  "markdown-to-pdf": {
+    "seoContent": {
+      "what": "Markdown to PDF conversion renders Markdown source into a formatted PDF document. It processes headings, lists, code blocks, tables, and other Markdown features into printable output.",
+      "why": "Markdown is great for writing but not for printing or sharing with non-technical users. PDF conversion creates professional documents from Markdown source for distribution.",
+      "when": "Use Markdown to PDF when creating printable documentation, sharing formatted reports, generating PDF from README files, or producing deliverables from Markdown source.",
+      "useCases": ["Creating printable documentation", "Generating PDF reports from Markdown", "Sharing formatted documents"],
+      "faq": [
+        { "q": "Does this support code syntax highlighting?", "a": "Yes. Fenced code blocks with language identifiers are syntax-highlighted in the PDF output." },
+        { "q": "Can I customize the PDF styling?", "a": "CipherKit applies clean default styling. For custom styles, you'd export to HTML first and apply CSS, then convert to PDF." },
+        { "q": "Is my Markdown processed locally?", "a": "Yes. CipherKit renders Markdown to PDF entirely in your browser using jsPDF and marked.js. Your content never leaves your device." }
+      ]
+    }
+  },
+  "number-base-converter": {
+    "seoContent": {
+      "what": "A number base converter transforms numbers between different radixes: binary (base-2), octal (base-8), decimal (base-10), hexadecimal (base-16), and any custom base from 2 to 36.",
+      "why": "Different bases serve different purposes — binary for bit patterns, hex for bytes, octal for Unix permissions. Converting between them is essential for low-level programming and debugging.",
+      "when": "Use base conversion when working with memory addresses, understanding binary data, converting Unix permissions, debugging bit patterns, or learning number systems.",
+      "useCases": ["Converting between hex, decimal, and binary", "Understanding Unix permission values", "Debugging bit patterns"],
+      "faq": [
+        { "q": "Why does programming use different bases?", "a": "Each has advantages: binary shows individual bits, hex is compact for bytes (2 digits = 1 byte), octal maps to 3-bit groups (used in Unix permissions). Decimal is human-readable." },
+        { "q": "What bases are supported?", "a": "Any base from 2 to 36. Bases above 10 use letters: A=10 through Z=35. Common bases are 2 (binary), 8 (octal), 10 (decimal), 16 (hex)." },
+        { "q": "How do I convert manually?", "a": "To convert to decimal: multiply each digit by base^position (right-to-left). To convert from decimal: repeatedly divide by target base, remainders form digits." }
+      ]
+    }
+  },
+  "password-strength": {
+    "seoContent": {
+      "what": "A password strength checker analyzes passwords for entropy, common patterns, dictionary words, and known breaches. It estimates crack time and provides specific feedback for improvement.",
+      "why": "Users often think passwords are stronger than they are. A strength checker reveals vulnerabilities — dictionary words, predictable patterns, insufficient length — before attackers exploit them.",
+      "when": "Use password strength checking when creating new passwords, auditing existing passwords, educating users about security, or testing password policy enforcement.",
+      "useCases": ["Evaluating new password strength", "Auditing existing passwords", "Educating users about security"],
+      "faq": [
+        { "q": "What makes a password strong?", "a": "Length matters most. 16+ random characters are better than 8 complex characters. Avoid dictionary words, patterns (123, qwerty), and personal information." },
+        { "q": "Is my password sent anywhere?", "a": "No. CipherKit analyzes passwords entirely in your browser. Your password never leaves your device — safe to check sensitive passwords." },
+        { "q": "Why is my 'complex' password weak?", "a": "Common substitutions (p@ssw0rd), keyboard patterns (qwerty), and dictionary words with numbers are well-known to attackers and included in cracking dictionaries." }
+      ]
+    }
+  },
+  "png-to-jpg": {
+    "seoContent": {
+      "what": "PNG to JPG conversion transforms lossless PNG images into compressed JPEG format. This significantly reduces file size for photographs while losing the PNG transparency support.",
+      "why": "PNG files are often too large for web use, especially for photographs. Converting to JPEG dramatically reduces file size when lossless quality and transparency aren't needed.",
+      "when": "Use PNG to JPG when reducing file sizes for web upload, preparing images for email, removing transparency, or converting screenshots of photos.",
+      "useCases": ["Reducing image file sizes for web", "Preparing images for email", "Converting photo screenshots"],
+      "faq": [
+        { "q": "Will I lose quality?", "a": "Yes, JPEG is lossy compression. CipherKit uses high-quality settings by default. For photographs, the quality loss is usually imperceptible while files shrink dramatically." },
+        { "q": "What happens to transparency?", "a": "JPEG doesn't support transparency. Transparent areas are filled with a background color (typically white). Keep PNG if you need transparency." },
+        { "q": "When should I keep PNG?", "a": "Keep PNG for graphics, logos, screenshots with text, or images needing transparency. Use JPEG for photographs where exact colors aren't critical." }
+      ]
+    }
+  },
+  "random-string-generator": {
+    "seoContent": {
+      "what": "A random string generator creates strings of specified length using cryptographically secure randomness. You can choose character sets: alphanumeric, letters only, numbers, or custom characters.",
+      "why": "Random strings are needed for test data, unique identifiers, sample content, and non-security tokens. Cryptographic randomness ensures unpredictability even for non-secret uses.",
+      "when": "Use random string generation for creating test data, generating unique identifiers, producing sample content, or any scenario needing unpredictable strings.",
+      "useCases": ["Generating test data", "Creating unique identifiers", "Producing sample content"],
+      "faq": [
+        { "q": "Is this suitable for passwords?", "a": "Yes, but use the dedicated password generator which enforces security requirements. This tool is more flexible but requires you to choose secure parameters." },
+        { "q": "How random is it?", "a": "CipherKit uses Web Crypto API (crypto.getRandomValues) for cryptographically secure randomness. It's unpredictable enough for any application." },
+        { "q": "What character sets are available?", "a": "Alphanumeric (a-z, A-Z, 0-9), letters only, numbers only, hex digits, or custom character sets you define." }
+      ]
+    }
+  },
+  "ripemd160-generator": {
+    "seoContent": {
+      "what": "RIPEMD-160 is a cryptographic hash function producing a 160-bit (40 hex character) digest. Developed in Europe as an alternative to NSA-designed SHA algorithms, it's used in Bitcoin and PGP.",
+      "why": "While SHA-256 is more common, RIPEMD-160 is still used in Bitcoin addresses and some cryptographic applications. Understanding different hash functions is valuable for security work.",
+      "when": "Use RIPEMD-160 when working with Bitcoin address generation, implementing systems requiring RIPEMD-160, or comparing hash algorithm outputs.",
+      "useCases": ["Bitcoin address generation", "PGP fingerprints", "Systems requiring RIPEMD-160"],
+      "faq": [
+        { "q": "Is RIPEMD-160 secure?", "a": "For general hashing, SHA-256 is preferred. RIPEMD-160 has no known practical attacks but provides less security margin than SHA-256. It remains secure for its current uses." },
+        { "q": "Why does Bitcoin use RIPEMD-160?", "a": "Bitcoin addresses use RIPEMD-160(SHA-256(public_key)) — 'Hash160'. The shorter 160-bit output makes addresses more compact than full SHA-256 would." },
+        { "q": "How does it compare to SHA-1?", "a": "Both are 160-bit hashes, but SHA-1 is considered broken due to collision attacks. RIPEMD-160 has stronger collision resistance. Still, use SHA-256 for new systems." }
+      ]
+    }
+  },
+  "rsa-encrypt-decrypt": {
+    "seoContent": {
+      "what": "RSA encryption/decryption performs asymmetric cryptography using public/private key pairs. Public keys encrypt data that only the corresponding private key can decrypt, enabling secure communication without shared secrets.",
+      "why": "RSA enables secure communication with anyone who has your public key, without pre-sharing secrets. It's fundamental to HTTPS, SSH, PGP, and most secure communication systems.",
+      "when": "Use RSA encryption when sending secret data to someone whose public key you have, testing asymmetric encryption implementations, or learning public-key cryptography.",
+      "useCases": ["Testing RSA implementations", "Learning public-key cryptography", "Encrypting data for specific recipients"],
+      "faq": [
+        { "q": "What key size should I use?", "a": "2048 bits minimum, 4096 recommended for sensitive data. Larger keys are more secure but slower. 1024-bit keys are considered insecure." },
+        { "q": "Can I encrypt large data?", "a": "RSA can only encrypt data smaller than the key size. For large data, encrypt with a symmetric key (AES), then encrypt that key with RSA. This is hybrid encryption." },
+        { "q": "Is this safe in a browser?", "a": "Yes. CipherKit uses Web Crypto API for RSA operations. Your private key never leaves your browser." }
+      ]
+    }
+  },
+  "sha1-generator": {
+    "seoContent": {
+      "what": "SHA-1 (Secure Hash Algorithm 1) generates a 160-bit (40 hex character) hash from any input. Once widely used, SHA-1 is now deprecated for security purposes due to demonstrated collision attacks.",
+      "why": "Understanding SHA-1 matters because legacy systems still use it. While SHA-256 is the modern choice, you may encounter SHA-1 in older software, Git commits (though changing), and historical data.",
+      "when": "Use SHA-1 only for legacy system compatibility, Git commit hashes, or non-security checksums. For any security application, use SHA-256 or SHA-3.",
+      "useCases": ["Legacy system compatibility", "Understanding Git commit hashes", "Non-security checksums"],
+      "faq": [
+        { "q": "Is SHA-1 secure?", "a": "No. Google demonstrated a practical SHA-1 collision in 2017 (SHAttered). SHA-1 should not be used for security — certificates, signatures, or password hashing. Use SHA-256." },
+        { "q": "Why is SHA-1 still used?", "a": "Legacy compatibility. Git uses SHA-1 for commit hashes (transitioning to SHA-256). Old systems may require SHA-1. For new systems, always use SHA-256 or stronger." },
+        { "q": "What's a collision attack?", "a": "Finding two different inputs that produce the same hash. Collisions let attackers substitute malicious data that matches a trusted hash. SHA-1 collisions are now feasible." }
+      ]
+    }
+  },
+  "sha3-generator": {
+    "seoContent": {
+      "what": "SHA-3 (Secure Hash Algorithm 3) is the newest SHA standard, based on the Keccak algorithm. It uses a completely different construction (sponge function) than SHA-2, providing an alternative if SHA-2 were ever broken.",
+      "why": "SHA-3 provides algorithmic diversity. If a weakness were found in SHA-2's Merkle-Damgård construction, SHA-3's sponge construction offers a secure fallback. It's also used in Ethereum.",
+      "when": "Use SHA-3 when systems specifically require it (Ethereum uses Keccak-256), when you need algorithmic diversity from SHA-2, or for future-proofing cryptographic designs.",
+      "useCases": ["Ethereum/Web3 applications (Keccak-256)", "Systems requiring SHA-3", "Cryptographic algorithm diversity"],
+      "faq": [
+        { "q": "Is SHA-3 better than SHA-256?", "a": "Both are secure. SHA-3 uses a different construction (sponge vs Merkle-Damgård), providing diversity. SHA-256 is faster in software; SHA-3 resists length extension attacks naturally." },
+        { "q": "What's Keccak vs SHA-3?", "a": "Keccak won the SHA-3 competition but NIST made small parameter changes for the final SHA-3 standard. Ethereum uses original Keccak-256, not NIST SHA-3-256." },
+        { "q": "Should I switch from SHA-256?", "a": "Not necessarily. SHA-256 remains secure with no known weaknesses. SHA-3 provides an alternative if that changes. Use whichever your system requires." }
+      ]
+    }
+  },
+  "sha512-generator": {
+    "seoContent": {
+      "what": "SHA-512 generates a 512-bit (128 hex character) hash using the SHA-2 family algorithm. It provides the largest digest size in standard SHA-2, offering maximum security margin.",
+      "why": "SHA-512 offers the highest security margin of the SHA-2 family and is actually faster than SHA-256 on 64-bit systems due to native 64-bit operations.",
+      "when": "Use SHA-512 when maximum security margin is needed, when working on 64-bit systems where it's faster, or when longer hash output is specifically required.",
+      "useCases": ["Maximum security applications", "64-bit system optimization", "When longer hash output is required"],
+      "faq": [
+        { "q": "SHA-512 vs SHA-256?", "a": "SHA-512 produces longer hashes (128 vs 64 hex chars) and is faster on 64-bit CPUs. SHA-256 is sufficient for all practical purposes; SHA-512 adds security margin." },
+        { "q": "Why is SHA-512 faster on 64-bit?", "a": "SHA-512 uses native 64-bit operations. On 64-bit CPUs, these are single instructions. SHA-256 uses 32-bit operations that don't benefit as much from 64-bit architecture." },
+        { "q": "When should I use SHA-512?", "a": "For new systems on 64-bit hardware where performance matters, SHA-512 is a good default. For broad compatibility and smaller hashes, SHA-256 works everywhere." }
+      ]
+    }
+  },
+  "svg-to-png": {
+    "seoContent": {
+      "what": "SVG to PNG conversion rasterizes vector SVG graphics into bitmap PNG images at specified dimensions. Unlike SVG, PNG is a fixed-resolution image format supported everywhere.",
+      "why": "SVG is vector and scalable but not supported everywhere — email clients, some CMS platforms, and older software may reject SVG. PNG provides universal compatibility.",
+      "when": "Use SVG to PNG when preparing graphics for email, social media, or platforms that don't support SVG, creating favicons, or generating fixed-resolution versions of vector assets.",
+      "useCases": ["Preparing graphics for email", "Creating social media images from SVG", "Generating favicons"],
+      "faq": [
+        { "q": "What resolution should I use?", "a": "Export at the size you'll display. For retina/HiDPI, export at 2x dimensions. SVG can be converted to any size since it's vector — choose based on target display size." },
+        { "q": "Is transparency preserved?", "a": "Yes. PNG supports alpha channels. Transparent areas in your SVG remain transparent in the PNG output." },
+        { "q": "Why convert vector to raster?", "a": "Compatibility. SVG requires browser/app support. PNG works everywhere. Trade scalability for universal compatibility when needed." }
+      ]
+    }
+  },
+  "word-counter": {
+    "seoContent": {
+      "what": "A word counter analyzes text to provide word count, character count (with/without spaces), sentence count, paragraph count, and estimated reading time.",
+      "why": "Writers need to meet word count requirements, optimize content length for SEO, or estimate reading time. A word counter provides instant metrics for any text.",
+      "when": "Use word counting when writing to a target length, checking essay/article word counts, estimating content reading time, or analyzing text composition.",
+      "useCases": ["Meeting word count requirements", "Estimating reading time", "Analyzing content length for SEO"],
+      "faq": [
+        { "q": "How is reading time calculated?", "a": "Average adult reading speed is 200-250 words per minute. CipherKit uses 200 WPM for a conservative estimate." },
+        { "q": "Are hyphenated words counted as one or two?", "a": "Typically as one word. 'well-known' is counted as a single word. This matches standard word processing conventions." },
+        { "q": "Does this count special characters?", "a": "Character count includes all characters. Word count splits on whitespace and punctuation. Special characters between letters don't split words." }
+      ]
+    }
+  },
+  "xml-formatter": {
+    "seoContent": {
+      "what": "An XML formatter beautifies minified or poorly-indented XML by adding proper indentation, line breaks, and consistent spacing. It makes XML documents readable and shows the element hierarchy clearly.",
+      "why": "Minified XML is unreadable. API responses and configuration files often come without formatting. A formatter reveals the structure for debugging, editing, and understanding.",
+      "when": "Use XML formatting when debugging SOAP responses, working with configuration files, analyzing RSS/Atom feeds, or inspecting any XML data.",
+      "useCases": ["Debugging SOAP API responses", "Formatting XML configuration files", "Inspecting RSS/Atom feeds"],
+      "faq": [
+        { "q": "Does formatting change XML semantics?", "a": "Whitespace between tags is generally insignificant. However, whitespace inside text content is preserved. Formatting won't change data meaning for standard XML." },
+        { "q": "Can I minify XML too?", "a": "Yes. CipherKit's formatter includes a minify option that removes unnecessary whitespace for compact output." },
+        { "q": "Does this validate XML?", "a": "The formatter catches well-formedness errors (unclosed tags, invalid syntax). For full validation against schemas (XSD/DTD), use a dedicated XML validator." }
+      ]
+    }
+  },
+  "xml-json-converter": {
+    "seoContent": {
+      "what": "XML to JSON conversion transforms XML documents into JSON format. Elements become objects, attributes become properties (often prefixed with @), and text content becomes string values.",
+      "why": "Modern applications prefer JSON, but many legacy systems, SOAP services, and data sources use XML. Converting XML to JSON enables processing with JavaScript and modern APIs.",
+      "when": "Use XML to JSON when integrating legacy SOAP services, processing RSS/Atom feeds, importing XML data into modern applications, or converting configuration formats.",
+      "useCases": ["Converting SOAP responses to JSON", "Processing RSS/Atom feeds", "Importing XML data into modern apps"],
+      "faq": [
+        { "q": "How are attributes converted?", "a": "Common conventions prefix attributes with @ (@id, @class). Some converters use separate 'attributes' objects. Check the output format for your specific needs." },
+        { "q": "What about namespaces?", "a": "XML namespaces add complexity. Simple converters ignore or flatten namespaces. Complex XML may require preprocessing or namespace-aware conversion." },
+        { "q": "Can I convert JSON back to XML?", "a": "Yes. CipherKit supports bidirectional conversion. Note that XML features like attributes, comments, and processing instructions may not round-trip perfectly." }
+      ]
+    }
+  },
+  "yaml-formatter": {
+    "seoContent": {
+      "what": "A YAML formatter standardizes YAML formatting with consistent indentation, proper alignment, and clean structure. It can also validate YAML syntax and catch common errors.",
+      "why": "YAML is whitespace-sensitive — inconsistent indentation breaks files. A formatter ensures consistent style across configuration files and catches syntax errors before deployment.",
+      "when": "Use YAML formatting when cleaning up configuration files, standardizing YAML style across a project, catching indentation errors, or preparing YAML for code review.",
+      "useCases": ["Formatting Kubernetes manifests", "Standardizing Docker Compose files", "Cleaning up Ansible playbooks"],
+      "faq": [
+        { "q": "Does formatting change YAML semantics?", "a": "Correct formatting doesn't change meaning. The formatter standardizes indentation (spaces, not tabs) and alignment while preserving all data." },
+        { "q": "What indentation does YAML use?", "a": "YAML requires spaces, not tabs. Common conventions use 2 spaces per level. CipherKit formats with consistent 2-space indentation." },
+        { "q": "Does this validate YAML?", "a": "Yes. The formatter catches syntax errors like inconsistent indentation, invalid characters, and structural issues during parsing." }
+      ]
+    }
   }
 }
