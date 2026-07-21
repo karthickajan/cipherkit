@@ -3,565 +3,565 @@
 
   <url>
     <loc>https://cipherkit.app/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/crypto/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/encoding/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/dev/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/image/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/privacy-policy/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/support/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/aes-encryption/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/aes-decryption/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/sha256-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/sha512-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/sha1-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/sha3-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/md5-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/ripemd160-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/hmac-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/rsa-key-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/hash-comparator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/checksum-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/base64-encode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/base64-decode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/url-encode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/url-decode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/html-encode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/html-decode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/hex-encode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/hex-decode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/binary-encode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/binary-decode/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/json-formatter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/json-minifier/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/xml-json-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/json-xml-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/csv-json-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/yaml-json-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/jwt-decoder/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/jwt-encoder/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/uuid-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/random-password-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/random-string-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/unix-timestamp-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/cron-expression-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/cron-expression-explainer/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/http-header-parser/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/bcrypt-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/regex-tester/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/color-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/number-base-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/lorem-ipsum-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/sql-formatter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/markdown-preview/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/diff-checker/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/word-counter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/ip-address-tools/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/rsa-encrypt-decrypt/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/password-strength/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/totp-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/ssl-cert-decoder/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/json-schema-validator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/json-to-csv/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/qr-generator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/svg-to-png/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/image-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/image-resizer/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/markdown-to-pdf/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/csv-to-excel/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/docx-to-html/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/gzip-tool/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/ascii-table/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/bit-calculator/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/dns-lookup/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/epoch-converter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/jwt-builder/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/color-palette/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/image-enhancer/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/png-to-jpg/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/jpg-to-png/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/png-to-webp/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/jpg-to-webp/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/webp-to-png/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/webp-to-jpg/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/json-to-yaml/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/decimal-to-hex/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/hex-to-decimal/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/heic-to-jpg/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/heic-to-png/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/heic-to-webp/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/xml-formatter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/yaml-formatter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/html-formatter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/css-formatter/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/js-minifier/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cipherkit.app/tools/chess-board-analyzer/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>

@@ -118,16 +118,16 @@ function copySrc(srcRel, distRel) {
 }
 
 // ── SHARED HEAD HTML ────────────────────────────────────────────────────────
-function buildHead({ pageTitle, metaDescription, canonicalPath, extraMeta = '', extraImgSrc = '', extraConnectSrc = '', extraFrameSrc = '' }) {
+function buildHead({ pageTitle, metaDescription, canonicalPath, robotsContent = 'index, follow', extraMeta = '', extraImgSrc = '', extraConnectSrc = '', extraFrameSrc = '' }) {
   const canonical = `${DOMAIN}${canonicalPath}`;
-  const imgSrc = `'self' data: blob: https://www.google-analytics.com https://dofollow.tools${extraImgSrc ? ' ' + extraImgSrc : ''}`;
+  const imgSrc = `'self' data: blob: https://www.google-analytics.com${extraImgSrc ? ' ' + extraImgSrc : ''}`;
   const connectSrc = `'self' https://dns.google https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com${extraConnectSrc ? ' ' + extraConnectSrc : ''}`;
   const frameSrc = extraFrameSrc ? ` frame-src ${extraFrameSrc};` : '';
   return `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${metaDescription}">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="${robotsContent}">
   <meta name="theme-color" content="#07090d">
   <meta name="google-site-verification" content="UC-6PSV0VLbnfHxe9FoC2l7MWoX1Qi1CY1-_bV7lxQw" />
   <link rel="canonical" href="${canonical}">
@@ -298,7 +298,7 @@ function buildNavbar(headerBadge, activeCategory) {
 }
 
 // ── FOOTER ──────────────────────────────────────────────────────────────────
-function buildFooter() {
+function buildFooter(includeDofollowBadge = false) {
   const year = new Date().getFullYear();
   const cryptoTools    = tools.filter(t => t.category === 'crypto').slice(0, 6);
   const encTools       = tools.filter(t => t.category === 'encoding').slice(0, 6);
@@ -311,6 +311,13 @@ function buildFooter() {
       `<li><a href="${BASE_PATH}/tools/${t.slug}/">${t.title}</a></li>`
     ).join('\n        ');
   }
+
+  const dofollowBadgeHtml = includeDofollowBadge ? `
+      <div style="margin-top:12px">
+        <a href="https://dofollow.tools" target="_blank" rel="noopener noreferrer nofollow sponsored">
+          <img src="https://dofollow.tools/badge/badge_transparent.svg" alt="Featured on Dofollow.Tools" width="200" height="54" loading="lazy" style="height:36px;width:auto;display:block;opacity:0.85">
+        </a>
+      </div>` : '';
 
   return `
 <footer class="site-footer">
@@ -329,11 +336,7 @@ function buildFooter() {
       </a>
       <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
       <a href="${site.github}" class="footer-github" target="_blank" rel="noopener">View on GitHub ↗</a>
-      <div style="margin-top:12px">
-        <a href="https://dofollow.tools" target="_blank" rel="noopener noreferrer">
-          <img src="https://dofollow.tools/badge/badge_transparent.svg" alt="Featured on Dofollow.Tools" width="200" height="54" loading="lazy" style="height:36px;width:auto;display:block;opacity:0.85">
-        </a>
-      </div>
+${dofollowBadgeHtml}
     </div>
 
     <div class="footer-links">
@@ -856,6 +859,7 @@ function buildHomepage() {
     pageTitle:       `${site.name} — ${site.tagline}`,
     metaDescription: site.description,
     canonicalPath:   '/',
+    extraImgSrc:     'https://dofollow.tools',
     extraMeta: `
 <script type="application/ld+json">
 ${JSON.stringify({
@@ -972,7 +976,7 @@ ${buildNavbar()}
 
 </main>
 
-${buildFooter()}
+${buildFooter(true)}
 
 <!-- Toast -->
 <div class="toast" id="toast" role="alert" aria-live="assertive">
