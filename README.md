@@ -55,6 +55,20 @@ npx serve docs -p 3000
 # Open http://localhost:3000
 ```
 
+## 🧪 UAT Mirror Mode
+
+Production lock remains enabled by default. To run a hosted UAT mirror on a non-production hostname:
+
+1. Open your mirror URL once with `?uat=1` (or `?mirror=1`).
+2. CipherKit stores this flag in localStorage (`ck-uat`) and stops forced redirect/domain lock on that browser.
+3. To turn it off again, open the URL with `?uat=0` (or `?mirror=0`).
+
+Example:
+
+```text
+https://your-uat-host.example/?uat=1
+```
+
 ---
 
 ## 🏗️ Tech Stack
