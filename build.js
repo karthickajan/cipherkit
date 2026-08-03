@@ -1267,7 +1267,6 @@ function buildSitemap() {
     { loc: `${DOMAIN}/tools/dev/`,        priority: '0.8', freq: 'weekly' },
     { loc: `${DOMAIN}/tools/image/`,      priority: '0.8', freq: 'weekly' },
     { loc: `${DOMAIN}/tools/privacy-policy/`, priority: '0.3', freq: 'yearly' },
-    { loc: `${DOMAIN}/tools/support/`,        priority: '0.4', freq: 'monthly' },
   ];
 
   const toolUrls = tools.map(t => ({
