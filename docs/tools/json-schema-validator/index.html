@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the JSON Schema Validator free?",
+      "name": "What is JSON Schema?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "JSON Schema is a vocabulary for annotating and validating JSON documents. It defines structure, types, required fields, and constraints in a machine-readable format."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Which schema version does this support?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "CipherKit supports JSON Schema draft-07, the most widely used version. Most schemas are compatible across draft versions."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the JSON Schema Validator do?",
+      "name": "How do I create a schema?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online JSON Schema validator. Validate JSON data against a JSON Schema with support for types, required fields, patterns, and nested objects."
+        "text": "Define an object with 'type', 'properties', 'required', and constraint keywords. Start simple and add validations as needed. Many tools can generate schemas from example JSON."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is JSON Schema Validator?</h2>
-      <p>undefined</p>
+  <p>A JSON Schema validator checks whether JSON data conforms to a defined schema. It validates types, required fields, formats, patterns, and constraints, reporting exactly what doesn't match.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>JSON Schema ensures data integrity. Validating against a schema catches malformed data before it causes errors downstream, making APIs and configurations more robust.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JSON Schema validation when testing API request/response formats, validating config files, ensuring data imports meet requirements, or debugging schema violations.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Validating API payloads against schemas</li>
+      <li>Testing config file formats</li>
+      <li>Debugging schema validation errors</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What is JSON Schema?</h3>
+    <p>JSON Schema is a vocabulary for annotating and validating JSON documents. It defines structure, types, required fields, and constraints in a machine-readable format.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Which schema version does this support?</h3>
+    <p>CipherKit supports JSON Schema draft-07, the most widely used version. Most schemas are compatible across draft versions.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>How do I create a schema?</h3>
+    <p>Define an object with 'type', 'properties', 'required', and constraint keywords. Start simple and add validations as needed. Many tools can generate schemas from example JSON.</p>
+  </article>
     </section>
   </div>
 

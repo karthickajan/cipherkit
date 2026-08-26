@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Image Resizer free?",
+      "name": "Should I maintain aspect ratio?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Usually yes. Changing aspect ratio distorts images. Maintain ratio and crop if needed to fit specific dimensions without stretching."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Does resizing reduce quality?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Downscaling is generally safe. Upscaling degrades quality since it must invent pixels. For best results, start with the largest source image available."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Image Resizer do?",
+      "name": "What dimensions for web use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online image resizer. Resize images to exact dimensions with aspect ratio lock. Supports PNG, JPEG, and WebP output."
+        "text": "It depends on display size and density. For responsive images, provide multiple sizes. Maximum useful width is usually 2000-2500px for full-width images."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is Image Resizer?</h2>
-      <p>undefined</p>
+  <p>An image resizer changes image dimensions by scaling, cropping, or fitting to specific sizes. It supports maintaining aspect ratio, setting exact dimensions, and choosing output quality.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Images need resizing for web optimization, social media requirements, email attachments, or print specifications. Proper resizing ensures images fit their intended use without distortion.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use image resizing when preparing images for web upload, meeting platform size requirements, creating thumbnails, or reducing file size for email.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Optimizing images for web upload</li>
+      <li>Meeting social media image requirements</li>
+      <li>Creating thumbnail images</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Should I maintain aspect ratio?</h3>
+    <p>Usually yes. Changing aspect ratio distorts images. Maintain ratio and crop if needed to fit specific dimensions without stretching.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Does resizing reduce quality?</h3>
+    <p>Downscaling is generally safe. Upscaling degrades quality since it must invent pixels. For best results, start with the largest source image available.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What dimensions for web use?</h3>
+    <p>It depends on display size and density. For responsive images, provide multiple sizes. Maximum useful width is usually 2000-2500px for full-width images.</p>
+  </article>
     </section>
   </div>
 

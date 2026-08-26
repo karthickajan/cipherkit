@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the JSON to CSV Converter free?",
+      "name": "What JSON structure works best?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "An array of objects with consistent keys. [{\"name\":\"Alice\",\"age\":30}, {\"name\":\"Bob\",\"age\":25}] converts cleanly. Nested objects are flattened or stringified."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "How are nested objects handled?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Nested objects can be flattened (parent.child) or converted to JSON strings. Deep nesting may require preprocessing for clean CSV output."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the JSON to CSV Converter do?",
+      "name": "What about arrays in values?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online JSON to CSV converter. Convert JSON arrays to CSV format with proper escaping. Download as .csv file."
+        "text": "Array values are typically converted to delimited strings (comma-separated) or JSON strings within the CSV cell."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is JSON to CSV Converter?</h2>
-      <p>undefined</p>
+  <p>JSON to CSV conversion transforms JSON arrays of objects into comma-separated value format. Object keys become CSV headers, and values become row data, creating spreadsheet-compatible output.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>CSV is the universal format for spreadsheets and data import. Converting JSON to CSV enables opening API data in Excel, importing into databases, or sharing with non-technical users.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JSON to CSV when exporting API data to spreadsheets, creating reports from JSON sources, importing data into legacy systems, or preparing data for analysis tools.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Exporting API data to Excel</li>
+      <li>Creating reports from JSON sources</li>
+      <li>Importing data into databases</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What JSON structure works best?</h3>
+    <p>An array of objects with consistent keys. [{"name":"Alice","age":30}, {"name":"Bob","age":25}] converts cleanly. Nested objects are flattened or stringified.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>How are nested objects handled?</h3>
+    <p>Nested objects can be flattened (parent.child) or converted to JSON strings. Deep nesting may require preprocessing for clean CSV output.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What about arrays in values?</h3>
+    <p>Array values are typically converted to delimited strings (comma-separated) or JSON strings within the CSV cell.</p>
+  </article>
     </section>
   </div>
 

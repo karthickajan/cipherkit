@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Cron Expression Explainer free?",
+      "name": "What does * mean in cron?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Asterisk means 'every' — every minute, every hour, etc. for that field. '* * * * *' runs every minute. '0 * * * *' runs at minute 0 of every hour."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What's the difference between / and ,?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "/ means 'every N' (*/15 = every 15). Comma lists specific values (1,15 = on the 1st and 15th). Both can combine: '0,30 */2' means at :00 and :30 of every 2nd hour."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Cron Expression Explainer do?",
+      "name": "Why does my cron have 5 vs 6 fields?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online cron expression explainer. Paste any cron expression and get a plain English explanation of when it runs. Includes next run times."
+        "text": "Standard Unix cron uses 5 fields (minute to day-of-week). Some systems (Quartz, Spring) add a seconds field as field 1. Check your scheduler's documentation."
       }
     }
   ]
@@ -267,15 +267,36 @@
 
     <section class="seo-content">
       <h2>What is Cron Expression Explainer?</h2>
-      <p>undefined</p>
+  <p>A cron expression explainer parses cron syntax (like '0 9 * * 1') and translates it into human-readable descriptions. It shows when the schedule will trigger and validates the expression syntax.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Cron syntax is notoriously cryptic. An explainer confirms your expression means what you think it does, preventing accidental scheduling errors that could trigger jobs at wrong times.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a cron explainer when reviewing existing crontabs, validating scheduled tasks before deployment, understanding inherited cron configurations, or learning cron syntax.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Validating cron expressions before deployment</li>
+      <li>Understanding inherited crontab configurations</li>
+      <li>Learning cron syntax</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What does * mean in cron?</h3>
+    <p>Asterisk means 'every' — every minute, every hour, etc. for that field. '* * * * *' runs every minute. '0 * * * *' runs at minute 0 of every hour.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What's the difference between / and ,?</h3>
+    <p>/ means 'every N' (*/15 = every 15). Comma lists specific values (1,15 = on the 1st and 15th). Both can combine: '0,30 */2' means at :00 and :30 of every 2nd hour.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Why does my cron have 5 vs 6 fields?</h3>
+    <p>Standard Unix cron uses 5 fields (minute to day-of-week). Some systems (Quartz, Spring) add a seconds field as field 1. Check your scheduler's documentation.</p>
+  </article>
     </section>
   </div>
 

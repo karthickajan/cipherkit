@@ -271,7 +271,14 @@
 
     <section class="seo-content">
       <h2>What is URL Encoding?</h2>
-      <p>URL encoding (also called percent-encoding) converts characters that are not allowed in URLs into a safe format using a % followed by two hex digits. For example, a space becomes %20, &amp; becomes %26. This is required by RFC 3986 for any character outside the unreserved set (A–Z, a–z, 0–9, -, _, ., ~).</p>
+  <p>URL encoding (also called percent-encoding) converts characters that are not allowed in URLs into a safe format using a % followed by two hex digits. For example, a space becomes %20, &amp; becomes %26. This is required by RFC 3986 for any character outside the unreserved set (A–Z, a–z, 0–9, -, _, ., ~).</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>URLs have reserved characters with special meanings (?, &, =, #). If your data contains these characters, they must be encoded to prevent them from being interpreted as URL syntax rather than data.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use URL encoding when building query strings programmatically, passing user input as URL parameters, encoding form data for GET requests, or constructing OAuth redirect URLs with dynamic values.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
@@ -279,17 +286,22 @@
       <li>Safely passing special characters like &amp;, =, +, #, ? in URL parameters</li>
       <li>Encoding form data submitted via GET requests</li>
       <li>Building API request URLs programmatically</li>
-      </ul>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
+
+  <article class="seo-faq-item">
     <h3>What is the difference between URL encoding and Base64 encoding?</h3>
     <p>URL encoding makes text safe to include in URLs using % notation. Base64 encoding converts binary data to ASCII text. They serve different purposes — URL encoding is for URLs, Base64 is for data transmission.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Why does + sometimes mean a space in URLs?</h3>
     <p>In the application/x-www-form-urlencoded format (HTML forms), + represents a space. In strict RFC 3986 URL encoding, a space is %20. This is why URL-safe Base64 uses - instead of + — to avoid this ambiguity.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Should I encode the entire URL or just the parameters?</h3>
     <p>Only encode the parameter values (and keys), not the entire URL. Encoding the full URL would also encode the /, ?, and &amp; characters that give the URL its structure.</p>
+  </article>
     </section>
   </div>
 

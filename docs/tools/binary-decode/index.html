@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Binary Decoder free?",
+      "name": "How many bits make a character?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "In ASCII/UTF-8 for basic characters, 8 bits (1 byte) represent one character. The decoder groups binary digits into bytes and converts each to its character equivalent."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What if my binary isn't a multiple of 8?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Standard binary encoding uses 8 bits per byte. Non-multiple lengths may indicate padding is needed or the data uses a different bit width."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Binary Decoder do?",
+      "name": "Can I decode non-text binary?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online binary decoder. Convert binary strings (0s and 1s) back to readable text instantly in your browser."
+        "text": "Yes, but the output won't be readable text. Binary can encode any data — images, audio, etc. Text decoding only makes sense for text-encoded binary."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is Binary Decoder?</h2>
-      <p>undefined</p>
+  <p>Binary decoding converts binary strings (sequences of 0s and 1s) back into their original text or byte values. Each group of 8 bits represents one byte, which maps to an ASCII character or byte value.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Binary is the fundamental language of computers. Decoding binary helps understand low-level data representation, debug binary protocols, and decode data transmitted or stored in binary format.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use binary decoding when learning binary-to-text conversion, debugging embedded systems output, understanding binary file formats, or reversing binary-encoded data.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Converting binary strings to text</li>
+      <li>Debugging embedded systems output</li>
+      <li>Understanding binary data representation</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>How many bits make a character?</h3>
+    <p>In ASCII/UTF-8 for basic characters, 8 bits (1 byte) represent one character. The decoder groups binary digits into bytes and converts each to its character equivalent.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What if my binary isn't a multiple of 8?</h3>
+    <p>Standard binary encoding uses 8 bits per byte. Non-multiple lengths may indicate padding is needed or the data uses a different bit width.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Can I decode non-text binary?</h3>
+    <p>Yes, but the output won't be readable text. Binary can encode any data — images, audio, etc. Text decoding only makes sense for text-encoded binary.</p>
+  </article>
     </section>
   </div>
 

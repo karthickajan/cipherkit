@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Number Base Converter free?",
+      "name": "Why does programming use different bases?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Each has advantages: binary shows individual bits, hex is compact for bytes (2 digits = 1 byte), octal maps to 3-bit groups (used in Unix permissions). Decimal is human-readable."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What bases are supported?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Any base from 2 to 36. Bases above 10 use letters: A=10 through Z=35. Common bases are 2 (binary), 8 (octal), 10 (decimal), 16 (hex)."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Number Base Converter do?",
+      "name": "How do I convert manually?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online number base converter. Convert numbers between binary, octal, decimal, and hexadecimal bases instantly in your browser."
+        "text": "To convert to decimal: multiply each digit by base^position (right-to-left). To convert from decimal: repeatedly divide by target base, remainders form digits."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is Number Base Converter?</h2>
-      <p>undefined</p>
+  <p>A number base converter transforms numbers between different radixes: binary (base-2), octal (base-8), decimal (base-10), hexadecimal (base-16), and any custom base from 2 to 36.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Different bases serve different purposes — binary for bit patterns, hex for bytes, octal for Unix permissions. Converting between them is essential for low-level programming and debugging.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use base conversion when working with memory addresses, understanding binary data, converting Unix permissions, debugging bit patterns, or learning number systems.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Converting between hex, decimal, and binary</li>
+      <li>Understanding Unix permission values</li>
+      <li>Debugging bit patterns</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Why does programming use different bases?</h3>
+    <p>Each has advantages: binary shows individual bits, hex is compact for bytes (2 digits = 1 byte), octal maps to 3-bit groups (used in Unix permissions). Decimal is human-readable.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What bases are supported?</h3>
+    <p>Any base from 2 to 36. Bases above 10 use letters: A=10 through Z=35. Common bases are 2 (binary), 8 (octal), 10 (decimal), 16 (hex).</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>How do I convert manually?</h3>
+    <p>To convert to decimal: multiply each digit by base^position (right-to-left). To convert from decimal: repeatedly divide by target base, remainders form digits.</p>
+  </article>
     </section>
   </div>
 

@@ -275,7 +275,14 @@
 
     <section class="seo-content">
       <h2>What is Base64 Decoding?</h2>
-      <p>Base64 decoding reverses the encoding process, converting Base64-encoded ASCII text back to its original binary or text form. The decoder reads groups of 4 Base64 characters and converts them back to 3 bytes of original data.</p>
+  <p>Base64 decoding reverses the encoding process, converting Base64-encoded ASCII text back to its original binary or text form. The decoder reads groups of 4 Base64 characters and converts them back to 3 bytes of original data.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>When you receive Base64-encoded data from APIs, JWT tokens, email attachments, or data URIs, you need to decode it to access the original content. Base64 decoding reveals what was encoded for safe text transmission.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use Base64 decoding when inspecting JWT header/payload, debugging API responses with encoded fields, extracting images from data URIs, or reading MIME-encoded email attachments.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
@@ -283,17 +290,22 @@
       <li>Decoding images or files embedded as data URIs</li>
       <li>Debugging API responses that contain Base64-encoded fields</li>
       <li>Reading Base64-encoded email attachments (MIME format)</li>
-      </ul>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
+
+  <article class="seo-faq-item">
     <h3>Why do I get garbled output when decoding?</h3>
     <p>The original data was binary (like an image or compressed file), not plain text. Base64 can encode any binary data — if the original wasn't text, decoding to text will show garbled characters.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Can I decode a JWT with this tool?</h3>
     <p>Yes for the header and payload — split the JWT at the dots, take the first or second part, and decode it. The signature (third part) is a cryptographic hash and won't decode to readable text.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Is Base64 decoding safe to do online?</h3>
     <p>CipherKit runs 100 % in your browser — no data is sent to any server. It is safe to decode sensitive Base64 strings here.</p>
+  </article>
     </section>
   </div>
 

@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the XML Formatter free?",
+      "name": "Does formatting change XML semantics?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Whitespace between tags is generally insignificant. However, whitespace inside text content is preserved. Formatting won't change data meaning for standard XML."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Can I minify XML too?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Yes. CipherKit's formatter includes a minify option that removes unnecessary whitespace for compact output."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the XML Formatter do?",
+      "name": "Does this validate XML?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online XML formatter and minifier. Beautify or compress XML with proper indentation and validation. 100% client-side — no data leaves your browser."
+        "text": "The formatter catches well-formedness errors (unclosed tags, invalid syntax). For full validation against schemas (XSD/DTD), use a dedicated XML validator."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is XML Formatter?</h2>
-      <p>undefined</p>
+  <p>An XML formatter beautifies minified or poorly-indented XML by adding proper indentation, line breaks, and consistent spacing. It makes XML documents readable and shows the element hierarchy clearly.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Minified XML is unreadable. API responses and configuration files often come without formatting. A formatter reveals the structure for debugging, editing, and understanding.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use XML formatting when debugging SOAP responses, working with configuration files, analyzing RSS/Atom feeds, or inspecting any XML data.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Debugging SOAP API responses</li>
+      <li>Formatting XML configuration files</li>
+      <li>Inspecting RSS/Atom feeds</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Does formatting change XML semantics?</h3>
+    <p>Whitespace between tags is generally insignificant. However, whitespace inside text content is preserved. Formatting won't change data meaning for standard XML.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Can I minify XML too?</h3>
+    <p>Yes. CipherKit's formatter includes a minify option that removes unnecessary whitespace for compact output.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Does this validate XML?</h3>
+    <p>The formatter catches well-formedness errors (unclosed tags, invalid syntax). For full validation against schemas (XSD/DTD), use a dedicated XML validator.</p>
+  </article>
     </section>
   </div>
 

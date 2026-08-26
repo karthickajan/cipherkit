@@ -271,7 +271,14 @@
 
     <section class="seo-content">
       <h2>What is a Secure Password Generator?</h2>
-      <p>A cryptographically secure password generator uses the browser's Web Crypto API (crypto.getRandomValues) to generate truly random passwords. Unlike Math.random() which is pseudorandom and predictable, Web Crypto produces randomness suitable for security-sensitive applications.</p>
+  <p>A cryptographically secure password generator uses the browser's Web Crypto API (crypto.getRandomValues) to generate truly random passwords. Unlike Math.random() which is pseudorandom and predictable, Web Crypto produces randomness suitable for security-sensitive applications.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Human-chosen passwords are predictable and reused. A generator creates truly random, high-entropy passwords that resist dictionary attacks, brute force, and credential stuffing from breached databases.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a password generator when creating new accounts, generating API keys, setting up service accounts, creating temporary passwords for onboarding, or making passphrases for encrypted archives.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
@@ -279,17 +286,22 @@
       <li>Creating API keys and service account passwords</li>
       <li>Generating temporary passwords for user onboarding</li>
       <li>Creating passphrases for encrypted archives or vaults</li>
-      </ul>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
+
+  <article class="seo-faq-item">
     <h3>How long should a secure password be?</h3>
     <p>NIST guidelines recommend at least 12 characters, with 16+ being better. Length matters more than complexity — a 20-character random lowercase string is stronger than an 8-character mixed-case string with symbols.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Is it safe to generate passwords in a browser?</h3>
     <p>CipherKit uses the Web Crypto API (crypto.getRandomValues) which provides cryptographically strong randomness and runs entirely in your browser. No generated password is ever transmitted or stored.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>What characters should a strong password include?</h3>
     <p>A combination of uppercase letters, lowercase letters, numbers, and symbols maximises the character space. For a 16-character password with 94 possible characters, there are 94¹⁶ ≈ 3.7×10³¹ possible combinations.</p>
+  </article>
     </section>
   </div>
 

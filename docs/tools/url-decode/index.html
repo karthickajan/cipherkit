@@ -271,7 +271,14 @@
 
     <section class="seo-content">
       <h2>What is URL Decoding?</h2>
-      <p>URL decoding reverses percent-encoding, converting %XX sequences back to their original characters. For example %20 becomes a space, %40 becomes @, %2F becomes /. This is essential when reading URL parameters that were encoded before transmission.</p>
+  <p>URL decoding reverses percent-encoding, converting %XX sequences back to their original characters. For example %20 becomes a space, %40 becomes @, %2F becomes /. This is essential when reading URL parameters that were encoded before transmission.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>When analyzing logs, debugging OAuth callbacks, or inspecting encoded API requests, you need to see the actual parameter values. URL decoding reveals the human-readable content hidden behind percent-encoding.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use URL decoding when reading query parameters from server logs, debugging encoded redirect URLs, inspecting OAuth callback parameters, or analyzing encoded data copied from browser address bars.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
@@ -279,17 +286,22 @@
       <li>Debugging encoded redirects and OAuth callback URLs</li>
       <li>Reading encoded data from browser URL bars</li>
       <li>Inspecting encoded API request parameters</li>
-      </ul>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
+
+  <article class="seo-faq-item">
     <h3>Why do I see %20 in my URL?</h3>
     <p>%20 is the URL-encoded form of a space character. Spaces are not allowed in URLs so browsers and servers automatically encode them. You'll also see this in file download URLs that contain spaces in the filename.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>What is the difference between decodeURI and decodeURIComponent in JavaScript?</h3>
     <p>decodeURI decodes a full URL but preserves structural characters like /, ?, &amp;. decodeURIComponent decodes everything including those structural characters — use it for decoding individual parameter values, not entire URLs.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Is it safe to decode URLs in the browser?</h3>
     <p>Yes. CipherKit runs 100 % client-side — no data is sent to any server. It is safe to decode any URL here, including those containing sensitive query parameters.</p>
+  </article>
     </section>
   </div>
 

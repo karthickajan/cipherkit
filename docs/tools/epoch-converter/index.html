@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Epoch Converter free?",
+      "name": "Seconds vs milliseconds?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Unix timestamps are traditionally seconds (10 digits). JavaScript uses milliseconds (13 digits). Divide by 1000 to convert ms to seconds."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What timezone are epochs in?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Epoch timestamps are always UTC — they represent absolute moments in time. Convert to local timezone only when displaying to users."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Epoch Converter do?",
+      "name": "What's the Year 2038 problem?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online epoch converter. Convert Unix timestamps to dates and dates to epoch time. Live clock, auto-detects seconds vs milliseconds."
+        "text": "32-bit signed integers storing seconds overflow on Jan 19, 2038. Modern 64-bit systems are unaffected; the problem impacts legacy 32-bit systems."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is Epoch Converter?</h2>
-      <p>undefined</p>
+  <p>An epoch converter transforms Unix timestamps (seconds since Jan 1, 1970) to human-readable dates and vice versa. It handles both seconds and milliseconds formats and shows times in multiple timezones.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Epoch timestamps are compact and timezone-independent but unreadable. When debugging logs, APIs, or JWTs, you need to convert these numbers to understand when events actually occurred.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use epoch conversion when debugging timestamps in logs or APIs, calculating JWT expiry times, working with database timestamp columns, or converting between date formats.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Debugging timestamps in API responses</li>
+      <li>Understanding JWT exp/iat claims</li>
+      <li>Converting database timestamp values</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Seconds vs milliseconds?</h3>
+    <p>Unix timestamps are traditionally seconds (10 digits). JavaScript uses milliseconds (13 digits). Divide by 1000 to convert ms to seconds.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What timezone are epochs in?</h3>
+    <p>Epoch timestamps are always UTC — they represent absolute moments in time. Convert to local timezone only when displaying to users.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What's the Year 2038 problem?</h3>
+    <p>32-bit signed integers storing seconds overflow on Jan 19, 2038. Modern 64-bit systems are unaffected; the problem impacts legacy 32-bit systems.</p>
+  </article>
     </section>
   </div>
 

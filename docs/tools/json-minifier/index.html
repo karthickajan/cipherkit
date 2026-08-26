@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the JSON Minifier free?",
+      "name": "Does minification change the data?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "No. Whitespace in JSON is purely for readability. Minification removes it without affecting the actual data structure or values."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "How much smaller is minified JSON?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Depends on original formatting. Heavily indented JSON can be 30-50% smaller when minified. Single-line JSON sees minimal reduction."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the JSON Minifier do?",
+      "name": "Should I always minify JSON?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online JSON minifier. Compress and minify JSON data by removing whitespace and formatting. Reduce JSON payload size instantly."
+        "text": "For production/transmission, yes. For config files humans edit, keep it formatted. Minify when size matters; format when readability matters."
       }
     }
   ]
@@ -267,15 +267,36 @@
 
     <section class="seo-content">
       <h2>What is JSON Minifier?</h2>
-      <p>undefined</p>
+  <p>A JSON minifier removes all whitespace from JSON data, producing the most compact representation. This reduces file size and bandwidth without changing the data structure.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Formatted JSON is larger due to indentation and line breaks. Minifying JSON reduces API payload sizes and improves transmission speed.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JSON minification when preparing API payloads, reducing config file sizes, optimizing JSON stored in databases, or minimizing data transfer.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Reducing API payload sizes</li>
+      <li>Optimizing config files</li>
+      <li>Minimizing data transfer</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Does minification change the data?</h3>
+    <p>No. Whitespace in JSON is purely for readability. Minification removes it without affecting the actual data structure or values.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>How much smaller is minified JSON?</h3>
+    <p>Depends on original formatting. Heavily indented JSON can be 30-50% smaller when minified. Single-line JSON sees minimal reduction.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Should I always minify JSON?</h3>
+    <p>For production/transmission, yes. For config files humans edit, keep it formatted. Minify when size matters; format when readability matters.</p>
+  </article>
     </section>
   </div>
 

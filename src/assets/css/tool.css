@@ -232,6 +232,70 @@
   margin-bottom: 4px;
 }
 
+.seo-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.seo-insight-card {
+  background: rgba(var(--accent-rgb), .045);
+  border: 1px solid rgba(var(--accent-rgb), .18);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.seo-insight-card h3 {
+  margin-top: 0;
+}
+
+.seo-insight-card p {
+  margin-bottom: 0;
+}
+
+.seo-howto-list {
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.seo-howto-list li {
+  margin-bottom: 5px;
+}
+
+.seo-security-note {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(232, 160, 32, .35);
+  background: rgba(232, 160, 32, .08);
+}
+
+.seo-security-note h3 {
+  color: var(--amber);
+  margin-top: 0;
+}
+
+.seo-security-note p {
+  margin-bottom: 0;
+}
+
+.seo-faq-item {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.seo-faq-item h3 {
+  margin-top: 0;
+}
+
+.seo-faq-item p {
+  margin-bottom: 0;
+}
+
 /* ── SHARED TOOL UI COMPONENTS ───────────────────────────────────────────── */
 
 /* Two-column tool layout */
@@ -718,6 +782,7 @@ textarea:focus-visible, input:focus-visible {
 @media (max-width: 760px) {
   .tool-two-col { grid-template-columns: 1fr; }
   .related-grid { grid-template-columns: 1fr 1fr; }
+  .seo-insight-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .related-grid { grid-template-columns: 1fr; }
@@ -1503,6 +1568,16 @@ input[type="color"].ck-swatch::-moz-color-swatch { border: none; border-radius: 
 [data-theme="light"] .seo-content {
   background: var(--surface);
   border-color: var(--border);
+}
+
+[data-theme="light"] .seo-insight-card {
+  background: rgba(26,140,91,.05);
+  border-color: rgba(26,140,91,.2);
+}
+
+[data-theme="light"] .seo-security-note {
+  border-color: rgba(184,120,18,.35);
+  background: rgba(232,160,32,.13);
 }
 
 /* Copy-link button */

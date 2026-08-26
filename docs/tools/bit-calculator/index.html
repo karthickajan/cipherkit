@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Bit / Byte Calculator free?",
+      "name": "What does XOR do?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "XOR returns 1 when bits differ, 0 when they're the same. It's reversible (A XOR B XOR B = A), making it useful in cryptography and checksums."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What's the difference between logical and arithmetic shift?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Logical shift fills with zeros. Arithmetic right shift preserves the sign bit for signed numbers. Left shifts are typically the same for both."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Bit / Byte Calculator do?",
+      "name": "Why use bitwise AND with masks?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online bit and byte calculator. Convert between bits, bytes, KB, MB, GB, TB, PB and their binary (IEC) equivalents instantly."
+        "text": "AND with a mask extracts specific bits. For example, value AND 0xFF extracts the lowest 8 bits. It's how you isolate bit fields in packed data."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is Bit / Byte Calculator?</h2>
-      <p>undefined</p>
+  <p>A bit calculator performs bitwise operations (AND, OR, XOR, NOT, shifts) on binary numbers. It shows the binary representation of inputs and outputs, helping visualize how bit manipulation works.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Bitwise operations are essential for low-level programming, permissions systems, flags, network masks, and optimization. A calculator helps verify operations and understand bit patterns visually.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a bit calculator when working with permission bits (Unix chmod), network subnet masks, flag-based systems, cryptographic operations, or debugging bitwise code.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Calculating Unix permission bits</li>
+      <li>Working with network subnet masks</li>
+      <li>Debugging bitwise operations</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What does XOR do?</h3>
+    <p>XOR returns 1 when bits differ, 0 when they're the same. It's reversible (A XOR B XOR B = A), making it useful in cryptography and checksums.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What's the difference between logical and arithmetic shift?</h3>
+    <p>Logical shift fills with zeros. Arithmetic right shift preserves the sign bit for signed numbers. Left shifts are typically the same for both.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Why use bitwise AND with masks?</h3>
+    <p>AND with a mask extracts specific bits. For example, value AND 0xFF extracts the lowest 8 bits. It's how you isolate bit fields in packed data.</p>
+  </article>
     </section>
   </div>
 

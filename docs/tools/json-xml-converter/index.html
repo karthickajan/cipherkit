@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the JSON to XML Converter free?",
+      "name": "How are arrays converted?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Array elements become repeated XML elements with the same tag name. [{\"item\":1},{\"item\":2}] becomes <item>1</item><item>2</item>."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What about attributes vs elements?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "By default, JSON properties become child elements. Some converters support conventions like @attr to create attributes, but this varies by tool."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the JSON to XML Converter do?",
+      "name": "Can I convert XML back to JSON?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online JSON to XML converter. Convert JSON data to XML format instantly in your browser."
+        "text": "Yes. CipherKit supports bidirectional conversion. Note that XML has features (attributes, namespaces) that don't map perfectly to JSON."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is JSON to XML Converter?</h2>
-      <p>undefined</p>
+  <p>JSON to XML conversion transforms JSON data structures into XML format. Objects become elements, arrays become repeated elements, and values become element content or attributes.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Some legacy systems, SOAP APIs, and enterprise tools require XML. Converting JSON to XML enables interoperability between modern JSON-based systems and XML-based infrastructure.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JSON to XML when integrating with SOAP web services, working with legacy enterprise systems, generating XML feeds, or meeting XML format requirements.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Integrating with SOAP services</li>
+      <li>Working with legacy enterprise APIs</li>
+      <li>Generating XML feeds from JSON</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>How are arrays converted?</h3>
+    <p>Array elements become repeated XML elements with the same tag name. [{"item":1},{"item":2}] becomes <item>1</item><item>2</item>.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What about attributes vs elements?</h3>
+    <p>By default, JSON properties become child elements. Some converters support conventions like @attr to create attributes, but this varies by tool.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Can I convert XML back to JSON?</h3>
+    <p>Yes. CipherKit supports bidirectional conversion. Note that XML has features (attributes, namespaces) that don't map perfectly to JSON.</p>
+  </article>
     </section>
   </div>
 

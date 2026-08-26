@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the CSS Formatter free?",
+      "name": "Does formatting change how CSS works?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "No. Whitespace in CSS is ignored (outside strings). Formatting only affects readability — the styles render identically."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Can I minify CSS too?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Yes. CipherKit's formatter includes a minify option that removes all whitespace, producing the most compact CSS for production use."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the CSS Formatter do?",
+      "name": "Does this validate CSS syntax?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online CSS formatter and minifier. Beautify CSS with proper indentation or minify by stripping comments and whitespace. Supports @media and nested rules."
+        "text": "The formatter catches some syntax errors during parsing. For comprehensive validation, use a dedicated CSS validator."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is CSS Formatter?</h2>
-      <p>undefined</p>
+  <p>A CSS formatter beautifies minified or poorly-formatted CSS by adding proper indentation, line breaks, and consistent spacing. It makes stylesheets readable and maintainable.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Minified CSS is unreadable. Production CSS often strips whitespace for performance. A formatter restores readability for debugging, editing, and code review.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use CSS formatting when debugging minified production stylesheets, reformatting legacy CSS, preparing CSS for code review, or cleaning up auto-generated styles.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Debugging minified CSS</li>
+      <li>Formatting legacy stylesheets</li>
+      <li>Preparing CSS for code review</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Does formatting change how CSS works?</h3>
+    <p>No. Whitespace in CSS is ignored (outside strings). Formatting only affects readability — the styles render identically.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Can I minify CSS too?</h3>
+    <p>Yes. CipherKit's formatter includes a minify option that removes all whitespace, producing the most compact CSS for production use.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Does this validate CSS syntax?</h3>
+    <p>The formatter catches some syntax errors during parsing. For comprehensive validation, use a dedicated CSS validator.</p>
+  </article>
     </section>
   </div>
 

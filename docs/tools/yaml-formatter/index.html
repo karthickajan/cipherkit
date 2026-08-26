@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the YAML Formatter free?",
+      "name": "Does formatting change YAML semantics?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Correct formatting doesn't change meaning. The formatter standardizes indentation (spaces, not tabs) and alignment while preserving all data."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What indentation does YAML use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "YAML requires spaces, not tabs. Common conventions use 2 spaces per level. CipherKit formats with consistent 2-space indentation."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the YAML Formatter do?",
+      "name": "Does this validate YAML?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online YAML formatter and validator. Beautify, format, and validate YAML data with proper indentation. Supports flow-style minification."
+        "text": "Yes. The formatter catches syntax errors like inconsistent indentation, invalid characters, and structural issues during parsing."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is YAML Formatter?</h2>
-      <p>undefined</p>
+  <p>A YAML formatter standardizes YAML formatting with consistent indentation, proper alignment, and clean structure. It can also validate YAML syntax and catch common errors.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>YAML is whitespace-sensitive — inconsistent indentation breaks files. A formatter ensures consistent style across configuration files and catches syntax errors before deployment.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use YAML formatting when cleaning up configuration files, standardizing YAML style across a project, catching indentation errors, or preparing YAML for code review.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Formatting Kubernetes manifests</li>
+      <li>Standardizing Docker Compose files</li>
+      <li>Cleaning up Ansible playbooks</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Does formatting change YAML semantics?</h3>
+    <p>Correct formatting doesn't change meaning. The formatter standardizes indentation (spaces, not tabs) and alignment while preserving all data.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What indentation does YAML use?</h3>
+    <p>YAML requires spaces, not tabs. Common conventions use 2 spaces per level. CipherKit formats with consistent 2-space indentation.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Does this validate YAML?</h3>
+    <p>Yes. The formatter catches syntax errors like inconsistent indentation, invalid characters, and structural issues during parsing.</p>
+  </article>
     </section>
   </div>
 

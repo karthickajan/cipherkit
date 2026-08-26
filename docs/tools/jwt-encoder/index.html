@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the JWT Encoder free?",
+      "name": "What's Base64URL encoding?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Like Base64 but URL-safe: + becomes -, / becomes _, and padding (=) is removed. This ensures JWTs are safe in URLs without percent-encoding."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Can I create unsigned JWTs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Technically yes (alg: none), but unsigned JWTs are insecure and rejected by most systems. Always sign JWTs with a secret or key pair."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the JWT Encoder do?",
+      "name": "How do I verify my generated JWT?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online JWT encoder. Create and sign JSON Web Tokens (JWT) with HS256, HS384, or HS512 directly in your browser."
+        "text": "Use CipherKit's JWT decoder to parse the token and verify the structure. For signature verification, use the same key and algorithm used for signing."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is JWT Encoder?</h2>
-      <p>undefined</p>
+  <p>A JWT encoder takes header and payload JSON, encodes them to Base64URL, and creates a valid JWT structure. With a secret key, it also generates the signature for a complete, signed token.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Understanding JWT structure requires seeing how headers and payloads become tokens. An encoder shows the encoding process and produces tokens for testing authentication systems.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JWT encoding when learning JWT structure, creating test tokens, debugging encoding issues, or generating tokens from custom header/payload combinations.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Learning JWT structure</li>
+      <li>Creating test tokens</li>
+      <li>Debugging JWT encoding</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What's Base64URL encoding?</h3>
+    <p>Like Base64 but URL-safe: + becomes -, / becomes _, and padding (=) is removed. This ensures JWTs are safe in URLs without percent-encoding.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Can I create unsigned JWTs?</h3>
+    <p>Technically yes (alg: none), but unsigned JWTs are insecure and rejected by most systems. Always sign JWTs with a secret or key pair.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>How do I verify my generated JWT?</h3>
+    <p>Use CipherKit's JWT decoder to parse the token and verify the structure. For signature verification, use the same key and algorithm used for signing.</p>
+  </article>
     </section>
   </div>
 

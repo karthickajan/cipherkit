@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the HTML Entity Decoder free?",
+      "name": "What are HTML entities?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Named (&amp;) or numeric (&#38;) codes representing characters that have special meaning in HTML. They ensure characters display correctly instead of being interpreted as markup."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Why would text be HTML-encoded?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "To prevent XSS attacks and ensure proper rendering. Characters like <, >, &, and quotes are encoded to stop browsers from interpreting them as HTML tags or attributes."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the HTML Entity Decoder do?",
+      "name": "Does this decode all entity types?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online HTML entity decoder. Convert HTML entities like &amp;, &lt;, &gt; back to their original characters instantly."
+        "text": "Yes. CipherKit decodes named entities (&amp;), decimal entities (&#38;), and hexadecimal entities (&#x26;) — all standard HTML entity formats."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is HTML Entity Decoder?</h2>
-      <p>undefined</p>
+  <p>HTML decoding converts HTML entities (&lt; &gt; &amp; &quot; etc.) back to their original characters (<, >, &, "). It reverses HTML encoding used to safely display special characters.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>When scraping web content or processing HTML data, you encounter encoded entities. Decoding reveals the actual text content for processing, display, or further use.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use HTML decoding when processing scraped web content, reading encoded API responses, converting HTML entities in database exports, or displaying user-entered HTML-encoded text.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Processing scraped web content</li>
+      <li>Decoding HTML in API responses</li>
+      <li>Converting encoded database exports</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What are HTML entities?</h3>
+    <p>Named (&amp;) or numeric (&#38;) codes representing characters that have special meaning in HTML. They ensure characters display correctly instead of being interpreted as markup.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Why would text be HTML-encoded?</h3>
+    <p>To prevent XSS attacks and ensure proper rendering. Characters like <, >, &, and quotes are encoded to stop browsers from interpreting them as HTML tags or attributes.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Does this decode all entity types?</h3>
+    <p>Yes. CipherKit decodes named entities (&amp;), decimal entities (&#38;), and hexadecimal entities (&#x26;) — all standard HTML entity formats.</p>
+  </article>
     </section>
   </div>
 

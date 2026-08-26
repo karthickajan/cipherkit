@@ -271,24 +271,35 @@
 
     <section class="seo-content">
       <h2>What is Bcrypt?</h2>
-      <p>Bcrypt is a password hashing function designed specifically for storing passwords securely. Unlike general-purpose hash functions (MD5, SHA-256), bcrypt is intentionally slow — it applies a cost factor that makes brute-force attacks computationally expensive. It also automatically handles salting to prevent rainbow table attacks.</p>
+  <p>Bcrypt is a password hashing function designed specifically for storing passwords securely. Unlike general-purpose hash functions (MD5, SHA-256), bcrypt is intentionally slow — it applies a cost factor that makes brute-force attacks computationally expensive. It also automatically handles salting to prevent rainbow table attacks.</p>
+
+
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
       <li>Hashing user passwords before storing in a database</li>
       <li>Verifying passwords by comparing a plaintext attempt against a stored hash</li>
       <li>Choosing an appropriate cost factor for your server's performance budget</li>
-      </ul>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
+
+  <article class="seo-faq-item">
     <h3>What is the bcrypt cost factor?</h3>
     <p>The cost factor (work factor) determines how many iterations bcrypt performs: 2^cost rounds. Cost 10 = 1,024 rounds, cost 12 = 4,096 rounds. A higher cost means slower hashing (harder to brute-force) but also slower login. Cost 10–12 is standard for most applications.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Can I reverse a bcrypt hash?</h3>
     <p>No. Bcrypt is a one-way function. The only way to "crack" a bcrypt hash is by trying candidate passwords one by one — which the cost factor makes intentionally slow (e.g., 100 ms per attempt at cost 10).</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Why does bcrypt have a 72-character input limit?</h3>
     <p>The original bcrypt algorithm only processes the first 72 bytes of input. Passwords longer than 72 characters are silently truncated. For very long passwords, pre-hash with SHA-256 before bcrypt if needed.</p>
+  </article>
     </section>
 
     <article style="background:#111;border:1px solid #1e1e1e;padding:24px;border-radius:8px;margin-top:32px;color:#ccc;font-family:inherit;"><h2 style="color:#ffffff;margin-bottom:16px;">Bcrypt Password Generator — Secure, Client-Side Hashing</h2><h3 style="color:#00ff88;margin-top:20px;margin-bottom:8px;">What is Bcrypt?</h3><p>Bcrypt is an adaptive password hashing function based on the Blowfish cipher. Unlike MD5 or SHA-256, it is intentionally slow with a configurable cost factor (salt rounds), making brute-force and rainbow table attacks impractical. The cost factor controls the number of iterations as 2^cost — so each increment doubles the computation time. Cost factor 12 is the 2026 OWASP minimum recommendation; 13–14 is preferred for new systems where hardware budget allows.</p><h3 style="color:#00ff88;margin-top:20px;margin-bottom:8px;">Why Use a Client-Side Bcrypt Generator?</h3><p>Most online bcrypt tools send your password to a server, exposing it to logging, interception, or misuse. CipherKit runs entirely in the browser using the bcryptjs library — your password never leaves your device. This makes it ideal for developers testing password hashing, verifying bcrypt hashes against known values, or learning how the algorithm works without any privacy risk.</p><h3 style="color:#00ff88;margin-top:20px;margin-bottom:8px;">When Should You Use Bcrypt?</h3><p>Bcrypt is the right choice for password storage in databases — you should never store plaintext passwords. Use a bcrypt hash generator when building authentication systems, or when configuring a bcrypt password encoder such as Java Spring Security's <code>BCryptPasswordEncoder</code>. It's also essential when verifying bcrypt hashes during migration from weaker algorithms like MD5 or SHA-1. Developers working with node bcrypt or bcryptjs libraries can use this tool for bcrypt online testing before production implementation, validating outputs and cost factor timing without writing boilerplate code.</p><h3 style="color:#00ff88;margin-top:20px;margin-bottom:8px;">Bcrypt vs Other Hash Algorithms</h3><table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:14px;"><thead><tr><th style="background:#0a0a0a;border:1px solid #1e1e1e;padding:10px;text-align:left;color:#fff;">Algorithm</th><th style="background:#0a0a0a;border:1px solid #1e1e1e;padding:10px;text-align:left;color:#fff;">Speed</th><th style="background:#0a0a0a;border:1px solid #1e1e1e;padding:10px;text-align:left;color:#fff;">Salt</th><th style="background:#0a0a0a;border:1px solid #1e1e1e;padding:10px;text-align:left;color:#fff;">Recommended For</th></tr></thead><tbody><tr><td style="border:1px solid #1e1e1e;padding:10px;">Bcrypt</td><td style="border:1px solid #1e1e1e;padding:10px;">Slow (adjustable)</td><td style="border:1px solid #1e1e1e;padding:10px;">Built-in</td><td style="border:1px solid #1e1e1e;padding:10px;">Password hashing</td></tr><tr><td style="border:1px solid #1e1e1e;padding:10px;">MD5</td><td style="border:1px solid #1e1e1e;padding:10px;">Very fast</td><td style="border:1px solid #1e1e1e;padding:10px;">No</td><td style="border:1px solid #1e1e1e;padding:10px;">Checksums only (not passwords)</td></tr><tr><td style="border:1px solid #1e1e1e;padding:10px;">SHA-256</td><td style="border:1px solid #1e1e1e;padding:10px;">Fast</td><td style="border:1px solid #1e1e1e;padding:10px;">No</td><td style="border:1px solid #1e1e1e;padding:10px;">Data integrity, not passwords</td></tr><tr><td style="border:1px solid #1e1e1e;padding:10px;">Argon2id</td><td style="border:1px solid #1e1e1e;padding:10px;">Slow (memory-hard)</td><td style="border:1px solid #1e1e1e;padding:10px;">Built-in</td><td style="border:1px solid #1e1e1e;padding:10px;">Modern password hashing</td></tr></tbody></table><h3 style="color:#00ff88;margin-top:20px;margin-bottom:8px;">How to Use This Bcrypt Generator</h3><ol style="padding-left:20px;line-height:1.8;"><li>Enter the password or string to hash.</li><li>Select cost factor (10 = dev/testing, 12 = production minimum).</li><li>Copy the generated bcrypt hash for use in your database or app.</li></ol></article>

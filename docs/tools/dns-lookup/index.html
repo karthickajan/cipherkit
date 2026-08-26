@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the DNS Lookup free?",
+      "name": "What's the difference between A and AAAA records?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "A records map domains to IPv4 addresses (32-bit). AAAA records map to IPv6 addresses (128-bit). Both can coexist; browsers prefer IPv6 when available."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What are MX records for?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "MX (Mail Exchanger) records specify which servers handle email for a domain. The priority value determines order — lower numbers are tried first."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the DNS Lookup do?",
+      "name": "Why do DNS changes take time?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online DNS lookup tool. Query A, AAAA, MX, NS, TXT, SOA, and other DNS records using Google DNS-over-HTTPS."
+        "text": "DNS caching. Records have TTL (Time To Live) values telling caches how long to store them. Changes propagate as caches expire, typically within 24-48 hours."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is DNS Lookup?</h2>
-      <p>undefined</p>
+  <p>DNS lookup queries Domain Name System servers to resolve domain names to IP addresses and retrieve DNS records (A, AAAA, MX, TXT, CNAME, NS, etc.). It shows how the internet routes traffic to domains.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>DNS issues cause website downtime, email delivery failures, and SSL problems. Looking up DNS records helps diagnose connectivity issues and verify domain configuration.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use DNS lookup when troubleshooting website connectivity, verifying MX records for email, checking domain propagation after changes, or auditing domain DNS configuration.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Troubleshooting website connectivity</li>
+      <li>Verifying email MX records</li>
+      <li>Checking DNS propagation after changes</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What's the difference between A and AAAA records?</h3>
+    <p>A records map domains to IPv4 addresses (32-bit). AAAA records map to IPv6 addresses (128-bit). Both can coexist; browsers prefer IPv6 when available.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What are MX records for?</h3>
+    <p>MX (Mail Exchanger) records specify which servers handle email for a domain. The priority value determines order — lower numbers are tried first.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Why do DNS changes take time?</h3>
+    <p>DNS caching. Records have TTL (Time To Live) values telling caches how long to store them. Changes propagate as caches expire, typically within 24-48 hours.</p>
+  </article>
     </section>
   </div>
 

@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Gzip Compress / Decompress free?",
+      "name": "What's the typical compression ratio?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Text compresses well — 60-80% reduction is common. Already-compressed formats (JPEG, PNG, MP3) see little benefit since they're already compressed."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Is gzip the same as zip?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Different but related. Gzip uses DEFLATE compression for single files. ZIP is a container format that can hold multiple files, often using DEFLATE internally."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Gzip Compress / Decompress do?",
+      "name": "Is this safe for sensitive data?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online Gzip compression and decompression tool. Compress text to gzip or decompress Base64-encoded gzip data. Powered by pako.js."
+        "text": "CipherKit compresses/decompresses entirely in your browser. Your data never leaves your device."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is Gzip Compress / Decompress?</h2>
-      <p>undefined</p>
+  <p>Gzip compression reduces file sizes using the DEFLATE algorithm, commonly used for HTTP compression and file archiving. Decompression restores the original data from gzip-compressed content.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Gzip is the standard for HTTP content compression, reducing bandwidth and improving page load times. Developers need to compress assets and decompress received content for debugging.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use gzip when compressing assets for web delivery, decompressing HTTP responses for inspection, reducing file sizes for storage, or debugging gzip-encoded API responses.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Compressing web assets</li>
+      <li>Decompressing HTTP responses</li>
+      <li>Reducing file sizes for storage</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What's the typical compression ratio?</h3>
+    <p>Text compresses well — 60-80% reduction is common. Already-compressed formats (JPEG, PNG, MP3) see little benefit since they're already compressed.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Is gzip the same as zip?</h3>
+    <p>Different but related. Gzip uses DEFLATE compression for single files. ZIP is a container format that can hold multiple files, often using DEFLATE internally.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Is this safe for sensitive data?</h3>
+    <p>CipherKit compresses/decompresses entirely in your browser. Your data never leaves your device.</p>
+  </article>
     </section>
   </div>
 

@@ -284,7 +284,14 @@
 
     <section class="seo-content">
       <h2>What is a Text Diff Checker?</h2>
-      <p>A diff checker compares two versions of text and highlights the differences — added lines (green), removed lines (red), and unchanged lines. The underlying algorithm is LCS (Longest Common Subsequence), the same algorithm used by git diff and most code review tools. CipherKit's diff checker adds inline character-level highlighting within changed lines.</p>
+  <p>A diff checker compares two versions of text and highlights the differences — added lines (green), removed lines (red), and unchanged lines. The underlying algorithm is LCS (Longest Common Subsequence), the same algorithm used by git diff and most code review tools. CipherKit's diff checker adds inline character-level highlighting within changed lines.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Manually comparing two files is error-prone and tedious. A diff checker instantly shows exactly what changed, making it easy to review edits, spot unintended changes, and understand the evolution of documents or code.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a diff checker when comparing config file versions, reviewing code changes before commit, finding differences between API responses across environments, or auditing document modifications.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
@@ -292,17 +299,22 @@
       <li>Reviewing changes in documents before accepting them</li>
       <li>Finding differences between API responses across environments</li>
       <li>Comparing original vs modified text to audit changes</li>
-      </ul>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
+
+  <article class="seo-faq-item">
     <h3>What algorithm does this diff checker use?</h3>
     <p>CipherKit uses LCS (Longest Common Subsequence), the standard algorithm for diff computation. It finds the longest sequence of lines that appear in both texts in the same order, then marks everything else as added or removed. This is the same approach as git diff.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Can I compare code files?</h3>
     <p>Yes. Paste any text — code, JSON, YAML, config files, prose — into both panels. For file comparison, use the upload button to load files directly without copy-pasting.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>What does the gutter bar on the right show?</h3>
     <p>The gutter bar is a proportional minimap of the entire diff. Red and green marks show where changes are located relative to the full document length. Click anywhere on the gutter to jump to that position.</p>
+  </article>
     </section>
   </div>
 

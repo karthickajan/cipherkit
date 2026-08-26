@@ -380,8 +380,46 @@ ${dofollowBadgeHtml}
 `.trim();
 }
 
+// ── SEO CONTENT NORMALIZATION ───────────────────────────────────────────────
+function normalizeSeoContent(tool) {
+  if (!tool || !tool.seoContent) return null;
+
+  const raw = tool.seoContent;
+  const nested = (raw.seoContent && typeof raw.seoContent === 'object') ? raw.seoContent : {};
+
+  const topUses = Array.isArray(raw.commonUses) ? raw.commonUses : [];
+  const nestedUses = Array.isArray(nested.useCases) ? nested.useCases : [];
+  const topFaq = Array.isArray(raw.faq) ? raw.faq : [];
+  const nestedFaq = Array.isArray(nested.faq) ? nested.faq : [];
+  const topHowTo = Array.isArray(raw.howToUse) ? raw.howToUse : [];
+  const nestedHowTo = Array.isArray(nested.howToUse) ? nested.howToUse : [];
+
+  const normalized = {
+    heading: raw.heading || tool.title,
+    description: raw.description || nested.what || '',
+    what: nested.what || '',
+    why: nested.why || '',
+    when: nested.when || '',
+    whoShouldUse: raw.whoShouldUse || nested.whoShouldUse || '',
+    securityNote: raw.securityNote || nested.securityNote || '',
+    commonUses: topUses.length ? topUses : nestedUses,
+    howToUse: topHowTo.length ? topHowTo : nestedHowTo,
+    faq: topFaq.length ? topFaq : nestedFaq,
+    articleHtml: raw.articleHtml || nested.articleHtml || ''
+  };
+
+  const hasContent = !!(
+    normalized.description || normalized.what || normalized.why || normalized.when ||
+    normalized.whoShouldUse || normalized.securityNote || normalized.commonUses.length ||
+    normalized.howToUse.length || normalized.faq.length || normalized.articleHtml
+  );
+
+  return hasContent ? normalized : null;
+}
+
 // ── JSON-LD SCHEMA ───────────────────────────────────────────────────────────
 function buildSchema(tool) {
+  const seo = normalizeSeoContent(tool);
   const webApp = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -398,7 +436,6 @@ function buildSchema(tool) {
   };
 
   // Use tool-specific FAQs if available, otherwise fall back to generic ones
-  const seo = tool.seoContent;
   const faqEntries = (seo && seo.faq && seo.faq.length)
     ? seo.faq.map(f => ({
         "@type": "Question",
@@ -434,26 +471,49 @@ function buildSchema(tool) {
 
 // ── SEO CONTENT SECTION ──────────────────────────────────────────────────────
 function buildSeoSection(tool) {
-  const seo = tool.seoContent;
+  const seo = normalizeSeoContent(tool);
   if (!seo) return '';
 
+  const intro = seo.description || seo.what || tool.metaDescription;
   const usesHtml = (seo.commonUses || []).map(u => `      <li>${u}</li>`).join('\n');
-  const faqHtml  = (seo.faq || []).map(f =>
-    `    <h3>${f.q}</h3>\n    <p>${f.a}</p>`
-  ).join('\n\n');
+  const howToHtml = (seo.howToUse || []).map(step => `      <li>${step}</li>`).join('\n');
+  const faqHtml = (seo.faq || []).map(f => `
+  <article class="seo-faq-item">
+    <h3>${f.q}</h3>
+    <p>${f.a}</p>
+  </article>`).join('');
+
+  const insights = [
+    seo.why ? `<article class="seo-insight-card"><h3>Why Use This Tool</h3><p>${seo.why}</p></article>` : '',
+    seo.when ? `<article class="seo-insight-card"><h3>When to Use It</h3><p>${seo.when}</p></article>` : '',
+    seo.whoShouldUse ? `<article class="seo-insight-card"><h3>Who Should Use It</h3><p>${seo.whoShouldUse}</p></article>` : ''
+  ].filter(Boolean).join('');
 
   return `
     <section class="seo-content">
       <h2>What is ${seo.heading || tool.title}?</h2>
-      <p>${seo.description}</p>
+  <p>${intro}</p>
 
-      <h2>Common Uses</h2>
+${insights ? `      <div class="seo-insight-grid">${insights}
+  </div>` : ''}
+
+${(seo.howToUse || []).length ? `      <h2>How to Use the ${tool.h1}</h2>
+  <ol class="seo-howto-list">
+${howToHtml}
+  </ol>` : ''}
+
+${seo.securityNote ? `      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>${seo.securityNote}</p>
+  </div>` : ''}
+
+${(seo.commonUses || []).length ? `      <h2>Common Uses</h2>
       <ul>
 ${usesHtml}
-      </ul>
+  </ul>` : ''}
 
-      <h2>Frequently Asked Questions</h2>
-${faqHtml}
+${(seo.faq || []).length ? `      <h2>Frequently Asked Questions</h2>
+${faqHtml}` : ''}
     </section>${seo.articleHtml ? '\n\n    ' + seo.articleHtml : ''}`;
 }
 
@@ -1595,10 +1655,13 @@ ${tools.map(t => `- [${t.title}](${DOMAIN}/tools/${t.slug}/): ${t.tagline}`).joi
     llmsFullLines.push(`URL: ${DOMAIN}/tools/${t.slug}/`);
     llmsFullLines.push(`Category: ${t.category}`);
     llmsFullLines.push(`Description: ${t.metaDescription}`);
-    if (t.seoContent) {
-      llmsFullLines.push(t.seoContent.description || '');
-      if (t.seoContent.commonUses) {
-        llmsFullLines.push('Common uses: ' + t.seoContent.commonUses.join(', '));
+    const seo = normalizeSeoContent(t);
+    if (seo) {
+      llmsFullLines.push(seo.description || seo.what || '');
+      if (seo.why) llmsFullLines.push('Why: ' + seo.why);
+      if (seo.when) llmsFullLines.push('When: ' + seo.when);
+      if (seo.commonUses && seo.commonUses.length) {
+        llmsFullLines.push('Common uses: ' + seo.commonUses.join(', '));
       }
     }
     llmsFullLines.push('');

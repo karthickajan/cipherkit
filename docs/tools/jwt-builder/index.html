@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the JWT Builder free?",
+      "name": "Is it safe to generate JWTs online?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "CipherKit generates JWTs entirely in your browser. Your secret key never leaves your device. For production secrets, this is safer than server-based tools."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "What's the difference between HS256 and RS256?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "HS256 uses a shared secret for signing and verification. RS256 uses asymmetric keys — private to sign, public to verify. RS256 is better when verifiers shouldn't have signing ability."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the JWT Builder do?",
+      "name": "Which claims should I include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online JWT builder. Create and sign JSON Web Tokens with custom payloads using HS256 via Web Crypto. 100% client-side."
+        "text": "Standard claims: sub (subject), exp (expiry), iat (issued at), iss (issuer). Add custom claims as needed. Always include exp to limit token lifetime."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is JWT Builder?</h2>
-      <p>undefined</p>
+  <p>A JWT builder creates JSON Web Tokens by assembling header, payload, and signature. You specify claims (sub, exp, iat, etc.), choose the algorithm, and provide a signing key to generate valid tokens.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Testing authentication systems requires generating JWTs with specific claims. A builder lets developers create test tokens without writing signing code or setting up auth infrastructure.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JWT builder when testing authentication flows, creating tokens for development environments, learning JWT structure, or generating tokens with specific claims for debugging.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Creating test tokens for development</li>
+      <li>Testing authentication flows</li>
+      <li>Debugging JWT-based systems</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Is it safe to generate JWTs online?</h3>
+    <p>CipherKit generates JWTs entirely in your browser. Your secret key never leaves your device. For production secrets, this is safer than server-based tools.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What's the difference between HS256 and RS256?</h3>
+    <p>HS256 uses a shared secret for signing and verification. RS256 uses asymmetric keys — private to sign, public to verify. RS256 is better when verifiers shouldn't have signing ability.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Which claims should I include?</h3>
+    <p>Standard claims: sub (subject), exp (expiry), iat (issued at), iss (issuer). Add custom claims as needed. Always include exp to limit token lifetime.</p>
+  </article>
     </section>
   </div>
 

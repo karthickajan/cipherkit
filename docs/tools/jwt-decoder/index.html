@@ -271,7 +271,14 @@
 
     <section class="seo-content">
       <h2>What is a JWT?</h2>
-      <p>A JSON Web Token (JWT) is a compact, URL-safe token format used for securely transmitting information between parties as a JSON object. A JWT has three parts separated by dots: Header (algorithm and token type), Payload (claims/data), and Signature (verification). The header and payload are Base64URL-encoded — not encrypted — so anyone can read them.</p>
+  <p>A JSON Web Token (JWT) is a compact, URL-safe token format used for securely transmitting information between parties as a JSON object. A JWT has three parts separated by dots: Header (algorithm and token type), Payload (claims/data), and Signature (verification). The header and payload are Base64URL-encoded — not encrypted — so anyone can read them.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>JWTs are the standard for API authentication and session management. Decoding them helps debug authentication failures, verify token expiry times, and inspect user claims during development without writing parsing code.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a JWT decoder when debugging 'token expired' or 'invalid token' errors, inspecting OAuth/OIDC tokens, verifying that claims are correctly populated, or understanding the structure of tokens from third-party services.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
@@ -279,17 +286,22 @@
       <li>Inspecting token expiry (exp claim) to diagnose "token expired" errors</li>
       <li>Verifying token structure in OAuth 2.0 and OpenID Connect flows</li>
       <li>Reading user claims (sub, email, roles) from a token during development</li>
-      </ul>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
+
+  <article class="seo-faq-item">
     <h3>Is it safe to paste my JWT into an online decoder?</h3>
     <p>CipherKit decodes JWTs 100 % in your browser — no data is sent to any server. However, treat JWTs as sensitive — they may contain user data and are used for authentication. For production tokens, using a client-side tool like CipherKit is the safe choice.</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>Why can I read the JWT payload without a secret key?</h3>
     <p>JWT payloads are only encoded (Base64URL), not encrypted. Anyone who has the token can read the payload. The signature prevents tampering but does not hide the data. Never put sensitive data in a JWT payload unless using JWE (encrypted JWTs).</p>
-
+  </article>
+  <article class="seo-faq-item">
     <h3>What does "signature not verified" mean?</h3>
     <p>It means the decoder cannot confirm the token was signed with a valid key. To verify a signature you need the secret key (HS256) or public key (RS256). You can still read the header and payload without verification.</p>
+  </article>
     </section>
   </div>
 

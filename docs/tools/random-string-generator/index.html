@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the Random String Generator free?",
+      "name": "Is this suitable for passwords?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Yes, but use the dedicated password generator which enforces security requirements. This tool is more flexible but requires you to choose secure parameters."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "How random is it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "CipherKit uses Web Crypto API (crypto.getRandomValues) for cryptographically secure randomness. It's unpredictable enough for any application."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the Random String Generator do?",
+      "name": "What character sets are available?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online random string generator. Generate random alphanumeric strings, API keys, tokens, and secrets with custom length and character sets."
+        "text": "Alphanumeric (a-z, A-Z, 0-9), letters only, numbers only, hex digits, or custom character sets you define."
       }
     }
   ]
@@ -267,15 +267,36 @@
 
     <section class="seo-content">
       <h2>What is Random String Generator?</h2>
-      <p>undefined</p>
+  <p>A random string generator creates strings of specified length using cryptographically secure randomness. You can choose character sets: alphanumeric, letters only, numbers, or custom characters.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Random strings are needed for test data, unique identifiers, sample content, and non-security tokens. Cryptographic randomness ensures unpredictability even for non-secret uses.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use random string generation for creating test data, generating unique identifiers, producing sample content, or any scenario needing unpredictable strings.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Generating test data</li>
+      <li>Creating unique identifiers</li>
+      <li>Producing sample content</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>Is this suitable for passwords?</h3>
+    <p>Yes, but use the dedicated password generator which enforces security requirements. This tool is more flexible but requires you to choose secure parameters.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>How random is it?</h3>
+    <p>CipherKit uses Web Crypto API (crypto.getRandomValues) for cryptographically secure randomness. It's unpredictable enough for any application.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>What character sets are available?</h3>
+    <p>Alphanumeric (a-z, A-Z, 0-9), letters only, numbers only, hex digits, or custom character sets you define.</p>
+  </article>
     </section>
   </div>
 

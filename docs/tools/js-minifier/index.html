@@ -70,26 +70,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is the JavaScript Minifier free?",
+      "name": "What's the typical size reduction?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, completely free. No signup required."
+        "text": "Usually 30-60% reduction for well-commented code. The more comments and whitespace in the original, the greater the reduction."
       }
     },
     {
       "@type": "Question",
-      "name": "Is my data sent to a server?",
+      "name": "Can I still debug minified code?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Everything runs in your browser using client-side JavaScript. Nothing leaves your device."
+        "text": "Use source maps. They map minified code back to original source, enabling debugging. Generate source maps during your build process."
       }
     },
     {
       "@type": "Question",
-      "name": "What does the JavaScript Minifier do?",
+      "name": "Is this the same as obfuscation?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free online JavaScript minifier and formatter. Minify JS by stripping comments and whitespace, or re-format with proper indentation. Shows size reduction stats."
+        "text": "No. Minification preserves functionality while reducing size. Obfuscation intentionally makes code hard to understand for intellectual property protection."
       }
     }
   ]
@@ -271,15 +271,36 @@
 
     <section class="seo-content">
       <h2>What is JavaScript Minifier?</h2>
-      <p>undefined</p>
+  <p>A JavaScript minifier removes whitespace, comments, and shortens variable names to reduce file size without changing functionality. Minified JS loads faster and reduces bandwidth.</p>
+
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Smaller JavaScript files mean faster page loads and better Core Web Vitals scores. Minification is a standard production build step for web performance optimization.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JS minification when preparing JavaScript for production deployment, optimizing page load performance, or reducing bundle sizes.</p></article>
+  </div>
+
+
+
+
 
       <h2>Common Uses</h2>
       <ul>
-
-      </ul>
+      <li>Preparing JavaScript for production</li>
+      <li>Optimizing page load times</li>
+      <li>Reducing bundle sizes</li>
+  </ul>
 
       <h2>Frequently Asked Questions</h2>
 
+  <article class="seo-faq-item">
+    <h3>What's the typical size reduction?</h3>
+    <p>Usually 30-60% reduction for well-commented code. The more comments and whitespace in the original, the greater the reduction.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Can I still debug minified code?</h3>
+    <p>Use source maps. They map minified code back to original source, enabling debugging. Generate source maps during your build process.</p>
+  </article>
+  <article class="seo-faq-item">
+    <h3>Is this the same as obfuscation?</h3>
+    <p>No. Minification preserves functionality while reducing size. Obfuscation intentionally makes code hard to understand for intellectual property protection.</p>
+  </article>
     </section>
   </div>
 
