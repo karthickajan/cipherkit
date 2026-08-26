@@ -277,12 +277,21 @@
       <h2>What is Base64 Encoding?</h2>
   <p>Base64 is an encoding scheme that converts binary data into ASCII text using 64 printable characters (A–Z, a–z, 0–9, +, /). It was designed for safely transmitting binary data over systems built to handle text, like email (MIME) and HTTP headers. Encoding increases data size by roughly 33 % but ensures safe transmission across any text-based channel.</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Many systems and protocols are designed to handle only text, not raw binary data. Base64 encoding ensures your binary content survives transmission through these systems without corruption or special character issues.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use Base64 encoding when embedding images directly in HTML/CSS as data URIs, sending binary data in JSON payloads, encoding credentials for HTTP Basic Auth, or storing binary blobs in text-based config files.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Many systems and protocols are designed to handle only text, not raw binary data. Base64 encoding ensures your binary content survives transmission through these systems without corruption or special character issues.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use Base64 encoding when embedding images directly in HTML/CSS as data URIs, sending binary data in JSON payloads, encoding credentials for HTTP Basic Auth, or storing binary blobs in text-based config files.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>Frontend and backend developers, API engineers, email template builders, and anyone transporting binary data through text-only systems.</p></article>
   </div>
 
+      <h2>How to Use the Base64 Encoder</h2>
+  <ol class="seo-howto-list">
+      <li>Paste text or upload raw data that needs transport-safe encoding.</li>
+      <li>Generate Base64 output and copy it into your API payload, header, or config.</li>
+      <li>Use Base64URL variant when embedding inside JWTs or URL parameters.</li>
+      <li>Decode on the receiving side before processing the original bytes.</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Base64 is not encryption. Treat encoded data as plain text and apply AES/RSA when confidentiality is required.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

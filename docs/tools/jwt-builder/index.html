@@ -273,12 +273,21 @@
       <h2>What is JWT Builder?</h2>
   <p>A JWT builder creates JSON Web Tokens by assembling header, payload, and signature. You specify claims (sub, exp, iat, etc.), choose the algorithm, and provide a signing key to generate valid tokens.</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Testing authentication systems requires generating JWTs with specific claims. A builder lets developers create test tokens without writing signing code or setting up auth infrastructure.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JWT builder when testing authentication flows, creating tokens for development environments, learning JWT structure, or generating tokens with specific claims for debugging.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Testing authentication systems requires generating JWTs with specific claims. A builder lets developers create test tokens without writing signing code or setting up auth infrastructure.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JWT builder when testing authentication flows, creating tokens for development environments, learning JWT structure, or generating tokens with specific claims for debugging.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>Backend developers, QA engineers, identity teams, and API consumers testing auth contract behavior.</p></article>
   </div>
 
+      <h2>How to Use the JWT Builder</h2>
+  <ol class="seo-howto-list">
+      <li>Define header algorithm and token type.</li>
+      <li>Add payload claims such as sub, iss, aud, iat, and exp.</li>
+      <li>Select signing method (HS256/RS256) and provide key material.</li>
+      <li>Generate token, test in your API, and verify claims during decode.</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Never include secrets in JWT payloads. Keep expiration short and protect signing keys in secure key management.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

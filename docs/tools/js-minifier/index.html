@@ -273,12 +273,21 @@
       <h2>What is JavaScript Minifier?</h2>
   <p>A JavaScript minifier removes whitespace, comments, and shortens variable names to reduce file size without changing functionality. Minified JS loads faster and reduces bandwidth.</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Smaller JavaScript files mean faster page loads and better Core Web Vitals scores. Minification is a standard production build step for web performance optimization.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JS minification when preparing JavaScript for production deployment, optimizing page load performance, or reducing bundle sizes.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Smaller JavaScript files mean faster page loads and better Core Web Vitals scores. Minification is a standard production build step for web performance optimization.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use JS minification when preparing JavaScript for production deployment, optimizing page load performance, or reducing bundle sizes.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>Frontend engineers, performance teams, and release pipelines shipping production assets.</p></article>
   </div>
 
+      <h2>How to Use the JavaScript Minifier</h2>
+  <ol class="seo-howto-list">
+      <li>Paste source JavaScript</li>
+      <li>Run minifier and review size delta</li>
+      <li>Smoke-test output in staging</li>
+      <li>Deploy with source maps for debugging</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Minification does not protect secrets. Never ship private keys, credentials, or tokens in client-side bundles.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

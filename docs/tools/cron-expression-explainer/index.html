@@ -269,12 +269,21 @@
       <h2>What is Cron Expression Explainer?</h2>
   <p>A cron expression explainer parses cron syntax (like '0 9 * * 1') and translates it into human-readable descriptions. It shows when the schedule will trigger and validates the expression syntax.</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Cron syntax is notoriously cryptic. An explainer confirms your expression means what you think it does, preventing accidental scheduling errors that could trigger jobs at wrong times.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a cron explainer when reviewing existing crontabs, validating scheduled tasks before deployment, understanding inherited cron configurations, or learning cron syntax.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Cron syntax is notoriously cryptic. An explainer confirms your expression means what you think it does, preventing accidental scheduling errors that could trigger jobs at wrong times.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a cron explainer when reviewing existing crontabs, validating scheduled tasks before deployment, understanding inherited cron configurations, or learning cron syntax.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>On-call engineers, DevOps teams, and developers maintaining inherited schedulers.</p></article>
   </div>
 
+      <h2>How to Use the Cron Expression Explainer</h2>
+  <ol class="seo-howto-list">
+      <li>Paste cron expression</li>
+      <li>Review plain-English schedule interpretation</li>
+      <li>Confirm timezone/platform format</li>
+      <li>Correct expression and retest before rollout</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Validate timezone and DST assumptions to avoid off-hour or duplicate execution of sensitive jobs.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

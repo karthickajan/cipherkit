@@ -273,12 +273,21 @@
       <h2>What is DNS Lookup?</h2>
   <p>DNS lookup queries Domain Name System servers to resolve domain names to IP addresses and retrieve DNS records (A, AAAA, MX, TXT, CNAME, NS, etc.). It shows how the internet routes traffic to domains.</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>DNS issues cause website downtime, email delivery failures, and SSL problems. Looking up DNS records helps diagnose connectivity issues and verify domain configuration.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use DNS lookup when troubleshooting website connectivity, verifying MX records for email, checking domain propagation after changes, or auditing domain DNS configuration.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>DNS issues cause website downtime, email delivery failures, and SSL problems. Looking up DNS records helps diagnose connectivity issues and verify domain configuration.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use DNS lookup when troubleshooting website connectivity, verifying MX records for email, checking domain propagation after changes, or auditing domain DNS configuration.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>SREs, domain administrators, email operators, and engineers handling network incidents.</p></article>
   </div>
 
+      <h2>How to Use the DNS Lookup</h2>
+  <ol class="seo-howto-list">
+      <li>Enter domain and select record type</li>
+      <li>Run lookup and inspect values plus TTL</li>
+      <li>Compare result with expected DNS configuration</li>
+      <li>Recheck from multiple networks during propagation</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Treat DNS data as untrusted in automation and validate SPF, DKIM, and DMARC records carefully before policy changes.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

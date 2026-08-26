@@ -27,6 +27,14 @@
       "what": "Base64 encoding converts binary data into a text representation using 64 ASCII characters. This allows binary files, images, or arbitrary byte sequences to be safely transmitted over text-based protocols like HTTP, email (MIME), and JSON APIs.",
       "why": "Many systems and protocols are designed to handle only text, not raw binary data. Base64 encoding ensures your binary content survives transmission through these systems without corruption or special character issues.",
       "when": "Use Base64 encoding when embedding images directly in HTML/CSS as data URIs, sending binary data in JSON payloads, encoding credentials for HTTP Basic Auth, or storing binary blobs in text-based config files.",
+      "whoShouldUse": "Frontend and backend developers, API engineers, email template builders, and anyone transporting binary data through text-only systems.",
+      "howToUse": [
+        "Paste text or upload raw data that needs transport-safe encoding.",
+        "Generate Base64 output and copy it into your API payload, header, or config.",
+        "Use Base64URL variant when embedding inside JWTs or URL parameters.",
+        "Decode on the receiving side before processing the original bytes."
+      ],
+      "securityNote": "Base64 is not encryption. Treat encoded data as plain text and apply AES/RSA when confidentiality is required.",
       "useCases": ["Embedding images as data URIs in HTML/CSS", "Sending files in JSON API requests", "HTTP Basic Authentication header encoding"],
       "faq": [
         { "q": "Does Base64 encoding provide any security?", "a": "No. Base64 is encoding, not encryption. The original data can be instantly recovered by anyone using a Base64 decoder. For security, use AES or RSA encryption." },
@@ -92,7 +100,26 @@
         "q": "What is the difference between SHA-256 and SHA-512?",
         "a": "SHA-256 produces a 256-bit (64 hex character) hash, while SHA-512 produces a 512-bit (128 hex character) hash. SHA-512 is slightly faster on 64-bit systems but both are equally secure for practical purposes."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "SHA-256 is a one-way cryptographic hash function that turns any input into a fixed 64-character hexadecimal digest.",
+      "why": "It is the industry default for integrity checks and tamper detection because tiny input changes produce completely different hashes.",
+      "when": "Use SHA-256 when verifying downloaded files, comparing artifact integrity in CI/CD, or generating deterministic fingerprints for records.",
+      "whoShouldUse": "Developers, DevOps engineers, security analysts, package maintainers, and QA teams validating release artifacts.",
+      "howToUse": [
+        "Paste text or upload file content to hash.",
+        "Generate the SHA-256 digest.",
+        "Compare the digest with a trusted value from release notes or manifests.",
+        "Reject the artifact if values differ, even by one character."
+      ],
+      "securityNote": "SHA-256 is for integrity, not secrecy. Use encryption for confidentiality and HMAC when authenticity with a shared key is required.",
+      "useCases": ["File checksum verification", "Release artifact integrity in CI/CD", "Deterministic content fingerprinting"],
+      "faq": [
+        { "q": "Can SHA-256 be decrypted?", "a": "No. SHA-256 is one-way and cannot be reversed into the original input." },
+        { "q": "Is SHA-256 still secure in 2026?", "a": "Yes. There are no practical collision attacks against SHA-256 in real-world systems." },
+        { "q": "Should I use SHA-256 for passwords?", "a": "Use password hashing algorithms like bcrypt or Argon2 for passwords. SHA-256 alone is too fast for password storage." }
+      ]
+    }
   },
   "md5-generator": {
     "heading": "MD5",
@@ -226,6 +253,14 @@
       "what": "URL encoding (percent-encoding) converts unsafe characters into a %XX format where XX is the hexadecimal ASCII value. This ensures special characters like spaces, ampersands, and equals signs don't break URL structure.",
       "why": "URLs have reserved characters with special meanings (?, &, =, #). If your data contains these characters, they must be encoded to prevent them from being interpreted as URL syntax rather than data.",
       "when": "Use URL encoding when building query strings programmatically, passing user input as URL parameters, encoding form data for GET requests, or constructing OAuth redirect URLs with dynamic values.",
+      "whoShouldUse": "Frontend developers, backend API engineers, auth/OAuth implementers, and growth teams building tracked campaign URLs.",
+      "howToUse": [
+        "Paste only the parameter value (not the full URL).",
+        "Run encoding and copy the %XX-safe output.",
+        "Append encoded value to query strings or redirect parameters.",
+        "Decode once on the server/application side before using the value."
+      ],
+      "securityNote": "Encoding prevents URL parsing issues but does not sanitize malicious input. Combine with strict validation and output escaping.",
       "useCases": ["Encoding query string parameters", "Passing special characters in URL parameters", "Building API request URLs"],
       "faq": [
         { "q": "What's the difference between %20 and + for spaces?", "a": "RFC 3986 URL encoding uses %20. The + convention for spaces comes from HTML form encoding (application/x-www-form-urlencoded). Both are valid but %20 is more universal." },
@@ -296,6 +331,14 @@
       "what": "A JSON formatter beautifies minified or compressed JSON by adding proper indentation, line breaks, and spacing. It transforms single-line JSON blobs into structured, human-readable documents with clear hierarchy.",
       "why": "Minified JSON is impossible to read. Formatting reveals the structure of API responses, config files, and data payloads, making it easy to find specific fields, debug issues, and understand nested relationships.",
       "when": "Use JSON formatting when debugging API responses, inspecting package.json or tsconfig.json, reviewing log output containing JSON, or preparing JSON for documentation and code reviews.",
+      "whoShouldUse": "API developers, QA engineers, SREs reading logs, and data teams validating payload structure.",
+      "howToUse": [
+        "Paste raw or minified JSON into the input panel.",
+        "Run format to expand nested objects and arrays clearly.",
+        "Review or edit keys/values and validate syntax errors.",
+        "Use minify mode when you need compact transport output."
+      ],
+      "securityNote": "Formatting does not validate business logic or trustworthiness of data. Validate schema and sanitize fields before execution/use.",
       "useCases": ["Formatting API responses for debugging", "Validating JSON syntax", "Beautifying config files like package.json"],
       "faq": [
         { "q": "How do I validate JSON syntax?", "a": "Paste JSON into the formatter. Invalid JSON will show an error with the exact line and character position. Common issues: trailing commas, single quotes, unquoted keys." },
@@ -331,6 +374,9 @@
       "what": "A regex tester lets you write and test regular expression patterns against sample text in real-time. It highlights matches, shows capture groups, and helps you debug complex patterns before using them in code.",
       "why": "Regex syntax is notoriously tricky. A tester lets you experiment with patterns interactively, see exactly what matches, and refine your expression without writing test code or waiting for build cycles.",
       "when": "Use a regex tester when building validation patterns for forms, parsing log files, writing find-and-replace operations, debugging why a pattern doesn't match what you expect, or learning regex syntax.",
+      "whoShouldUse": "Frontend and backend developers, QA automation engineers, and teams maintaining parsing-heavy systems.",
+      "howToUse": ["Paste realistic sample text with edge cases", "Write pattern and enable needed flags", "Inspect capture groups and boundary behavior", "Verify negative cases to avoid false positives"],
+      "securityNote": "Avoid catastrophic backtracking patterns on untrusted input; enforce input size limits in production.",
       "useCases": ["Building email/phone validation patterns", "Parsing log file formats", "Testing find-and-replace patterns"],
       "faq": [
         { "q": "What does .* mean in regex?", "a": "The dot matches any character (except newline), and * means zero or more. Together, .* matches any sequence of characters — a common wildcard pattern." },
@@ -401,6 +447,14 @@
       "what": "HMAC (Hash-based Message Authentication Code) combines a cryptographic hash function with a secret key to create a signature that verifies both data integrity and authenticity. Only someone with the secret key can create or verify a valid HMAC.",
       "why": "Regular hashes can be computed by anyone. HMAC adds a secret key, so you can verify that a message came from a trusted source and wasn't modified. It's essential for API security and webhook verification.",
       "when": "Use HMAC for API request signing, verifying webhook payloads (GitHub, Stripe, Slack), JWT HS256 signatures, or any scenario where you need to prove a message came from someone who knows a shared secret.",
+      "whoShouldUse": "Backend engineers, platform teams, API integrators, and security engineers implementing signed requests.",
+      "howToUse": [
+        "Choose message text/payload and select HMAC algorithm (usually SHA-256).",
+        "Enter the shared secret key.",
+        "Generate MAC and attach it to request headers or metadata.",
+        "On receiver side, recompute MAC and compare using constant-time comparison."
+      ],
+      "securityNote": "Protect shared secrets in a vault and rotate periodically. Never log raw secrets or compare MAC values with non-constant-time string checks.",
       "useCases": ["API request signing", "Webhook payload verification (GitHub, Stripe)", "JWT HS256 signature generation"],
       "faq": [
         { "q": "What's the difference between HMAC and regular hashing?", "a": "Anyone can compute a SHA-256 hash. HMAC requires a secret key, so only parties who share the key can generate or verify the MAC. This prevents forgery." },
@@ -492,6 +546,9 @@
       "what": "A diff checker compares two versions of text and highlights additions (green), deletions (red), and unchanged content. It uses the LCS (Longest Common Subsequence) algorithm — the same approach used by git diff and code review tools.",
       "why": "Manually comparing two files is error-prone and tedious. A diff checker instantly shows exactly what changed, making it easy to review edits, spot unintended changes, and understand the evolution of documents or code.",
       "when": "Use a diff checker when comparing config file versions, reviewing code changes before commit, finding differences between API responses across environments, or auditing document modifications.",
+      "whoShouldUse": "Developers, reviewers, auditors, and support engineers comparing versioned outputs.",
+      "howToUse": ["Paste original text on the left and updated text on the right", "Run comparison and inspect line-level plus inline changes", "Jump across edits with the minimap", "Copy reviewed output for commit notes or incident reports"],
+      "securityNote": "For private code or credentials, prefer local client-side diffing and avoid server-stored paste services.",
       "useCases": ["Comparing config file versions", "Reviewing code changes", "Finding API response differences between environments"],
       "faq": [
         { "q": "What algorithm does this use?", "a": "LCS (Longest Common Subsequence) — the standard for diff computation. It finds the longest sequence present in both texts, then marks everything else as added or removed." },
@@ -662,7 +719,21 @@
         "q": "How do I run a job every 15 minutes?",
         "a": "Use the */15 syntax: */15 * * * * — the / operator means \"every N\". Similarly */2 * * * * runs every 2 minutes."
       }
-    ]
+    ],
+    "seoContent": {
+      "what": "A cron generator helps you build valid recurring schedules for Unix cron and scheduler-compatible formats.",
+      "why": "Cron syntax is compact but error-prone. A generator reduces mistakes and speeds up scheduling work.",
+      "when": "Use it to create schedules for backups, reports, ETL jobs, data sync tasks, and automated maintenance.",
+      "whoShouldUse": "DevOps engineers, backend developers, SRE teams, and data platform operators.",
+      "howToUse": ["Select your scheduler format", "Set minute/hour/day/month/week values", "Review generated expression and plain-language meaning", "Test in staging before production rollout"],
+      "securityNote": "Run scheduled jobs with least-privilege service accounts and monitor failed or overlapping executions.",
+      "useCases": ["Nightly database backups", "Hourly sync jobs", "Weekly reports"],
+      "faq": [
+        { "q": "How do I run weekdays at 9 AM?", "a": "Use 0 9 * * 1-5 in standard 5-field cron." },
+        { "q": "How do I run every 10 minutes?", "a": "Use */10 * * * *." },
+        { "q": "Why does my schedule run at wrong times?", "a": "Check scheduler timezone and daylight-saving handling." }
+      ]
+    }
   },
   "color-converter": {
     "heading": "a Color Code Converter",
@@ -761,6 +832,9 @@
       "what": "Image format conversion changes images between PNG, JPEG, WebP, and other formats. Each format has trade-offs: PNG for lossless with transparency, JPEG for photographs, WebP for modern web with best compression.",
       "why": "Different contexts require different formats. Screenshots need PNG lossless quality, photos need JPEG compression, web delivery benefits from WebP's smaller sizes. Converting lets you optimize for each use case.",
       "when": "Use image conversion when optimizing for web performance (convert to WebP), preparing images for email/PDF (convert to JPEG), preserving transparency (convert to PNG), or meeting platform requirements.",
+      "whoShouldUse": "Frontend developers, growth teams, designers, and content teams publishing assets across multiple channels.",
+      "howToUse": ["Upload image", "Choose target format based on delivery context", "Adjust quality/compression", "Export and verify rendering on destination platform"],
+      "securityNote": "Use client-side conversion for private files and remove metadata before public sharing.",
       "useCases": ["Converting to WebP for web performance", "Screenshots to JPEG for smaller file size", "Batch converting design assets"],
       "faq": [
         { "q": "PNG vs JPEG for web images?", "a": "JPEG for photographs (smaller, acceptable quality loss). PNG for graphics, logos, screenshots, or anything needing transparency. WebP beats both in compression with similar quality." },
@@ -808,6 +882,9 @@
   "webp-to-jpg": {
     "heading": "WebP to JPG Converter",
     "description": "WebP is a modern image format by Google offering superior compression. Converting WebP to JPG makes images compatible with apps, devices, and platforms that don't support WebP — including older email clients, Word documents, and some CMS platforms.",
+    "whoShouldUse": "Marketers, support teams, and users sharing files with legacy apps or enterprise tooling.",
+    "howToUse": ["Select WebP image", "Preview quality", "Export JPG", "Validate compatibility in the destination application"],
+    "securityNote": "Conversion is local in your browser; prefer this path for sensitive images over server-upload tools.",
     "commonUses": [
       "Email attachments for clients that don't support WebP",
       "Uploading images to platforms that reject WebP files",
@@ -832,6 +909,9 @@
   "jpg-to-webp": {
     "heading": "JPG to WebP Converter",
     "description": "WebP delivers 25-35% smaller file sizes than JPG at equivalent quality. Converting JPG to WebP reduces page load times and improves Core Web Vitals scores — making it essential for web developers optimizing site performance.",
+    "whoShouldUse": "Web developers, SEO teams, and performance engineers reducing transfer sizes.",
+    "howToUse": ["Upload JPG/JPEG", "Set quality target", "Export WebP", "Measure page weight and LCP improvements"],
+    "securityNote": "Keep original masters for archive and editing; use WebP derivatives for delivery.",
     "commonUses": [
       "Optimizing images for web performance",
       "Meeting WebP requirements in modern frameworks",
@@ -1091,6 +1171,9 @@
       "what": "An ASCII table displays the 128 standard ASCII characters with their decimal, hexadecimal, octal, and binary values. ASCII (American Standard Code for Information Interchange) is the foundation of text encoding in computing.",
       "why": "Developers frequently need to look up character codes when working with binary protocols, debugging encoding issues, or understanding control characters. An ASCII table is an essential quick reference.",
       "when": "Use an ASCII table when converting between character codes and symbols, debugging encoding issues, understanding control characters (0-31), or working with binary protocols and file formats.",
+      "whoShouldUse": "Embedded developers, systems programmers, protocol engineers, and students learning byte-level fundamentals.",
+      "howToUse": ["Search by character to find numeric codes", "Search by code to identify symbols", "Use control-character references for parser/debug tasks", "Cross-check byte streams against expected ASCII values"],
+      "securityNote": "Character-code lookups help avoid parsing bugs, but always sanitize untrusted text before execution or rendering.",
       "useCases": ["Looking up character codes for debugging", "Understanding control characters", "Binary protocol development"],
       "faq": [
         { "q": "What's the difference between ASCII and Unicode?", "a": "ASCII covers 128 characters (0-127) using 7 bits. Unicode extends this to millions of characters, with ASCII as the first 128 code points. UTF-8 is backwards-compatible with ASCII." },
@@ -1169,6 +1252,9 @@
       "what": "A cron expression explainer parses cron syntax (like '0 9 * * 1') and translates it into human-readable descriptions. It shows when the schedule will trigger and validates the expression syntax.",
       "why": "Cron syntax is notoriously cryptic. An explainer confirms your expression means what you think it does, preventing accidental scheduling errors that could trigger jobs at wrong times.",
       "when": "Use a cron explainer when reviewing existing crontabs, validating scheduled tasks before deployment, understanding inherited cron configurations, or learning cron syntax.",
+      "whoShouldUse": "On-call engineers, DevOps teams, and developers maintaining inherited schedulers.",
+      "howToUse": ["Paste cron expression", "Review plain-English schedule interpretation", "Confirm timezone/platform format", "Correct expression and retest before rollout"],
+      "securityNote": "Validate timezone and DST assumptions to avoid off-hour or duplicate execution of sensitive jobs.",
       "useCases": ["Validating cron expressions before deployment", "Understanding inherited crontab configurations", "Learning cron syntax"],
       "faq": [
         { "q": "What does * mean in cron?", "a": "Asterisk means 'every' — every minute, every hour, etc. for that field. '* * * * *' runs every minute. '0 * * * *' runs at minute 0 of every hour." },
@@ -1221,6 +1307,9 @@
       "what": "DNS lookup queries Domain Name System servers to resolve domain names to IP addresses and retrieve DNS records (A, AAAA, MX, TXT, CNAME, NS, etc.). It shows how the internet routes traffic to domains.",
       "why": "DNS issues cause website downtime, email delivery failures, and SSL problems. Looking up DNS records helps diagnose connectivity issues and verify domain configuration.",
       "when": "Use DNS lookup when troubleshooting website connectivity, verifying MX records for email, checking domain propagation after changes, or auditing domain DNS configuration.",
+      "whoShouldUse": "SREs, domain administrators, email operators, and engineers handling network incidents.",
+      "howToUse": ["Enter domain and select record type", "Run lookup and inspect values plus TTL", "Compare result with expected DNS configuration", "Recheck from multiple networks during propagation"],
+      "securityNote": "Treat DNS data as untrusted in automation and validate SPF, DKIM, and DMARC records carefully before policy changes.",
       "useCases": ["Troubleshooting website connectivity", "Verifying email MX records", "Checking DNS propagation after changes"],
       "faq": [
         { "q": "What's the difference between A and AAAA records?", "a": "A records map domains to IPv4 addresses (32-bit). AAAA records map to IPv6 addresses (128-bit). Both can coexist; browsers prefer IPv6 when available." },
@@ -1260,6 +1349,9 @@
       "what": "Gzip compression reduces file sizes using the DEFLATE algorithm, commonly used for HTTP compression and file archiving. Decompression restores the original data from gzip-compressed content.",
       "why": "Gzip is the standard for HTTP content compression, reducing bandwidth and improving page load times. Developers need to compress assets and decompress received content for debugging.",
       "when": "Use gzip when compressing assets for web delivery, decompressing HTTP responses for inspection, reducing file sizes for storage, or debugging gzip-encoded API responses.",
+      "whoShouldUse": "Frontend performance teams, backend API developers, and DevOps engineers optimizing payload size.",
+      "howToUse": ["Paste or upload content", "Choose compress or decompress mode", "Generate output and compare size reduction", "Integrate compressed assets into deploy flow"],
+      "securityNote": "Compression is not encryption. Consider BREACH/CRIME exposure when compressing sensitive reflected responses over TLS.",
       "useCases": ["Compressing web assets", "Decompressing HTTP responses", "Reducing file sizes for storage"],
       "faq": [
         { "q": "What's the typical compression ratio?", "a": "Text compresses well — 60-80% reduction is common. Already-compressed formats (JPEG, PNG, MP3) see little benefit since they're already compressed." },
@@ -1286,6 +1378,9 @@
       "what": "HEIC to JPG conversion transforms Apple's High Efficiency Image format into universally-compatible JPEG. HEIC offers better compression than JPEG but lacks universal support outside Apple devices.",
       "why": "iPhone photos use HEIC by default, but many websites, applications, and non-Apple devices don't support it. Converting to JPEG ensures universal compatibility.",
       "when": "Use HEIC to JPG conversion when uploading iPhone photos to websites, sharing images with non-Apple users, preparing photos for printing services, or using images in applications that don't support HEIC.",
+      "whoShouldUse": "iPhone users, support teams, and content managers delivering images across mixed device ecosystems.",
+      "howToUse": ["Upload HEIC file", "Convert to JPG", "Review orientation and quality", "Share/upload to systems that do not support HEIC"],
+      "securityNote": "Keep personal-photo conversion local and remove location metadata before public posting.",
       "useCases": ["Uploading iPhone photos to websites", "Sharing photos with Windows/Android users", "Preparing images for printing services"],
       "faq": [
         { "q": "What is HEIC?", "a": "HEIC (High Efficiency Image Container) is Apple's image format using HEVC compression. It offers ~50% smaller files than JPEG at similar quality but has limited support outside Apple." },
@@ -1299,6 +1394,9 @@
       "what": "HEIC to PNG conversion transforms Apple's High Efficiency Image format into lossless PNG. Unlike JPEG conversion, PNG preserves full quality and supports transparency if present in the original.",
       "why": "When you need maximum quality from iPhone photos or need to preserve any transparency data, PNG is the better target format. It's lossless but produces larger files than JPEG.",
       "when": "Use HEIC to PNG when you need lossless quality, when the HEIC might contain transparency, when preparing images for editing, or when file size isn't a concern.",
+      "whoShouldUse": "Designers and editors preparing high-fidelity assets from iPhone originals.",
+      "howToUse": ["Upload HEIC", "Convert to PNG", "Verify quality/transparency", "Continue editing in image tools favoring PNG"],
+      "securityNote": "PNG outputs are larger and may carry metadata; strip metadata for public distribution.",
       "useCases": ["Preserving maximum image quality", "Retaining transparency from HEIC", "Preparing photos for further editing"],
       "faq": [
         { "q": "PNG vs JPEG for HEIC conversion?", "a": "PNG is lossless but larger. JPEG is smaller but loses quality. Use PNG for editing or when quality is paramount; JPEG for web/email sharing." },
@@ -1312,6 +1410,9 @@
       "what": "HEIC to WebP conversion transforms Apple's HEIC format into Google's WebP format. WebP offers excellent compression like HEIC but with much broader support across browsers and platforms.",
       "why": "WebP is supported by all modern browsers while HEIC is mostly Apple-only. Converting HEIC to WebP gives you small file sizes with universal web compatibility.",
       "when": "Use HEIC to WebP when preparing iPhone photos for web use, optimizing images for performance, or needing small files with broad compatibility.",
+      "whoShouldUse": "Web teams and app publishers moving iPhone-origin images into browser-first workflows.",
+      "howToUse": ["Upload HEIC", "Convert to WebP", "Adjust quality for target size", "Deploy and validate cross-browser rendering"],
+      "securityNote": "For private media libraries, prefer local conversion and explicit retention policies for derived files.",
       "useCases": ["Preparing iPhone photos for web publishing", "Optimizing images for Core Web Vitals", "Cross-platform image sharing"],
       "faq": [
         { "q": "WebP vs JPEG for HEIC conversion?", "a": "WebP offers 25-35% smaller files than JPEG at equivalent quality. All modern browsers support WebP. Use JPEG only for legacy compatibility." },
@@ -1377,6 +1478,9 @@
       "what": "An HTTP header parser analyzes and explains HTTP request/response headers. It breaks down headers into readable components, explains their purposes, and identifies security headers and their configurations.",
       "why": "HTTP headers control caching, security, content negotiation, and more. Understanding what headers mean helps debug issues, configure servers correctly, and implement security best practices.",
       "when": "Use HTTP header parsing when debugging API responses, auditing security headers, understanding caching behavior, or diagnosing CORS and content-type issues.",
+      "whoShouldUse": "Backend engineers, API support teams, frontend debuggers, and security reviewers.",
+      "howToUse": ["Paste raw headers from logs or devtools", "Parse and inspect key directives", "Focus on CORS, cache, CSP, and auth headers", "Update server config and retest"],
+      "securityNote": "Redact Authorization, cookies, and session identifiers before sharing parsed headers.",
       "useCases": ["Debugging API response headers", "Auditing security header configuration", "Diagnosing caching issues"],
       "faq": [
         { "q": "What are the most important security headers?", "a": "Content-Security-Policy (XSS prevention), Strict-Transport-Security (force HTTPS), X-Frame-Options (clickjacking), X-Content-Type-Options (MIME sniffing)." },
@@ -1403,6 +1507,9 @@
       "what": "An image resizer changes image dimensions by scaling, cropping, or fitting to specific sizes. It supports maintaining aspect ratio, setting exact dimensions, and choosing output quality.",
       "why": "Images need resizing for web optimization, social media requirements, email attachments, or print specifications. Proper resizing ensures images fit their intended use without distortion.",
       "when": "Use image resizing when preparing images for web upload, meeting platform size requirements, creating thumbnails, or reducing file size for email.",
+      "whoShouldUse": "Social teams, ecommerce managers, designers, and developers preparing responsive media variants.",
+      "howToUse": ["Upload source image", "Set target dimensions or max width", "Choose crop/fit and aspect behavior", "Export and verify output on target channel"],
+      "securityNote": "Avoid unnecessary upscaling for quality-critical content; keep full-resolution originals as source assets.",
       "useCases": ["Optimizing images for web upload", "Meeting social media image requirements", "Creating thumbnail images"],
       "faq": [
         { "q": "Should I maintain aspect ratio?", "a": "Usually yes. Changing aspect ratio distorts images. Maintain ratio and crop if needed to fit specific dimensions without stretching." },
@@ -1429,6 +1536,9 @@
       "what": "JPG to PNG conversion transforms lossy JPEG images into lossless PNG format. While this doesn't recover lost JPEG quality, it produces a lossless copy suitable for editing without further degradation.",
       "why": "PNG doesn't degrade with repeated saves like JPEG does. Converting to PNG prevents further quality loss during editing workflows and supports transparency if you need to add it.",
       "when": "Use JPG to PNG when preparing images for editing workflows, when you need to add transparency later, or when lossless format is required for specific purposes.",
+      "whoShouldUse": "Designers and content editors iterating on JPEG sources before final export.",
+      "howToUse": ["Upload JPG", "Convert to PNG", "Edit without extra compression loss", "Export final delivery format after edits"],
+      "securityNote": "Conversion preserves current quality level but cannot restore detail lost in original JPEG compression.",
       "useCases": ["Preparing JPEGs for editing workflows", "Creating a lossless archive copy", "When transparency support is needed"],
       "faq": [
         { "q": "Does this improve JPEG quality?", "a": "No. JPEG compression is lossy and irreversible. Converting to PNG creates a lossless copy of already-degraded data — it prevents further loss but doesn't restore original quality." },
@@ -1442,6 +1552,9 @@
       "what": "A JavaScript minifier removes whitespace, comments, and shortens variable names to reduce file size without changing functionality. Minified JS loads faster and reduces bandwidth.",
       "why": "Smaller JavaScript files mean faster page loads and better Core Web Vitals scores. Minification is a standard production build step for web performance optimization.",
       "when": "Use JS minification when preparing JavaScript for production deployment, optimizing page load performance, or reducing bundle sizes.",
+      "whoShouldUse": "Frontend engineers, performance teams, and release pipelines shipping production assets.",
+      "howToUse": ["Paste source JavaScript", "Run minifier and review size delta", "Smoke-test output in staging", "Deploy with source maps for debugging"],
+      "securityNote": "Minification does not protect secrets. Never ship private keys, credentials, or tokens in client-side bundles.",
       "useCases": ["Preparing JavaScript for production", "Optimizing page load times", "Reducing bundle sizes"],
       "faq": [
         { "q": "What's the typical size reduction?", "a": "Usually 30-60% reduction for well-commented code. The more comments and whitespace in the original, the greater the reduction." },
@@ -1468,6 +1581,14 @@
       "what": "A JSON Schema validator checks whether JSON data conforms to a defined schema. It validates types, required fields, formats, patterns, and constraints, reporting exactly what doesn't match.",
       "why": "JSON Schema ensures data integrity. Validating against a schema catches malformed data before it causes errors downstream, making APIs and configurations more robust.",
       "when": "Use JSON Schema validation when testing API request/response formats, validating config files, ensuring data imports meet requirements, or debugging schema violations.",
+      "whoShouldUse": "API designers, QA teams, integrators, data platform engineers, and anyone enforcing contract-first development.",
+      "howToUse": [
+        "Paste or load the JSON payload in one panel.",
+        "Paste the JSON Schema definition in the schema panel.",
+        "Run validation and inspect exact error paths and expected types.",
+        "Fix payload or schema rules and rerun until validation passes."
+      ],
+      "securityNote": "Schema validation improves correctness, but does not replace authorization, rate limiting, or server-side sanitization.",
       "useCases": ["Validating API payloads against schemas", "Testing config file formats", "Debugging schema validation errors"],
       "faq": [
         { "q": "What is JSON Schema?", "a": "JSON Schema is a vocabulary for annotating and validating JSON documents. It defines structure, types, required fields, and constraints in a machine-readable format." },
@@ -1520,6 +1641,14 @@
       "what": "A JWT builder creates JSON Web Tokens by assembling header, payload, and signature. You specify claims (sub, exp, iat, etc.), choose the algorithm, and provide a signing key to generate valid tokens.",
       "why": "Testing authentication systems requires generating JWTs with specific claims. A builder lets developers create test tokens without writing signing code or setting up auth infrastructure.",
       "when": "Use JWT builder when testing authentication flows, creating tokens for development environments, learning JWT structure, or generating tokens with specific claims for debugging.",
+      "whoShouldUse": "Backend developers, QA engineers, identity teams, and API consumers testing auth contract behavior.",
+      "howToUse": [
+        "Define header algorithm and token type.",
+        "Add payload claims such as sub, iss, aud, iat, and exp.",
+        "Select signing method (HS256/RS256) and provide key material.",
+        "Generate token, test in your API, and verify claims during decode."
+      ],
+      "securityNote": "Never include secrets in JWT payloads. Keep expiration short and protect signing keys in secure key management.",
       "useCases": ["Creating test tokens for development", "Testing authentication flows", "Debugging JWT-based systems"],
       "faq": [
         { "q": "Is it safe to generate JWTs online?", "a": "CipherKit generates JWTs entirely in your browser. Your secret key never leaves your device. For production secrets, this is safer than server-based tools." },
@@ -1598,6 +1727,9 @@
       "what": "PNG to JPG conversion transforms lossless PNG images into compressed JPEG format. This significantly reduces file size for photographs while losing the PNG transparency support.",
       "why": "PNG files are often too large for web use, especially for photographs. Converting to JPEG dramatically reduces file size when lossless quality and transparency aren't needed.",
       "when": "Use PNG to JPG when reducing file sizes for web upload, preparing images for email, removing transparency, or converting screenshots of photos.",
+      "whoShouldUse": "Publishers, ecommerce teams, and marketers reducing payload size for image-heavy pages.",
+      "howToUse": ["Upload PNG", "Set JPG quality", "Convert and review quality", "Replace large originals where transparency is unnecessary"],
+      "securityNote": "JPEG removes transparency and introduces lossy compression. Keep PNG masters for future edits.",
       "useCases": ["Reducing image file sizes for web", "Preparing images for email", "Converting photo screenshots"],
       "faq": [
         { "q": "Will I lose quality?", "a": "Yes, JPEG is lossy compression. CipherKit uses high-quality settings by default. For photographs, the quality loss is usually imperceptible while files shrink dramatically." },
@@ -1637,6 +1769,14 @@
       "what": "RSA encryption/decryption performs asymmetric cryptography using public/private key pairs. Public keys encrypt data that only the corresponding private key can decrypt, enabling secure communication without shared secrets.",
       "why": "RSA enables secure communication with anyone who has your public key, without pre-sharing secrets. It's fundamental to HTTPS, SSH, PGP, and most secure communication systems.",
       "when": "Use RSA encryption when sending secret data to someone whose public key you have, testing asymmetric encryption implementations, or learning public-key cryptography.",
+      "whoShouldUse": "Security engineers, backend developers, compliance teams, and learners implementing key-based encryption workflows.",
+      "howToUse": [
+        "Generate or import RSA public/private key pair.",
+        "Encrypt short plaintext or a symmetric session key with the public key.",
+        "Decrypt using matching private key.",
+        "For larger payloads, use hybrid encryption (AES for data + RSA for key)."
+      ],
+      "securityNote": "Use modern padding (OAEP) and at least 2048-bit keys. Avoid raw RSA and never expose private keys in client logs or analytics.",
       "useCases": ["Testing RSA implementations", "Learning public-key cryptography", "Encrypting data for specific recipients"],
       "faq": [
         { "q": "What key size should I use?", "a": "2048 bits minimum, 4096 recommended for sensitive data. Larger keys are more secure but slower. 1024-bit keys are considered insecure." },
@@ -1689,6 +1829,9 @@
       "what": "SVG to PNG conversion rasterizes vector SVG graphics into bitmap PNG images at specified dimensions. Unlike SVG, PNG is a fixed-resolution image format supported everywhere.",
       "why": "SVG is vector and scalable but not supported everywhere — email clients, some CMS platforms, and older software may reject SVG. PNG provides universal compatibility.",
       "when": "Use SVG to PNG when preparing graphics for email, social media, or platforms that don't support SVG, creating favicons, or generating fixed-resolution versions of vector assets.",
+      "whoShouldUse": "Design system teams, frontend developers, and marketers producing distribution-ready graphics.",
+      "howToUse": ["Upload SVG", "Choose output dimensions (1x/2x)", "Convert to PNG", "Validate crispness on target displays"],
+      "securityNote": "Sanitize untrusted SVG files in automated workflows to avoid malicious embedded content.",
       "useCases": ["Preparing graphics for email", "Creating social media images from SVG", "Generating favicons"],
       "faq": [
         { "q": "What resolution should I use?", "a": "Export at the size you'll display. For retina/HiDPI, export at 2x dimensions. SVG can be converted to any size since it's vector — choose based on target display size." },

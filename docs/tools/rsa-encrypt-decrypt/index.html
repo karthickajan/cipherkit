@@ -273,12 +273,21 @@
       <h2>What is RSA Encrypt & Decrypt?</h2>
   <p>RSA encryption/decryption performs asymmetric cryptography using public/private key pairs. Public keys encrypt data that only the corresponding private key can decrypt, enabling secure communication without shared secrets.</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>RSA enables secure communication with anyone who has your public key, without pre-sharing secrets. It's fundamental to HTTPS, SSH, PGP, and most secure communication systems.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use RSA encryption when sending secret data to someone whose public key you have, testing asymmetric encryption implementations, or learning public-key cryptography.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>RSA enables secure communication with anyone who has your public key, without pre-sharing secrets. It's fundamental to HTTPS, SSH, PGP, and most secure communication systems.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use RSA encryption when sending secret data to someone whose public key you have, testing asymmetric encryption implementations, or learning public-key cryptography.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>Security engineers, backend developers, compliance teams, and learners implementing key-based encryption workflows.</p></article>
   </div>
 
+      <h2>How to Use the RSA Encrypt & Decrypt</h2>
+  <ol class="seo-howto-list">
+      <li>Generate or import RSA public/private key pair.</li>
+      <li>Encrypt short plaintext or a symmetric session key with the public key.</li>
+      <li>Decrypt using matching private key.</li>
+      <li>For larger payloads, use hybrid encryption (AES for data + RSA for key).</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Use modern padding (OAEP) and at least 2048-bit keys. Avoid raw RSA and never expose private keys in client logs or analytics.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

@@ -286,12 +286,21 @@
       <h2>What is a Text Diff Checker?</h2>
   <p>A diff checker compares two versions of text and highlights the differences — added lines (green), removed lines (red), and unchanged lines. The underlying algorithm is LCS (Longest Common Subsequence), the same algorithm used by git diff and most code review tools. CipherKit's diff checker adds inline character-level highlighting within changed lines.</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Manually comparing two files is error-prone and tedious. A diff checker instantly shows exactly what changed, making it easy to review edits, spot unintended changes, and understand the evolution of documents or code.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a diff checker when comparing config file versions, reviewing code changes before commit, finding differences between API responses across environments, or auditing document modifications.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Manually comparing two files is error-prone and tedious. A diff checker instantly shows exactly what changed, making it easy to review edits, spot unintended changes, and understand the evolution of documents or code.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use a diff checker when comparing config file versions, reviewing code changes before commit, finding differences between API responses across environments, or auditing document modifications.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>Developers, reviewers, auditors, and support engineers comparing versioned outputs.</p></article>
   </div>
 
+      <h2>How to Use the Text Diff Checker</h2>
+  <ol class="seo-howto-list">
+      <li>Paste original text on the left and updated text on the right</li>
+      <li>Run comparison and inspect line-level plus inline changes</li>
+      <li>Jump across edits with the minimap</li>
+      <li>Copy reviewed output for commit notes or incident reports</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>For private code or credentials, prefer local client-side diffing and avoid server-stored paste services.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

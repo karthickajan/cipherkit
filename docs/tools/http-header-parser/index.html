@@ -273,12 +273,21 @@
       <h2>What is HTTP Header Parser?</h2>
   <p>An HTTP header parser analyzes and explains HTTP request/response headers. It breaks down headers into readable components, explains their purposes, and identifies security headers and their configurations.</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>HTTP headers control caching, security, content negotiation, and more. Understanding what headers mean helps debug issues, configure servers correctly, and implement security best practices.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use HTTP header parsing when debugging API responses, auditing security headers, understanding caching behavior, or diagnosing CORS and content-type issues.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>HTTP headers control caching, security, content negotiation, and more. Understanding what headers mean helps debug issues, configure servers correctly, and implement security best practices.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use HTTP header parsing when debugging API responses, auditing security headers, understanding caching behavior, or diagnosing CORS and content-type issues.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>Backend engineers, API support teams, frontend debuggers, and security reviewers.</p></article>
   </div>
 
+      <h2>How to Use the HTTP Header Parser</h2>
+  <ol class="seo-howto-list">
+      <li>Paste raw headers from logs or devtools</li>
+      <li>Parse and inspect key directives</li>
+      <li>Focus on CORS, cache, CSP, and auth headers</li>
+      <li>Update server config and retest</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Redact Authorization, cookies, and session identifiers before sharing parsed headers.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

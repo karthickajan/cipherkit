@@ -277,12 +277,21 @@
       <h2>What is HMAC?</h2>
   <p>HMAC (Hash-based Message Authentication Code) is a specific construction for creating a message authentication code using a cryptographic hash function (SHA-256, SHA-512, etc.) combined with a secret key. It provides both data integrity (the message wasn't changed) and authenticity (it came from someone who knows the key).</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Regular hashes can be computed by anyone. HMAC adds a secret key, so you can verify that a message came from a trusted source and wasn't modified. It's essential for API security and webhook verification.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use HMAC for API request signing, verifying webhook payloads (GitHub, Stripe, Slack), JWT HS256 signatures, or any scenario where you need to prove a message came from someone who knows a shared secret.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>Regular hashes can be computed by anyone. HMAC adds a secret key, so you can verify that a message came from a trusted source and wasn't modified. It's essential for API security and webhook verification.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use HMAC for API request signing, verifying webhook payloads (GitHub, Stripe, Slack), JWT HS256 signatures, or any scenario where you need to prove a message came from someone who knows a shared secret.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>Backend engineers, platform teams, API integrators, and security engineers implementing signed requests.</p></article>
   </div>
 
+      <h2>How to Use the HMAC Generator</h2>
+  <ol class="seo-howto-list">
+      <li>Choose message text/payload and select HMAC algorithm (usually SHA-256).</li>
+      <li>Enter the shared secret key.</li>
+      <li>Generate MAC and attach it to request headers or metadata.</li>
+      <li>On receiver side, recompute MAC and compare using constant-time comparison.</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Protect shared secrets in a vault and rotate periodically. Never log raw secrets or compare MAC values with non-constant-time string checks.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>

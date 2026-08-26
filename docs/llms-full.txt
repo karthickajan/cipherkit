@@ -152,6 +152,8 @@ URL: https://cipherkit.app/tools/sha256-generator/
 Category: crypto
 Description: Free online SHA-256 hash generator. Generate SHA-256 hashes from any text or string instantly in your browser. Supports Hex and Base64 output.
 SHA-256 (Secure Hash Algorithm 256-bit) is a cryptographic hash function that converts any input into a fixed 64-character hexadecimal string. It is part of the SHA-2 family, designed by the NSA and published by NIST in 2001. SHA-256 is used in TLS/SSL certificates, blockchain, digital signatures, and file integrity verification.
+Why: It is the industry default for integrity checks and tamper detection because tiny input changes produce completely different hashes.
+When: Use SHA-256 when verifying downloaded files, comparing artifact integrity in CI/CD, or generating deterministic fingerprints for records.
 Common uses: File integrity verification — compare hashes before and after download, Digital signatures in SSL/TLS certificates and code signing, Blockchain — Bitcoin uses SHA-256 for block hashing and proof-of-work, Password storage (though bcrypt or Argon2 are preferred for passwords)
 
 ### SHA-512 Hash Generator
@@ -434,6 +436,8 @@ URL: https://cipherkit.app/tools/cron-expression-generator/
 Category: dev
 Description: Free online cron expression generator. Build cron job schedules visually with a simple UI. Supports standard and non-standard cron syntax.
 A cron expression is a string of 5 or 6 fields that defines a schedule for recurring tasks in Unix-like systems. The fields represent: minute, hour, day of month, month, day of week (and optionally seconds). Cron is used in Linux servers, CI/CD pipelines, cloud schedulers (AWS EventBridge, GitHub Actions), and databases.
+Why: Cron syntax is compact but error-prone. A generator reduces mistakes and speeds up scheduling work.
+When: Use it to create schedules for backups, reports, ETL jobs, data sync tasks, and automated maintenance.
 Common uses: Scheduling daily database backups (0 2 * * *), Running hourly data sync jobs (0 * * * *), Setting up weekly reports every Monday morning (0 9 * * 1), Configuring GitHub Actions scheduled workflows
 
 ### Cron Expression Explainer

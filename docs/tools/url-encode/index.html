@@ -273,12 +273,21 @@
       <h2>What is URL Encoding?</h2>
   <p>URL encoding (also called percent-encoding) converts characters that are not allowed in URLs into a safe format using a % followed by two hex digits. For example, a space becomes %20, &amp; becomes %26. This is required by RFC 3986 for any character outside the unreserved set (A–Z, a–z, 0–9, -, _, ., ~).</p>
 
-      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>URLs have reserved characters with special meanings (?, &, =, #). If your data contains these characters, they must be encoded to prevent them from being interpreted as URL syntax rather than data.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use URL encoding when building query strings programmatically, passing user input as URL parameters, encoding form data for GET requests, or constructing OAuth redirect URLs with dynamic values.</p></article>
+      <div class="seo-insight-grid"><article class="seo-insight-card"><h3>Why Use This Tool</h3><p>URLs have reserved characters with special meanings (?, &, =, #). If your data contains these characters, they must be encoded to prevent them from being interpreted as URL syntax rather than data.</p></article><article class="seo-insight-card"><h3>When to Use It</h3><p>Use URL encoding when building query strings programmatically, passing user input as URL parameters, encoding form data for GET requests, or constructing OAuth redirect URLs with dynamic values.</p></article><article class="seo-insight-card"><h3>Who Should Use It</h3><p>Frontend developers, backend API engineers, auth/OAuth implementers, and growth teams building tracked campaign URLs.</p></article>
   </div>
 
+      <h2>How to Use the URL Encoder</h2>
+  <ol class="seo-howto-list">
+      <li>Paste only the parameter value (not the full URL).</li>
+      <li>Run encoding and copy the %XX-safe output.</li>
+      <li>Append encoded value to query strings or redirect parameters.</li>
+      <li>Decode once on the server/application side before using the value.</li>
+  </ol>
 
-
-
+      <div class="seo-security-note" role="note" aria-label="Security note">
+    <h3>Security note</h3>
+    <p>Encoding prevents URL parsing issues but does not sanitize malicious input. Combine with strict validation and output escaping.</p>
+  </div>
 
       <h2>Common Uses</h2>
       <ul>
