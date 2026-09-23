@@ -147,12 +147,14 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, robotsContent = 
   <meta property="og:image" content="${DOMAIN}/android-chrome-512x512.png">
   <meta property="og:image:width" content="512">
   <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="${site.name} logo">
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${pageTitle}">
   <meta name="twitter:description" content="${metaDescription}">
   <meta name="twitter:image" content="${DOMAIN}/android-chrome-512x512.png">
+  <meta name="twitter:image:alt" content="${site.name} logo">
 
   <!-- E-E-A-T -->
   <meta name="author" content="Karthick Ajan G S">
@@ -1036,7 +1038,7 @@ ${buildNavbar()}
 
 </main>
 
-${buildFooter(true)}
+${buildFooter()}
 
 <!-- Toast -->
 <div class="toast" id="toast" role="alert" aria-live="assertive">
@@ -1059,11 +1061,20 @@ const searchSection = document.getElementById('search-results');
 const searchGrid    = document.getElementById('search-results-grid');
 const hubsWrap      = document.getElementById('hubs-wrap');
 
-searchInput.addEventListener('input', function() {
-  const q = this.value.trim().toLowerCase();
+function performToolSearch(rawQuery, updateUrl) {
+  const q = rawQuery.trim().toLowerCase();
+
+  if (updateUrl && window.history && window.history.replaceState) {
+    const url = new URL(window.location.href);
+    if (q) url.searchParams.set('q', rawQuery.trim());
+    else url.searchParams.delete('q');
+    window.history.replaceState(null, '', url.toString());
+  }
+
   if (!q) {
     searchSection.hidden = true;
     hubsWrap.hidden      = false;
+    searchGrid.innerHTML = '';
     return;
   }
 
@@ -1096,7 +1107,17 @@ searchInput.addEventListener('input', function() {
 
   searchSection.hidden = false;
   hubsWrap.hidden      = true;
+}
+
+searchInput.addEventListener('input', function() {
+  performToolSearch(this.value, true);
 });
+
+const initialSearch = new URLSearchParams(window.location.search).get('q');
+if (initialSearch) {
+  searchInput.value = initialSearch;
+  performToolSearch(initialSearch, false);
+}
 </script>
 
 <!-- Typewriter placeholder for hero search -->
@@ -1417,7 +1438,7 @@ function buildPrivacyPage() {
     canonicalPath:   '/tools/privacy-policy/'
   });
   const navbar = buildNavbar();
-  const footer = buildFooter();
+  const footer = buildFooter(true);
   const year   = new Date().getFullYear();
 
   return `<!DOCTYPE html>
@@ -1587,7 +1608,8 @@ function build() {
   const notFoundHead = buildHead({
     pageTitle:       '404 — Page Not Found | CipherKit',
     metaDescription: 'The page you are looking for does not exist. Browse our free developer tools.',
-    canonicalPath:   '/404.html'
+    canonicalPath:   '/404.html',
+    robotsContent:   'noindex, follow'
   });
   writeDist('404.html', `<!DOCTYPE html>
 <html lang="en">

@@ -24,12 +24,14 @@
   <meta property="og:image" content="https://cipherkit.app/android-chrome-512x512.png">
   <meta property="og:image:width" content="512">
   <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="CipherKit logo">
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CipherKit — Developer Cryptography & Utility Tools">
   <meta name="twitter:description" content="85 free online developer tools. AES, RSA, SHA, JWT, Base64, JSON, image tools, HEIC converter, format converters, DNS lookup — all client-side, no server.">
   <meta name="twitter:image" content="https://cipherkit.app/android-chrome-512x512.png">
+  <meta name="twitter:image:alt" content="CipherKit logo">
 
   <!-- E-E-A-T -->
   <meta name="author" content="Karthick Ajan G S">
@@ -636,11 +638,6 @@
       <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
       <a href="https://github.com/karthickajan/cipherkit" class="footer-github" target="_blank" rel="noopener">View on GitHub ↗</a>
 
-      <div style="margin-top:12px">
-        <a href="https://dofollow.tools" target="_blank" rel="noopener noreferrer nofollow sponsored">
-          <img src="https://dofollow.tools/badge/badge_transparent.svg" alt="Featured on Dofollow.Tools" width="200" height="54" loading="lazy" style="height:36px;width:auto;display:block;opacity:0.85">
-        </a>
-      </div>
     </div>
 
     <div class="footer-links">
@@ -722,11 +719,20 @@ const searchSection = document.getElementById('search-results');
 const searchGrid    = document.getElementById('search-results-grid');
 const hubsWrap      = document.getElementById('hubs-wrap');
 
-searchInput.addEventListener('input', function() {
-  const q = this.value.trim().toLowerCase();
+function performToolSearch(rawQuery, updateUrl) {
+  const q = rawQuery.trim().toLowerCase();
+
+  if (updateUrl && window.history && window.history.replaceState) {
+    const url = new URL(window.location.href);
+    if (q) url.searchParams.set('q', rawQuery.trim());
+    else url.searchParams.delete('q');
+    window.history.replaceState(null, '', url.toString());
+  }
+
   if (!q) {
     searchSection.hidden = true;
     hubsWrap.hidden      = false;
+    searchGrid.innerHTML = '';
     return;
   }
 
@@ -759,7 +765,17 @@ searchInput.addEventListener('input', function() {
 
   searchSection.hidden = false;
   hubsWrap.hidden      = true;
+}
+
+searchInput.addEventListener('input', function() {
+  performToolSearch(this.value, true);
 });
+
+const initialSearch = new URLSearchParams(window.location.search).get('q');
+if (initialSearch) {
+  searchInput.value = initialSearch;
+  performToolSearch(initialSearch, false);
+}
 </script>
 
 <!-- Typewriter placeholder for hero search -->
