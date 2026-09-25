@@ -207,6 +207,10 @@ function buildHead({ pageTitle, metaDescription, canonicalPath, robotsContent = 
     .hero h1 em{color:#00ff88;font-style:normal}
     .hero-accent{font-size:16px;font-weight:500;color:#00ff88;letter-spacing:0.02em;margin-bottom:16px}
     .hero-sub{font-size:14px;margin-bottom:28px;color:#888;line-height:1.7}
+    .footer-badges{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px}
+    .footer-badge{display:inline-flex;align-items:center;justify-content:center}
+    .footer-badge a{display:inline-block;text-decoration:none;line-height:0}
+    .footer-badge img{display:block;width:200px;height:54px;max-width:100%;object-fit:contain;border-radius:8px;box-shadow:0 8px 24px rgba(61,214,140,.12)}
     .hub-section{content-visibility:auto;contain-intrinsic-size:0 600px}
     .theme-icon-sun{display:none}.theme-icon-moon{display:block}
     [data-theme="light"] .theme-icon-sun{display:block}[data-theme="light"] .theme-icon-moon{display:none}
@@ -300,7 +304,7 @@ function buildNavbar(headerBadge, activeCategory) {
 }
 
 // ── FOOTER ──────────────────────────────────────────────────────────────────
-function buildFooter(includeDofollowBadge = false) {
+function buildFooter() {
   const year = new Date().getFullYear();
   const cryptoTools    = tools.filter(t => t.category === 'crypto').slice(0, 6);
   const encTools       = tools.filter(t => t.category === 'encoding').slice(0, 6);
@@ -314,12 +318,19 @@ function buildFooter(includeDofollowBadge = false) {
     ).join('\n        ');
   }
 
-  const dofollowBadgeHtml = includeDofollowBadge ? `
-      <div style="margin-top:12px">
+  const dofollowBadgeHtml = `
+      <div class="footer-badge">
         <a href="https://dofollow.tools" target="_blank" rel="noopener noreferrer nofollow sponsored">
-          <img src="https://dofollow.tools/badge/badge_transparent.svg" alt="Featured on Dofollow.Tools" width="200" height="54" loading="lazy" style="height:36px;width:auto;display:block;opacity:0.85">
+          <img src="https://dofollow.tools/badge/badge_light.svg" alt="Featured on Dofollow.Tools" width="200" height="54" loading="lazy">
         </a>
-      </div>` : '';
+      </div>`;
+
+  const uneedBadgeHtml = `
+      <div class="footer-badge">
+        <a href="https://www.uneed.best/tool/cipherkit" target="_blank" rel="noopener">
+          <img src="https://www.uneed.best/EMBED3.png" alt="Launching Soon on Uneed" width="200" height="54" loading="lazy">
+        </a>
+      </div>`;
 
   return `
 <footer class="site-footer">
@@ -338,7 +349,10 @@ function buildFooter(includeDofollowBadge = false) {
       </a>
       <p class="footer-tagline">Free developer tools. All client-side. No tracking.</p>
       <a href="${site.github}" class="footer-github" target="_blank" rel="noopener">View on GitHub ↗</a>
-${dofollowBadgeHtml}
+      <div class="footer-badges">
+        ${dofollowBadgeHtml}
+        ${uneedBadgeHtml}
+      </div>
     </div>
 
     <div class="footer-links">
@@ -921,7 +935,6 @@ function buildHomepage() {
     pageTitle:       `${site.name} — ${site.tagline}`,
     metaDescription: site.description,
     canonicalPath:   '/',
-    extraImgSrc:     'https://dofollow.tools',
     extraMeta: `
 <script type="application/ld+json">
 ${JSON.stringify({
@@ -1438,7 +1451,7 @@ function buildPrivacyPage() {
     canonicalPath:   '/tools/privacy-policy/'
   });
   const navbar = buildNavbar();
-  const footer = buildFooter(true);
+  const footer = buildFooter();
   const year   = new Date().getFullYear();
 
   return `<!DOCTYPE html>
